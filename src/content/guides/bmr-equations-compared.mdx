@@ -1,0 +1,94 @@
+---
+title: Mifflin-St Jeor vs Harris-Benedict vs Katch-McArdle
+description: Three BMR equations, three different answers for the same person. Which is most accurate, when, and why the best one on paper is often the worst in practice.
+keywords:
+  - mifflin st jeor vs harris benedict
+  - katch mcardle formula
+  - most accurate bmr equation
+  - bmr formula comparison
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [bmr, tdee, lean-body-mass]
+relatedGuides: [how-bmr-is-calculated, body-fat-methods-compared]
+readingMinutes: 6
+---
+
+Put an 80 kg, 180 cm, 30-year-old man through the three standard basal metabolic rate equations and you get 1,780, 1,854 and — if you know his lean mass is 64 kg — 1,752. A spread of about 100 kcal, which compounds once an activity multiplier is applied on top.
+
+They cannot all be right. Here is how to decide which to use.
+
+## The candidates
+
+**Mifflin-St Jeor** (1990) came from 498 healthy adults measured by indirect calorimetry:
+
+```
+men:   BMR = 10W + 6.25H − 5A + 5
+women: BMR = 10W + 6.25H − 5A − 161
+```
+
+**Revised Harris-Benedict** (Roza and Shizgal, 1984) reworked the original 1919 equation using a larger dataset:
+
+```
+men:   BMR = 88.362 + 13.397W + 4.799H − 5.677A
+women: BMR = 447.593 + 9.247W + 3.098H − 4.330A
+```
+
+**Katch-McArdle** uses a single variable:
+
+```
+BMR = 370 + 21.6 × lean body mass (kg)
+```
+
+W is kilograms, H is centimetres, A is years.
+
+## What the validation studies found
+
+The most-cited comparison is Frankenfield and colleagues' systematic review for the American Dietetic Association, which assessed how often each equation predicted measured resting energy expenditure within ten per cent.
+
+Mifflin-St Jeor performed best in non-obese and obese adults alike, and it is the equation the Academy of Nutrition and Dietetics recommends. Harris-Benedict, including the revised version, tended to over-predict — typically by around five per cent, and more in people with obesity.
+
+The reason is straightforward. Harris and Benedict measured 239 people in the early twentieth century. That cohort differed from a modern population in body composition and probably in ways nobody recorded, and calorimetry itself improved substantially in the seventy years between the two studies. The extra decimal places in the revised version reflect the fitting process, not extra accuracy.
+
+## The Katch-McArdle exception
+
+Katch-McArdle is the interesting case, because whether it is the best or the worst of the three depends entirely on one thing.
+
+It is the only equation that responds to body composition. Height, weight, age and sex are all proxies for how much metabolically active tissue you carry. Lean mass is that quantity directly. If you know it, you have skipped the proxies and gone to the variable that actually matters.
+
+This is why it outperforms the others in populations where body composition is unusual — trained athletes, people with high body fat percentages, anyone the height-weight proxies misread. For a lean, muscular person, Mifflin-St Jeor under-predicts because it cannot see the muscle; Katch-McArdle sees it.
+
+The catch is the input. Almost nobody has a measured lean mass. What people have is a lean mass estimate, usually from a tape measure or a BMI-based equation — and those carry three to four percentage points of error, which propagates straight into the BMR figure.
+
+So the ordering flips:
+
+- **Lean mass measured by DXA:** Katch-McArdle is the most accurate of the three.
+- **Lean mass estimated from a tape measure:** roughly comparable to Mifflin-St Jeor, with more variance.
+- **Lean mass estimated from BMI:** worse than Mifflin-St Jeor, because you have added a second equation's error to the first for no gain.
+
+The [BMR calculator](/calculators/bmr/) uses the Boer equation to estimate lean mass when you have not supplied one, and says so on the page. That is honest but it is still an estimate, and the note exists so nobody mistakes the Katch-McArdle figure for a measurement.
+
+## The practical answer
+
+**Use Mifflin-St Jeor** unless you have a measured body fat percentage. It is the best-validated equation for the general population and it needs only what you already know.
+
+**Use Katch-McArdle** if you have had a DXA scan or a reliable body composition measurement, and particularly if you are notably lean or notably muscular. That is where the proxy-based equations struggle most.
+
+**Use Harris-Benedict** for comparison with older material, or if some other system you are working with uses it and you want consistency. Not because it is more accurate, because it is not.
+
+## Why the spread matters more than the winner
+
+Here is the thing worth taking away: the disagreement between equations is smaller than the error of any single one of them.
+
+Predictive equations land within ten per cent of measured resting expenditure for most people. Ten per cent of 1,800 kcal is 180 kcal. The gap between Mifflin-St Jeor and Harris-Benedict for the same person is typically 70 to 100 kcal — well inside the error band of either.
+
+So choosing the "right" equation buys you less than it feels like. What you are choosing between is three estimates that all carry roughly the same uncertainty, and picking the best-validated one is sensible but not decisive.
+
+The [calculator shows all three](/calculators/bmr/) for exactly this reason. When they cluster tightly, the estimate is probably reasonable. When they spread widely — which happens at the extremes of height, weight and age — that spread is telling you the number deserves less confidence than a single figure would imply.
+
+## What to do with the number
+
+Do not eat it. BMR is what you would need lying motionless all day; it is an input to a calorie target, not the target. That distinction is covered in [how BMR is calculated](/guides/how-bmr-is-calculated/), and getting it wrong is the most consequential misreading of these equations.
+
+Multiply by an activity level to get total daily energy expenditure, accepting that the multiplier introduces more error than the choice of BMR equation did. Then treat the result as a starting hypothesis, eat at it for a fortnight, and adjust from what your weight actually does.
+
+Your own measured response beats every equation on this page, and it takes two weeks to obtain.

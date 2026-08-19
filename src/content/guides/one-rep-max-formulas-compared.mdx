@@ -1,0 +1,113 @@
+---
+title: How 1RM formulas differ, and when each is most accurate
+description: Five published equations estimate your one rep max from a set. Where they agree, where they diverge, and why the spread between them is the useful signal.
+keywords:
+  - 1rm formula comparison
+  - epley vs brzycki
+  - one rep max accuracy
+  - estimate 1rm from reps
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [one-rep-max, protein, calories-burned]
+relatedGuides: [how-to-set-a-protein-target, met-values-explained]
+readingMinutes: 6
+---
+
+You lifted 100 kg for five repetitions. What is your one rep max?
+
+Five published equations answer that, and they give 116.7, 112.5, 117.5, 112.5 and 116.6. A five-kilogram spread, which is small enough to be useful and large enough to be worth understanding.
+
+## The five equations
+
+**Epley** (1985):
+
+```
+1RM = w × (1 + r / 30)
+```
+
+**Brzycki** (1993):
+
+```
+1RM = w × 36 / (37 − r)
+```
+
+**Lombardi** (1989):
+
+```
+1RM = w × r^0.10
+```
+
+**O'Conner** (1989):
+
+```
+1RM = w × (1 + r / 40)
+```
+
+**Wathan** (1994):
+
+```
+1RM = 100w / (48.8 + 53.8 × e^(−0.075r))
+```
+
+Three shapes are represented. Epley and O'Conner are linear — each repetition adds a fixed fraction. Lombardi is a power function. Wathan is exponential, which is the most sophisticated model of the group and the one that behaves best across the widest range.
+
+## Where they agree
+
+At low repetitions, closely. At one, two or three reps the five equations cluster within a couple of per cent, because they were all fitted to data in that region and there is not much room to disagree.
+
+This is the practical takeaway: **an estimate from a set of three is worth far more than an estimate from a set of ten.** If you want a usable 1RM figure, test with a heavy triple rather than a set to failure at twelve.
+
+## Where they diverge
+
+Above about ten repetitions, sharply.
+
+At 100 kg for 15 reps: Epley gives 150, Brzycki gives 163.6, O'Conner gives 137.5. That is a 26 kg spread, wider than the useful precision of any of them.
+
+The reason is physiological rather than mathematical. Somewhere around ten to twelve reps the limiting factor stops being maximal strength and becomes muscular endurance — and endurance at a given percentage of maximum varies enormously between individuals. Some people can do twenty reps at 70 per cent of their max; others manage twelve. No equation taking only load and reps can know which you are.
+
+All five were validated in the two-to-ten range. Beyond it they are extrapolating, and they extrapolate differently because their underlying shapes differ.
+
+## Reading the spread
+
+This is the most useful habit when using the [1RM calculator](/calculators/one-rep-max/): look at how far apart the five estimates are, not just at the one you picked.
+
+When they cluster within a couple of kilograms, the estimate is reliable. When they spread across ten or more, the estimate deserves much less confidence, and the honest reading is "somewhere in that band".
+
+The average of all five is a more defensible single number than any individual formula, because it does not commit to one model's assumptions about the shape of the load-repetition relationship. The calculator shows it for that reason.
+
+## Two quirks worth knowing
+
+**Epley is not exact at one repetition.** Feed it a 100 kg single and it returns 103.3 kg, because its formula adds r/30 to a multiplier of 1 and does not special-case r = 1. Brzycki, Lombardi and Wathan all return the load itself. This is a known property of Epley rather than a bug, and it is why Epley is best used at three reps and above.
+
+**Brzycki is undefined at 37 repetitions.** Its denominator is 37 − r, which reaches zero there. The calculator returns nothing rather than infinity, though the input validation caps repetitions long before that becomes reachable.
+
+## The exercise matters more than the formula
+
+This is the limitation nobody mentions, and it is larger than the differences between equations.
+
+These equations were derived mostly from bench press and squat data. The relationship between reps and load is not the same for every lift.
+
+**Deadlifts** typically yield fewer reps at a given percentage than the equations predict, so estimates read high. Grip fatigue, the lack of a stretch-shortening cycle from a dead stop, and the sheer systemic demand all contribute.
+
+**Olympic lifts** — cleans, snatches — should not be estimated this way at all. They are limited by technique and rate of force development, not by how much force you can grind out, and technique degrades under fatigue in ways load-rep models do not capture.
+
+**Isolation exercises** tend to allow more reps at a given percentage than compound lifts, so estimates read low.
+
+If you use these on a lift other than a bench press or a squat, expect systematic bias in a consistent direction, and calibrate against your own testing over time.
+
+## Should you test a true max
+
+For competition, yes — with a spotter, a thorough warm-up, and a plan for attempts.
+
+For programming, usually not. An estimate from a heavy triple is nearly as useful, carries far less injury risk, and does not cost the days of recovery a genuine maximal attempt does. Most strength programmes are built on percentages that are themselves approximate, and a 3 per cent error in your assumed max is absorbed by the fact that you were going to adjust based on how the session felt anyway.
+
+## Using percentages
+
+The [percentage table](/calculators/one-rep-max/) converts an estimated max into training loads. Broadly:
+
+- **50 to 65 per cent** — technique work, speed work, high-rep accessory volume
+- **70 to 80 per cent** — the bulk of hypertrophy training, sets of six to twelve
+- **80 to 90 per cent** — strength work, sets of three to six
+- **90 per cent and above** — peaking, singles and doubles
+
+Remember that these percentages sit on top of an estimate that already carries error. If a prescribed 85 per cent feels like 95, the estimate was high — adjust the working weight rather than trusting the arithmetic. The barbell is better data than the equation.

@@ -1,0 +1,116 @@
+---
+title: MET values explained
+description: What a metabolic equivalent is, where the Compendium values come from, why two calculators disagree on the same workout, and how far to trust them.
+keywords:
+  - what is a met value
+  - metabolic equivalent
+  - compendium of physical activities
+  - calories burned formula
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [calories-burned, tdee, target-heart-rate]
+relatedGuides: [the-maintenance-calories-misconception, understanding-heart-rate-zones]
+readingMinutes: 6
+---
+
+A MET is a metabolic equivalent of task: a multiple of resting metabolic rate. One MET is what your body costs doing nothing. An activity at eight METs costs about eight times as much energy per minute.
+
+It is a neat idea, because it makes activities comparable across people of different sizes without needing to measure anyone.
+
+## The definition
+
+One MET is defined as an oxygen uptake of **3.5 millilitres per kilogram of body mass per minute**. That figure was chosen to represent resting metabolism in a typical adult.
+
+It is a convention, and a slightly generous one. Measured resting oxygen uptake in real populations is often nearer 2.6 to 3.2 mL/kg/min, particularly in older or heavier people. So the standard MET tends to overstate resting cost, and therefore to overstate the energy of activities computed from it.
+
+Everyone in the field knows this, and the convention persists because comparability across decades of published data is worth more than a marginal accuracy gain.
+
+## Where the values come from
+
+The Compendium of Physical Activities, first published by Ainsworth and colleagues in 1993 and updated in 2000, 2011 and again in 2024 as the Adult Compendium.
+
+It assigns a MET value to hundreds of activities, each with a five-digit code identifying its category and specific description. Values come from published measurements of energy cost where those exist, and from estimates by the compilers where they do not — a distinction the Compendium itself documents, and one worth remembering: not every value in the table was measured.
+
+Some examples:
+
+| Activity                  | METs |
+| ------------------------- | ---- |
+| Sitting quietly           | 1.0  |
+| Walking, 3 km/h           | 2.5  |
+| Walking briskly, 5.5 km/h | 4.3  |
+| Cycling, 16–19 km/h       | 6.8  |
+| Running, 8 km/h           | 8.3  |
+| Running, 11 km/h          | 11.0 |
+| Vigorous weight training  | 6.0  |
+| Rope jumping, moderate    | 11.8 |
+
+## Two formulas, two answers
+
+Here is where calculators quietly disagree, and it is worth knowing which one you are looking at.
+
+**The simple form:**
+
+```
+kcal = MET × body weight (kg) × hours
+```
+
+This relies on the approximation that one MET costs about one kilocalorie per kilogram per hour. Convenient, and close.
+
+**The oxygen-uptake form:**
+
+```
+kcal/min = MET × 3.5 × body weight (kg) / 200
+```
+
+This works from the definition. One MET is 3.5 mL O₂/kg/min; a litre of oxygen consumed releases roughly 5 kcal; the arithmetic gives 1.05 kcal per kilogram per hour rather than 1.00.
+
+So the two differ by about **five per cent**, with the simple form reading lower. Neither is more correct — the gap is far smaller than the variation between two people doing the same activity — but a calculator that shows one and a calculator that shows the other will not agree, and neither will tell you why. The [calories burned calculator](/calculators/calories-burned/) shows both.
+
+## Gross versus net
+
+A more consequential distinction, and the one most calculators get wrong by omission.
+
+MET-derived figures are **gross** energy expenditure: everything your body spent during that hour, including the resting metabolism it would have spent anyway.
+
+If you are interested in what the workout _added_, subtract the baseline:
+
+```
+net kcal = (MET − 1) × body weight (kg) × hours
+```
+
+For a 70 kg person doing an hour at 8 METs: gross is 560 kcal, net is 490 kcal. The 70 kcal difference is what you would have burned sitting on the sofa for that hour.
+
+This matters when you are adding exercise on top of a maintenance figure, because the maintenance figure already includes the resting metabolism for those hours. Using the gross number double-counts it.
+
+## How accurate is any of this
+
+Less than the two-decimal outputs suggest.
+
+MET values are population averages. Actual energy cost for a given activity varies with fitness — a trained cyclist is more economical at the same speed — with body composition, with technique, with terrain, wind, and even how much someone fidgets during rest intervals.
+
+The Compendium itself notes that individual energy cost can differ substantially from the tabulated value. Studies comparing MET-derived estimates against indirect calorimetry commonly find discrepancies of twenty to thirty per cent for individuals.
+
+There is also a systematic issue for larger bodies. The MET framework normalises to body mass, which assumes energy cost scales linearly with weight. It does not, quite — heavier people tend to be somewhat more economical per kilogram than the linear model implies, so MET-based estimates over-read for them.
+
+Treat a calories-burned figure as an order of magnitude. "Roughly 500, not roughly 200 and not roughly 1,000."
+
+## The double-counting trap
+
+The most common practical mistake with these calculators is worth spelling out.
+
+If you set your [TDEE](/calculators/tdee/) using an activity multiplier that already assumes you train — "moderately active, exercise 3 to 5 days a week" — then that multiplier already includes your workouts. Adding a calories-burned figure on top counts them twice.
+
+Pick one:
+
+- **Activity multiplier includes training.** Do not add workout calories. Simplest, and right for most people.
+- **Set activity to sedentary, add each session separately.** More precise for irregular training, more bookkeeping.
+
+Mixing them produces a target several hundred kilocalories too high, which is exactly the situation where someone eats "at maintenance" and gains weight.
+
+## What MET values are genuinely good for
+
+Comparison rather than accounting.
+
+The number that tells you rope jumping costs roughly twice as much per minute as brisk walking is reliable. The number that tells you your specific session burned exactly 437 kcal is not.
+
+Use them to choose between activities, to understand why an hour of easy cycling does not offset a large meal, and to sanity-check whether an intensity is worth the time. Do not use them as a ledger you eat back.

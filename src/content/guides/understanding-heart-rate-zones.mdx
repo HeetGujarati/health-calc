@@ -1,0 +1,102 @@
+---
+title: Understanding heart rate zones
+description: Where the zone model comes from, why Karvonen beats a flat percentage of maximum, and why "220 minus age" is far less reliable than it looks.
+keywords:
+  - heart rate zones
+  - karvonen formula
+  - max heart rate 220 minus age
+  - target heart rate training
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [target-heart-rate, calories-burned, running-pace]
+relatedGuides: [met-values-explained, how-to-read-a-pace-chart]
+readingMinutes: 6
+---
+
+Heart rate zones divide training intensity into bands, each associated with a different physiological emphasis. The idea is sound. The arithmetic underneath it is shakier than most people realise, and the weakest link is the number everything else is built on.
+
+## The number everything depends on
+
+Every zone calculation starts from maximum heart rate — the highest rate your heart can reach during all-out effort. Every zone is a fraction of it, so an error there propagates into every band.
+
+Maximum heart rate is highly individual. Two 40-year-olds can differ by 30 beats per minute. It is not a fitness marker: training improves your ability to sustain a high percentage of your maximum, but barely moves the maximum itself. It declines with age, and it varies genetically in ways nothing predicts.
+
+The only reliable way to know yours is to measure it, in a supervised maximal test. Almost nobody does, so the equations exist.
+
+## Where "220 minus age" came from
+
+Not from a study, which is the part worth knowing.
+
+The formula traces to Fox, Naughton and Haskell in 1971. They were reviewing existing data on physical activity and coronary heart disease, plotted maximum heart rates against age from a set of studies, and drew a line through it. The line was descriptive, presented as an approximation, and never derived from a regression.
+
+It then escaped into every gym in the world.
+
+Its problem is not the slope but the scatter. The standard deviation around it is roughly 10 to 12 beats per minute, which means about a third of people sit more than 10 bpm from their predicted maximum, and around one in twenty sits more than 20 bpm away. For a 40-year-old, "180" honestly means "probably somewhere between 158 and 202".
+
+## Tanaka's alternative
+
+Tanaka, Monahan and Seals revisited this properly in 2001. They performed a meta-analysis of 351 studies covering 18,712 subjects, plus a laboratory validation of their own, and produced:
+
+```
+HRmax = 208 − 0.7 × age
+```
+
+It has an actual regression behind it, and it predicts better — particularly for older adults, where the Fox formula systematically under-predicts.
+
+The two equations cross at exactly age 40, where both give 180. Below 40, Fox reads higher; above 40, Tanaka does. At 65, Fox says 155 and Tanaka says 162.5 — and the evidence favours Tanaka.
+
+Tanaka's individual variation is still substantial, around 10 bpm. It is a better central estimate, not a precise one.
+
+## Why Karvonen is the better method
+
+Once you have a maximum, there are two ways to compute a training target.
+
+**Percentage of maximum** is the simple one. Seventy per cent of 180 is 126 bpm.
+
+**Karvonen**, or heart rate reserve, works from the range between rest and maximum:
+
+```
+target = ((HRmax − HRrest) × intensity) + HRrest
+```
+
+For someone with a maximum of 180 and a resting rate of 60: 70 per cent of the 120-beat reserve is 84, plus the resting 60, giving 144 bpm.
+
+Eighteen beats apart, for the same person at the same nominal intensity.
+
+The reason Karvonen is preferred is that it accounts for fitness. A trained person with a resting rate of 50 and an untrained person at 80 have very different working ranges even with identical maximums. The plain percentage method gives them the same target and misrepresents what "70 per cent effort" means for each.
+
+Karvonen requires you to know your resting heart rate, measured on waking before getting out of bed, ideally averaged over several mornings. A wrist tracker's overnight low works too. Measured after coffee or activity, it is not a resting rate, and every zone shifts with it.
+
+## What the zones actually mean
+
+The five-zone model used in ACSM's guidelines, as fractions of heart rate reserve:
+
+**Zone 1, 50 to 60 per cent.** Very light. Warm-up, cool-down, recovery. Conversational without effort.
+
+**Zone 2, 60 to 70 per cent.** Light. The endurance base zone. Fat oxidation is at its highest proportion of fuel here, and it is where most endurance athletes spend the bulk of their volume. You can hold a conversation.
+
+**Zone 3, 70 to 80 per cent.** Moderate. Sometimes called the grey zone — hard enough to accumulate fatigue, not hard enough to drive the adaptations of true high-intensity work. Speaking becomes short sentences.
+
+**Zone 4, 80 to 90 per cent.** Hard. Around lactate threshold. Improves the pace you can sustain. A few words at a time.
+
+**Zone 5, 90 to 100 per cent.** Maximum. Intervals only, minutes at a time total.
+
+## The fat-burning zone misconception
+
+Zone 2 is often labelled the fat-burning zone, which is true and misleading at once.
+
+At lower intensities a _higher proportion_ of energy comes from fat. That is real physiology. But the total energy used is lower, so the absolute fat burned is not necessarily greater — and for weight change, total energy expenditure is what matters, not which substrate supplied it.
+
+Twenty minutes hard burns more total energy than twenty minutes easy, even though a smaller fraction of it came from fat.
+
+The genuine case for zone 2 is different and better: it is sustainable for long durations, it develops aerobic capacity efficiently, and it costs little recovery. That is why endurance athletes live there. Not because of the fuel mix.
+
+## How much to trust any of this
+
+Zones give you structure, which is genuinely valuable — most people training without any intensity guidance drift into zone 3 for everything and wonder why nothing improves.
+
+But the maximum underneath carries ten-plus beats of uncertainty, so your real zones may sit several beats either side of the calculated ones. Treat the boundaries as approximate.
+
+Cross-check with perceived effort. If a "moderate" zone feels genuinely hard, or a "hard" zone feels easy, trust your body — the equation is describing an average person, and you are not one. The talk test is remarkably good: full sentences in zone 2, short phrases in zone 4, single words in zone 5.
+
+If you train seriously, a supervised maximal test or a lactate threshold test gives you real numbers. Everything on the [target heart rate calculator](/calculators/target-heart-rate/) is a substitute for measurement, and it says so.

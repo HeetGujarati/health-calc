@@ -1,0 +1,102 @@
+---
+title: How the US Navy body fat method works
+description: Why a tape measure around your neck and waist predicts body fat, where the logarithms come from, how to measure correctly, and when it misreads.
+keywords:
+  - us navy body fat formula
+  - navy method body fat
+  - tape measure body fat
+  - hodgdon beckett
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [body-fat, army-body-fat, lean-body-mass]
+relatedGuides: [body-fat-methods-compared, why-bmi-is-a-screening-tool]
+readingMinutes: 6
+---
+
+The US Navy method estimates body fat from a tape measure and nothing else. For men it needs neck, waist and height. For women it adds hips.
+
+That it works at all is slightly surprising. Here is why it does, and where it does not.
+
+## The equations
+
+From Hodgdon and Beckett's 1984 Naval Health Research Center reports, with all measurements in inches:
+
+```
+men:   %BF = 86.010 × log₁₀(waist − neck) − 70.041 × log₁₀(height) + 36.76
+
+women: %BF = 163.205 × log₁₀(waist + hip − neck) − 97.684 × log₁₀(height) − 78.387
+```
+
+The Navy needed a body composition screen that could be administered by anyone, anywhere, with equipment that costs nothing and cannot break. They measured a large sample of Navy personnel by hydrostatic weighing, recorded a range of circumferences, and fitted a regression to find which combination best predicted the hydrostatic result.
+
+These are the equations that came out. They report a correlation around 0.90 against hydrostatic weighing, with a typical error of three to four percentage points.
+
+## Why the neck
+
+This is the part that puzzles people, and it is the cleverest thing in the equation.
+
+The neck acts as a proxy for frame size. Neck girth correlates with skeletal build and with lean tissue generally, and it accumulates comparatively little fat. So subtracting neck from waist separates two things that raw waist circumference confounds: how much fat you carry centrally, and how big you are overall.
+
+A 100 cm waist means something different on a 195 cm powerlifter than on a 160 cm sedentary adult. Subtracting the neck partially corrects for that, which is why waist alone would predict much worse.
+
+It also explains a behaviour that looks like a bug. If you enter a neck measurement larger than your waist, the calculator returns no result rather than a number. The equation takes the base-10 logarithm of the difference, and the logarithm of zero or a negative number is not a real value. In practice a neck wider than a waist means the tape was misread, so refusing is more useful than producing something meaningless.
+
+## Why logarithms
+
+Because the relationship is not linear.
+
+Adding five centimetres to a 70 cm waist represents a much larger proportional change in body composition than adding five centimetres to a 110 cm waist. A linear model would treat both identically and misfit at both ends of the range.
+
+Taking logarithms converts a proportional relationship into a linear one, which is exactly what a regression can fit well. The specific coefficients — 86.010, 70.041, 36.76 — have no physiological meaning. They are the numbers that minimised error against the hydrostatic measurements in the original sample.
+
+## Why women's equation differs
+
+It uses waist plus hip minus neck, and different coefficients.
+
+Fat distribution differs on average between the sexes: men accumulate more viscerally and centrally, women more on the hips and thighs. An equation using only the waist would systematically under-read for a body type that stores fat lower down, so hip circumference is added to capture it.
+
+The site definitions also differ, and this catches people out.
+
+## Measuring correctly
+
+Small errors matter here. A centimetre at the waist moves the result by roughly a percentage point, so technique is most of the accuracy.
+
+**Neck.** Just below the larynx, with the tape sloping slightly downward at the front. Do not flex or tense. Shoulders relaxed and down.
+
+**Waist, men.** Horizontally at the navel.
+
+**Waist, women.** At the narrowest point of the torso, which is usually above the navel.
+
+That asymmetry is in the original protocol, not an error. The two equations were fitted against measurements taken that way, so using the men's site for the women's equation produces a figure the equation was never calibrated for.
+
+**Hips, women.** At the widest point of the buttocks, tape level all the way round.
+
+**Everything.** Tape snug enough to stay put without compressing the skin. Measure at the end of a normal breath out, not held in or pushed out. Take each measurement three times and use the median — that alone removes most of the noise.
+
+Measure at the same time of day, ideally first thing. Waist circumference genuinely varies across a day with food and fluid.
+
+## Where it misreads
+
+**Fat carried on the legs.** The equation never measures the legs. Someone storing fat predominantly on the thighs reads leaner than they are, because the tape never goes near it.
+
+**Thick abdominal musculature.** A heavily trained lifter can have a large waist from muscle rather than fat. The tape cannot distinguish the two, so the method over-reads.
+
+**Very lean people.** Below about eight per cent body fat for men the equation loses resolution, since the waist-neck difference stops changing much as the last fat comes off.
+
+**Populations unlike the original sample.** It was fitted on US Navy personnel of the early 1980s — a relatively fit, relatively young group. It performs less well further from that population.
+
+## What it is genuinely good for
+
+Tracking. This is where the method earns its place.
+
+A tape measure is unambiguous in a way a skinfold pinch is not. There is no pinch depth to judge, no compression to time, no operator technique to develop. Measure your own waist twice and you will get nearly the same number; ask two people to take a skinfold and you may not.
+
+That reproducibility means the noise between measurements is small, so a real change shows up clearly. Even if the absolute figure carries a systematic bias, the bias is roughly constant — so a drop from 22 to 19 per cent over three months is meaningful, even if your true values were 25 and 22.
+
+Which is the practical advice for any body composition method: pick one, measure it the same way every time, and pay attention to the direction rather than the digit.
+
+## Not the Army standard
+
+Worth stating clearly, because the two are constantly confused. The US Army no longer uses a tape-based body fat method at all. Army Directive 2026-13 replaced the tape test with waist-to-height ratio in July 2026, and the [Army body composition calculator](/calculators/army-body-fat/) implements the current standard.
+
+The Navy method described here is a body fat estimate for personal use. It is not, and has not been, the Army's assessment.

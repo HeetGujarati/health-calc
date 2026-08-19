@@ -1,0 +1,113 @@
+---
+title: How body fat measurement methods compare on accuracy
+description: DXA, hydrostatic weighing, calipers, tape measures and smart scales, ranked by how much they actually measure and what each one gets wrong.
+keywords:
+  - most accurate body fat measurement
+  - dxa vs calipers
+  - body fat test accuracy
+  - bioelectrical impedance accuracy
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [body-fat, lean-body-mass, bmi]
+relatedGuides: [how-the-navy-method-works, why-bmi-is-a-screening-tool]
+readingMinutes: 7
+---
+
+Nothing available to you measures body fat directly. Direct measurement means chemical analysis of the tissue, which requires a cadaver.
+
+Everything else infers fat from something else — density, electrical resistance, skinfold thickness, girth — using an equation fitted to a reference population. Understanding what each method infers _from_ is the key to knowing when it will mislead you.
+
+## The reference standards
+
+**Hydrostatic weighing** was the gold standard for decades. You are weighed underwater, which gives whole-body density, and density is converted to fat percentage using the Siri equation. Fat is less dense than lean tissue, so a person with more fat floats more.
+
+**Air displacement plethysmography** — the Bod Pod — does the same thing by measuring displaced air instead of water. Comparable accuracy, considerably more pleasant.
+
+**DXA** is the practical modern standard. A low-dose X-ray scan distinguishes bone, lean tissue and fat by their differing attenuation, and gives regional breakdown as well as a total. Precision on repeat scans is good, typically within one to two percentage points.
+
+DXA has a caveat that surprises people: results differ between manufacturers and between software versions. A scan on one machine and a scan on another can differ by several percentage points. For tracking change, use the same machine every time.
+
+**Typical error:** 1 to 3 percentage points. **Cost:** a clinic visit.
+
+## The two-compartment assumption
+
+Everything based on body density — hydrostatic, Bod Pod, and every skinfold equation — relies on the Siri equation:
+
+```
+%BF = 495 / body density − 450
+```
+
+That equation assumes fat mass has a density of 0.900 g/cm³ and fat-free mass 1.100 g/cm³. Those constants came from a small number of cadaver analyses of young white adults.
+
+Fat-free mass density is not actually constant. It varies with bone mineral density, hydration and age. Someone with unusually dense bones reads leaner than they are; someone with low bone density reads fatter. Systematic differences have been documented across ethnic groups, and the constants fit some populations better than others.
+
+This is a floor on the accuracy of every density-based method, including all the caliper equations, and no amount of careful measuring removes it.
+
+## Skinfold calipers
+
+Pinch the skin and subcutaneous fat at defined sites, measure the thickness, sum the sites, and run the total through a regression that predicts body density.
+
+The Jackson-Pollock equations are the standard. Both 3-site and 7-site versions exist, and both are on the [body fat calculator](/calculators/body-fat/).
+
+In skilled hands, calipers are genuinely good — 3 to 4 percentage points against DXA, and better than that for tracking change over time in the same person.
+
+In unskilled hands they are poor, and the failure modes are specific. Site location must be exact, since fat thickness changes over a few centimetres. Pinch depth must be consistent. Reading must happen at a fixed interval after applying the caliper, because tissue compresses under pressure. Two people measuring the same subject can differ by several percentage points, and the same person measuring twice can differ by a point or more.
+
+The 7-site version is more accurate in principle and compounds measurement error across more sites in practice. For most people the 3-site is the better trade.
+
+**Typical error:** 3 to 4 points with good technique, considerably worse without. **Cost:** about £20 for calipers.
+
+## Circumference methods
+
+Measure girths — neck, waist, and hips for women — and predict body fat from the ratios. The US Navy method is the best known, and it is the default on this site.
+
+The logic is that the difference between waist and neck girth captures central fat while adjusting for frame size. It is crude, and it works better than it has any right to: Hodgdon and Beckett reported a correlation around 0.90 against hydrostatic weighing, with a typical error of 3 to 4 percentage points.
+
+Where it fails is predictable. Someone carrying fat mainly on the legs reads lean, because the equation never looks there. A very muscular person with a thick waist from abdominal muscle reads fatter than they are. The method is described in detail in [how the US Navy method works](/guides/how-the-navy-method-works/).
+
+Its enormous advantage is reproducibility. A tape measure is unambiguous in a way a skinfold pinch is not, so measurement-to-measurement noise is low — which makes it good for tracking, even when the absolute number is off.
+
+**Typical error:** 3 to 4 points. **Cost:** a tape measure.
+
+## Bioelectrical impedance
+
+Smart scales and handheld devices pass a small current through the body and measure resistance. Lean tissue is mostly water and conducts well; fat does not. Resistance therefore correlates with body composition.
+
+It correlates with hydration status even more strongly, which is the problem. Readings shift with how much you have drunk, when you last ate, whether you have exercised, skin temperature, and — for foot-to-foot scales — how much your feet are sweating. Swings of several percentage points across a single day are ordinary.
+
+Consumer devices also apply proprietary equations that are not published, so you cannot know what assumptions your scale is making.
+
+Used consistently — same time of day, same hydration state, same conditions — the _trend_ is somewhat informative. Any single reading is not.
+
+**Typical error:** 4 to 8 points, worse when hydration varies. **Cost:** built into many scales.
+
+## BMI-based estimates
+
+The Deurenberg equation predicts body fat from BMI, age and sex. It requires no measurement of the body beyond height and weight.
+
+It inherits every limitation of BMI, because BMI is its only body input. It cannot distinguish muscle from fat, so it substantially over-reads for muscular people — exactly the group most likely to want the number.
+
+It is on the calculator because it is widely cited and needs no equipment. It is the least accurate option there and the page says so.
+
+**Typical error:** 5 points or more, much worse in athletes.
+
+## Ranked
+
+| Method                | Typical error | Practicality                |
+| --------------------- | ------------- | --------------------------- |
+| DXA                   | 1–3 points    | Clinic visit                |
+| Hydrostatic / Bod Pod | 2–3 points    | Specialist facility         |
+| Skinfolds, skilled    | 3–4 points    | Cheap, needs technique      |
+| US Navy tape          | 3–4 points    | Cheapest, most reproducible |
+| Impedance scales      | 4–8 points    | Convenient, noisy           |
+| BMI-based             | 5+ points     | No equipment                |
+
+## What actually matters
+
+Two things are worth internalising.
+
+**The absolute number is less useful than you think.** A tape reading of 20 per cent means somewhere in the 16 to 24 range. Chasing a specific figure across methods that disagree by 5 points is chasing noise.
+
+**Consistency beats accuracy for tracking.** A method with a systematic 4-point bias still shows change accurately, because the bias cancels. Pick one method, measure under the same conditions — same time of day, same hydration, same person taking skinfolds — and watch the direction over months.
+
+Anyone switching methods and finding a five-point jump has not changed. They have changed instruments.

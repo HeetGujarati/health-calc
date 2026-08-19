@@ -36,6 +36,23 @@ const config = {
   // Pick one URL form and enforce it everywhere; the SEO module asserts against this.
   trailingSlash: 'always',
   integrations: [mdx()],
+
+  markdown: {
+    /*
+     * Syntax highlighting off.
+     *
+     * Two reasons, both concrete. Shiki emits inline `style` attributes, which
+     * `style-src 'self'` blocks — so highlighted blocks would render unstyled
+     * under the real CSP, and html-validate flags them regardless.
+     *
+     * And it hardcodes a dark theme, so code blocks stayed dark in light mode.
+     *
+     * Nothing is lost: the fenced blocks on this site are formulas in plain
+     * text, not code. They are styled from the design tokens instead, so they
+     * follow the theme like everything else.
+     */
+    syntaxHighlight: false,
+  },
   i18n: {
     /*
      * Written as a literal, not as the imported DEFAULT_LOCALE.

@@ -1,0 +1,100 @@
+---
+title: How to read a pace chart
+description: Converting between pace, speed and finish time, why race projections at constant pace are wrong, and what Riegel's formula does about it.
+keywords:
+  - pace chart
+  - running pace calculator
+  - marathon pace chart
+  - race time prediction
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [running-pace, target-heart-rate, calories-burned]
+relatedGuides: [understanding-heart-rate-zones, met-values-explained]
+readingMinutes: 5
+---
+
+A pace chart maps pace to finish time across distances. Read down from your pace per kilometre and across to a distance, and you have the time.
+
+The arithmetic is trivial. The interesting part is what a pace chart cannot tell you, and the gap between the two is where most people misuse it.
+
+## The three quantities
+
+Pace, speed and time are the same information stated three ways.
+
+**Pace** is time per unit distance — 5:00 per kilometre. Lower is faster, which trips people up when comparing.
+
+**Speed** is distance per unit time — 12 km/h. Higher is faster.
+
+**Finish time** is pace multiplied by distance.
+
+Converting:
+
+```
+pace per km   = time / distance in km
+speed in km/h = 60 / pace in minutes per km
+finish time   = pace per km × distance in km
+```
+
+A 5:00/km pace is 12 km/h, and gives 25:00 for a 5k, 50:00 for a 10k, and 3:30:59 for a marathon.
+
+Runners think in pace because it is what a watch shows and what you hold during a race. Cyclists think in speed. Neither is more correct.
+
+## Kilometres and miles
+
+A mile is 1.609344 kilometres, so pace per mile is pace per kilometre multiplied by 1.609344.
+
+5:00/km is 8:03/mile. 4:00/km is 6:26/mile. 6:00/km is 9:39/mile.
+
+The common approximation "add sixty per cent" is close enough for mental arithmetic and wrong by a few seconds over a marathon.
+
+## Splits, and the last 195 metres
+
+A splits table shows elapsed time at each interval. At even pace it is simple multiplication, and its value is as a race-day reference: if you are meant to pass 15 km at 1:15:00 and your watch says 1:13:30, you are going too fast.
+
+One detail most tables get wrong. A marathon is 42.195 km, so after 42 full kilometre splits there are 195 metres left. Tables that stop at 42 km quietly omit the last 195 metres — which at marathon pace is nearly a minute, and it is the minute people care about most.
+
+The [pace calculator](/calculators/running-pace/) shows that final partial segment and flags it as partial, because a splits table that ends before the finish line is wrong exactly where it matters.
+
+The same applies to the half marathon at 21.0975 km, and to any race whose distance is not a whole multiple of your split interval.
+
+## Why projections are wrong
+
+Here is the thing to understand about every "equivalent times" table.
+
+If you run a 5k in 25:00, that is 5:00/km. Hold 5:00/km for a marathon and you finish in 3:30:59.
+
+You will not. Nobody does.
+
+Pace falls as distance rises, for reasons that are physiological rather than motivational. Glycogen depletes. Thermoregulation becomes limiting. Muscle damage accumulates. The relative intensity you can sustain drops as duration extends — a well-trained runner might hold 95 per cent of threshold pace for 10k and 85 per cent for a marathon.
+
+The projections on the pace calculator assume constant pace, and the page says so. They answer "what would the same pace give over a different distance?" — a like-for-like comparison, useful for pacing a workout. They do not answer "what could I race?"
+
+## Riegel's formula
+
+The standard tool for actual prediction is Peter Riegel's:
+
+```
+T₂ = T₁ × (D₂ / D₁)^1.06
+```
+
+T₁ is your known time over distance D₁, and T₂ is the predicted time over D₂. The exponent 1.06 is a fatigue factor: if pace held perfectly the exponent would be 1.0, and the excess 0.06 encodes how much you slow as distance grows.
+
+Applied to that 25:00 5k, Riegel predicts about 3:57 for a marathon rather than 3:31 — twenty-six minutes slower than the constant-pace projection, and much closer to reality.
+
+Riegel has limits worth knowing. It assumes appropriate training for the target distance, which is doing a lot of work: a 5k specialist who has never run beyond 15 km will not hit a Riegel marathon prediction regardless of their 5k speed. The exponent also varies between individuals — better-trained endurance runners have lower effective exponents, meaning they hold pace better as distance rises. And extrapolating a long way, such as from 5k to marathon, compounds error more than a short jump like 10k to half.
+
+## Even pacing versus negative splits
+
+Physiologically, even pace is close to optimal for time-trial performance over most race distances. Going out fast raises lactate and depletes glycogen early, and the time lost in the second half exceeds what was gained in the first.
+
+The advice to run negative splits — second half faster than first — is really advice not to run positive splits. Most amateur races are lost in the first three kilometres, to adrenaline and to being carried along by faster starters.
+
+A splits table helps here, and it is worth doing something specific with it: write your target splits on your hand or your watch face, and in the early kilometres treat being _ahead_ of them as a problem rather than a reason to feel good.
+
+## Using the chart in training
+
+**Threshold work** sits around 10k to half marathon race pace, roughly 15 to 20 seconds per kilometre slower than 5k pace for most runners.
+
+**Easy running** should be substantially slower than most people run it — commonly 60 to 90 seconds per kilometre slower than threshold. If your easy pace and your threshold pace are close together, that is the grey zone described in [heart rate zones](/guides/understanding-heart-rate-zones/), and it is where a lot of training effort goes to waste.
+
+**Race pace practice** matters most for the marathon, where holding a specific pace for hours is a skill in itself. Reading the split table until the numbers are familiar is a genuine part of preparation.

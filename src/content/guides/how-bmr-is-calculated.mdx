@@ -1,0 +1,106 @@
+---
+title: How BMR is calculated, and why the equations disagree
+description: What basal metabolic rate actually measures, how the prediction equations were built, and why three of them give different answers for the same person.
+keywords:
+  - how is bmr calculated
+  - basal metabolic rate explained
+  - bmr equation
+  - resting metabolic rate
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [bmr, tdee, calorie]
+relatedGuides: [bmr-equations-compared, what-activity-multipliers-mean]
+readingMinutes: 6
+---
+
+Your basal metabolic rate is the energy your body spends doing nothing. Not resting on the sofa — nothing. Lying still, awake, in a thermally neutral room, having not eaten for twelve hours. It is the cost of staying alive: running your brain, keeping your heart beating, maintaining body temperature, replacing cells.
+
+For most people it is the majority of daily energy use. Somewhere between 60 and 75 per cent of what you burn in a day happens whether you get up or not. That is why every calorie calculation starts here.
+
+## What is actually being measured
+
+The reference method is indirect calorimetry. You lie under a hood or breathe through a mask, and the machine measures how much oxygen you consume and how much carbon dioxide you produce. Because oxidising fat and carbohydrate consumes oxygen in known ratios, gas exchange tells you energy expenditure to within a few per cent, without anyone having to measure heat directly.
+
+It works well and almost nobody has access to it. A metabolic cart costs tens of thousands of pounds, the test takes half an hour under controlled conditions, and you need to arrive fasted and rested. So the practical alternative is a prediction equation: measure a large group properly, find the variables that explain most of the variation, and fit a formula.
+
+That is what all three equations on the [BMR calculator](/calculators/bmr/) are. They are regressions on measured data, not descriptions of physiology.
+
+## Why height, weight, age and sex
+
+These four variables are not arbitrary. Each stands in for something metabolically real.
+
+**Weight** is the strongest predictor by a wide margin, because it is a proxy for how much tissue you have. More tissue costs more to maintain. It is imperfect because fat tissue is far less metabolically active than organ or muscle tissue, so two people at the same weight with different body composition genuinely differ — and a weight term cannot see that.
+
+**Height** adds information weight alone misses. At the same weight, a taller person has more surface area, loses heat faster, and carries a different distribution of tissue. Surface area was the original basis of metabolic prediction in the nineteenth century, before weight-based equations displaced it.
+
+**Age** captures a real decline. Metabolic rate falls through adult life, partly through loss of lean mass and partly through reduced metabolic activity in the tissue that remains. The equations model this as a straight line, which is a simplification, but the direction and rough magnitude are well established.
+
+**Sex** appears because, at the same height, weight and age, men typically carry more lean mass and less fat. The coefficient is standing in for that average difference in body composition. It is not a statement about individuals — a muscular woman and an average man of the same dimensions may have near-identical rates, and the equation cannot tell.
+
+Notice what is missing: anything about your actual body composition, your thyroid function, your genetics, or your recent dieting history. All four move real metabolic rate, and none is an input.
+
+## The three equations
+
+**Mifflin-St Jeor** (1990) is the default here and in most clinical practice:
+
+```
+men:   BMR = 10W + 6.25H − 5A + 5
+women: BMR = 10W + 6.25H − 5A − 161
+```
+
+Weight in kilograms, height in centimetres, age in years. Mifflin and colleagues measured 498 healthy adults by indirect calorimetry and fitted the equation to that data.
+
+**Revised Harris-Benedict** (Roza and Shizgal, 1984) is a reworking of the original 1919 Harris-Benedict equation:
+
+```
+men:   BMR = 88.362 + 13.397W + 4.799H − 5.677A
+women: BMR = 447.593 + 9.247W + 3.098H − 4.330A
+```
+
+More decimal places, not more accuracy. The extra precision is an artefact of the fitting, not a claim about how well it predicts.
+
+**Katch-McArdle** takes a different approach entirely:
+
+```
+BMR = 370 + 21.6 × lean body mass (kg)
+```
+
+One variable. No sex coefficient, because lean mass already carries the difference the sex term was standing in for.
+
+## Why they disagree
+
+Run the same person through all three and you will typically see a spread of 100 to 300 kcal. For a 80 kg, 180 cm, 30-year-old man: Mifflin-St Jeor gives 1,780, revised Harris-Benedict gives 1,854. That is a 74 kcal gap, and it widens at the extremes of the range.
+
+Three reasons.
+
+**Different populations.** Harris and Benedict measured 239 subjects in the early twentieth century. Those people differed from a modern population in body composition, activity level and probably in ways nobody recorded. Mifflin-St Jeor was fitted to people measured in the late 1980s. Neither cohort is wrong; they are just different, and the coefficients reflect that.
+
+**Different methods.** Calorimetry improved substantially between 1919 and 1990. Some of the gap between the equations is measurement technology rather than biology.
+
+**Different variables.** Katch-McArdle uses lean mass and nothing else. When lean mass is genuinely measured, that makes it the most accurate of the three — it is the only equation that responds to body composition at all. When lean mass is estimated from another equation, it inherits that equation's error and becomes the least accurate. This is why the calculator states plainly when it is using an estimate.
+
+The revised Harris-Benedict equation tends to over-estimate, typically by around five per cent, which is why the Academy of Nutrition and Dietetics recommends Mifflin-St Jeor for both non-obese and obese adults.
+
+## How accurate is any of this
+
+Predictive equations typically land within about ten per cent of measured resting energy expenditure for most people. That sounds tight until you convert it: ten per cent of 1,800 kcal is 180 kcal a day, which over a month is roughly the energy in three-quarters of a kilogram of body mass.
+
+Individual error can be larger. Studies consistently find a minority of people whose measured rate sits fifteen or twenty per cent away from any equation's prediction, and no equation can identify who those people are in advance.
+
+The practical implication is not that the number is useless. It is that the number is a starting point rather than a target. Eat at the level your BMR and activity estimate suggest for two or three weeks, track what actually happens to your weight, and adjust from the observed result. Your own response is better data than any regression fitted to somebody else.
+
+## What BMR is not
+
+It is not what you should eat. This is the most common and most consequential misreading. BMR is what you would need lying motionless in a dark room all day. Eating at BMR while living an ordinary life puts you in a substantial deficit — usually a much larger one than you intended, and often below the floors this site applies.
+
+The number you want for intake is total daily energy expenditure, which multiplies BMR by an activity factor. That is covered in [what activity multipliers actually mean](/guides/what-activity-multipliers-mean/), and it is where most of the remaining uncertainty in a calorie target lives.
+
+## Does BMR fall when you lose weight
+
+Yes, for two distinct reasons that are worth separating.
+
+The first is arithmetic and entirely expected: a smaller body costs less to run. Every equation here reflects it through the weight term. Lose 10 kg and Mifflin-St Jeor drops your BMR by 100 kcal, because there is less of you.
+
+The second is more interesting. There is reasonable evidence for adaptive thermogenesis — a reduction in metabolic rate beyond what the loss of tissue alone predicts. The size and persistence of the effect is genuinely debated, with estimates ranging from negligible to a few hundred kilocalories, and the studies that find large effects tend to involve large, rapid losses.
+
+Either way, the practical consequence is the same: a deficit that produced steady loss at the start produces slower loss later, at the same intake. That is expected, not a failure, and it is one reason the [calorie calculator](/calculators/calorie/) recommends re-running the numbers periodically rather than treating one figure as permanent.
