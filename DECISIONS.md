@@ -171,3 +171,115 @@ layout — it arrives as `Astro.props.frontmatter`. A layout destructuring
 which would have produced wrong `<title>` tags on guide pages without any error.
 Guides use content collections with explicit prop passing, so this is avoided by
 construction, but it is recorded here because the failure mode is silent.
+
+---
+
+## Phase 2 — Health formula library
+
+### 2.1 The Army calculator computes waist-to-height ratio, not the tape test
+
+**Decision:** implement the current standard; do not implement the rescinded
+tape formulas at all.
+
+The brief's section 4.1 asks for the "Current US Army AR 600-9 tape method, male
+and female". Researched before writing any code, per the plan's flagged research
+item — and the method no longer exists.
+
+**Army Directive 2026-13**, effective **7 July 2026**, six weeks before this
+build, rescinded three things at once: the height and weight screening tables,
+the circumference-based tape test, and every supplemental body fat method (DXA,
+InBody, Bod Pod). It replaced all of them with waist-to-height ratio as the
+Army's sole body composition assessment: waist at the navel divided by height,
+passing at **less than, but not equal to, 0.55**, recorded to three decimal
+places, with no age adjustment and no sex adjustment.
+
+That directive superseded Army Directive 2023-11, which had itself replaced the
+older multi-site tape formula with a one-site abdominal measurement from
+8 June 2024. So the multi-site formula that virtually every "army body fat
+calculator" online still computes has been out of use for over two years and
+rescinded outright for one.
+
+Sourcing: the first search results were SEO calculator farms, which are not
+acceptable for a YMYL claim. Verified instead against Army publications
+(ARN47030) and corroborated by _Stars and Stripes_, 7 July 2026, which
+independently reports the directive number, effective date and 0.55 threshold.
+Direct fetches to army.mil hosts failed with DNS errors from the build
+environment; the citation is to the directive itself, corroborated across
+independent sources.
+
+**Why the rescinded formulas are not implemented at all.** Shipping the tape
+method would produce a number the Army does not use and will not accept, which
+rule 3 of the autonomy contract forbids. Placing a historical figure beside a
+live one invites exactly the confusion the page exists to resolve. The page
+instead explains what changed and when — which is the genuinely useful answer for
+someone searching "army tape test calculator", and content no competitor
+currently has.
+
+This is a search opportunity rather than a compromise: the query has steady
+volume and the incumbent results are all wrong.
+
+### 2.2 TDEE activity multipliers are labelled a convention, not attributed to a paper
+
+**Decision:** implement the conventional 1.2 / 1.375 / 1.55 / 1.725 / 1.9 set,
+state plainly that it has no single published origin, and cite the real PAL
+frameworks alongside it.
+
+Researching a citation for these multipliers turned up only calculator sites
+attributing them vaguely to "PAL research", or worse, to Harris-Benedict and
+Mifflin-St Jeor — papers that do not contain them. Citing a paper that does not
+support a number is fabrication, which rule 3 forbids.
+
+What is published and is cited instead: the **IOM 2005** PAL categories from
+doubly labelled water data (sedentary >= 1.0 < 1.4, low active >= 1.4 < 1.6,
+active >= 1.6 < 1.9, very active >= 1.9 < 2.5), and the **FAO/WHO/UNU 2004**
+lifestyle PAL bands. Each conventional multiplier is tagged with the IOM band it
+falls in, and a unit test asserts those tags stay truthful.
+
+This also surfaces a real discrepancy rather than hiding it: the conventional
+"sedentary" 1.2 sits inside the IOM sedentary band but below the FAO floor of
+1.40. That contradiction is page content, and it is the substance of one of the
+14 guides the brief asks for.
+
+### 2.3 Errors are returned, not thrown
+
+**Decision:** every parse and guard returns a `Result<T>` discriminated union.
+
+The brief requires hostile input to be "rejected cleanly with a helpful message,
+never producing a number". A Result makes that the only reachable path: there is
+no value to read without first narrowing on `ok`, so a caller cannot accidentally
+render a number that was never computed. Thrown exceptions would depend on every
+call site remembering a try/catch.
+
+Adjustment notes and refusals are returned as identifiers with parameters rather
+than English prose, so the same result renders correctly in all ten locales
+without English leaking into a translated page.
+
+### 2.4 Two defects found by writing the tests
+
+Recorded because both were silent failures that no formula-level test would have
+caught.
+
+**`bmiCategory` mislabelled non-finite input.** The original table walk returned
+the highest band as a fallback, so a NaN BMI — from a division by zero — would be
+reported as the most severe category. Worse, the behaviour was asymmetric:
++Infinity fell outside `[40, Infinity)` and returned null, while -Infinity
+satisfied `[-Infinity, 18.5)` and returned underweight. Now guarded explicitly on
+`Number.isFinite`, giving one rule: finite input classifies, non-finite does not.
+
+**`maxWaistForStandard` returned a failing waist.** The Army standard is recorded
+to three decimals _and_ is a strict inequality, so the passing ceiling is not
+height x 0.5495 — that records as 0.550 and fails. The function returned a waist
+that failed the very standard it was describing. Now floored to a tenth of a
+centimetre and verified, with a test that feeds every returned value back through
+the assessment.
+
+### 2.5 A typed lookup helper instead of non-null assertions
+
+**Decision:** `indexById` in `lookup.ts`, replacing five `Map.get(id)!` sites.
+
+Several modules keep an ordered array as the source of truth, because the order
+is the order options appear in the UI, while also needing keyed access. A `Map`
+forces a non-null assertion at every call site even though the key type
+guarantees a hit — and those assertions are exactly what survives a refactor that
+makes them false. The mapped return type makes the lookup total, containing the
+single unavoidable cast inside one helper.
