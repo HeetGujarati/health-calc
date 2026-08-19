@@ -1,0 +1,17 @@
+# ads.txt — Authorized Digital Sellers
+#
+# This file is intentionally empty of records.
+#
+# Advertising is not enabled on this site. Before applying for AdSense or any
+# other network, replace the placeholder line below with the publisher ID the
+# network issues you. An ads.txt containing a wrong or example publisher ID is
+# worse than none: it authorises someone else to sell your inventory.
+#
+# The format is:
+#   <exchange domain>, <publisher ID>, <DIRECT|RESELLER>, <certification ID>
+#
+# For Google AdSense it would be:
+#   google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+#
+# Replace pub-0000000000000000 with your own ID, uncomment the line, and
+# redeploy. DEPLOY.md lists this alongside the other launch placeholders.

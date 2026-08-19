@@ -1,0 +1,55 @@
+name: Monthly rebuild
+
+on:
+  schedule:
+    # First of the month. Keeps the deployed output current with dependency
+    # patches without waiting for someone to push.
+    - cron: '0 4 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PUBLIC_SITE_URL: https://fitness-calculators.pages.dev
+
+jobs:
+  rebuild:
+    name: Rebuild and verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Generate security headers
+        run: npm run headers
+
+      - name: Audit SEO output
+        run: npm run audit:seo
+
+      - name: Check internal links
+        run: npm run audit:links
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+      # Deployment itself is handled by Cloudflare Pages watching the branch.
+      # This job exists to prove the build still passes on current dependencies
+      # and to surface a break before a reader finds it. Content lastmod values
+      # are deliberately not touched: they describe when content changed, not
+      # when it was rebuilt.
+      - name: Summary
+        run: echo "Rebuild verified. Cloudflare Pages redeploys from the branch."

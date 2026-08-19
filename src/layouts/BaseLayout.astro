@@ -8,6 +8,7 @@ import Seo from '../components/Seo.astro';
 import ThemeScript from '../components/ThemeScript.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { toDir, type Locale } from '../config/locales';
 import type { SeoMeta } from '../lib/seo/metadata';
@@ -74,5 +75,8 @@ const allSchemas: readonly JsonLdObject[] = [buildOrganization(), ...schemas];
     </main>
 
     <SiteFooter locale={locale} />
+
+    {/* Renders nothing while advertising and analytics are both disabled. */}
+    <ConsentBanner />
   </body>
 </html>

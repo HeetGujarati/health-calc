@@ -1,0 +1,77 @@
+---
+/**
+ * Reserved ad slot.
+ *
+ * Renders nothing visible while advertising is disabled, but still occupies its
+ * final dimensions. That is the entire point: enabling ads later must not move
+ * any content, because layout shift after load is both a Core Web Vitals
+ * failure and genuinely irritating to read through.
+ *
+ * The container is reserved with an explicit height rather than min-height, so
+ * the space is identical whether or not anything fills it.
+ *
+ * Nothing here loads a script. When ads are switched on, the consent mechanism
+ * gates the script and this component only provides the space.
+ */
+
+interface Props {
+  /** Which reserved size to use. */
+  size: 'leaderboard' | 'rectangle' | 'mobile-banner';
+  /** Optional label, announced to assistive technology when a slot is filled. */
+  label?: string;
+}
+
+const { size, label = 'Advertisement' } = Astro.props;
+
+/**
+ * Standard IAB dimensions. Fixed at build time so the reserved box matches
+ * whatever eventually fills it.
+ */
+const SIZES = {
+  leaderboard: { width: 728, height: 90 },
+  rectangle: { width: 300, height: 250 },
+  'mobile-banner': { width: 320, height: 50 },
+} as const;
+
+const { width, height } = SIZES[size];
+
+/**
+ * Read from the environment rather than hardcoded, so enabling ads is a deploy
+ * setting rather than a code change. Absent or anything other than 'true'
+ * counts as disabled.
+ */
+const adsEnabled = import.meta.env.PUBLIC_ADS_ENABLED === 'true';
+---
+
+{
+  /*
+    The wrapper always renders and always reserves height. Only the inner
+    content is conditional, so the surrounding layout is identical in both
+    states — which is what makes enabling ads a zero-shift change.
+  */
+}
+<div
+  class="mx-auto my-8"
+  style={`max-width:${String(width)}px`}
+  data-ad-slot={size}
+  aria-hidden={adsEnabled ? undefined : 'true'}
+>
+  <div
+    class="w-full"
+    style={`height:${String(height)}px`}
+    role={adsEnabled ? 'complementary' : undefined}
+    aria-label={adsEnabled ? label : undefined}
+  >
+    {
+      adsEnabled && (
+        <div class="flex h-full w-full items-center justify-center border border-rule text-xs text-graphite">
+          {/*
+            Deliberately empty of any third-party script. Whatever provider is
+            chosen mounts here, and only after the consent mechanism allows it.
+          */}
+          <span class="sr-only">{label}</span>
+        </div>
+      )
+    }
+  </div>
+</div>

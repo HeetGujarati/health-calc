@@ -81,3 +81,8 @@ class ThemeToggle extends HTMLElement {
 if (!customElements.get('theme-toggle')) {
   customElements.define('theme-toggle', ThemeToggle);
 }
+
+// Marks this file as a module. Without it TypeScript treats a file with no
+// imports as a global script, and its top-level constants collide with those
+// in the other islands.
+export {};
