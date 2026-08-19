@@ -8,6 +8,13 @@ updates:
     # Dependencies are pinned to exact versions on purpose (brief section 3),
     # so every update arrives as a reviewable PR rather than a silent float.
     versioning-strategy: increase
+    ignore:
+      # TypeScript 7 breaks `astro check`, which is a required gate:
+      # @astrojs/check@0.9.10 peer-caps typescript at ^5 || ^6. CI already
+      # fails these, so the ignore only saves the weekly round trip.
+      # Lift this once @astrojs/check widens its peer range. See DECISIONS.md 1.2.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: github-actions
     directory: /
