@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    # Dependencies are pinned to exact versions on purpose (brief section 3),
+    # so every update arrives as a reviewable PR rather than a silent float.
+    versioning-strategy: increase
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
