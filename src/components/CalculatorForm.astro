@@ -1,0 +1,202 @@
+---
+import type { InputField } from '../data/calculators/types';
+
+interface Props {
+  slug: string;
+  inputs: readonly InputField[];
+}
+
+const { slug, inputs } = Astro.props;
+
+/**
+ * The calculator form.
+ *
+ * Every control has a real `<label>` bound by `for`/`id` — never a placeholder
+ * standing in for one, since placeholders vanish on focus and strand anyone who
+ * loses their place.
+ *
+ * Fields that only apply to some method choices carry data-show-when-*, and the
+ * island toggles both `hidden` and `disabled` so hidden inputs are neither
+ * submitted nor announced.
+ *
+ * Imperial height is two fields rather than one, because asking someone for
+ * "70 inches" is asking them to do arithmetic the page should do.
+ */
+const fieldId = (name: string): string => `${slug}-${name}`;
+---
+
+<form novalidate>
+  <fieldset class="m-0 border-0 p-0">
+    <legend class="sr-only">Units</legend>
+    <div
+      class="mb-5 inline-flex rounded-md border border-edge"
+      role="radiogroup"
+      aria-label="Units"
+    >
+      {
+        (['metric', 'imperial'] as const).map((system, index) => (
+          <label
+            class:list={[
+              'flex min-h-11 cursor-pointer items-center px-4 text-base',
+              index === 0 ? 'rounded-l-md' : 'rounded-r-md border-l border-edge',
+              'has-[:checked]:bg-ink has-[:checked]:text-paper',
+            ]}
+          >
+            <input
+              type="radio"
+              name="units"
+              value={system}
+              checked={system === 'metric'}
+              class="sr-only"
+            />
+            {system === 'metric' ? 'Metric' : 'Imperial'}
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    {
+      inputs.map((input) => {
+        const id = fieldId(input.name);
+        const wrapperAttrs =
+          input.showWhen === undefined
+            ? {}
+            : {
+                'data-show-when-field': input.showWhen.field,
+                'data-show-when-equals': input.showWhen.equals.join('|'),
+              };
+
+        return (
+          <div {...wrapperAttrs}>
+            <label for={id} class="block text-xs font-semibold text-graphite">
+              {input.label}
+            </label>
+
+            {input.type === 'select' ? (
+              <select
+                id={id}
+                name={input.name}
+                class="mt-1 min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+              >
+                {(input.options ?? []).map((option) => (
+                  <option value={option.value} selected={option.value === input.defaultValue}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            ) : input.type === 'radio' ? (
+              <div class="mt-1 flex flex-wrap gap-2" role="radiogroup" aria-labelledby={id}>
+                {(input.options ?? []).map((option) => (
+                  <label class="flex min-h-11 cursor-pointer items-center rounded-sm border border-edge px-4 text-base has-[:checked]:bg-ink has-[:checked]:text-paper">
+                    <input
+                      type="radio"
+                      name={input.name}
+                      value={option.value}
+                      checked={option.value === input.defaultValue}
+                      class="sr-only"
+                    />
+                    {option.label}
+                  </label>
+                ))}
+              </div>
+            ) : input.name === 'height' ? (
+              <>
+                {/* Metric: one field in centimetres. */}
+                <div data-units-only="metric">
+                  <div class="mt-1 flex items-center gap-2">
+                    <input
+                      id={id}
+                      name="height"
+                      type="number"
+                      inputmode="decimal"
+                      min={input.min}
+                      max={input.max}
+                      step={input.step ?? 0.1}
+                      class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                    />
+                    <span class="text-xs text-graphite">cm</span>
+                  </div>
+                </div>
+
+                {/* Imperial: feet and inches, so nobody has to convert. */}
+                <div data-units-only="imperial" hidden>
+                  <div class="mt-1 flex items-center gap-2">
+                    <input
+                      id={`${id}-feet`}
+                      name="heightFeet"
+                      type="number"
+                      inputmode="numeric"
+                      min="1"
+                      max="8"
+                      step="1"
+                      aria-label="Height, feet"
+                      class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                      disabled
+                    />
+                    <span class="text-xs text-graphite">ft</span>
+                    <input
+                      name="heightInches"
+                      type="number"
+                      inputmode="decimal"
+                      min="0"
+                      max="11.9"
+                      step="0.5"
+                      aria-label="Height, inches"
+                      class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                      disabled
+                    />
+                    <span class="text-xs text-graphite">in</span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div class="mt-1 flex items-center gap-2">
+                <input
+                  id={id}
+                  name={input.name}
+                  type="number"
+                  inputmode="decimal"
+                  min={input.min}
+                  max={input.max}
+                  step={input.step ?? 0.1}
+                  value={input.defaultValue}
+                  class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                />
+                {input.unit && (
+                  <span
+                    class="text-xs whitespace-nowrap text-graphite"
+                    data-unit-metric={input.unit.metric}
+                    data-unit-imperial={input.unit.imperial}
+                  >
+                    {input.unit.metric}
+                  </span>
+                )}
+              </div>
+            )}
+
+            {input.hint && <p class="mt-1 text-xs text-graphite">{input.hint}</p>}
+          </div>
+        );
+      })
+    }
+  </div>
+
+  {
+    /*
+    A real submit button, required by WCAG technique H32 and by html-validate.
+    Results update live, so this is not the only way to get an answer — but a
+    form with no submit control leaves keyboard and screen reader users with no
+    explicit action to take, and many people expect to press something.
+
+    The island intercepts submit and recomputes rather than navigating.
+  */
+  }
+  <button
+    type="submit"
+    class="mt-6 min-h-11 w-full rounded-md border border-edge bg-ink px-4 text-base font-semibold text-paper sm:w-auto"
+  >
+    Calculate
+  </button>
+</form>

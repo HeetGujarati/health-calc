@@ -1,0 +1,305 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CalculatorForm from '../components/CalculatorForm.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import type { CalculatorDefinition } from '../data/calculators/types';
+import { CALCULATOR_CATEGORIES } from '../data/calculators/types';
+import { getCalculator } from '../data/calculators';
+import { GUIDE_TITLES } from '../data/guides/titles';
+import { buildToolMetadata } from '../lib/seo/metadata';
+import {
+  buildBreadcrumbList,
+  buildFaqPage,
+  buildHowTo,
+  buildSoftwareApplication,
+  type JsonLdObject,
+} from '../lib/seo/schema';
+import { getLocalePath } from '../lib/seo/urls';
+import type { Locale } from '../config/locales';
+
+interface Props {
+  definition: CalculatorDefinition;
+  locale?: Locale;
+}
+
+const { definition, locale = 'en' } = Astro.props;
+const path = `/calculators/${definition.slug}`;
+
+/**
+ * The calculator page template.
+ *
+ * Renders the ten blocks section 7 requires, in the order it requires them.
+ * Every calculator page goes through here, so the order and completeness are
+ * structural rather than a checklist someone has to remember.
+ */
+const meta = buildToolMetadata({
+  title: definition.metaTitle,
+  description: definition.description,
+  path,
+  locale,
+  keywords: definition.keywords,
+});
+
+const category = CALCULATOR_CATEGORIES.find((entry) => entry.id === definition.category);
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Calculators', path: '/calculators' },
+  { name: definition.heading, path },
+];
+
+const schemas: JsonLdObject[] = [
+  buildSoftwareApplication({
+    name: definition.heading,
+    description: definition.description,
+    path,
+    locale,
+    applicationSubCategory: definition.applicationSubCategory,
+  }),
+  buildHowTo({
+    name: `How to use the ${definition.heading.toLowerCase()}`,
+    description: definition.description,
+    path,
+    locale,
+    totalTime: 'PT2M',
+    steps: definition.howToSteps,
+  }),
+];
+
+const faq = buildFaqPage(definition.faq);
+if (faq !== null) schemas.push(faq);
+
+const breadcrumbs = buildBreadcrumbList(crumbs, locale);
+if (breadcrumbs !== null) schemas.push(breadcrumbs);
+
+const defaultFormula = definition.formulas.find((formula) => formula.isDefault === true);
+const alternativeFormulas = definition.formulas.filter((formula) => formula.isDefault !== true);
+
+const related = definition.relatedCalculators
+  .map((slug) => getCalculator(slug))
+  .filter((entry): entry is CalculatorDefinition => entry !== null);
+
+const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout meta={meta} currentPath={path} schemas={schemas}>
+  <div class="mx-auto max-w-5xl px-4 py-6">
+    <Breadcrumbs items={crumbs} locale={locale} label="Breadcrumb" />
+
+    {/* 1. H1 naming the calculator. */}
+    <h1 class="mt-4 text-2xl sm:text-3xl">{definition.heading}</h1>
+    <p class="mt-3 max-w-[var(--measure)] text-lg text-graphite">{definition.intro}</p>
+
+    {
+      /*
+      2 to 4. The working calculator, the answer-first summary and the
+      disclaimer all sit inside one panel so they are above the fold together
+      on a 360px phone. The result region is server-rendered and empty; the
+      island fills it, and aria-live announces each update without stealing
+      focus from the field being typed into.
+    */
+    }
+    <calculator-widget
+      data-calculator={definition.slug}
+      class="mt-6 block rounded-lg border border-rule bg-raised p-4 sm:p-6"
+    >
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div id="step-1">
+          <h2 class="sr-only">Enter your details</h2>
+          <CalculatorForm slug={definition.slug} inputs={definition.inputs} />
+        </div>
+
+        <div id="step-2" class="lg:border-l lg:border-rule lg:pl-8">
+          <h2 class="text-xs font-semibold tracking-wide text-graphite uppercase">Result</h2>
+
+          <div data-result aria-live="polite" aria-atomic="true" class="mt-2 min-h-32">
+            {/* Filled by the island. Empty until the reader enters something. */}
+          </div>
+
+          <noscript>
+            <p class="mt-2 max-w-[var(--measure)] text-base">
+              Live results need JavaScript. The reference table further down this page is
+              precomputed and works without it.
+            </p>
+          </noscript>
+
+          <Disclaimer />
+        </div>
+      </div>
+    </calculator-widget>
+
+    {/* 5. How this is calculated: the actual formula, its source, its assumptions. */}
+    <section id="step-3" class="mt-12" aria-labelledby="how-it-works">
+      <h2 id="how-it-works" class="text-xl">How this is calculated</h2>
+
+      {
+        definition.formulas.map((formula) => (
+          <div class="mt-6">
+            <h3 class="text-lg">
+              {formula.name}
+              {formula.isDefault === true && (
+                <span class="ml-2 align-middle text-xs font-normal text-graphite">default</span>
+              )}
+            </h3>
+
+            <pre class="numeral mt-2 overflow-x-auto rounded-md border border-rule bg-paper p-3 text-xs">
+              <code>{formula.expression.join('\n')}</code>
+            </pre>
+
+            <dl class="mt-3 grid gap-x-4 gap-y-1 text-xs sm:grid-cols-[8rem_1fr]">
+              <dt class="text-graphite">Source</dt>
+              <dd class="m-0">{formula.source}</dd>
+              <dt class="text-graphite">Assumes</dt>
+              <dd class="m-0">{formula.assumes}</dd>
+              <dt class="text-graphite">Accuracy</dt>
+              <dd class="m-0">{formula.accuracy}</dd>
+            </dl>
+          </div>
+        ))
+      }
+    </section>
+
+    {/* 6. Honest comparison of the alternatives. */}
+    {
+      alternativeFormulas.length > 0 && defaultFormula !== undefined && (
+        <section class="mt-12" aria-labelledby="which-formula">
+          <h2 id="which-formula" class="text-xl">
+            Which formula should you use
+          </h2>
+          <p class="mt-3 max-w-[var(--measure)] text-base">
+            This page defaults to {defaultFormula.name}. {defaultFormula.accuracy}
+          </p>
+          <ul class="mt-3 max-w-[var(--measure)] space-y-2 text-base">
+            {alternativeFormulas.map((formula) => (
+              <li>
+                <strong class="font-semibold">{formula.name}</strong> — {formula.accuracy}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      /*
+      7. A precomputed reference table.
+      Real values in the prerendered HTML, so the page carries substance with
+      JavaScript disabled — and so it is worth linking to.
+    */
+    }
+    <section class="mt-12" aria-labelledby="reference-table">
+      <h2 id="reference-table" class="text-xl">{definition.referenceTable.caption}</h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">{definition.referenceTable.note}</p>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">{definition.referenceTable.caption}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-left text-xs text-graphite">
+                {definition.referenceTable.rowHeader}
+              </th>
+              {
+                definition.referenceTable.columns.map((column) => (
+                  <th
+                    scope="col"
+                    class="numeral border-b border-rule p-2 text-right text-xs text-graphite"
+                  >
+                    {column}
+                  </th>
+                ))
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              definition.referenceTable.rows.map((row) => (
+                <tr>
+                  <th scope="row" class="border-b border-rule p-2 text-left font-normal">
+                    {row.label}
+                  </th>
+                  {row.cells.map((cell) => (
+                    <td class="numeral border-b border-rule p-2 text-right">{cell}</td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {/* 8. FAQ, specific to this calculator. */}
+    <section class="mt-12" aria-labelledby="faq">
+      <h2 id="faq" class="text-xl">Questions</h2>
+      <dl class="mt-4 max-w-[var(--measure)]">
+        {
+          definition.faq.map((entry) => (
+            <div class="border-b border-rule py-4">
+              <dt class="font-display text-base font-semibold">{entry.question}</dt>
+              <dd class="mt-2 m-0 text-base text-graphite">{entry.answer}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    {/* 9. Six related calculators and two guides. */}
+    <section class="mt-12" aria-labelledby="related">
+      <h2 id="related" class="text-xl">Related</h2>
+
+      <div class="mt-4 grid gap-8 sm:grid-cols-2">
+        <div>
+          <h3 class="text-xs font-semibold tracking-wide text-graphite uppercase">Calculators</h3>
+          <ul class="mt-2 list-none space-y-1 p-0">
+            {
+              related.map((entry) => (
+                <li>
+                  <a
+                    href={getLocalePath(`/calculators/${entry.slug}`, locale)}
+                    class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+                  >
+                    {entry.heading}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-semibold tracking-wide text-graphite uppercase">Guides</h3>
+          <ul class="mt-2 list-none space-y-1 p-0">
+            {
+              definition.relatedGuides.map((slug) => (
+                <li>
+                  <a
+                    href={getLocalePath(`/guides/${slug}`, locale)}
+                    class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+                  >
+                    {GUIDE_TITLES[slug] ?? slug}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* 10. Real last-updated date. */}
+    <p class="mt-12 text-xs text-graphite">
+      Last reviewed <time datetime={definition.lastUpdated}>{lastUpdatedLabel}</time>. Category:
+      {' '}{category?.label ?? 'Calculator'}.
+    </p>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../components/islands/calculator';
+</script>

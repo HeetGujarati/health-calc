@@ -1,0 +1,30 @@
+---
+import CalculatorLayout from '../../layouts/CalculatorLayout.astro';
+import { CALCULATOR_DEFINITIONS, getCalculator } from '../../data/calculators';
+
+/**
+ * All sixteen calculator pages.
+ *
+ * getStaticPaths derives the routes from the definitions, so the dynamic
+ * parameter is validated against a static allowlist by construction — anything
+ * not in this list is not built, and therefore 404s. That is the requirement in
+ * section 11 of the brief, satisfied structurally rather than by a runtime
+ * check that could be forgotten.
+ */
+export function getStaticPaths() {
+  return CALCULATOR_DEFINITIONS.map((definition) => ({
+    params: { slug: definition.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const definition = getCalculator(slug ?? '');
+
+if (definition === null) {
+  // Unreachable given getStaticPaths, but throwing here means a future refactor
+  // that decouples the two fails the build rather than rendering an empty page.
+  throw new Error(`No calculator definition for slug: ${slug ?? '(none)'}`);
+}
+---
+
+<CalculatorLayout definition={definition} />
