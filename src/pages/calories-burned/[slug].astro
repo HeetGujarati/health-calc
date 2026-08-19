@@ -1,0 +1,475 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import { ACTIVITIES, getActivity, CATEGORY_LABELS } from '../../data/activities';
+import { buildToolMetadata } from '../../lib/seo/metadata';
+import {
+  buildBreadcrumbList,
+  buildFaqPage,
+  buildHowTo,
+  buildSoftwareApplication,
+  type JsonLdObject,
+} from '../../lib/seo/schema';
+import { getLocalePath } from '../../lib/seo/urls';
+import {
+  ACTIVITY_ACCURACY,
+  ACTIVITY_INTRO,
+  ACTIVITY_MET_EXPLANATION,
+  ACTIVITY_NET_NOTE,
+  metComparison,
+  netShareOfGross,
+  renderVariant,
+} from '../../lib/content/templates';
+import {
+  REFERENCE_DURATIONS_MIN,
+  REFERENCE_MASSES_KG,
+  caloriesBurned,
+  netCaloriesBurned,
+} from '../../lib/health/caloriesburned';
+import { asKilograms, asMet, minutesToSeconds } from '../../lib/health/units';
+import { roundTo } from '../../lib/health/rounding';
+
+export function getStaticPaths() {
+  return ACTIVITIES.map((activity) => ({ params: { slug: activity.slug } }));
+}
+
+const { slug } = Astro.params;
+const activity = getActivity(slug ?? '');
+if (activity === null) throw new Error(`No activity for slug: ${slug ?? '(none)'}`);
+
+const locale = 'en' as const;
+const path = `/calories-burned/${activity.slug}`;
+
+/**
+ * Prose is assembled from parameterised templates selected by a hash of the
+ * slug, so no paragraph repeats verbatim across the sixty activity pages while
+ * builds stay byte-reproducible. See src/lib/content/templates.ts.
+ */
+const values = {
+  activity: activity.name.toLowerCase(),
+  Activity: activity.name,
+  met: activity.met,
+  comparison: metComparison(activity.met),
+  netShare: netShareOfGross(activity.met),
+};
+
+const intro = renderVariant(ACTIVITY_INTRO, activity.slug, 'intro', values);
+const metExplanation = renderVariant(ACTIVITY_MET_EXPLANATION, activity.slug, 'met', values);
+const accuracy = renderVariant(ACTIVITY_ACCURACY, activity.slug, 'accuracy', values);
+const netNote = renderVariant(ACTIVITY_NET_NOTE, activity.slug, 'net', values);
+
+const meta = buildToolMetadata({
+  title: `Calories burned ${activity.name.toLowerCase()}`,
+  description: `How many calories ${activity.name.toLowerCase()} burns, by body weight and duration. Uses the published MET value of ${String(activity.met)} from the 2024 Adult Compendium.`,
+  path,
+  locale,
+  keywords: [
+    `calories burned ${activity.name.toLowerCase()}`,
+    `${activity.name.toLowerCase()} calories`,
+    `${activity.name.toLowerCase()} met value`,
+  ],
+});
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Calories burned', path: '/calories-burned' },
+  { name: activity.name, path },
+];
+
+const faq = [
+  {
+    question: `How many calories does ${activity.name.toLowerCase()} burn?`,
+    answer: `At ${String(activity.met)} METs, a 70 kg person uses about ${String(roundTo(caloriesBurned(asMet(activity.met), asKilograms(70), minutesToSeconds(30)), 0))} kcal in thirty minutes. Energy use scales with body weight, so a 90 kg person uses roughly a third more for the same session.`,
+  },
+  {
+    question: `What is the MET value for ${activity.name.toLowerCase()}?`,
+    answer: `${String(activity.met)} METs, listed under Compendium code ${activity.code} as "${activity.compendiumDescription}". A MET is a multiple of resting metabolic rate.`,
+  },
+  {
+    question: 'Should I subtract my resting metabolism?',
+    answer: `If you are adding this to a maintenance figure that already includes rest, yes. The net figure removes the roughly one MET-hour per hour your body would have spent anyway, which for ${activity.name.toLowerCase()} leaves about ${netShareOfGross(activity.met)} of the gross total.`,
+  },
+  {
+    question: 'Why does body weight change the answer?',
+    answer:
+      'A MET value is energy per kilogram of body mass, so the same activity costs more for a heavier body. That is why weight is an input rather than an assumption, and why generic "calories burned" figures without a weight are close to meaningless.',
+  },
+  {
+    question: 'How accurate is this figure?',
+    answer:
+      'It is an estimate from a population average. Published comparisons against indirect calorimetry find individual discrepancies of twenty to thirty per cent, so use it to compare activities rather than as a ledger to eat back.',
+  },
+];
+
+const schemas: JsonLdObject[] = [
+  buildSoftwareApplication({
+    name: `Calories burned ${activity.name.toLowerCase()} calculator`,
+    description: meta.description,
+    path,
+    locale,
+    applicationSubCategory: 'Energy expenditure',
+  }),
+  buildHowTo({
+    name: `How to work out calories burned ${activity.name.toLowerCase()}`,
+    description: meta.description,
+    path,
+    locale,
+    totalTime: 'PT1M',
+    steps: [
+      {
+        name: 'Enter your weight and duration',
+        text: `Choose metric or imperial, then enter your body weight and how long you spent ${activity.name.toLowerCase()}.`,
+        anchor: 'step-1',
+      },
+      {
+        name: 'Read the result',
+        text: 'The result updates as you type, showing gross energy and the figure above resting.',
+        anchor: 'step-2',
+      },
+      {
+        name: 'Check the MET value and its source',
+        text: `The Compendium code and description behind the ${String(activity.met)} MET value are shown below the calculator.`,
+        anchor: 'step-3',
+      },
+    ],
+  }),
+];
+
+const faqSchema = buildFaqPage(faq);
+if (faqSchema !== null) schemas.push(faqSchema);
+const breadcrumbs = buildBreadcrumbList(crumbs, locale);
+if (breadcrumbs !== null) schemas.push(breadcrumbs);
+
+/** Precomputed 6 x 6 grid, so the page carries substance with JavaScript off. */
+const grid = REFERENCE_MASSES_KG.map((massKg) => ({
+  massKg,
+  cells: REFERENCE_DURATIONS_MIN.map((minutes) =>
+    roundTo(caloriesBurned(asMet(activity.met), asKilograms(massKg), minutesToSeconds(minutes)), 0)
+  ),
+}));
+
+const related = activity.related
+  .map((relatedSlug) => getActivity(relatedSlug))
+  .filter((entry) => entry !== null);
+
+const netPerHour = roundTo(
+  netCaloriesBurned(asMet(activity.met), asKilograms(70), minutesToSeconds(60)),
+  0
+);
+const grossPerHour = roundTo(
+  caloriesBurned(asMet(activity.met), asKilograms(70), minutesToSeconds(60)),
+  0
+);
+---
+
+<BaseLayout meta={meta} currentPath={path} schemas={schemas}>
+  <div class="mx-auto max-w-5xl px-4 py-6">
+    <Breadcrumbs items={crumbs} locale={locale} label="Breadcrumb" />
+
+    <h1 class="mt-4 text-2xl sm:text-3xl">Calories burned {activity.name.toLowerCase()}</h1>
+    <p class="mt-3 max-w-[var(--measure)] text-lg text-graphite">{intro}</p>
+
+    <calculator-widget
+      data-calculator="calories-burned"
+      class="mt-6 block rounded-lg border border-rule bg-raised p-4 sm:p-6"
+    >
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div id="step-1">
+          <h2 class="sr-only">Enter your details</h2>
+          <form novalidate>
+            <fieldset class="m-0 border-0 p-0">
+              <legend class="sr-only">Units</legend>
+              <div
+                class="mb-5 inline-flex rounded-md border border-edge"
+                role="radiogroup"
+                aria-label="Units"
+              >
+                <label
+                  class="flex min-h-11 cursor-pointer items-center rounded-l-md px-4 text-base has-[:checked]:bg-ink has-[:checked]:text-paper"
+                >
+                  <input type="radio" name="units" value="metric" checked class="sr-only" />
+                  Metric
+                </label>
+                <label
+                  class="flex min-h-11 cursor-pointer items-center rounded-r-md border-l border-edge px-4 text-base has-[:checked]:bg-ink has-[:checked]:text-paper"
+                >
+                  <input type="radio" name="units" value="imperial" class="sr-only" />
+                  Imperial
+                </label>
+              </div>
+            </fieldset>
+
+            {/* The MET is fixed to this activity, so it is a hidden bound parameter. */}
+            <input type="hidden" name="met" value={String(activity.met)} />
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label for="weight" class="block text-xs font-semibold text-graphite">Weight</label>
+                <div class="mt-1 flex items-center gap-2">
+                  <input
+                    id="weight"
+                    name="weight"
+                    type="number"
+                    inputmode="decimal"
+                    min="20"
+                    max="400"
+                    step="0.1"
+                    class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                  />
+                  <span class="text-xs text-graphite" data-unit-metric="kg" data-unit-imperial="lb"
+                    >kg</span
+                  >
+                </div>
+              </div>
+
+              <div>
+                <label for="minutes" class="block text-xs font-semibold text-graphite">
+                  Duration
+                </label>
+                <div class="mt-1 flex items-center gap-2">
+                  <input
+                    id="minutes"
+                    name="minutes"
+                    type="number"
+                    inputmode="numeric"
+                    min="1"
+                    max="480"
+                    step="5"
+                    value="30"
+                    class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                  />
+                  <span class="text-xs text-graphite">min</span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="mt-6 min-h-11 w-full rounded-md border border-edge bg-ink px-4 text-base font-semibold text-paper sm:w-auto"
+            >
+              Calculate
+            </button>
+          </form>
+        </div>
+
+        <div id="step-2" class="lg:border-l lg:border-rule lg:pl-8">
+          <h2 class="text-xs font-semibold tracking-wide text-graphite uppercase">Result</h2>
+          <div data-result aria-live="polite" aria-atomic="true" class="mt-2 min-h-32"></div>
+          <noscript>
+            <p class="mt-2 max-w-[var(--measure)] text-base">
+              Live results need JavaScript. The table below is precomputed and works without it.
+            </p>
+          </noscript>
+          <Disclaimer />
+        </div>
+      </div>
+    </calculator-widget>
+
+    <section id="step-3" class="mt-12" aria-labelledby="met-value">
+      <h2 id="met-value" class="text-xl">The MET value and where it comes from</h2>
+
+      <dl
+        class="mt-4 grid max-w-[var(--measure)] gap-x-4 gap-y-1 text-base sm:grid-cols-[9rem_1fr]"
+      >
+        <dt class="text-xs text-graphite">MET value</dt>
+        <dd class="numeral m-0">{activity.met}</dd>
+        <dt class="text-xs text-graphite">Compendium code</dt>
+        <dd class="numeral m-0">{activity.code}</dd>
+        <dt class="text-xs text-graphite">Listed as</dt>
+        <dd class="m-0">{activity.compendiumDescription}</dd>
+        <dt class="text-xs text-graphite">Category</dt>
+        <dd class="m-0">{CATEGORY_LABELS[activity.category]}</dd>
+      </dl>
+
+      <p class="mt-4 max-w-[var(--measure)] text-base">{metExplanation}</p>
+
+      <pre
+        class="numeral mt-4 overflow-x-auto rounded-md border border-rule bg-paper p-3 text-xs"><code>kcal = MET × body weight (kg) × hours
+     = {activity.met} × weight × hours
+
+net of resting:
+kcal = ({activity.met} − 1) × weight × hours</code></pre>
+
+      <p class="mt-3 text-xs text-graphite">
+        Source: Herrmann SD, Willis EA, Ainsworth BE, et al. "2024 Adult Compendium of Physical
+        Activities: A third update of the energy costs of human activities." Journal of Sport and
+        Health Science 13(1), 2024, pp. 6–12.
+      </p>
+
+      <p class="mt-4 max-w-[var(--measure)] text-base">{netNote}</p>
+      <p class="mt-4 max-w-[var(--measure)] text-base">{accuracy}</p>
+    </section>
+
+    <section class="mt-12" aria-labelledby="reference">
+      <h2 id="reference" class="text-xl">
+        Calories burned {activity.name.toLowerCase()} by weight and duration
+      </h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">
+        Gross energy in kilocalories. Read across from your weight and down from your duration. A 70
+        kg person uses about {grossPerHour} kcal an hour, of which roughly {netPerHour} is above what
+        resting would have cost.
+      </p>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">
+            Calories burned {activity.name.toLowerCase()} by body weight and duration
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-left text-xs text-graphite">
+                Weight
+              </th>
+              {
+                REFERENCE_DURATIONS_MIN.map((minutes) => (
+                  <th
+                    scope="col"
+                    class="numeral border-b border-rule p-2 text-right text-xs text-graphite"
+                  >
+                    {minutes} min
+                  </th>
+                ))
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              grid.map((row) => (
+                <tr>
+                  <th scope="row" class="numeral border-b border-rule p-2 text-left font-normal">
+                    {row.massKg} kg
+                  </th>
+                  {row.cells.map((cell) => (
+                    <td class="numeral border-b border-rule p-2 text-right">{cell}</td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="compare">
+      <h2 id="compare" class="text-xl">Compared with other activities</h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">
+        Energy used per thirty minutes at 70 kg, so the activities are directly comparable.
+      </p>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">Comparison with related activities</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-left text-xs text-graphite">
+                Activity
+              </th>
+              <th scope="col" class="border-b border-rule p-2 text-right text-xs text-graphite">
+                METs
+              </th>
+              <th scope="col" class="border-b border-rule p-2 text-right text-xs text-graphite">
+                kcal / 30 min
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="border-b border-rule p-2 text-left font-semibold">
+                {activity.name}
+              </th>
+              <td class="numeral border-b border-rule p-2 text-right">{activity.met}</td>
+              <td class="numeral border-b border-rule p-2 text-right">
+                {
+                  roundTo(
+                    caloriesBurned(asMet(activity.met), asKilograms(70), minutesToSeconds(30)),
+                    0
+                  )
+                }
+              </td>
+            </tr>
+            {
+              related.map((entry) => (
+                <tr>
+                  <th scope="row" class="border-b border-rule p-2 text-left font-normal">
+                    <a
+                      href={getLocalePath(`/calories-burned/${entry.slug}`, locale)}
+                      class="text-ink no-underline hover:text-signal hover:underline"
+                    >
+                      {entry.name}
+                    </a>
+                  </th>
+                  <td class="numeral border-b border-rule p-2 text-right">{entry.met}</td>
+                  <td class="numeral border-b border-rule p-2 text-right">
+                    {roundTo(
+                      caloriesBurned(asMet(entry.met), asKilograms(70), minutesToSeconds(30)),
+                      0
+                    )}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="faq">
+      <h2 id="faq" class="text-xl">Questions</h2>
+      <dl class="mt-4 max-w-[var(--measure)]">
+        {
+          faq.map((entry) => (
+            <div class="border-b border-rule py-4">
+              <dt class="font-display text-base font-semibold">{entry.question}</dt>
+              <dd class="m-0 mt-2 text-base text-graphite">{entry.answer}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="mt-12" aria-labelledby="related-tools">
+      <h2 id="related-tools" class="text-xs font-semibold tracking-wide text-graphite uppercase">
+        Related
+      </h2>
+      <ul class="mt-2 grid list-none gap-x-8 p-0 sm:grid-cols-2">
+        <li>
+          <a
+            href={getLocalePath('/calculators/calories-burned', locale)}
+            class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+          >
+            Calories burned calculator
+          </a>
+        </li>
+        <li>
+          <a
+            href={getLocalePath('/calculators/tdee', locale)}
+            class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+          >
+            TDEE calculator
+          </a>
+        </li>
+        <li>
+          <a
+            href={getLocalePath('/guides/met-values-explained', locale)}
+            class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+          >
+            MET values explained
+          </a>
+        </li>
+        <li>
+          <a
+            href={getLocalePath('/calories-burned', locale)}
+            class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+          >
+            All activities
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../../components/islands/calculator';
+</script>

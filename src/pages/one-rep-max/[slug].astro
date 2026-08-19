@@ -1,0 +1,483 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import { LIFTS, getLift, LIFT_CATEGORY_LABELS } from '../../data/lifts';
+import { buildToolMetadata } from '../../lib/seo/metadata';
+import {
+  buildBreadcrumbList,
+  buildFaqPage,
+  buildHowTo,
+  buildSoftwareApplication,
+  type JsonLdObject,
+} from '../../lib/seo/schema';
+import { getLocalePath } from '../../lib/seo/urls';
+import { LIFT_ACCURACY, LIFT_INTRO, lowerFirst, renderVariant } from '../../lib/content/templates';
+import {
+  ONE_REP_MAX_PERCENTAGES,
+  allOneRepMaxEstimates,
+  epley,
+  loadForReps,
+} from '../../lib/health/onerepmax';
+import { asKilograms } from '../../lib/health/units';
+import { roundTo } from '../../lib/health/rounding';
+
+export function getStaticPaths() {
+  return LIFTS.map((lift) => ({ params: { slug: lift.slug } }));
+}
+
+const { slug } = Astro.params;
+const lift = getLift(slug ?? '');
+if (lift === null) throw new Error(`No lift for slug: ${slug ?? '(none)'}`);
+
+const locale = 'en' as const;
+const path = `/one-rep-max/${lift.slug}`;
+
+const values = {
+  lift: lift.name.toLowerCase(),
+  Lift: lift.name,
+  biasNote: lowerFirst(lift.estimateBias),
+};
+
+const intro = renderVariant(LIFT_INTRO, lift.slug, 'intro', values);
+const accuracy = renderVariant(LIFT_ACCURACY, lift.slug, 'accuracy', values);
+
+const meta = buildToolMetadata({
+  title: `${lift.name} one rep max calculator`,
+  description: `Estimate your ${lift.name.toLowerCase()} one rep max from a set, with all five published equations compared and a percentage table for training loads.`,
+  path,
+  locale,
+  keywords: [
+    `${lift.name.toLowerCase()} 1rm calculator`,
+    `${lift.name.toLowerCase()} one rep max`,
+    `${lift.name.toLowerCase()} max calculator`,
+  ],
+});
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'One rep max', path: '/one-rep-max' },
+  { name: lift.name, path },
+];
+
+const faq = [
+  {
+    question: `How do I estimate my ${lift.name.toLowerCase()} max?`,
+    answer: `Take a set to or near failure, enter the weight and the repetitions, and the equations do the rest. A heavy triple gives a far more reliable estimate than a set of twelve, because all five equations were validated in the two to ten repetition range.`,
+  },
+  {
+    question: `Are 1RM estimates accurate for the ${lift.name.toLowerCase()}?`,
+    answer: lift.estimateBias,
+  },
+  {
+    question: 'Which formula should I use?',
+    answer:
+      'Wathan and Epley track measured data across the widest range; Brzycki is the most conservative and is exact at a single repetition. The average of all five is a more defensible single number than any one of them, and the spread between them tells you how much confidence the estimate deserves.',
+  },
+  {
+    question: `What repetition range suits the ${lift.name.toLowerCase()}?`,
+    answer: `This lift is usually trained in the ${lift.typicalReps} repetition range. Estimates taken from within that range are the most trustworthy, because they sit closest to where the equations were fitted.`,
+  },
+  {
+    question: 'Should I test a true maximum instead?',
+    answer:
+      'Only if you need the number for competition, and then with a spotter and a full warm-up. For programming, an estimate from a heavy triple is nearly as useful and costs far less recovery and risk.',
+  },
+];
+
+const schemas: JsonLdObject[] = [
+  buildSoftwareApplication({
+    name: `${lift.name} one rep max calculator`,
+    description: meta.description,
+    path,
+    locale,
+    applicationSubCategory: 'Strength training',
+  }),
+  buildHowTo({
+    name: `How to estimate a ${lift.name.toLowerCase()} one rep max`,
+    description: meta.description,
+    path,
+    locale,
+    totalTime: 'PT1M',
+    steps: [
+      {
+        name: 'Enter the weight and repetitions',
+        text: `Enter the weight you lifted on the ${lift.name.toLowerCase()} and how many repetitions you completed.`,
+        anchor: 'step-1',
+      },
+      {
+        name: 'Read the estimate',
+        text: 'All five equations are shown, along with their average and a percentage table.',
+        anchor: 'step-2',
+      },
+      {
+        name: 'Check how the equations behave on this lift',
+        text: 'The notes below explain how these equations transfer to this movement specifically.',
+        anchor: 'step-3',
+      },
+    ],
+  }),
+];
+
+const faqSchema = buildFaqPage(faq);
+if (faqSchema !== null) schemas.push(faqSchema);
+const breadcrumbs = buildBreadcrumbList(crumbs, locale);
+if (breadcrumbs !== null) schemas.push(breadcrumbs);
+
+/** Reps down the side, loads across the top. Precomputed with Epley. */
+const REPS = [1, 2, 3, 5, 8, 10, 12];
+const LOADS = [40, 60, 80, 100, 120, 140, 160];
+
+const related = lift.related.map((s) => getLift(s)).filter((entry) => entry !== null);
+
+/** Percentage table anchored on a round 100 kg estimate. */
+const percentageRows = ONE_REP_MAX_PERCENTAGES.map((percent) => ({
+  percent,
+  load: roundTo((100 * percent) / 100, 1),
+  reps: roundTo(30 * (100 / percent - 1), 0),
+}));
+---
+
+<BaseLayout meta={meta} currentPath={path} schemas={schemas}>
+  <div class="mx-auto max-w-5xl px-4 py-6">
+    <Breadcrumbs items={crumbs} locale={locale} label="Breadcrumb" />
+
+    <h1 class="mt-4 text-2xl sm:text-3xl">{lift.name} one rep max calculator</h1>
+    <p class="mt-3 max-w-[var(--measure)] text-lg text-graphite">{intro}</p>
+
+    <calculator-widget
+      data-calculator="one-rep-max"
+      class="mt-6 block rounded-lg border border-rule bg-raised p-4 sm:p-6"
+    >
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div id="step-1">
+          <h2 class="sr-only">Enter your set</h2>
+          <form novalidate>
+            <fieldset class="m-0 border-0 p-0">
+              <legend class="sr-only">Units</legend>
+              <div
+                class="mb-5 inline-flex rounded-md border border-edge"
+                role="radiogroup"
+                aria-label="Units"
+              >
+                <label
+                  class="flex min-h-11 cursor-pointer items-center rounded-l-md px-4 text-base has-[:checked]:bg-ink has-[:checked]:text-paper"
+                >
+                  <input type="radio" name="units" value="metric" checked class="sr-only" />
+                  Metric
+                </label>
+                <label
+                  class="flex min-h-11 cursor-pointer items-center rounded-r-md border-l border-edge px-4 text-base has-[:checked]:bg-ink has-[:checked]:text-paper"
+                >
+                  <input type="radio" name="units" value="imperial" class="sr-only" />
+                  Imperial
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label for="load" class="block text-xs font-semibold text-graphite">
+                  Weight lifted
+                </label>
+                <div class="mt-1 flex items-center gap-2">
+                  <input
+                    id="load"
+                    name="load"
+                    type="number"
+                    inputmode="decimal"
+                    min="1"
+                    max="1000"
+                    step="0.5"
+                    class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                  />
+                  <span class="text-xs text-graphite" data-unit-metric="kg" data-unit-imperial="lb"
+                    >kg</span
+                  >
+                </div>
+              </div>
+
+              <div>
+                <label for="reps" class="block text-xs font-semibold text-graphite">
+                  Repetitions
+                </label>
+                <div class="mt-1 flex items-center gap-2">
+                  <input
+                    id="reps"
+                    name="reps"
+                    type="number"
+                    inputmode="numeric"
+                    min="1"
+                    max="20"
+                    step="1"
+                    value="5"
+                    class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                  />
+                  <span class="text-xs text-graphite">reps</span>
+                </div>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label for="formula" class="block text-xs font-semibold text-graphite">
+                  Formula
+                </label>
+                <select
+                  id="formula"
+                  name="formula"
+                  class="mt-1 min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                >
+                  <option value="epley" selected>Epley (1985)</option>
+                  <option value="brzycki">Brzycki (1993)</option>
+                  <option value="lombardi">Lombardi (1989)</option>
+                  <option value="oconner">O'Conner (1989)</option>
+                  <option value="wathan">Wathan (1994)</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="mt-6 min-h-11 w-full rounded-md border border-edge bg-ink px-4 text-base font-semibold text-paper sm:w-auto"
+            >
+              Calculate
+            </button>
+          </form>
+        </div>
+
+        <div id="step-2" class="lg:border-l lg:border-rule lg:pl-8">
+          <h2 class="text-xs font-semibold tracking-wide text-graphite uppercase">Result</h2>
+          <div data-result aria-live="polite" aria-atomic="true" class="mt-2 min-h-32"></div>
+          <noscript>
+            <p class="mt-2 max-w-[var(--measure)] text-base">
+              Live results need JavaScript. The tables below are precomputed and work without it.
+            </p>
+          </noscript>
+          <Disclaimer />
+        </div>
+      </div>
+    </calculator-widget>
+
+    <section id="step-3" class="mt-12" aria-labelledby="lift-notes">
+      <h2 id="lift-notes" class="text-xl">The {lift.name.toLowerCase()} specifically</h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">{lift.summary}</p>
+      <p class="mt-4 max-w-[var(--measure)] text-base">{accuracy}</p>
+
+      <ul class="mt-4 max-w-[var(--measure)] list-disc space-y-2 pl-6 text-base">
+        {lift.notes.map((note) => <li>{note}</li>)}
+      </ul>
+
+      <dl
+        class="mt-6 grid max-w-[var(--measure)] gap-x-4 gap-y-1 text-base sm:grid-cols-[9rem_1fr]"
+      >
+        <dt class="text-xs text-graphite">Typical reps</dt>
+        <dd class="m-0">{lift.typicalReps}</dd>
+        <dt class="text-xs text-graphite">Category</dt>
+        <dd class="m-0">{LIFT_CATEGORY_LABELS[lift.category]}</dd>
+      </dl>
+    </section>
+
+    <section class="mt-12" aria-labelledby="estimate-table">
+      <h2 id="estimate-table" class="text-xl">
+        Estimated {lift.name.toLowerCase()} max by weight and reps
+      </h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">
+        Epley estimates in kilograms. Read across from the weight you lifted and down from the
+        repetitions you managed. Columns beyond ten repetitions are shown but are the least
+        reliable.
+      </p>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">Estimated one rep max by weight lifted and repetitions</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-left text-xs text-graphite">
+                Weight
+              </th>
+              {
+                REPS.map((reps) => (
+                  <th
+                    scope="col"
+                    class="numeral border-b border-rule p-2 text-right text-xs text-graphite"
+                  >
+                    {reps} reps
+                  </th>
+                ))
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              LOADS.map((load) => (
+                <tr>
+                  <th scope="row" class="numeral border-b border-rule p-2 text-left font-normal">
+                    {load} kg
+                  </th>
+                  {REPS.map((reps) => (
+                    <td class="numeral border-b border-rule p-2 text-right">
+                      {roundTo(epley(asKilograms(load), reps), 1)}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="percentage-table">
+      <h2 id="percentage-table" class="text-xl">Percentage table</h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">
+        Training loads as a share of a 100 kg maximum, with the repetitions each percentage
+        typically allows. Scale proportionally to your own estimate.
+      </p>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">Percentage of one rep max with expected repetitions</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-left text-xs text-graphite">
+                Percentage
+              </th>
+              <th scope="col" class="border-b border-rule p-2 text-right text-xs text-graphite">
+                Load from 100 kg
+              </th>
+              <th scope="col" class="border-b border-rule p-2 text-right text-xs text-graphite">
+                Approximate reps
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              percentageRows.map((row) => (
+                <tr>
+                  <th scope="row" class="numeral border-b border-rule p-2 text-left font-normal">
+                    {row.percent}%
+                  </th>
+                  <td class="numeral border-b border-rule p-2 text-right">{row.load} kg</td>
+                  <td class="numeral border-b border-rule p-2 text-right">{row.reps}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="conversion">
+      <h2 id="conversion" class="text-xl">Rep-max conversion</h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">
+        What a 100 kg estimated maximum corresponds to at each repetition count, and how the five
+        equations compare for a 100 kg set of five.
+      </p>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">Rep max conversion and formula comparison</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-left text-xs text-graphite">
+                Reps
+              </th>
+              <th scope="col" class="border-b border-rule p-2 text-right text-xs text-graphite">
+                Load for a 100 kg max
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              REPS.map((reps) => (
+                <tr>
+                  <th scope="row" class="numeral border-b border-rule p-2 text-left font-normal">
+                    {reps}
+                  </th>
+                  <td class="numeral border-b border-rule p-2 text-right">
+                    {roundTo(loadForReps(100, reps), 1)} kg
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">The five equations compared for 100 kg times five</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-left text-xs text-graphite">
+                Formula
+              </th>
+              <th scope="col" class="border-b border-rule p-2 text-right text-xs text-graphite">
+                100 kg × 5 reps
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              Object.entries(allOneRepMaxEstimates(asKilograms(100), 5)).map(([name, value]) => (
+                <tr>
+                  <th scope="row" class="border-b border-rule p-2 text-left font-normal capitalize">
+                    {name}
+                  </th>
+                  <td class="numeral border-b border-rule p-2 text-right">
+                    {value === null ? '—' : `${String(roundTo(value, 1))} kg`}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="faq">
+      <h2 id="faq" class="text-xl">Questions</h2>
+      <dl class="mt-4 max-w-[var(--measure)]">
+        {
+          faq.map((entry) => (
+            <div class="border-b border-rule py-4">
+              <dt class="font-display text-base font-semibold">{entry.question}</dt>
+              <dd class="m-0 mt-2 text-base text-graphite">{entry.answer}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="mt-12" aria-labelledby="related-lifts">
+      <h2 id="related-lifts" class="text-xs font-semibold tracking-wide text-graphite uppercase">
+        Other lifts
+      </h2>
+      <ul class="mt-2 grid list-none gap-x-8 p-0 sm:grid-cols-2">
+        {
+          related.map((entry) => (
+            <li>
+              <a
+                href={getLocalePath(`/one-rep-max/${entry.slug}`, locale)}
+                class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+              >
+                {entry.name}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a
+            href={getLocalePath('/guides/one-rep-max-formulas-compared', locale)}
+            class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+          >
+            How 1RM formulas differ
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../../components/islands/calculator';
+</script>
