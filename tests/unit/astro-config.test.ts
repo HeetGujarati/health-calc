@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import config from '../../astro.config.mjs';
+import { ASTRO_I18N_LOCALES, DEFAULT_LOCALE } from '../../src/config/locales';
 
 /**
  * The SEO module builds canonicals, hreflang maps and sitemap entries directly
@@ -23,7 +24,15 @@ describe('astro config invariants', () => {
 
   it('serves the default locale from the root with no prefix', () => {
     expect(config.i18n?.defaultLocale).toBe('en');
+    // astro.config.mjs must write this as a literal for Astro's type inference
+    // to work, so this assertion is what stops it drifting from the shared
+    // constant the SEO module builds every canonical URL from.
+    expect(config.i18n?.defaultLocale).toBe(DEFAULT_LOCALE);
     expect(config.i18n?.routing).toMatchObject({ prefixDefaultLocale: false });
+  });
+
+  it('derives its locale list from the shared definitions, not a copy', () => {
+    expect(config.i18n?.locales).toBe(ASTRO_I18N_LOCALES);
   });
 
   it('ships exactly the ten launch locales', () => {
