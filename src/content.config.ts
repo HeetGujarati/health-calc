@@ -19,6 +19,13 @@ const guides = defineCollection({
   schema: z.object({
     title: z.string().min(10).max(80),
     /**
+     * Optional shorter title for the <title> tag.
+     *
+     * A good H1 is often longer than the 60 characters a search result shows.
+     * Rather than truncating the heading, a guide can carry both.
+     */
+    metaTitle: z.string().min(10).max(49).optional(),
+    /**
      * Capped at 157 so the metadata builder's truncation never fires on a
      * guide — a description cut mid-sentence reads worse than one written to
      * fit.

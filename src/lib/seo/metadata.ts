@@ -90,7 +90,13 @@ export interface BaseMetadataInput {
   readonly path: string;
   readonly locale: Locale;
   readonly keywords?: readonly string[];
-  /** Locales in which this exact page exists. Defaults to every locale. */
+  /**
+   * Locales in which this exact page exists.
+   *
+   * Defaults to the locales actually built, not every locale the routing knows
+   * about — an hreflang pointing at an unbuilt URL is a 404 advertised to
+   * search engines on every page.
+   */
   readonly availableLocales?: readonly Locale[];
   readonly image?: Partial<OpenGraphImage> & { readonly url: string };
   readonly noIndex?: boolean;
@@ -236,7 +242,7 @@ const buildMetadata = (
 
   warnIfTitleTooLong(title, canonical);
 
-  const availableLocales = input.availableLocales ?? SITE.locales;
+  const availableLocales = input.availableLocales ?? SITE.translatedLocales;
   const languages = noIndex ? [] : getHreflangMap(input.path, availableLocales);
 
   const openGraph: OpenGraphMeta = {

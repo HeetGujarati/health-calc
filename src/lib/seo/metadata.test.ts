@@ -174,7 +174,13 @@ describe('locale handling', () => {
   });
 
   it('uses the lowercase path for pt-BR while keeping the cased hreflang', () => {
-    const meta = buildToolMetadata({ ...baseInput, locale: 'pt-BR' });
+    // availableLocales is stated explicitly because it now defaults to the
+    // locales actually built, which is English only until phase 8 lands.
+    const meta = buildToolMetadata({
+      ...baseInput,
+      locale: 'pt-BR',
+      availableLocales: ['en', 'pt-BR'],
+    });
     expect(meta.alternates.canonical).toBe(`${SITE.baseUrl}/pt-br/calculators/bmi/`);
     const self = meta.alternates.languages.find((l) => l.href === meta.alternates.canonical);
     expect(self?.hreflang).toBe('pt-BR');

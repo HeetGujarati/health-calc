@@ -39,6 +39,7 @@ const meta = buildToolMetadata({
   path,
   locale,
   keywords: definition.keywords,
+  image: { url: '/og/calculators.png', alt: definition.heading },
 });
 
 const category = CALCULATOR_CATEGORIES.find((entry) => entry.id === definition.category);

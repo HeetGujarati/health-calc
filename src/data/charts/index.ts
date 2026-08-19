@@ -122,7 +122,7 @@ export const CHART_DEFINITIONS: readonly ChartDefinition[] = [
   {
     slug: 'one-rep-max-percentage-chart',
     heading: 'One rep max percentage chart',
-    metaTitle: '1RM percentage chart — training loads by percentage',
+    metaTitle: '1RM percentage chart — training loads',
     description:
       'Training loads as a percentage of a one rep max, from 50 to 95 per cent, across common maximum values.',
     keywords: ['1rm percentage chart', 'percentage of max chart', 'training load chart'],

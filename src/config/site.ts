@@ -56,6 +56,15 @@ export interface SiteConfig {
   readonly twitterHandle: string | null;
   readonly contactEmail: string;
   readonly FULL_PROGRAMMATIC_LOCALES: readonly Locale[];
+  /**
+   * Locales that actually have pages built.
+   *
+   * Distinct from `locales`, which is every locale the routing understands.
+   * hreflang and sitemap alternates are generated from this list, because
+   * advertising a translation that was never built is worse than advertising
+   * none — the build gate fails on it.
+   */
+  readonly translatedLocales: readonly Locale[];
 }
 
 /**
@@ -151,6 +160,9 @@ export const SITE: SiteConfig = Object.freeze({
    * flip this once indexation is established.
    */
   FULL_PROGRAMMATIC_LOCALES: [],
+
+  /** Phase 8 adds the remaining nine here as their content lands. */
+  translatedLocales: ['en'] as readonly Locale[],
 });
 
 /** Number of programmatic pages a non-full locale receives, per section 5.3. */

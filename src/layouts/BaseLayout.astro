@@ -55,14 +55,10 @@ const allSchemas: readonly JsonLdObject[] = [buildOrganization(), ...schemas];
     <link rel="preload" href={jetBrainsMonoLatin} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={spaceGroteskLatin} as="font" type="font/woff2" crossorigin />
 
-    {
-      /*
-      Raster icons and the web manifest are generated in phase 9 alongside the
-      OG images, since both need the same image pipeline. Referencing them
-      before they exist would 404 and fail the link-check gate.
-    */
-    }
+    {/* Generated into dist by scripts/generate-images.mjs during the build. */}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon-180.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
 
     <JsonLd data={allSchemas} />
   </head>
