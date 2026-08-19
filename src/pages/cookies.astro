@@ -1,0 +1,99 @@
+---
+import ProseLayout from '../layouts/ProseLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<ProseLayout
+  title="Cookies"
+  metaTitle="Cookie policy"
+  description="This site sets no cookies. What it stores locally, why that is not a cookie, and what would change if advertising were introduced."
+  path="/cookies"
+  lastUpdated="2026-08-20"
+  keywords={['cookie policy', 'cookies']}
+>
+  <p>
+    <strong>This site sets no cookies.</strong> Not functional, not analytics, not advertising. That is
+    the whole policy as things currently stand, but the rest of this page explains what the site does
+    store, why that is not a cookie, and what would change if that ever did.
+  </p>
+
+  <h2>What is stored instead</h2>
+
+  <p>
+    Two preferences are kept in your browser's local storage, so the site remembers how you like it:
+  </p>
+
+  <ul>
+    <li><strong>theme</strong> — light or dark appearance.</li>
+    <li><strong>units</strong> — metric or imperial.</li>
+  </ul>
+
+  <p>
+    Local storage differs from a cookie in the way that matters here: it is never attached to
+    network requests. A cookie is sent to the server with every request, which is what makes cookies
+    useful for tracking. Local storage stays on your device and is readable only by this site's own
+    scripts. Neither value identifies you, and clearing your browser data removes both.
+  </p>
+
+  <p>
+    Under the EU ePrivacy Directive, storage that is strictly necessary for a service the user has
+    explicitly requested does not require consent. A theme preference you set by pressing the theme
+    button falls squarely in that category, which is why there is no consent banner on this site.
+  </p>
+
+  <h2>Third-party cookies</h2>
+
+  <p>
+    There are none, because there are no third parties. The site makes no requests to any other
+    domain: no analytics, no tag manager, no advertising network, no embedded video, no social
+    widgets, and no external font service. Fonts are served from this domain precisely so that
+    loading a page contacts nobody else.
+  </p>
+
+  <h2>If advertising is introduced later</h2>
+
+  <p>
+    The site is built to allow advertising to be added without a redesign, and the honest thing is
+    to describe what that would mean rather than leave it unsaid.
+  </p>
+
+  <p>If ads are ever enabled:</p>
+
+  <ul>
+    <li>
+      An advertising provider would set cookies and similar identifiers, used for ad delivery,
+      frequency capping, measurement and, unless limited, personalisation.
+    </li>
+    <li>
+      A consent mechanism would be activated before any advertising script loads. It ships with the
+      site already, switched off, and it gates the scripts rather than merely recording a choice
+      after the fact.
+    </li>
+    <li>
+      For visitors in the EEA and UK, that mechanism must be a certified Consent Management Platform
+      under Google's requirements before personalised ads may be served, and it must offer refusal
+      as easily as acceptance.
+    </li>
+    <li>
+      This page, the <a href="/privacy/">privacy policy</a> and the consent mechanism would all be updated
+      before anything went live, not after.
+    </li>
+  </ul>
+
+  <p>
+    None of that is active today. Nothing on this page describes something currently happening; it
+    describes what would have to happen first.
+  </p>
+
+  <h2>Controlling storage</h2>
+
+  <p>
+    Every browser can clear local storage through its privacy or site-data settings, and most let
+    you block it per site. Blocking it here costs you nothing except that the site forgets your
+    theme and unit preferences between visits. The calculators work regardless.
+  </p>
+
+  <p>
+    Questions: <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.
+  </p>
+</ProseLayout>

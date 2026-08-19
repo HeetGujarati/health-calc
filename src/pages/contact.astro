@@ -1,0 +1,80 @@
+---
+import ProseLayout from '../layouts/ProseLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<ProseLayout
+  title="Contact"
+  metaTitle="Contact"
+  description="How to report a formula error, an accessibility barrier or a security issue. No contact form, because the site has no server to receive one."
+  path="/contact"
+  lastUpdated="2026-08-20"
+  keywords={['contact']}
+>
+  <p>
+    Email <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.
+  </p>
+
+  <p class="rounded-md border border-caution/40 bg-caution-surface p-3 text-xs text-caution">
+    <strong>Owner placeholder.</strong> Replace the contact address in <code
+      >src/config/site.ts</code
+    >
+    before launch. It appears here, in the privacy policy, in the terms and in security.txt, and changing
+    it in that one file updates all of them.
+  </p>
+
+  <h2>Why there is no contact form</h2>
+
+  <p>
+    A form needs somewhere to send the submission, which means a server, which means somewhere your
+    message is stored and something else to secure. This site is static files with no backend, and
+    keeping it that way is the reason nothing you type into a calculator can leave your device. An
+    email address is a fair trade for that.
+  </p>
+
+  <h2>Reporting a formula error</h2>
+
+  <p>
+    These are the most useful reports we get, and they are taken seriously. Please include the page,
+    the inputs you used, the result you got and the result you expected — and a source if you have
+    one. A citation to the original paper makes a correction quick and certain.
+  </p>
+
+  <p>
+    Every formula is checked against worked examples from its source in an automated test suite, so
+    a genuine discrepancy usually means either a transcription error worth fixing everywhere, or a
+    standard that has been superseded since the page was written. Both matter.
+  </p>
+
+  <h2>Reporting an accessibility barrier</h2>
+
+  <p>
+    Tell us which page, what you were trying to do, and what browser and assistive technology you
+    were using if you are comfortable sharing it. See the
+    <a href="/accessibility/">accessibility statement</a> for what is already known to fall short. These
+    are treated as defects, not feature requests.
+  </p>
+
+  <h2>Reporting a security issue</h2>
+
+  <p>
+    Please report privately in the first instance, following
+    <a href="/.well-known/security.txt">security.txt</a>. Testing against this site is welcome
+    within the scope described there; please do not run automated scanning that places load on the
+    host.
+  </p>
+
+  <h2>What we cannot help with</h2>
+
+  <p>
+    We cannot give personal health, nutrition or training advice, interpret your results, or tell
+    you what you should weigh or eat. That is not modesty — an equation and a web page do not know
+    enough about you to answer those questions responsibly. A doctor or a qualified professional
+    does.
+  </p>
+
+  <p>
+    If you have concerns about eating, weight or body image, please take them to someone qualified
+    to help rather than to a calculator.
+  </p>
+</ProseLayout>

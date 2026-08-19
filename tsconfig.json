@@ -19,6 +19,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [".astro/types.d.ts", "src/**/*", "scripts/**/*", "tests/**/*", "*.config.*"],
+  "include": [
+    ".astro/types.d.ts",
+    "src/**/*",
+    "src/pages/.well-known/**/*",
+    "scripts/**/*",
+    "tests/**/*",
+    "*.config.*"
+  ],
   "exclude": ["dist", "node_modules", "coverage", "playwright-report", "test-results"]
 }

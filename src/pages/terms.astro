@@ -1,0 +1,109 @@
+---
+import ProseLayout from '../layouts/ProseLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<ProseLayout
+  title="Terms"
+  metaTitle="Terms of use"
+  description="Terms of use for this site, including the limits of what the calculators are for and the absence of any medical relationship."
+  path="/terms"
+  lastUpdated="2026-08-20"
+  keywords={['terms of use', 'terms and conditions']}
+>
+  <p>By using {SITE.name} you agree to these terms. If you do not, please do not use the site.</p>
+
+  <p class="rounded-md border border-caution/40 bg-caution-surface p-3 text-xs text-caution">
+    <strong>Owner placeholder.</strong> Insert the legal entity name and governing jurisdiction below
+    before launch. See the checklist in DEPLOY.md.
+  </p>
+
+  <h2>Not medical advice</h2>
+
+  <p>
+    This is the term that matters most. The calculators produce estimates from published,
+    population-level equations. Those equations describe averages across groups; they do not
+    describe you, and they cannot account for medical conditions, medication, pregnancy, disability,
+    training history or anything else an equation has no input for.
+  </p>
+
+  <p>
+    Nothing on this site is medical advice, diagnosis or treatment, and using it creates no
+    practitioner relationship of any kind. Do not use it to make a decision you would otherwise take
+    to a doctor. If you have concerns about eating, weight or body image, a doctor or a qualified
+    professional is the right place to take them.
+  </p>
+
+  <h2>Accuracy</h2>
+
+  <p>
+    Every formula is implemented from a named published source and checked against worked examples
+    from that source in an automated test suite. That is a real commitment and it catches real
+    errors, but it is not a guarantee of correctness, and the underlying equations carry their own
+    published error margins which the pages state.
+  </p>
+
+  <p>
+    The site is provided as is, without warranty of any kind, express or implied, including any
+    warranty of accuracy, fitness for a particular purpose or non-infringement.
+  </p>
+
+  <h2>Limitation of liability</h2>
+
+  <p>
+    To the fullest extent permitted by law, <strong>[LEGAL ENTITY NAME]</strong> is not liable for any
+    loss or damage arising from use of this site or reliance on anything it produces. Nothing in these
+    terms limits liability for death or personal injury caused by negligence, for fraud, or for anything
+    else that cannot lawfully be limited.
+  </p>
+
+  <h2>Acceptable use</h2>
+
+  <ul>
+    <li>Use the site for its intended purpose, personally or professionally.</li>
+    <li>
+      Do not attempt to disrupt the site, probe it for vulnerabilities without permission, or place
+      automated load on it beyond ordinary browsing.
+    </li>
+    <li>
+      Do not represent the site's output as medical advice, or republish it in a way that implies
+      clinical endorsement.
+    </li>
+  </ul>
+
+  <p>
+    Security researchers are welcome — see <a href="/.well-known/security.txt">security.txt</a> for how
+    to report something responsibly.
+  </p>
+
+  <h2>Intellectual property</h2>
+
+  <p>
+    The equations themselves are published science and belong to their authors and the scientific
+    record; the citations on each page identify them. The site's own text, design and code are owned
+    by the operator. You may quote and link to pages with attribution. You may not reproduce the
+    site wholesale.
+  </p>
+
+  <h2>Links to other sites</h2>
+
+  <p>
+    Where pages cite published papers, those references point to work published elsewhere. We are
+    not responsible for the content or availability of anything outside this domain.
+  </p>
+
+  <h2>Changes</h2>
+
+  <p>
+    These terms may be updated. The date below reflects the current version, and continuing to use
+    the site after a change means accepting it.
+  </p>
+
+  <h2>Governing law</h2>
+
+  <p>
+    These terms are governed by the laws of <strong>[JURISDICTION]</strong>, and the courts of that
+    jurisdiction have exclusive jurisdiction over any dispute. Questions:
+    <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.
+  </p>
+</ProseLayout>

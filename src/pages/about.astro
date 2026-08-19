@@ -1,0 +1,88 @@
+---
+import ProseLayout from '../layouts/ProseLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<ProseLayout
+  title="About"
+  metaTitle="About this site"
+  description="What this site is, what it deliberately leaves out, and how it is built. No accounts, no tracking, no third-party scripts."
+  path="/about"
+  lastUpdated="2026-08-20"
+  keywords={['about', 'fitness calculator site']}
+>
+  <p>
+    {SITE.name} is a set of health and fitness calculators built on published equations. Every calculator
+    names the paper its formula comes from, shows the formula itself, and states what the equation assumes
+    and where it is weak.
+  </p>
+
+  <h2>Why it exists</h2>
+
+  <p>
+    Most calculator sites give you a number and no way to check it. Some cite papers that do not
+    contain the values they use. Several still compute standards that were withdrawn years ago. The
+    number arrives with no indication of how much confidence it deserves.
+  </p>
+
+  <p>
+    This site takes the opposite approach. Where equations disagree, all of them are shown. Where an
+    equation is known to misbehave — the James lean mass equation turns over above about 150 kg, the
+    Epley formula is not exact at a single repetition — the page says so. Where a widely used value
+    has no published source, the page says that too.
+  </p>
+
+  <h2>What it will not do</h2>
+
+  <p>
+    There are limits built into the calculators themselves, not just the copy. Calorie targets are
+    floored and deficits capped. No plan is produced toward a goal weight below a healthy BMI. No
+    calorie or body-composition figure is produced for anyone under 18. These are enforced in code
+    and covered by tests, so they cannot be lost in a redesign. The
+    <a href="/editorial-policy/">editorial policy</a> sets out the full list.
+  </p>
+
+  <p>
+    Some calculators are deliberately absent. Kidney function, body surface area for chemotherapy
+    dosing and blood alcohol content all produce numbers that feed real decisions, and they belong
+    with a clinician. Pregnancy and fertility calculators are the highest-scrutiny category in
+    health, properly served by established medical publishers.
+  </p>
+
+  <h2>How it is built</h2>
+
+  <p>
+    Static pages, no accounts, no database. Nothing you type is sent anywhere — the calculations run
+    in your browser, and the site has no server to send them to. There are no analytics, no
+    advertising scripts and no third-party requests of any kind. Fonts are served from this domain.
+  </p>
+
+  <p>
+    Your unit preference and theme choice are stored in your browser's local storage so the site
+    remembers them. That is the only thing stored, it never leaves your device, and clearing your
+    browser data removes it.
+  </p>
+
+  <h2>Accuracy and corrections</h2>
+
+  <p>
+    Every formula is checked against worked examples from its source paper in an automated test
+    suite. That catches transcription errors, which are the most common way a calculator ends up
+    quietly wrong.
+  </p>
+
+  <p>
+    It does not catch everything. If you find an error — a wrong coefficient, a misattributed
+    citation, a standard that has been superseded — <a href="/contact/">tell us</a>. Corrections to
+    formulas are the most valuable thing anyone can send.
+  </p>
+
+  <h2>Not medical advice</h2>
+
+  <p>
+    These are estimates from population-level equations. They describe averages across groups of
+    people, and individual needs vary in ways no equation captures. Nothing here is medical advice.
+    If you have concerns about eating, weight or body image, a doctor or a qualified professional is
+    the right place to take them.
+  </p>
+</ProseLayout>

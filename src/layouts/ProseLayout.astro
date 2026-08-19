@@ -1,0 +1,84 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { buildBaseMetadata } from '../lib/seo/metadata';
+import { buildBreadcrumbList, type JsonLdObject } from '../lib/seo/schema';
+import type { Locale } from '../config/locales';
+
+interface Props {
+  title: string;
+  metaTitle?: string;
+  description: string;
+  path: string;
+  locale?: Locale;
+  lastUpdated?: string;
+  keywords?: readonly string[];
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  metaTitle,
+  description,
+  path,
+  locale = 'en',
+  lastUpdated,
+  keywords = [],
+  noIndex = false,
+} = Astro.props;
+
+/**
+ * Layout for prose pages: about, legal, policy and accessibility.
+ *
+ * These carry no calculator, so the measure is capped tighter than the
+ * calculator pages and the whole column is a single readable strip.
+ */
+const meta = buildBaseMetadata({
+  title: metaTitle ?? title,
+  description,
+  path,
+  locale,
+  keywords,
+  noIndex,
+});
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: title, path },
+];
+
+const schemas: JsonLdObject[] = [];
+const breadcrumbs = buildBreadcrumbList(crumbs, locale);
+if (breadcrumbs !== null) schemas.push(breadcrumbs);
+
+const lastUpdatedLabel =
+  lastUpdated === undefined
+    ? null
+    : new Date(lastUpdated).toLocaleDateString('en-GB', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+---
+
+<BaseLayout meta={meta} currentPath={path} schemas={schemas}>
+  <div class="mx-auto max-w-3xl px-4 py-6">
+    <Breadcrumbs items={crumbs} locale={locale} label="Breadcrumb" />
+
+    <h1 class="mt-4 text-2xl sm:text-3xl">{title}</h1>
+
+    <div
+      class="mt-6 [&_a]:text-signal [&_a]:underline [&_h2]:mt-10 [&_h2]:text-xl [&_h3]:mt-6 [&_h3]:text-lg [&_li]:mt-1 [&_p]:mt-4 [&_p]:max-w-[var(--measure)] [&_p]:text-base [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6"
+    >
+      <slot />
+    </div>
+
+    {
+      lastUpdatedLabel !== null && (
+        <p class="mt-12 text-xs text-graphite">
+          Last updated <time datetime={lastUpdated}>{lastUpdatedLabel}</time>.
+        </p>
+      )
+    }
+  </div>
+</BaseLayout>

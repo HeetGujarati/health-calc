@@ -1,0 +1,140 @@
+---
+import ProseLayout from '../layouts/ProseLayout.astro';
+---
+
+<ProseLayout
+  title="Editorial policy"
+  metaTitle="Editorial policy — how formulas are chosen and cited"
+  description="How this site selects equations, what it cites, what it refuses to publish, and how often the content is reviewed."
+  path="/editorial-policy"
+  lastUpdated="2026-08-20"
+  keywords={['editorial policy', 'how we source formulas']}
+>
+  <p>
+    This site publishes calculators built on equations that were published, peer-reviewed where the
+    field permits it, and are named on the page that uses them. This page sets out how those choices
+    are made, and what will not be published here.
+  </p>
+
+  <h2>How equations are selected</h2>
+
+  <p>
+    Every formula on this site comes from a named, published source. Where a calculator offers more
+    than one equation, all of them are shown rather than one being presented as the answer, because
+    published equations for the same quantity routinely disagree — three basal metabolic rate
+    equations differ by 100 to 300 kcal for the same person, and hiding that disagreement would
+    misrepresent how much confidence the number deserves.
+  </p>
+
+  <p>
+    The default equation on each page is chosen on published accuracy against a reference method,
+    not on popularity. Where the most accurate equation needs an input most readers will not have —
+    Katch-McArdle needs measured lean mass — the default is the best equation that works with the
+    inputs people actually have, and the page says so.
+  </p>
+
+  <p>
+    Every equation is listed with its citation in <a href="/">FORMULAS.md</a> in the repository, and each
+    is checked against at least three worked examples from its source paper in the test suite. A change
+    to a coefficient fails a test before it reaches a page.
+  </p>
+
+  <h2>What is cited, and what is not</h2>
+
+  <p>
+    Each calculator page names the paper, journal, volume and year for every equation it offers. If
+    a value cannot be traced to a published source, it is not published as though it were.
+  </p>
+
+  <p>
+    That principle has consequences worth stating plainly. The activity multipliers used by every
+    TDEE calculator on the web — 1.2 through 1.9 — do not come from any single published paper. They
+    are a convention that spread through fitness literature, and sites that attribute them to
+    Harris-Benedict or Mifflin-St Jeor are citing papers that do not contain them. This site labels
+    them as a convention and cites the physical activity level frameworks that <em>are</em>
+    published, from the Institute of Medicine and FAO/WHO/UNU, alongside.
+  </p>
+
+  <h2>How currency is checked</h2>
+
+  <p>
+    Standards change, and a calculator that silently implements a rescinded standard is worse than
+    no calculator. The Army body composition page is the clearest example: Army Directive 2026-13
+    replaced the tape test with waist-to-height ratio in July 2026, and this site implements the
+    current standard and explains the change rather than continuing to compute a figure the Army no
+    longer accepts.
+  </p>
+
+  <p>
+    Where a standard has been superseded, the superseded method is not implemented. Presenting a
+    historical figure beside a current one invites exactly the confusion the page exists to resolve.
+  </p>
+
+  <h2>What this site does not publish</h2>
+
+  <ul>
+    <li>
+      Guidance on very-low-calorie diets, prolonged fasting protocols, dehydration or water-cutting
+      for weigh-ins, purging, or appetite suppression.
+    </li>
+    <li>
+      Calorie targets below 1,500 kcal for men or 1,200 kcal for women. Intakes below those are
+      clinical tools requiring supervision and monitoring that a website cannot provide.
+    </li>
+    <li>
+      Plans toward a goal weight below a BMI of 18.5. The healthy range for that height is shown
+      instead.
+    </li>
+    <li>
+      Any calorie or body-composition figure for anyone under 18. The equations were derived on
+      adults and do not model growth.
+    </li>
+    <li>
+      Clinical tools whose outputs feed medical decisions: GFR, body surface area for chemotherapy
+      dosing, and blood alcohol content. Those belong with a clinician, not a general-audience site.
+    </li>
+    <li>
+      Pregnancy, due date, ovulation and conception calculators. Being wrong there matters more than
+      almost anywhere else, and the category is properly served by established medical publishers.
+    </li>
+  </ul>
+
+  <h2>On authorship and review</h2>
+
+  <p>
+    There is no medical reviewer for this site, and no page claims one. You will not find "medically
+    reviewed by" or an invented set of credentials anywhere here, because inventing them is
+    dishonest and readers deserve to know what they are actually reading.
+  </p>
+
+  <p>
+    The honest expertise signal available is the sourcing itself: every equation named, every
+    citation checkable, every assumption and known limitation stated on the page that uses it. Where
+    an equation is weak, the page says where and why — the ideal weight equations come from drug
+    dosing and were never validated as health targets, and the page leads with that rather than
+    burying it.
+  </p>
+
+  <h2>On the numbers themselves</h2>
+
+  <p>
+    Results are reported, not editorialised. This site tells you what an equation produced and what
+    that equation assumes. It does not tell you whether the number is good, and it attaches no
+    colour, icon or judgement to a result. BMI categories are stated once, factually, using the
+    WHO's own terminology, alongside the fact that BMI cannot distinguish muscle from fat.
+  </p>
+
+  <h2>Corrections and review cadence</h2>
+
+  <p>
+    Every page carries a real last-reviewed date. Content is reviewed when a source standard
+    changes, when an error is reported, and on a scheduled pass at least annually. Corrections are
+    made to the page rather than appended, and the review date is updated when they are.
+  </p>
+
+  <p>
+    If you have found an error — a mistyped coefficient, a misattributed citation, a superseded
+    standard — <a href="/contact/">please report it</a>. Corrections to formulas are the most useful
+    thing anyone can send.
+  </p>
+</ProseLayout>

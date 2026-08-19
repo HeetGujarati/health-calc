@@ -1,0 +1,108 @@
+---
+import ProseLayout from '../layouts/ProseLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<ProseLayout
+  title="Accessibility"
+  metaTitle="Accessibility statement"
+  description="What this site commits to on accessibility, what is verified automatically, what is known to fall short, and how to report a barrier."
+  path="/accessibility"
+  lastUpdated="2026-08-20"
+  keywords={['accessibility statement', 'wcag']}
+>
+  <p>
+    {SITE.name} aims to meet <strong>WCAG 2.2 level AA</strong>. This page states what that means in
+    practice, what is checked automatically on every build, and where the site is known to fall
+    short.
+  </p>
+
+  <h2>What is in place</h2>
+
+  <ul>
+    <li>
+      <strong>Every input has a real label.</strong> Not a placeholder standing in for one — placeholders
+      disappear when you start typing, which strands anyone who loses their place.
+    </li>
+    <li>
+      <strong>Results are announced.</strong> The result area is a polite live region, so a screen reader
+      reads the new figure without stealing focus from the field you are typing in.
+    </li>
+    <li>
+      <strong>Visible focus everywhere.</strong> A two-pixel outline with an offset, never removed, and
+      it meets contrast requirements against both the light and dark backgrounds.
+    </li>
+    <li>
+      <strong>Fully keyboard operable.</strong> Every calculator can be completed start to finish without
+      a mouse, and a skip link is the first thing you reach on every page.
+    </li>
+    <li>
+      <strong>Contrast.</strong> Every text colour meets at least 4.5:1 against its background in both
+      themes, and input borders meet 3:1 as interactive components require.
+    </li>
+    <li>
+      <strong>Touch targets.</strong> Controls are at least 44 by 44 pixels, comfortably above the 24-pixel
+      minimum.
+    </li>
+    <li>
+      <strong>Reduced motion respected.</strong> If your system asks for reduced motion, transitions are
+      disabled.
+    </li>
+    <li>
+      <strong>Works without JavaScript.</strong> Every page is readable, and every reference table is
+      usable, with scripting disabled. Only the live-updating calculator needs it.
+    </li>
+    <li>
+      <strong>Real page structure.</strong> One h1 per page, headings in order, landmarks, and tables
+      with proper header cells and scopes rather than styled divs.
+    </li>
+  </ul>
+
+  <h2>How this is verified</h2>
+
+  <p>
+    Colour contrast is recomputed from the actual stylesheet on every build — not from a copy of the
+    palette, so it cannot pass while the shipped CSS drifts. Markup is validated against the HTML
+    specification and a set of WCAG techniques on every build, and the build fails on a violation.
+    Keyboard operation and screen-reader announcement are covered by automated browser tests.
+  </p>
+
+  <p>
+    Automated checks catch perhaps half of what matters. They cannot tell you whether a label is
+    clearly written or whether a reading order makes sense, so they are a floor rather than a
+    ceiling.
+  </p>
+
+  <h2>Known limitations</h2>
+
+  <p>Stating these is more useful than claiming none exist.</p>
+
+  <ul>
+    <li>
+      The site has not been audited by an external accessibility specialist, and has not been tested
+      with every screen reader and browser combination.
+    </li>
+    <li>
+      Wide reference tables scroll horizontally on narrow screens. The scroll container is
+      keyboard-reachable, but a very wide table remains harder to read on a phone than on a desktop.
+    </li>
+    <li>
+      Some formulas are presented as preformatted text with mathematical symbols. Screen reader
+      pronunciation of those varies, and each is accompanied by a plain-language description of what
+      the equation does.
+    </li>
+  </ul>
+
+  <h2>Reporting a barrier</h2>
+
+  <p>
+    If something here is unusable for you, please say so — including which page, what you were
+    trying to do, and what assistive technology and browser you were using, if you are comfortable
+    sharing that. Reports go to <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.
+  </p>
+
+  <p>
+    Accessibility problems are treated as defects rather than enhancements, and a report about
+    something being unusable takes priority over new features.
+  </p>
+</ProseLayout>
