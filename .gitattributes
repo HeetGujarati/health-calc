@@ -1,0 +1,16 @@
+# Normalise to LF in the repository regardless of the checkout platform.
+# Development happens on Windows and CI runs on Linux; without this, Prettier's
+# --check step disagrees with itself across the two.
+* text=auto eol=lf
+
+# Binary assets must never be line-ending normalised.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
