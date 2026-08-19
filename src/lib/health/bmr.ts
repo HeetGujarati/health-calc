@@ -113,8 +113,20 @@ export const basalMetabolicRate = (input: BmrInput, formula: BmrFormula): number
   }
 };
 
-/** Every equation that can be computed from the given input, for comparison. */
-export const allBmrEstimates = (input: BmrInput): Record<BmrFormula, number | null> => ({
+/**
+ * Every equation that can be computed from the given input, for comparison.
+ *
+ * The return type distinguishes the two equations that always produce a number
+ * from the one that cannot without lean mass, so callers are not forced to
+ * null-check results that can never be null.
+ */
+export const allBmrEstimates = (
+  input: BmrInput
+): {
+  readonly mifflin_st_jeor: number;
+  readonly revised_harris_benedict: number;
+  readonly katch_mcardle: number | null;
+} => ({
   mifflin_st_jeor: mifflinStJeor(input.mass, input.height, input.age, input.sex),
   revised_harris_benedict: revisedHarrisBenedict(input.mass, input.height, input.age, input.sex),
   katch_mcardle: input.leanBodyMass === undefined ? null : katchMcArdle(input.leanBodyMass),

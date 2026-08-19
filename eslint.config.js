@@ -88,6 +88,10 @@ export default defineConfig([
         { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
       ],
       '@typescript-eslint/no-unnecessary-condition': 'error',
+      // Form values arrive as Record<string, string>. Reading them by key is
+      // indexing, not property access, and bracket syntax says so — dot
+      // notation would read as though `reps` were a declared field.
+      '@typescript-eslint/dot-notation': ['error', { allowIndexSignaturePropertyAccess: true }],
       '@typescript-eslint/restrict-template-expressions': [
         'error',
         { allowNumber: true, allowBoolean: false, allowNullish: false },

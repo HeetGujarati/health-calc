@@ -77,10 +77,20 @@ export const oneRepMax = (
   }
 };
 
+/**
+ * Every estimate. Only Brzycki can be undefined (at 37 reps), so the return
+ * type says exactly that rather than forcing null checks on the other four.
+ */
 export const allOneRepMaxEstimates = (
   load: Kilograms,
   reps: number
-): Record<OneRepMaxFormula, number | null> => ({
+): {
+  readonly epley: number;
+  readonly brzycki: number | null;
+  readonly lombardi: number;
+  readonly oconner: number;
+  readonly wathan: number;
+} => ({
   epley: epley(load, reps),
   brzycki: brzycki(load, reps),
   lombardi: lombardi(load, reps),

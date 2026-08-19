@@ -1,4 +1,3 @@
-import { z } from 'zod';
 import { err, ok, type Result } from './errors';
 import {
   asBeatsPerMinute,
@@ -192,29 +191,25 @@ export const parseMet = (raw: unknown, field = 'met'): Result<MetabolicEquivalen
 export const SEXES = ['male', 'female'] as const;
 export type Sex = (typeof SEXES)[number];
 
-export const sexSchema = z.enum(SEXES);
+export const isSex = (value: unknown): value is Sex =>
+  typeof value === 'string' && (SEXES as readonly string[]).includes(value);
 
-export const parseSex = (raw: unknown, field = 'sex'): Result<Sex> => {
-  const parsed = sexSchema.safeParse(raw);
-  if (!parsed.success) {
-    return err(
-      'unsupported_option',
-      'Choose which set of equation coefficients to use: male or female.',
-      field
-    );
-  }
-  return ok(parsed.data);
-};
+export const parseSex = (raw: unknown, field = 'sex'): Result<Sex> =>
+  isSex(raw)
+    ? ok(raw)
+    : err(
+        'unsupported_option',
+        'Choose which set of equation coefficients to use: male or female.',
+        field
+      );
 
 export const UNIT_SYSTEMS = ['metric', 'imperial'] as const;
 export type UnitSystem = (typeof UNIT_SYSTEMS)[number];
 
-export const unitSystemSchema = z.enum(UNIT_SYSTEMS);
+export const isUnitSystem = (value: unknown): value is UnitSystem =>
+  typeof value === 'string' && (UNIT_SYSTEMS as readonly string[]).includes(value);
 
-export const parseUnitSystem = (raw: unknown, field = 'units'): Result<UnitSystem> => {
-  const parsed = unitSystemSchema.safeParse(raw);
-  if (!parsed.success) {
-    return err('unsupported_option', 'Choose either metric or imperial units.', field);
-  }
-  return ok(parsed.data);
-};
+export const parseUnitSystem = (raw: unknown, field = 'units'): Result<UnitSystem> =>
+  isUnitSystem(raw)
+    ? ok(raw)
+    : err('unsupported_option', 'Choose either metric or imperial units.', field);
