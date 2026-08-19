@@ -1,0 +1,231 @@
+/*
+ * Design tokens.
+ *
+ * Every value here is justified in DESIGN.md. Colours were chosen by computing
+ * WCAG contrast ratios rather than by eye, and a unit test recomputes them so a
+ * later tweak cannot quietly drop a pairing below 4.5:1.
+ *
+ * Theme switching works by redefining the raw --c-* values under three
+ * selectors, while the semantic tokens that components consume point at those
+ * variables and never change. A component therefore never knows which theme is
+ * active, and adding a theme touches this file only.
+ */
+
+:root {
+  color-scheme: light;
+
+  --c-paper: #f6f7f8;
+  --c-raised: #ffffff;
+  --c-ink: #14161a;
+  --c-graphite: #5b6472;
+  --c-rule: #dfe3e8;
+  --c-edge: #78838f;
+  --c-signal: #0e6f83;
+  --c-signal-hover: #0b5f70;
+  --c-caution: #7a5a10;
+  --c-caution-surface: #fdf6e3;
+}
+
+/*
+ * System preference, but only when the reader has not chosen explicitly.
+ * The :not() is what makes the manual toggle win over the OS setting.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --c-paper: #15171b;
+    --c-raised: #1e2126;
+    --c-ink: #e9ecef;
+    --c-graphite: #98a2b0;
+    --c-rule: #2b2f36;
+    --c-edge: #68707e;
+    --c-signal: #5fd0e6;
+    --c-signal-hover: #7bdcef;
+    --c-caution: #e0b64a;
+    --c-caution-surface: #2a2418;
+  }
+}
+
+/* Explicit choice, set by the pre-paint theme script. Wins over the media query. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --c-paper: #15171b;
+  --c-raised: #1e2126;
+  --c-ink: #e9ecef;
+  --c-graphite: #98a2b0;
+  --c-rule: #2b2f36;
+  --c-edge: #68707e;
+  --c-signal: #5fd0e6;
+  --c-signal-hover: #7bdcef;
+  --c-caution: #e0b64a;
+  --c-caution-surface: #2a2418;
+}
+
+/*
+ * Tailwind v4 theme.
+ *
+ * These map utility names onto the theme-aware variables above, so `bg-paper`
+ * and `text-signal` follow the active theme with no dark: variants anywhere in
+ * the markup. That is what keeps ~880 pages of templates free of theme logic.
+ */
+@theme {
+  --color-paper: var(--c-paper);
+  --color-raised: var(--c-raised);
+  --color-ink: var(--c-ink);
+  --color-graphite: var(--c-graphite);
+  --color-rule: var(--c-rule);
+  --color-edge: var(--c-edge);
+  --color-signal: var(--c-signal);
+  --color-signal-hover: var(--c-signal-hover);
+  --color-caution: var(--c-caution);
+  --color-caution-surface: var(--c-caution-surface);
+
+  /* Faces. Self-hosted; see DESIGN.md for why each was chosen. */
+  --font-display: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Public Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* 1.25 major third. See DESIGN.md. */
+  --text-xs: 0.833rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.563rem;
+  --text-2xl: 1.953rem;
+  --text-3xl: 2.441rem;
+
+  /* 4px base unit. */
+  --spacing: 0.25rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
+/*
+ * The signature element: the result readout.
+ *
+ * Fluid rather than stepped, because it is the one thing that should fill
+ * whatever width it is given. Tabular figures and a slight negative tracking
+ * keep long numbers from sprawling.
+ */
+:root {
+  --text-result: clamp(2.5rem, 9vw, 4.5rem);
+  --measure: 68ch;
+  --touch-target: 44px;
+}
+
+/* --- Base element styling ------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Anchor links land below the sticky header rather than under it. */
+  scroll-padding-top: calc(var(--spacing) * 20);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--c-paper);
+  color: var(--c-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+/*
+ * Every figure on the site is monospaced and tabular, so columns of numbers
+ * align without per-table styling and a value cannot change width as it updates.
+ */
+.numeral,
+td.numeral,
+th.numeral {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* --- Focus --------------------------------------------------------------- */
+
+/*
+ * Never removed. :focus-visible so it does not fire on mouse press, which is
+ * what makes people want to remove it in the first place.
+ */
+:focus-visible {
+  outline: 2px solid var(--c-signal);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Motion -------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Utilities ----------------------------------------------------------- */
+
+/* Visually hidden but available to assistive technology. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/*
+ * Skip link. Hidden until focused, then pinned to the top-left.
+ * Keyboard users hit this before the nav on every page.
+ */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  background-color: var(--c-raised);
+  color: var(--c-ink);
+  border: 1px solid var(--c-edge);
+  border-radius: var(--radius-sm);
+  transform: translateY(-150%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}

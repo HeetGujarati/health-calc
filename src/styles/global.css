@@ -1,1 +1,24 @@
+/*
+ * Global stylesheet.
+ *
+ * Order matters: Tailwind first so its preflight lands before our base element
+ * styles, then the fonts, then the tokens which define the theme variables the
+ * utilities are wired to.
+ *
+ * The fontsource `wght.css` entrypoints declare every subset with a
+ * unicode-range, so a browser downloads only the subsets the page actually
+ * uses — Latin content never fetches the Vietnamese or Latin-Extended files.
+ *
+ * Coverage note: these three faces are Latin-only. Hindi, Japanese and Arabic
+ * fall back to a locale-appropriate system stack rather than shipping Noto
+ * Devanagari/JP/Arabic, which would cost megabytes against a page budget
+ * measured in kilobytes. See tokens for the per-script stacks.
+ */
+
 @import 'tailwindcss';
+
+@import '@fontsource-variable/public-sans/wght.css';
+@import '@fontsource-variable/space-grotesk/wght.css';
+@import '@fontsource-variable/jetbrains-mono/wght.css';
+
+@import './tokens.css';
