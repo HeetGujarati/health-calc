@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 /**
  * Calculator behaviour, tested against the production build.
@@ -15,7 +15,7 @@ import { expect, test } from '@playwright/test';
  * wrapping label, so the input itself is not actionable. A real user clicks the
  * label, and so does this.
  */
-const chooseOption = async (page: import('@playwright/test').Page, label: string) => {
+const chooseOption = async (page: Page, label: string) => {
   await page
     .locator('label')
     .filter({ hasText: new RegExp(`^${label}$`) })

@@ -87,10 +87,14 @@ test.describe('structured data', () => {
     const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
     expect(blocks.length).toBeGreaterThan(0);
 
-    const parsed = blocks.flatMap((raw) => {
-      const value: unknown = JSON.parse(raw);
+    interface LdNode {
+      '@type': string;
+      aggregateRating?: unknown;
+    }
+    const parsed: LdNode[] = blocks.flatMap((raw) => {
+      const value = JSON.parse(raw) as LdNode | LdNode[];
       return Array.isArray(value) ? value : [value];
-    }) as { '@type': string; aggregateRating?: unknown }[];
+    });
 
     const types = parsed.map((node) => node['@type']);
     expect(types).toContain('SoftwareApplication');
@@ -107,10 +111,14 @@ test.describe('structured data', () => {
     await page.goto('/calculators/bmi/');
 
     const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
-    const nodes = blocks.flatMap((raw) => {
-      const value: unknown = JSON.parse(raw);
+    interface HowToNode {
+      '@type': string;
+      step?: { url: string }[];
+    }
+    const nodes: HowToNode[] = blocks.flatMap((raw) => {
+      const value = JSON.parse(raw) as HowToNode | HowToNode[];
       return Array.isArray(value) ? value : [value];
-    }) as { '@type': string; step?: { url: string }[] }[];
+    });
 
     const howTo = nodes.find((node) => node['@type'] === 'HowTo');
     expect(howTo).toBeDefined();

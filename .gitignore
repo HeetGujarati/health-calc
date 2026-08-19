@@ -28,3 +28,6 @@ test-results/
 # logs
 *.log
 npm-debug.log*
+
+# Lighthouse CI output
+.lighthouseci/

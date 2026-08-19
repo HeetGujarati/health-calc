@@ -66,6 +66,9 @@ jobs:
       - name: Audit SEO output
         run: npm run audit:seo
 
+      - name: Audit JavaScript budget
+        run: npm run audit:budget
+
       - name: Check internal links
         run: npm run audit:links
 
@@ -104,3 +107,29 @@ jobs:
 
       - name: Run Playwright suite
         run: npm run test:e2e
+
+  lighthouse:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Fails below 95 on performance, accessibility, best practices or SEO
+      # across eight representative URLs, three runs each. Thresholds live in
+      # lighthouserc.json.
+      - name: Lighthouse CI
+        run: npm run audit:lighthouse
