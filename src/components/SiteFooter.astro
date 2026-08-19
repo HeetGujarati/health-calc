@@ -1,0 +1,91 @@
+---
+import { SITE } from '../config/site';
+import type { Locale } from '../config/locales';
+import { getLocalePath } from '../lib/seo/urls';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const SECTIONS = [
+  {
+    heading: 'Calculators',
+    links: [
+      { path: '/calculators', label: 'All calculators' },
+      { path: '/charts', label: 'Reference charts' },
+      { path: '/guides', label: 'Guides' },
+      { path: '/search', label: 'Search' },
+    ],
+  },
+  {
+    heading: 'About',
+    links: [
+      { path: '/about', label: 'About' },
+      { path: '/editorial-policy', label: 'Editorial policy' },
+      { path: '/accessibility', label: 'Accessibility' },
+      { path: '/contact', label: 'Contact' },
+    ],
+  },
+  {
+    heading: 'Legal',
+    links: [
+      { path: '/privacy', label: 'Privacy' },
+      { path: '/terms', label: 'Terms' },
+      { path: '/cookies', label: 'Cookies' },
+    ],
+  },
+] as const;
+
+const year = 2026;
+---
+
+<footer class="mt-16 border-t border-rule bg-paper">
+  <div class="mx-auto max-w-5xl px-4 py-10">
+    <div class="grid gap-8 sm:grid-cols-3">
+      {
+        SECTIONS.map((section) => (
+          <nav aria-label={section.heading}>
+            <h2 class="mb-3 font-display text-xs font-semibold tracking-wide text-graphite uppercase">
+              {section.heading}
+            </h2>
+            <ul class="m-0 list-none space-y-2 p-0">
+              {section.links.map((link) => (
+                <li>
+                  <a
+                    href={getLocalePath(link.path, locale)}
+                    class="text-base text-graphite no-underline hover:text-ink hover:underline"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    {
+      /*
+      The sitewide standing disclaimer. Calculator pages carry a fuller one in
+      the results area, above the fold, per section 4.3 rule 7 — this is the
+      baseline for every other page type.
+    */
+    }
+    <p class="mt-10 max-w-[var(--measure)] text-xs text-graphite">
+      {SITE.name} gives estimates from published, population-level equations. Individual needs vary, and
+      this is not medical advice. If you have concerns about eating, weight or body image, a doctor or
+      a qualified professional is the right place to take them.
+    </p>
+
+    <p class="mt-4 text-xs text-graphite">
+      &copy; {year}
+      {SITE.name}. Formulas are cited on every page; see the
+      <a href={getLocalePath('/editorial-policy', locale)} class="underline hover:text-ink">
+        editorial policy
+      </a>.
+    </p>
+  </div>
+</footer>

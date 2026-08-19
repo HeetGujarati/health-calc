@@ -1,0 +1,57 @@
+---
+import type { Locale } from '../config/locales';
+import { getLocalePath } from '../lib/seo/urls';
+
+export interface Crumb {
+  readonly name: string;
+  readonly path: string;
+}
+
+interface Props {
+  items: readonly Crumb[];
+  locale: Locale;
+  /** Label for the nav landmark, translated per locale. */
+  label: string;
+}
+
+const { items, locale, label } = Astro.props;
+
+/**
+ * Visible breadcrumbs.
+ *
+ * Rendered alongside the BreadcrumbList JSON-LD and built from the same array,
+ * so the markup can never describe a trail the reader cannot see — the mismatch
+ * that draws a structured-data manual action.
+ *
+ * The final crumb is the current page: it is not a link, and carries
+ * aria-current="page".
+ */
+---
+
+<nav aria-label={label} class="text-xs text-graphite">
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 p-0 m-0 list-none">
+    {
+      items.map((item, index) => {
+        const isLast = index === items.length - 1;
+        return (
+          <li class="flex items-center gap-x-2">
+            {isLast ? (
+              <span aria-current="page" class="text-ink">
+                {item.name}
+              </span>
+            ) : (
+              <>
+                <a href={getLocalePath(item.path, locale)} class="underline hover:text-signal">
+                  {item.name}
+                </a>
+                <span aria-hidden="true" class="text-rule">
+                  /
+                </span>
+              </>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>

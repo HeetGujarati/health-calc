@@ -126,8 +126,8 @@ export const SITE: SiteConfig = Object.freeze({
    * chrome continues the page rather than banding against it.
    */
   themeColor: {
-    light: '#f7f7f5',
-    dark: '#16171a',
+    light: '#f6f7f8',
+    dark: '#15171b',
   },
 
   /**

@@ -1,0 +1,35 @@
+---
+/**
+ * The single inline script on the site.
+ *
+ * It has to be inline, and it has to run before anything paints: an external
+ * script is fetched after first paint, so the page would render in the wrong
+ * theme and then swap. That flash is the entire problem this solves.
+ *
+ * Because it is inline, the CSP allows it by SHA-256 hash rather than by
+ * adding 'unsafe-inline'. The hash is computed in phase 10 from the *built*
+ * HTML rather than from this source, so it is a hash of exactly the bytes that
+ * get served — if Astro ever changes how it emits this, the hash follows.
+ *
+ * `is:inline` keeps Astro from bundling or transforming the contents, so what
+ * is written here is what ships.
+ *
+ * The stored value is treated as untrusted: anything other than the two known
+ * strings is ignored and the system preference wins. The localStorage read is
+ * wrapped because it throws outright in Safari private mode rather than
+ * returning null, and an exception here would block the rest of the page.
+ */
+---
+
+<script is:inline>
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      if (stored === 'dark' || stored === 'light') {
+        document.documentElement.setAttribute('data-theme', stored);
+      }
+    } catch (error) {
+      /* No storage access. The prefers-color-scheme media query still applies. */
+    }
+  })();
+</script>

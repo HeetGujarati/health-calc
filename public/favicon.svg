@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Baseline">
+  <!--
+    A measurement baseline: a datum rule with a value sitting on it.
+    Drawn rather than typeset so it stays legible at 16px, and using
+    currentColor-independent explicit fills so it renders correctly as a
+    favicon in both browser themes.
+  -->
+  <rect width="32" height="32" rx="7" fill="#0e6f83" />
+  <!-- The baseline itself -->
+  <rect x="6" y="21" width="20" height="2" rx="1" fill="#f6f7f8" />
+  <!-- Ticks rising from the datum, reading as a measured value -->
+  <rect x="8" y="15" width="3" height="4" rx="1" fill="#f6f7f8" opacity="0.55" />
+  <rect x="14" y="11" width="3" height="8" rx="1" fill="#f6f7f8" opacity="0.8" />
+  <rect x="20" y="7" width="3" height="12" rx="1" fill="#f6f7f8" />
+</svg>

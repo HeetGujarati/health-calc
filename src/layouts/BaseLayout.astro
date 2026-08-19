@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+import publicSansLatin from '@fontsource-variable/public-sans/files/public-sans-latin-wght-normal.woff2?url';
+import spaceGroteskLatin from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
+import jetBrainsMonoLatin from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
+
+import Seo from '../components/Seo.astro';
+import ThemeScript from '../components/ThemeScript.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { toDir, type Locale } from '../config/locales';
+import type { SeoMeta } from '../lib/seo/metadata';
+import type { JsonLdObject } from '../lib/seo/schema';
+import { buildOrganization } from '../lib/seo/schema';
+
+interface Props {
+  meta: SeoMeta;
+  /** Locale-independent path, used to mark the active nav item. */
+  currentPath: string;
+  /** Page-specific structured data. Organization is added automatically. */
+  schemas?: readonly JsonLdObject[];
+}
+
+const { meta, currentPath, schemas = [] } = Astro.props;
+const locale: Locale = meta.locale;
+
+/**
+ * Organization is emitted sitewide, so it is added here rather than repeated by
+ * every page. Everything else comes from the page.
+ */
+const allSchemas: readonly JsonLdObject[] = [buildOrganization(), ...schemas];
+---
+
+<!doctype html>
+<html lang={locale} dir={toDir(locale)}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {/* Must run before anything paints, or the page renders in the wrong theme and swaps. */}
+    <ThemeScript />
+
+    <Seo meta={meta} />
+
+    {
+      /*
+      Preloaded because both are needed for the first meaningful paint: body
+      copy in Public Sans and the result readout in JetBrains Mono. Only the
+      Latin subsets are preloaded — the other subsets are declared with a
+      unicode-range and fetched only if the content needs them.
+    */
+    }
+    <link rel="preload" href={publicSansLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={jetBrainsMonoLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={spaceGroteskLatin} as="font" type="font/woff2" crossorigin />
+
+    {
+      /*
+      Raster icons and the web manifest are generated in phase 9 alongside the
+      OG images, since both need the same image pipeline. Referencing them
+      before they exist would 404 and fail the link-check gate.
+    */
+    }
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <JsonLd data={allSchemas} />
+  </head>
+
+  <body>
+    {/* First focusable element on every page. */}
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <SiteHeader locale={locale} currentPath={currentPath} />
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <SiteFooter locale={locale} />
+  </body>
+</html>
