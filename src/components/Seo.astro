@@ -1,0 +1,72 @@
+---
+import { SITE } from '../config/site';
+import { googleBotContent, robotsContent, type SeoMeta } from '../lib/seo/metadata';
+
+interface Props {
+  meta: SeoMeta;
+}
+
+const { meta } = Astro.props;
+
+/**
+ * The single place head metadata is written.
+ *
+ * No page emits its own head tags (brief section 6.2). Centralising it is what
+ * makes the guarantees checkable: every page has exactly one canonical, every
+ * noIndex page has zero hreflang alternates, and the duplicate-title gate has
+ * one shape to parse.
+ */
+const { openGraph: og, twitter, robots, alternates } = meta;
+---
+
+<title>{meta.title}</title>
+<meta name="description" content={meta.description} />
+{meta.keywords.length > 0 && <meta name="keywords" content={meta.keywords.join(', ')} />}
+
+<link rel="canonical" href={alternates.canonical} />
+
+{
+  /*
+  A noIndex page emits no alternates at all — buildMetadata empties the list —
+  so a page excluded from the index is never advertised as the translation to
+  serve for any locale.
+*/
+}
+{
+  alternates.languages.map((alternate) => (
+    <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
+  ))
+}
+
+<meta name="robots" content={robotsContent(robots)} />
+<meta name="googlebot" content={googleBotContent(robots)} />
+
+<meta property="og:type" content={og.type} />
+<meta property="og:site_name" content={og.siteName} />
+<meta property="og:url" content={og.url} />
+<meta property="og:title" content={og.title} />
+<meta property="og:description" content={og.description} />
+<meta property="og:locale" content={og.locale} />
+{og.alternateLocale.map((locale) => <meta property="og:locale:alternate" content={locale} />)}
+{
+  og.images.map((image) => (
+    <>
+      <meta property="og:image" content={image.url} />
+      <meta property="og:image:width" content={String(image.width)} />
+      <meta property="og:image:height" content={String(image.height)} />
+      <meta property="og:image:alt" content={image.alt} />
+    </>
+  ))
+}
+{og.publishedTime && <meta property="article:published_time" content={og.publishedTime} />}
+{og.modifiedTime && <meta property="article:modified_time" content={og.modifiedTime} />}
+
+<meta name="twitter:card" content={twitter.card} />
+{twitter.site && <meta name="twitter:site" content={twitter.site} />}
+{twitter.creator && <meta name="twitter:creator" content={twitter.creator} />}
+<meta name="twitter:title" content={twitter.title} />
+<meta name="twitter:description" content={twitter.description} />
+{twitter.images.map((image) => <meta name="twitter:image" content={image} />)}
+
+<meta name="theme-color" content={SITE.themeColor.light} media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content={SITE.themeColor.dark} media="(prefers-color-scheme: dark)" />

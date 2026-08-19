@@ -1,0 +1,28 @@
+---
+import { serialiseJsonLd, type JsonLdObject } from '../lib/seo/schema';
+
+interface Props {
+  data: JsonLdObject | readonly JsonLdObject[];
+}
+
+const { data } = Astro.props;
+
+/**
+ * The only sanctioned use of set:html in this codebase.
+ *
+ * ESLint bans astro/no-set-html-directive everywhere, and this file carries the
+ * single targeted exemption. It is safe for one specific reason: the content is
+ * never author-supplied markup. It is `JSON.stringify` output with `<` escaped
+ * to its < sequence, so a value containing a closing script tag cannot
+ * terminate the block and inject anything.
+ *
+ * Astro would HTML-escape the content if this were rendered as a normal
+ * expression, producing &quot; entities inside the JSON and breaking every
+ * parser that reads it — which is why set:html is required rather than merely
+ * convenient.
+ */
+const json = serialiseJsonLd(data);
+---
+
+{/* eslint-disable-next-line astro/no-set-html-directive */}
+<script type="application/ld+json" is:inline set:html={json} />
