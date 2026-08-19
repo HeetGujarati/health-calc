@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { calculatorsByCategory } from '../data/calculators';
+import { buildBaseMetadata } from '../lib/seo/metadata';
+import { getLocalePath } from '../lib/seo/urls';
+
+const locale = 'en' as const;
+
+/**
+ * Custom 404.
+ *
+ * noIndex, and excluded from every sitemap — a 404 that is indexable is a soft
+ * 404 waiting to happen.
+ *
+ * Rather than apologising and stopping, it lists what the site actually has.
+ * Most 404s here will be a mistyped calculator slug, and the directory is the
+ * fastest route back to whatever the reader wanted.
+ */
+const meta = buildBaseMetadata({
+  title: 'Page not found',
+  description: 'That page does not exist. Every calculator on the site is listed below.',
+  path: '/404',
+  locale,
+  noIndex: true,
+});
+
+const groups = calculatorsByCategory();
+---
+
+<BaseLayout meta={meta} currentPath="/404">
+  <div class="mx-auto max-w-3xl px-4 py-6">
+    <p class="numeral mt-8 text-xs tracking-wide text-graphite uppercase">Error 404</p>
+    <h1 class="mt-2 text-2xl sm:text-3xl">That page does not exist</h1>
+    <p class="mt-3 max-w-[var(--measure)] text-lg text-graphite">
+      The address may be mistyped, or the page may have moved. Everything the site has is listed
+      below.
+    </p>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a
+        href={getLocalePath('/calculators', locale)}
+        class="inline-flex min-h-11 items-center rounded-md border border-edge bg-ink px-4 text-base font-semibold text-paper no-underline"
+      >
+        All calculators
+      </a>
+      <a
+        href={getLocalePath('/search', locale)}
+        class="inline-flex min-h-11 items-center rounded-md border border-edge px-4 text-base font-semibold text-ink no-underline"
+      >
+        Search
+      </a>
+    </div>
+
+    <div class="mt-12 space-y-8">
+      {
+        groups.map((group) => (
+          <section aria-labelledby={`nf-${group.id}`}>
+            <h2
+              id={`nf-${group.id}`}
+              class="text-xs font-semibold tracking-wide text-graphite uppercase"
+            >
+              {group.label}
+            </h2>
+            <ul class="mt-2 grid list-none gap-x-8 p-0 sm:grid-cols-2">
+              {group.items.map((item) => (
+                <li>
+                  <a
+                    href={getLocalePath(`/calculators/${item.slug}`, locale)}
+                    class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+                  >
+                    {item.heading}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <p class="mt-12 text-base">
+      <a href={getLocalePath('/guides', locale)} class="text-signal underline">Guides</a>
+      {' · '}
+      <a href={getLocalePath('/charts', locale)} class="text-signal underline">Charts</a>
+      {' · '}
+      <a href={getLocalePath('/contact', locale)} class="text-signal underline">
+        Report a broken link
+      </a>
+    </p>
+  </div>
+</BaseLayout>
