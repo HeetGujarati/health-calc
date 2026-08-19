@@ -9,6 +9,10 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    // Assertion diffs are not truncated. A test that reports
+    // "expected [ 'a', …(5) ]" makes you re-run it to see what failed, which is
+    // exactly when you least want to.
+    chaiConfig: { truncateThreshold: 0 },
     environment: 'node',
     include: ['src/**/*.test.ts', 'tests/unit/**/*.test.ts'],
     exclude: ['tests/e2e/**', 'node_modules/**', 'dist/**'],
