@@ -1,0 +1,50 @@
+{
+  "name": "fitness-calculators",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.22.3"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "audit:links": "linkinator dist --recurse --silent --skip \"^(?!file)\"",
+    "audit:html": "html-validate \"dist/**/*.html\"",
+    "gate": "npm run check && npm run lint && npm run format:check && npm run test:coverage && npm run build"
+  },
+  "dependencies": {
+    "astro": "7.2.4",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@eslint/js": "10.0.1",
+    "@astrojs/mdx": "7.0.7",
+    "@playwright/test": "1.62.1",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/node": "26.2.0",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "10.8.1",
+    "eslint-plugin-astro": "3.1.0",
+    "globals": "17.11.0",
+    "html-validate": "11.8.0",
+    "linkinator": "8.0.4",
+    "prettier": "3.9.6",
+    "prettier-plugin-astro": "0.14.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.67.0",
+    "vitest": "4.1.11"
+  }
+}
