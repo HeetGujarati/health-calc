@@ -51,8 +51,6 @@ export const id: Messages = {
   'category.energy': 'Energi dan asupan',
   'category.training': 'Latihan',
   'category.weight-reference': 'Rujukan berat badan',
-  'category.womens-health': 'Kehamilan dan siklus',
-  'category.clinical': 'Rujukan klinis',
 
   'hub.calculators.title': 'Semua kalkulator',
   'hub.calculators.description':

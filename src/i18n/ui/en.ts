@@ -69,8 +69,6 @@ export const en = {
   'category.energy': 'Energy and intake',
   'category.training': 'Training',
   'category.weight-reference': 'Weight reference',
-  'category.womens-health': 'Pregnancy and cycle',
-  'category.clinical': 'Clinical reference',
 
   // --- Calculators hub ------------------------------------------------------
   'hub.calculators.title': 'All calculators',

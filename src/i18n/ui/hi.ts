@@ -51,8 +51,6 @@ export const hi: Messages = {
   'category.energy': 'ऊर्जा और आहार',
   'category.training': 'प्रशिक्षण',
   'category.weight-reference': 'वज़न संदर्भ',
-  'category.womens-health': 'गर्भावस्था और मासिक चक्र',
-  'category.clinical': 'नैदानिक संदर्भ',
 
   'hub.calculators.title': 'सभी कैलकुलेटर',
   'hub.calculators.description':

@@ -57,8 +57,6 @@ export const ar: Messages = {
   'category.energy': 'الطاقة والمدخول',
   'category.training': 'التدريب',
   'category.weight-reference': 'مرجع الوزن',
-  'category.womens-health': 'الحمل والدورة الشهرية',
-  'category.clinical': 'مرجع سريري',
 
   'hub.calculators.title': 'جميع الحاسبات',
   'hub.calculators.description':

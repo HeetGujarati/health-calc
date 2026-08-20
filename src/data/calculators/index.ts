@@ -13,7 +13,6 @@ import {
   runningPace,
   targetHeartRate,
 } from './definitions/training';
-import { bodySurfaceArea } from './definitions/clinical';
 import {
   CALCULATOR_CATEGORIES,
   type CalculatorCategoryId,
@@ -21,7 +20,7 @@ import {
 } from './types';
 
 /**
- * Every calculator on the site.
+ * The sixteen launch calculators.
  *
  * Order here is the order they appear in the directory, grouped by category.
  */
@@ -42,7 +41,6 @@ export const CALCULATOR_DEFINITIONS: readonly CalculatorDefinition[] = [
   runningPace,
   idealWeight,
   healthyWeightRange,
-  bodySurfaceArea,
 ];
 
 const BY_SLUG = new Map(CALCULATOR_DEFINITIONS.map((entry) => [entry.slug, entry]));

@@ -12,8 +12,6 @@ export const CALCULATOR_CATEGORIES = [
   { id: 'energy', label: 'Energy and intake' },
   { id: 'training', label: 'Training' },
   { id: 'weight-reference', label: 'Weight reference' },
-  { id: 'womens-health', label: 'Pregnancy and cycle' },
-  { id: 'clinical', label: 'Clinical reference' },
 ] as const;
 
 export type CalculatorCategoryId = (typeof CALCULATOR_CATEGORIES)[number]['id'];
