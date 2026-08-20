@@ -1,0 +1,102 @@
+---
+title: Capire le zone di frequenza cardiaca
+description: Da dove viene il modello a zone, perché Karvonen batte una percentuale secca del massimo, e perché «220 meno l'età» è meno affidabile di quanto sembri.
+keywords:
+  - zone di frequenza cardiaca
+  - formula di karvonen
+  - frequenza massima 220 meno l'età
+  - frequenza cardiaca bersaglio
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [target-heart-rate, calories-burned, running-pace]
+relatedGuides: [met-values-explained, how-to-read-a-pace-chart]
+readingMinutes: 6
+---
+
+Le zone di frequenza cardiaca dividono l'intensità dell'allenamento in fasce, ciascuna associata a un accento fisiologico diverso. L'idea è solida. L'aritmetica che le regge è più fragile di quanto quasi tutti immaginino, e l'anello più debole è proprio il numero su cui è costruito tutto il resto.
+
+## Il numero da cui dipende tutto
+
+Ogni calcolo di zone parte dalla frequenza cardiaca massima: la più alta che il tuo cuore può raggiungere in uno sforzo massimale. Ogni zona ne è una frazione, quindi un errore lì si propaga a tutte le fasce.
+
+La frequenza massima è molto individuale. Due quarantenni possono differire di 30 battiti al minuto. Non è un indicatore di forma: allenarsi migliora la capacità di sostenere una percentuale alta del proprio massimo, ma sposta appena il massimo stesso. Cala con l'età e varia geneticamente in modi che nulla prevede.
+
+L'unico modo affidabile di conoscere la tua è misurarla, in un test massimale sotto controllo. Quasi nessuno lo fa, ed è per questo che esistono le equazioni.
+
+## Da dove viene «220 meno l'età»
+
+Non da uno studio, ed è la parte che vale la pena sapere.
+
+La formula risale a Fox, Naughton e Haskell nel 1971. Stavano passando in rassegna dati esistenti su attività fisica e cardiopatia coronarica, riportarono le frequenze massime rispetto all'età da una serie di studi e tracciarono una retta in mezzo. Quella retta era descrittiva, fu presentata come approssimazione e non venne mai da una regressione.
+
+Poi è evasa in ogni palestra del mondo.
+
+Il suo problema non è la pendenza ma la dispersione. La deviazione standard attorno a essa è di circa 10-12 battiti al minuto, il che significa che circa un terzo delle persone si colloca a più di 10 bpm dal massimo previsto, e circa una su venti a più di 20 bpm. Per un quarantenne, «180» significa onestamente «probabilmente fra 158 e 202».
+
+## L'alternativa di Tanaka
+
+Tanaka, Monahan e Seals hanno riaffrontato la questione come si deve nel 2001. Hanno svolto una meta-analisi di 351 studi su 18.712 soggetti, più una validazione di laboratorio propria, e sono arrivati a:
+
+```
+FCmax = 208 − 0,7 × età
+```
+
+Ha una vera regressione alle spalle e prevede meglio, in particolare negli adulti più anziani, dove la formula di Fox sottostima sistematicamente.
+
+Le due equazioni si incrociano esattamente a 40 anni, dove entrambe danno 180. Sotto i 40 Fox legge più alto; sopra i 40 lo fa Tanaka. A 65 anni Fox dice 155 e Tanaka 162,5, e le prove danno ragione a Tanaka.
+
+La variabilità individuale di Tanaka resta comunque notevole, intorno a 10 bpm. È una stima centrale migliore, non una stima precisa.
+
+## Perché Karvonen è il metodo migliore
+
+Una volta che hai un massimo, ci sono due modi di calcolare un bersaglio di allenamento.
+
+**La percentuale del massimo** è quello semplice. Il settanta per cento di 180 è 126 bpm.
+
+**Karvonen**, ovvero la riserva di frequenza cardiaca, lavora sull'intervallo fra riposo e massimo:
+
+```
+bersaglio = ((FCmax − FCriposo) × intensità) + FCriposo
+```
+
+Per chi ha un massimo di 180 e un riposo di 60: il 70 per cento della riserva di 120 battiti è 84, più i 60 di riposo, cioè 144 bpm.
+
+Diciotto battiti di scarto, per la stessa persona alla stessa intensità nominale.
+
+Karvonen è preferito perché tiene conto della condizione fisica. Una persona allenata con riposo a 50 e una non allenata a 80 hanno intervalli di lavoro molto diversi anche a parità di massimo. Il metodo della percentuale secca dà a entrambe lo stesso bersaglio e travisa che cosa significhi «70 per cento di sforzo» per ciascuna.
+
+Karvonen richiede di conoscere la frequenza a riposo, misurata al risveglio prima di alzarsi, idealmente mediata su più mattine. Va bene anche il minimo notturno di un cardiofrequenzimetro da polso. Misurata dopo il caffè o dopo essersi mossi non è una frequenza a riposo, e ogni zona si sposta con essa.
+
+## Che cosa significano davvero le zone
+
+Il modello a cinque zone usato nelle linee guida ACSM, come frazioni della riserva di frequenza cardiaca:
+
+**Zona 1, 50-60 per cento.** Molto leggera. Riscaldamento, defaticamento, recupero. Si conversa senza sforzo.
+
+**Zona 2, 60-70 per cento.** Leggera. La zona base della resistenza. L'ossidazione dei grassi raggiunge qui la sua massima quota del carburante, ed è dove la maggior parte degli atleti di endurance accumula il grosso del volume. Si può sostenere una conversazione.
+
+**Zona 3, 70-80 per cento.** Moderata. A volte chiamata zona grigia: abbastanza dura da accumulare fatica, non abbastanza da guidare gli adattamenti del vero lavoro ad alta intensità. Parlare si riduce a frasi brevi.
+
+**Zona 4, 80-90 per cento.** Dura. Attorno alla soglia del lattato. Migliora il passo che riesci a sostenere. Poche parole per volta.
+
+**Zona 5, 90-100 per cento.** Massima. Solo intervalli, pochi minuti in totale.
+
+## L'equivoco della zona brucia-grassi
+
+La zona 2 viene spesso etichettata come zona brucia-grassi, cosa insieme vera e fuorviante.
+
+A intensità più basse una _quota maggiore_ dell'energia viene dai grassi. È fisiologia reale. Ma l'energia totale spesa è minore, quindi il grasso bruciato in assoluto non è necessariamente maggiore, e per il cambiamento di peso ciò che conta è il dispendio energetico totale, non quale substrato lo abbia fornito.
+
+Venti minuti duri bruciano più energia totale di venti minuti facili, anche se una frazione minore proveniva dai grassi.
+
+L'argomento genuino a favore della zona 2 è un altro, ed è migliore: è sostenibile a lungo, sviluppa la capacità aerobica in modo efficiente e costa poco recupero. È per questo che gli atleti di endurance ci vivono. Non per la miscela di carburanti.
+
+## Quanto fidarsi di tutto questo
+
+Le zone danno struttura, e questo vale davvero: la maggior parte di chi si allena senza alcuna guida di intensità finisce in zona 3 per qualunque cosa e si chiede perché non migliori nulla.
+
+Ma il massimo sottostante porta dieci battiti o più di incertezza, quindi le tue zone reali possono stare diversi battiti da una parte o dall'altra di quelle calcolate. Tratta i confini come approssimativi.
+
+Confronta con lo sforzo percepito. Se una zona «moderata» ti sembra davvero dura, o una zona «dura» ti sembra facile, fidati del tuo corpo: l'equazione descrive una persona media, e tu non lo sei. Il test del parlato funziona notevolmente bene: frasi intere in zona 2, frasi brevi in zona 4, parole singole in zona 5.
+
+Se ti alleni seriamente, un test massimale sotto controllo o un test della soglia del lattato ti danno numeri veri. Tutto ciò che c'è nel [calcolatore della frequenza cardiaca bersaglio](/it/calculators/target-heart-rate/) è un sostituto della misura, e lo dichiara.

@@ -1,0 +1,102 @@
+---
+title: Entender las zonas de frecuencia cardíaca
+description: De dónde viene el modelo de zonas, por qué Karvonen supera al porcentaje simple del máximo y por qué «220 menos la edad» es menos fiable de lo que parece.
+keywords:
+  - zonas de frecuencia cardíaca
+  - fórmula de karvonen
+  - frecuencia máxima 220 menos la edad
+  - frecuencia cardíaca objetivo
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [target-heart-rate, calories-burned, running-pace]
+relatedGuides: [met-values-explained, how-to-read-a-pace-chart]
+readingMinutes: 6
+---
+
+Las zonas de frecuencia cardíaca dividen la intensidad del entrenamiento en bandas, cada una asociada a un énfasis fisiológico distinto. La idea es sólida. La aritmética que hay debajo es más frágil de lo que casi nadie cree, y el eslabón más débil es justamente el número sobre el que se construye todo lo demás.
+
+## El número del que depende todo
+
+Todo cálculo de zonas parte de la frecuencia cardíaca máxima: la más alta que tu corazón puede alcanzar en un esfuerzo a tope. Cada zona es una fracción de ella, así que un error ahí se propaga a todas las bandas.
+
+La frecuencia máxima es muy individual. Dos personas de 40 años pueden diferir en 30 pulsaciones por minuto. No es un marcador de forma física: entrenar mejora tu capacidad de sostener un porcentaje alto de tu máximo, pero apenas mueve el máximo en sí. Desciende con la edad y varía genéticamente de maneras que nada predice.
+
+La única forma fiable de conocer la tuya es medirla, en una prueba máxima supervisada. Casi nadie lo hace, y por eso existen las ecuaciones.
+
+## De dónde salió «220 menos la edad»
+
+No de un estudio, y esa es la parte que conviene saber.
+
+La fórmula se remonta a Fox, Naughton y Haskell en 1971. Estaban revisando datos existentes sobre actividad física y cardiopatía coronaria, representaron frecuencias máximas frente a la edad a partir de un conjunto de estudios y trazaron una recta a través de la nube. La recta era descriptiva, se presentó como una aproximación y nunca salió de una regresión.
+
+Después se escapó a todos los gimnasios del mundo.
+
+Su problema no es la pendiente sino la dispersión. La desviación típica en torno a ella es de unas 10 a 12 pulsaciones por minuto, lo que significa que alrededor de un tercio de las personas está a más de 10 pulsaciones de su máximo previsto, y aproximadamente una de cada veinte a más de 20. Para alguien de 40 años, «180» significa honestamente «probablemente entre 158 y 202».
+
+## La alternativa de Tanaka
+
+Tanaka, Monahan y Seals lo revisaron como es debido en 2001. Hicieron un metaanálisis de 351 estudios con 18.712 sujetos, más una validación de laboratorio propia, y produjeron:
+
+```
+FCmáx = 208 − 0,7 × edad
+```
+
+Tiene una regresión real detrás y predice mejor, en particular en personas mayores, donde la fórmula de Fox subestima de forma sistemática.
+
+Las dos ecuaciones se cruzan exactamente a los 40 años, donde ambas dan 180. Por debajo de 40, Fox marca más alto; por encima, Tanaka. A los 65, Fox dice 155 y Tanaka 162,5, y la evidencia favorece a Tanaka.
+
+La variación individual de Tanaka sigue siendo sustancial, en torno a 10 pulsaciones. Es una mejor estimación central, no una estimación precisa.
+
+## Por qué Karvonen es el mejor método
+
+Una vez tienes un máximo, hay dos formas de calcular un objetivo de entrenamiento.
+
+**El porcentaje del máximo** es la simple. El setenta por ciento de 180 son 126 pulsaciones.
+
+**Karvonen**, o reserva de frecuencia cardíaca, trabaja con el margen entre el reposo y el máximo:
+
+```
+objetivo = ((FCmáx − FCreposo) × intensidad) + FCreposo
+```
+
+Para alguien con un máximo de 180 y una frecuencia en reposo de 60: el 70 por ciento de la reserva de 120 pulsaciones son 84, más las 60 de reposo, lo que da 144 pulsaciones.
+
+Dieciocho pulsaciones de diferencia, para la misma persona y la misma intensidad nominal.
+
+La razón de preferir Karvonen es que tiene en cuenta la condición física. Una persona entrenada con 50 en reposo y otra sin entrenar con 80 tienen márgenes de trabajo muy distintos aun con máximos idénticos. El método del porcentaje simple les da el mismo objetivo y tergiversa lo que significa «al 70 por ciento» para cada una.
+
+Karvonen exige conocer tu frecuencia en reposo, medida al despertar antes de levantarte de la cama, idealmente promediada sobre varias mañanas. El mínimo nocturno de una pulsera también sirve. Medida después del café o de moverte, no es una frecuencia en reposo, y todas las zonas se desplazan con ella.
+
+## Qué significan realmente las zonas
+
+El modelo de cinco zonas que usan las guías del ACSM, como fracciones de la reserva de frecuencia cardíaca:
+
+**Zona 1, 50 a 60 por ciento.** Muy ligera. Calentamiento, vuelta a la calma, recuperación. Conversación sin esfuerzo.
+
+**Zona 2, 60 a 70 por ciento.** Ligera. La zona base de resistencia. La oxidación de grasa alcanza aquí su mayor proporción del combustible, y es donde la mayoría de los atletas de resistencia acumula el grueso de su volumen. Puedes mantener una conversación.
+
+**Zona 3, 70 a 80 por ciento.** Moderada. A veces llamada zona gris: bastante dura para acumular fatiga, no lo bastante para provocar las adaptaciones del trabajo de alta intensidad de verdad. Hablar se reduce a frases cortas.
+
+**Zona 4, 80 a 90 por ciento.** Dura. En torno al umbral de lactato. Mejora el ritmo que puedes sostener. Unas pocas palabras seguidas.
+
+**Zona 5, 90 a 100 por ciento.** Máxima. Solo intervalos, unos pocos minutos en total.
+
+## El malentendido de la zona quemagrasa
+
+A la zona 2 se la llama a menudo zona quemagrasa, lo cual es cierto y engañoso a la vez.
+
+A intensidades bajas, una _proporción mayor_ de la energía procede de la grasa. Eso es fisiología real. Pero la energía total gastada es menor, así que la grasa absoluta quemada no es necesariamente mayor, y para el cambio de peso lo que importa es el gasto energético total, no qué sustrato lo suministró.
+
+Veinte minutos fuertes queman más energía total que veinte minutos suaves, aunque una fracción menor de ella viniera de la grasa.
+
+El argumento genuino a favor de la zona 2 es otro y mejor: es sostenible durante mucho tiempo, desarrolla la capacidad aeróbica de forma eficiente y cuesta poca recuperación. Por eso viven ahí los atletas de resistencia. No por la mezcla de combustible.
+
+## Cuánto fiarse de todo esto
+
+Las zonas te dan estructura, lo cual vale de verdad: la mayoría de quienes entrenan sin ninguna guía de intensidad acaban en la zona 3 para todo y se preguntan por qué no mejora nada.
+
+Pero el máximo que hay debajo arrastra diez pulsaciones o más de incertidumbre, así que tus zonas reales pueden estar varias pulsaciones a un lado u otro de las calculadas. Trata los límites como aproximados.
+
+Contrasta con el esfuerzo percibido. Si una zona «moderada» se siente genuinamente dura, o una «dura» se siente fácil, hazle caso a tu cuerpo: la ecuación describe a una persona media, y tú no lo eres. La prueba del habla funciona notablemente bien: frases completas en la zona 2, frases cortas en la 4, palabras sueltas en la 5.
+
+Si entrenas en serio, una prueba máxima supervisada o una de umbral de lactato te dan números reales. Todo lo que hay en la [calculadora de frecuencia cardíaca objetivo](/es/calculators/target-heart-rate/) es un sustituto de la medición, y lo dice.

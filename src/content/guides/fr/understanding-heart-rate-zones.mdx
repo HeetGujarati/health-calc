@@ -1,0 +1,102 @@
+---
+title: Comprendre les zones de fréquence cardiaque
+description: D'où vient le modèle des zones, pourquoi Karvonen vaut mieux qu'un pourcentage du maximum, et pourquoi « 220 moins l'âge » est peu fiable.
+keywords:
+  - zones de fréquence cardiaque
+  - formule de karvonen
+  - fréquence maximale 220 moins l'âge
+  - fréquence cardiaque cible
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [target-heart-rate, calories-burned, running-pace]
+relatedGuides: [met-values-explained, how-to-read-a-pace-chart]
+readingMinutes: 6
+---
+
+Les zones de fréquence cardiaque découpent l'intensité de l'entraînement en plages, chacune associée à une orientation physiologique différente. L'idée est saine. L'arithmétique qui la porte est plus fragile qu'on ne le croit, et le maillon faible est précisément le nombre sur lequel tout le reste est bâti.
+
+## Le nombre dont tout dépend
+
+Tout calcul de zones part de la fréquence cardiaque maximale — la plus élevée que votre cœur puisse atteindre à l'effort maximal. Chaque zone en est une fraction : une erreur à cet endroit se propage donc à toutes les plages.
+
+La fréquence maximale est très individuelle. Deux personnes de 40 ans peuvent différer de 30 battements par minute. Ce n'est pas un marqueur de forme : l'entraînement améliore votre capacité à tenir un pourcentage élevé de votre maximum, mais ne déplace guère le maximum lui-même. Elle décline avec l'âge et varie génétiquement d'une manière que rien ne prédit.
+
+La seule façon fiable de connaître la vôtre est de la mesurer, lors d'un test maximal encadré. Presque personne ne le fait, d'où l'existence des équations.
+
+## D'où vient « 220 moins l'âge »
+
+Pas d'une étude, et c'est ce qu'il faut savoir.
+
+La formule remonte à Fox, Naughton et Haskell en 1971. Ils passaient en revue les données existantes sur l'activité physique et la maladie coronarienne, ont reporté des fréquences maximales en fonction de l'âge à partir d'un ensemble d'études, et ont tracé une droite au travers. Cette droite était descriptive, présentée comme une approximation, et n'a jamais été issue d'une régression.
+
+Elle s'est ensuite échappée dans toutes les salles de sport du monde.
+
+Son problème n'est pas la pente mais la dispersion. L'écart-type autour d'elle est d'environ 10 à 12 battements par minute, ce qui signifie qu'environ un tiers des gens se situent à plus de 10 bpm de leur maximum prédit, et près d'un sur vingt à plus de 20 bpm. Pour une personne de 40 ans, « 180 » veut honnêtement dire « probablement entre 158 et 202 ».
+
+## L'alternative de Tanaka
+
+Tanaka, Monahan et Seals ont repris la question sérieusement en 2001. Ils ont conduit une méta-analyse de 351 études portant sur 18 712 sujets, plus une validation en laboratoire, et ont abouti à :
+
+```
+FCmax = 208 − 0,7 × âge
+```
+
+Elle repose sur une véritable régression et prédit mieux — en particulier chez les adultes plus âgés, où la formule de Fox sous-estime systématiquement.
+
+Les deux équations se croisent exactement à 40 ans, où elles donnent toutes deux 180. En dessous de 40, Fox lit plus haut ; au-dessus, c'est Tanaka. À 65 ans, Fox annonce 155 et Tanaka 162,5 — et les données donnent raison à Tanaka.
+
+La variabilité individuelle chez Tanaka reste importante, de l'ordre de 10 bpm. C'est une meilleure estimation centrale, pas une estimation précise.
+
+## Pourquoi Karvonen est la meilleure méthode
+
+Une fois le maximum connu, il existe deux façons de calculer une cible d'entraînement.
+
+**Le pourcentage du maximum** est la version simple. Soixante-dix pour cent de 180 font 126 bpm.
+
+**Karvonen**, ou réserve de fréquence cardiaque, part de l'écart entre le repos et le maximum :
+
+```
+cible = ((FCmax − FCrepos) × intensité) + FCrepos
+```
+
+Pour quelqu'un dont le maximum est 180 et le repos 60 : 70 pour cent de la réserve de 120 battements font 84, plus les 60 de repos, soit 144 bpm.
+
+Dix-huit battements d'écart, pour la même personne à la même intensité nominale.
+
+Si Karvonen est préféré, c'est qu'il tient compte de la condition physique. Une personne entraînée à 50 au repos et une personne non entraînée à 80 ont des plages de travail très différentes, même à maximum identique. La méthode du pourcentage simple leur donne la même cible et fausse le sens de « 70 pour cent d'effort » pour chacune.
+
+Karvonen exige de connaître votre fréquence de repos, mesurée au réveil avant de sortir du lit, idéalement moyennée sur plusieurs matins. Le minimum nocturne d'un bracelet convient aussi. Mesurée après un café ou une activité, ce n'est pas une fréquence de repos, et toutes les zones se décalent avec elle.
+
+## Ce que les zones signifient vraiment
+
+Le modèle en cinq zones des recommandations de l'ACSM, exprimé en fractions de la réserve de fréquence cardiaque :
+
+**Zone 1, 50 à 60 pour cent.** Très légère. Échauffement, retour au calme, récupération. On converse sans effort.
+
+**Zone 2, 60 à 70 pour cent.** Légère. La zone de base de l'endurance. L'oxydation des graisses y atteint sa plus forte proportion du carburant, et c'est là que la plupart des athlètes d'endurance placent l'essentiel de leur volume. On peut tenir une conversation.
+
+**Zone 3, 70 à 80 pour cent.** Modérée. Parfois appelée zone grise — assez dure pour accumuler de la fatigue, pas assez pour déclencher les adaptations du vrai travail à haute intensité. Parler se réduit à des phrases courtes.
+
+**Zone 4, 80 à 90 pour cent.** Dure. Autour du seuil lactique. Elle améliore l'allure que vous pouvez tenir. Quelques mots à la fois.
+
+**Zone 5, 90 à 100 pour cent.** Maximale. Uniquement en fractionné, quelques minutes au total.
+
+## Le malentendu de la zone brûle-graisse
+
+On étiquette souvent la zone 2 comme zone brûle-graisse, ce qui est à la fois vrai et trompeur.
+
+À faible intensité, une _proportion plus élevée_ de l'énergie provient des graisses. C'est de la physiologie réelle. Mais l'énergie totale dépensée est plus faible : la quantité absolue de graisse brûlée n'est donc pas nécessairement supérieure — et pour la variation de poids, c'est la dépense énergétique totale qui compte, pas le substrat qui l'a fournie.
+
+Vingt minutes dures brûlent plus d'énergie totale que vingt minutes faciles, même si une fraction plus petite provient des graisses.
+
+Le vrai argument en faveur de la zone 2 est autre, et meilleur : elle se tient longtemps, développe efficacement la capacité aérobie et coûte peu en récupération. C'est pour cela que les athlètes d'endurance y vivent. Pas à cause du mélange de carburants.
+
+## Quelle confiance accorder à tout cela
+
+Les zones apportent une structure, ce qui a une vraie valeur : la plupart des gens qui s'entraînent sans repère d'intensité finissent en zone 3 pour tout et s'étonnent que rien ne progresse.
+
+Mais le maximum sous-jacent porte une incertitude de dix battements ou plus, si bien que vos zones réelles peuvent se situer plusieurs battements de part et d'autre des zones calculées. Traitez les bornes comme approximatives.
+
+Recoupez avec l'effort perçu. Si une zone « modérée » vous paraît vraiment dure, ou une zone « dure » facile, faites confiance à votre corps — l'équation décrit une personne moyenne, et vous n'en êtes pas une. Le test de la parole marche remarquablement bien : phrases complètes en zone 2, formules courtes en zone 4, mots isolés en zone 5.
+
+Si vous vous entraînez sérieusement, un test maximal encadré ou un test de seuil lactique vous donne de vrais nombres. Tout ce que propose le [calculateur de fréquence cardiaque cible](/fr/calculators/target-heart-rate/) est un substitut à la mesure, et il le dit.
