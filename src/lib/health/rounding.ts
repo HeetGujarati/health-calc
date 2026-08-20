@@ -30,6 +30,11 @@ export const DISPLAY_PRECISION = {
   oneRepMax: 1,
   whtr: 3,
   percentage: 1,
+  // Clinical convention is two decimals, and it is also about as far as the
+  // formulas can be told apart: five of them on the same adult span roughly
+  // 0.02 m², so a third decimal would be reporting the difference between
+  // curves fitted to nine people and to 401.
+  bodySurfaceArea: 2,
 } as const;
 
 export type DisplayQuantity = keyof typeof DISPLAY_PRECISION;

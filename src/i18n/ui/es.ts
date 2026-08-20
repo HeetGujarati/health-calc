@@ -57,6 +57,8 @@ export const es: Messages = {
   'category.energy': 'Energía e ingesta',
   'category.training': 'Entrenamiento',
   'category.weight-reference': 'Referencia de peso',
+  'category.womens-health': 'Embarazo y ciclo',
+  'category.clinical': 'Referencia clínica',
 
   'hub.calculators.title': 'Todas las calculadoras',
   'hub.calculators.description':

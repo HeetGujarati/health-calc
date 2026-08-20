@@ -14,6 +14,7 @@ import { karvonenZones, tanakaMaxHeartRate } from '../../lib/health/heartrate';
 import { finishTime, formatDuration } from '../../lib/health/pace';
 import { waterIntake } from '../../lib/health/water';
 import { armyBodyComposition } from '../../lib/health/armybodyfat';
+import { duBoisBsa } from '../../lib/health/bodysurfacearea';
 import { forDisplay, roundTo } from '../../lib/health/rounding';
 import {
   asBeatsPerMinute,
@@ -55,6 +56,22 @@ export const bmiTable = (): ReferenceTable => {
       cells: weights.map((weight) =>
         n(bodyMassIndex(asKilograms(weight), asCentimetres(height)), 1)
       ),
+    })),
+  };
+};
+
+export const bodySurfaceAreaTable = (): ReferenceTable => {
+  const heights = [150, 160, 170, 180, 190, 200];
+  const weights = [50, 60, 70, 80, 90, 100, 110];
+  return {
+    caption: 'Body surface area by height and weight, Du Bois formula',
+    note: 'Square metres, computed with Du Bois & Du Bois because that is the equation most published reference data is expressed against. The other four formulas on this page give answers within roughly 5% of these, and the calculator shows all of them side by side.',
+    rowHeader: 'Height',
+    columnHeader: 'Weight',
+    columns: weights.map((weight) => `${String(weight)} kg`),
+    rows: heights.map((height) => ({
+      label: `${String(height)} cm`,
+      cells: weights.map((weight) => n(duBoisBsa(asCentimetres(height), asKilograms(weight)), 2)),
     })),
   };
 };
