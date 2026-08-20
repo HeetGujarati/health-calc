@@ -14,6 +14,7 @@ import { karvonenZones, tanakaMaxHeartRate } from '../../lib/health/heartrate';
 import { finishTime, formatDuration } from '../../lib/health/pace';
 import { waterIntake } from '../../lib/health/water';
 import { armyBodyComposition } from '../../lib/health/armybodyfat';
+import { FRAME_CUTOFFS } from '../../lib/health/bodytype';
 import { forDisplay, roundTo } from '../../lib/health/rounding';
 import {
   asBeatsPerMinute,
@@ -55,6 +56,31 @@ export const bmiTable = (): ReferenceTable => {
       cells: weights.map((weight) =>
         n(bodyMassIndex(asKilograms(weight), asCentimetres(height)), 1)
       ),
+    })),
+  };
+};
+
+export const bodyTypeTable = (): ReferenceTable => {
+  const heights = [155, 160, 165, 170, 175, 180, 185, 190];
+  return {
+    caption: 'Wrist circumference marking each frame size boundary, by height',
+    note: 'The wrist measurement at which the frame classification changes. A wrist slimmer than the first figure reads as a small frame; thicker than the second reads as large; between them is medium. Note the direction: a slimmer wrist for a given height means a smaller frame, not a larger one.',
+    rowHeader: 'Height',
+    columnHeader: 'Boundary',
+    columns: [
+      'Small / medium (male)',
+      'Medium / large (male)',
+      'Small / medium (female)',
+      'Medium / large (female)',
+    ],
+    rows: heights.map((height) => ({
+      label: `${String(height)} cm`,
+      cells: [
+        `${n(height / FRAME_CUTOFFS.male.small, 1)} cm`,
+        `${n(height / FRAME_CUTOFFS.male.large, 1)} cm`,
+        `${n(height / FRAME_CUTOFFS.female.small, 1)} cm`,
+        `${n(height / FRAME_CUTOFFS.female.large, 1)} cm`,
+      ],
     })),
   };
 };

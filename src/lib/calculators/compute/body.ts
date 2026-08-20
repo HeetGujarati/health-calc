@@ -16,6 +16,7 @@ import {
 import { allLeanMassEstimates, leanBodyMass, type LeanMassFormula } from '../../health/leanmass';
 import { allIdealWeightEstimates, idealWeightSummary } from '../../health/idealweight';
 import { armyBodyComposition, ARMY_WHTR_THRESHOLD } from '../../health/armybodyfat';
+import { assessBuild, type BuildLabel, type FrameSize } from '../../health/bodytype';
 import { guardAdultAge } from '../../health/guards';
 import { formatNumber, formatRange } from '../../health/rounding';
 import {
@@ -24,6 +25,7 @@ import {
   parseNeckCm,
   parseSkinfoldMm,
   parseWaistCm,
+  parseWristCm,
   type Sex,
 } from '../../health/validation';
 import { parseSex } from '../../health/validation';
@@ -36,7 +38,7 @@ import {
   type Years,
 } from '../../health/units';
 import { readChoice, readHeight, readMass, unitSystemOf } from '../inputs';
-import { failure, type CalculatorResult, type FormValues } from '../result';
+import { failure, type CalculatorResult, type FormValues, type ResultNote } from '../result';
 
 /**
  * Body composition calculators.
@@ -402,5 +404,74 @@ export const computeArmyBodyFat = (values: FormValues, locale: string): Calculat
         text: 'Army Directive 2026-13, effective 7 July 2026, made waist-to-height ratio the Army’s only body composition assessment. It rescinded the tape test, the height and weight tables, and the supplemental methods. There is no age or sex adjustment.',
       },
     ],
+  };
+};
+
+const FRAME_LABELS: Record<FrameSize, string> = {
+  small: 'Small frame',
+  medium: 'Medium frame',
+  large: 'Large frame',
+};
+
+const BUILD_LABELS: Record<BuildLabel, string> = {
+  ectomorph: 'Ectomorph',
+  mesomorph: 'Mesomorph',
+  endomorph: 'Endomorph',
+};
+
+/**
+ * Build description from frame size and BMI.
+ *
+ * The result deliberately leads with frame size, which is a real measurement,
+ * and reports the ectomorph/mesomorph/endomorph label second — that is the
+ * order of confidence, and it is the opposite of how these pages usually read.
+ * Where frame and BMI disagree the page says the scheme does not fit, rather
+ * than forcing a label.
+ */
+export const computeBodyType = (values: FormValues, locale: string): CalculatorResult => {
+  const height = readHeight(values);
+  if (!height.ok) return failure(height.error);
+  const mass = readMass(values);
+  if (!mass.ok) return failure(mass.error);
+
+  const imperial = unitSystemOf(values) === 'imperial';
+  const rawWrist = values['wrist'];
+  const wrist = parseWristCm(
+    imperial && rawWrist !== undefined && rawWrist.trim() !== ''
+      ? inchesToCentimetres(asInches(Number(rawWrist)))
+      : rawWrist,
+    'wrist'
+  );
+  if (!wrist.ok) return failure(wrist.error);
+
+  const sex = parseSex(readChoice(values, 'sex', 'male'));
+  if (!sex.ok) return failure(sex.error);
+
+  const build = assessBuild(height.value, mass.value, wrist.value, sex.value);
+
+  const notes: ResultNote[] = [
+    {
+      tone: 'info',
+      text: 'Frame size is a measurement; the build label is a description. Neither predicts your metabolism, what training will suit you, or anything about your personality — the original claim that it did was discredited long ago.',
+    },
+  ];
+
+  if (build.mixed) {
+    notes.push({
+      tone: 'caution',
+      text: 'Your frame size and your BMI point in different directions, so none of the three labels describes you well. That is a limitation of a scheme with three categories, not a finding about you.',
+    });
+  }
+
+  return {
+    ok: true,
+    primary: { label: 'Frame size', value: FRAME_LABELS[build.frame] },
+    summary: `Your height-to-wrist ratio of ${formatNumber(build.ratio, locale, 'bmi')} puts you in the ${FRAME_LABELS[build.frame].toLowerCase()} band, with a BMI of ${formatNumber(build.bmi, locale, 'bmi')}.`,
+    secondary: [
+      { label: 'Closest build description', value: BUILD_LABELS[build.label] },
+      { label: 'Height-to-wrist ratio', value: formatNumber(build.ratio, locale, 'bmi') },
+      { label: 'Body mass index', value: formatNumber(build.bmi, locale, 'bmi') },
+    ],
+    notes,
   };
 };

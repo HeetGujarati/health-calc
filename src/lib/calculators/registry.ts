@@ -2,6 +2,7 @@ import {
   computeArmyBodyFat,
   computeBmi,
   computeBodyFat,
+  computeBodyType,
   computeHealthyWeightRange,
   computeIdealWeight,
   computeLeanBodyMass,
@@ -53,6 +54,7 @@ export const CALCULATORS: Readonly<Record<string, ComputeFn>> = {
   'water-intake': computeWaterIntake,
   'army-body-fat': computeArmyBodyFat,
   period: computePeriod,
+  'body-type': computeBodyType,
 };
 
 export const calculatorSlugs = Object.keys(CALCULATORS);

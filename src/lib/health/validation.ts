@@ -40,6 +40,9 @@ export const LIMITS = {
   ageYears: { min: 0, max: 120 },
   /** Neck, waist and hip circumferences for the girth-based methods. */
   neckCm: { min: 20, max: 80 },
+  // Wrist circumference. Adult wrists sit roughly between 13 and 22 cm; the
+  // bounds are wider so an unusual but genuine measurement is not rejected.
+  wristCm: { min: 10, max: 30 },
   waistCm: { min: 40, max: 200 },
   hipCm: { min: 50, max: 200 },
   /** Skinfold calipers do not read meaningfully outside this band. */
@@ -147,6 +150,9 @@ export const parseAge = (raw: unknown, field = 'age'): Result<Years> =>
 
 export const parseNeckCm = (raw: unknown, field = 'neck'): Result<Centimetres> =>
   inRange(raw, LIMITS.neckCm, field, 'a neck measurement', 'cm', asCentimetres);
+
+export const parseWristCm = (raw: unknown, field = 'wrist'): Result<Centimetres> =>
+  inRange(raw, LIMITS.wristCm, field, 'a wrist measurement', 'cm', asCentimetres);
 
 export const parseWaistCm = (raw: unknown, field = 'waist'): Result<Centimetres> =>
   inRange(raw, LIMITS.waistCm, field, 'a waist measurement', 'cm', asCentimetres);
