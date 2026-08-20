@@ -509,4 +509,8 @@ export const it: Messages = {
 
   // --- Short meta title for activity pages ---
   'activity.metaTitle': 'Calorie: {activity}',
+
+  // --- Imperial height sub-fields, which need their own labels ---
+  'calc.heightFeet': 'Altezza, piedi',
+  'calc.heightInches': 'Altezza, pollici',
 };

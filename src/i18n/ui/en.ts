@@ -153,7 +153,7 @@ export const en = {
   'search.submit': 'Search',
   'search.browse': 'Or browse everything',
   'search.allGuides': 'All guides',
-  'search.noResults': 'No matches for "{query}".',
+  'search.noResults': 'No results for "{query}". Try a shorter or more general term.',
   'search.resultCount': '{count} results for "{query}".',
   'search.resultCountOne': '1 result for "{query}".',
   'search.prompt': 'Type to search.',
@@ -543,4 +543,8 @@ export const en = {
 
   // --- Short meta title for activity pages ---
   'activity.metaTitle': 'Calories burned {activity}',
+
+  // --- Imperial height sub-fields, which need their own labels ---
+  'calc.heightFeet': 'Height, feet',
+  'calc.heightInches': 'Height, inches',
 } as const;

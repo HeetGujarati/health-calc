@@ -500,4 +500,8 @@ export const ar: Messages = {
 
   // --- Short meta title for activity pages ---
   'activity.metaTitle': 'السعرات: {activity}',
+
+  // --- Imperial height sub-fields, which need their own labels ---
+  'calc.heightFeet': 'الطول بالأقدام',
+  'calc.heightInches': 'الطول بالبوصات',
 };

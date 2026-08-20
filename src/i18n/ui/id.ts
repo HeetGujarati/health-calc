@@ -509,4 +509,8 @@ export const id: Messages = {
 
   // --- Short meta title for activity pages ---
   'activity.metaTitle': 'Kalori: {activity}',
+
+  // --- Imperial height sub-fields, which need their own labels ---
+  'calc.heightFeet': 'Tinggi, kaki',
+  'calc.heightInches': 'Tinggi, inci',
 };

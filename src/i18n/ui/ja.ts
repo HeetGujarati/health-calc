@@ -498,4 +498,8 @@ export const ja: Messages = {
 
   // --- Short meta title for activity pages ---
   'activity.metaTitle': '消費カロリー: {activity}',
+
+  // --- Imperial height sub-fields, which need their own labels ---
+  'calc.heightFeet': '身長（フィート）',
+  'calc.heightInches': '身長（インチ）',
 };

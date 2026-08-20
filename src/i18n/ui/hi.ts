@@ -502,4 +502,8 @@ export const hi: Messages = {
 
   // --- Short meta title for activity pages ---
   'activity.metaTitle': 'कैलोरी: {activity}',
+
+  // --- Imperial height sub-fields, which need their own labels ---
+  'calc.heightFeet': 'लंबाई, फ़ुट',
+  'calc.heightInches': 'लंबाई, इंच',
 };
