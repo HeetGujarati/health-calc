@@ -1,0 +1,100 @@
+---
+title: Wie man eine Pace-Tabelle liest
+description: Pace, Geschwindigkeit und Zielzeit umrechnen, warum Hochrechnungen bei konstanter Pace falsch sind und was Riegels Formel dagegen tut.
+keywords:
+  - Pace-Tabelle
+  - Laufpace-Rechner
+  - Marathon-Pace-Tabelle
+  - Wettkampfzeit vorhersagen
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [running-pace, target-heart-rate, calories-burned]
+relatedGuides: [understanding-heart-rate-zones, met-values-explained]
+readingMinutes: 5
+---
+
+Eine Pace-Tabelle ordnet einer Pace über verschiedene Distanzen Zielzeiten zu. Gehen Sie zu Ihrer Pace pro Kilometer hinunter und dann quer zu einer Distanz, und Sie haben die Zeit.
+
+Die Rechnung ist trivial. Interessant ist, was eine Pace-Tabelle nicht sagen kann, und genau in dieser Lücke wird sie meistens falsch benutzt.
+
+## Die drei Größen
+
+Pace, Geschwindigkeit und Zeit sind dieselbe Information in drei Formulierungen.
+
+**Pace** ist Zeit je Wegeinheit — 5:00 pro Kilometer. Niedriger heißt schneller, was beim Vergleichen stolpern lässt.
+
+**Geschwindigkeit** ist Weg je Zeiteinheit — 12 km/h. Höher heißt schneller.
+
+**Die Zielzeit** ist Pace mal Distanz.
+
+Umrechnungen:
+
+```
+Pace pro km      = Zeit / Distanz in km
+Tempo in km/h    = 60 / Pace in Minuten pro km
+Zielzeit         = Pace pro km × Distanz in km
+```
+
+Eine Pace von 5:00/km sind 12 km/h und ergeben 25:00 über 5 km, 50:00 über 10 km und 3:30:59 im Marathon.
+
+Laufende denken in Pace, weil die Uhr das anzeigt und weil man sie im Rennen hält. Radfahrende denken in Geschwindigkeit. Keines ist richtiger.
+
+## Kilometer und Meilen
+
+Eine Meile sind 1,609344 Kilometer, die Pace pro Meile ist also die Pace pro Kilometer mal 1,609344.
+
+5:00/km sind 8:03/Meile. 4:00/km sind 6:26/Meile. 6:00/km sind 9:39/Meile.
+
+Die gängige Näherung „sechzig Prozent draufschlagen“ reicht fürs Kopfrechnen und liegt über einen Marathon um einige Sekunden daneben.
+
+## Zwischenzeiten und die letzten 195 Meter
+
+Eine Zwischenzeittabelle zeigt die verstrichene Zeit an jedem Abschnitt. Bei gleichmäßiger Pace ist das schlichte Multiplikation, und ihr Wert liegt in der Verwendung am Wettkampftag: Wenn Sie bei Kilometer 15 auf 1:15:00 sein sollen und die Uhr 1:13:30 zeigt, laufen Sie zu schnell.
+
+Ein Detail bekommen die meisten Tabellen falsch. Ein Marathon ist 42,195 km lang, nach 42 vollen Kilometerabschnitten bleiben also 195 Meter übrig. Tabellen, die bei Kilometer 42 aufhören, unterschlagen diese letzten 195 Meter stillschweigend — bei Marathonpace fast eine Minute, und es ist die Minute, die den Leuten am meisten bedeutet.
+
+Der [Pace-Rechner](/de/calculators/running-pace/) zeigt diesen letzten Teilabschnitt und kennzeichnet ihn als Teilabschnitt, denn eine Zwischenzeittabelle, die vor der Ziellinie endet, ist genau dort falsch, wo es zählt.
+
+Dasselbe gilt für den Halbmarathon mit 21,0975 km und für jedes Rennen, dessen Distanz kein ganzes Vielfaches Ihres Abschnittsintervalls ist.
+
+## Warum Hochrechnungen falsch sind
+
+Das ist es, was man über jede Tabelle „gleichwertiger Zeiten“ verstehen sollte.
+
+Wenn Sie 5 km in 25:00 laufen, sind das 5:00/km. Halten Sie 5:00/km über einen Marathon, kommen Sie in 3:30:59 an.
+
+Werden Sie nicht. Das schafft niemand.
+
+Die Pace sinkt, wenn die Distanz steigt, und zwar aus physiologischen und nicht aus motivationalen Gründen. Das Glykogen geht zur Neige. Die Wärmeabgabe wird begrenzend. Muskelschäden häufen sich. Die relative Intensität, die sich halten lässt, sinkt mit der Dauer — eine gut trainierte Person hält vielleicht 95 Prozent der Schwellenpace über 10 km und 85 Prozent im Marathon.
+
+Die Hochrechnungen im Pace-Rechner setzen konstante Pace voraus, und die Seite sagt das. Sie beantworten „was ergäbe dieselbe Pace über eine andere Distanz?“ — ein Vergleich unter gleichen Bedingungen, nützlich fürs Einteilen einer Einheit. Sie beantworten nicht „was könnte ich im Wettkampf laufen?“.
+
+## Riegels Formel
+
+Das Standardwerkzeug für echte Vorhersagen ist die Formel von Peter Riegel:
+
+```
+T₂ = T₁ × (D₂ / D₁)^1,06
+```
+
+T₁ ist Ihre bekannte Zeit über die Distanz D₁, T₂ die vorhergesagte Zeit über D₂. Der Exponent 1,06 ist ein Ermüdungsfaktor: Hielte die Pace perfekt, wäre der Exponent 1,0, und die überschüssigen 0,06 codieren, wie stark man mit wachsender Distanz langsamer wird.
+
+Auf jene 25:00 über 5 km angewandt, sagt Riegel für den Marathon etwa 3:57 voraus statt 3:31 — sechsundzwanzig Minuten langsamer als die Hochrechnung mit konstanter Pace und weit näher an der Wirklichkeit.
+
+Riegel hat Grenzen, die man kennen sollte. Sie setzt ein für die Zieldistanz angemessenes Training voraus, und das ist viel verlangt: Wer sich auf 5 km spezialisiert hat und nie über 15 km hinausgekommen ist, wird eine Riegel-Marathonprognose nicht erreichen, wie schnell die 5 km auch sind. Der Exponent schwankt zudem zwischen Personen — besser trainierte Ausdauerläuferinnen und -läufer haben niedrigere effektive Exponenten, halten die Pace mit wachsender Distanz also besser. Und weit zu extrapolieren, etwa von 5 km auf Marathon, häuft mehr Fehler an als ein kurzer Sprung wie von 10 km auf Halbmarathon.
+
+## Gleichmäßige Pace gegen Negative Splits
+
+Physiologisch liegt eine gleichmäßige Pace über die meisten Wettkampfdistanzen nahe am Optimum für die Zeitfahrleistung. Schnell loszulaufen hebt das Laktat und leert das Glykogen früh, und die in der zweiten Hälfte verlorene Zeit übersteigt den Gewinn aus der ersten.
+
+Der Rat, negative Splits zu laufen — zweite Hälfte schneller als die erste —, ist in Wahrheit der Rat, keine positiven Splits zu laufen. Die meisten Amateurrennen gehen in den ersten drei Kilometern verloren, an das Adrenalin und daran, sich von schnelleren Startenden mitziehen zu lassen.
+
+Eine Zwischenzeittabelle hilft hier, und es lohnt, etwas Konkretes damit zu tun: Schreiben Sie Ihre Zielzeiten auf die Hand oder aufs Ziffernblatt und behandeln Sie es in den ersten Kilometern als Problem, _vor_ ihnen zu liegen, statt als Grund zur Freude.
+
+## Die Tabelle im Training nutzen
+
+**Schwellenarbeit** liegt um die Wettkampfpace für 10 km bis Halbmarathon, bei den meisten grob 15 bis 20 Sekunden pro Kilometer langsamer als die 5-km-Pace.
+
+**Lockeres Laufen** sollte deutlich langsamer sein, als die meisten es tun — üblicherweise 60 bis 90 Sekunden pro Kilometer langsamer als die Schwelle. Liegen Ihre lockere Pace und Ihre Schwellenpace dicht beieinander, ist das der Graubereich aus [den Herzfrequenzzonen](/de/guides/understanding-heart-rate-zones/), und dort verpufft viel Trainingsaufwand.
+
+**Wettkampfpace zu üben** zählt am meisten für den Marathon, wo es eine eigene Fertigkeit ist, eine bestimmte Pace über Stunden zu halten. Die Zwischenzeittabelle so lange zu lesen, bis die Zahlen vertraut sind, ist ein echter Teil der Vorbereitung.

@@ -1,0 +1,100 @@
+---
+title: Come leggere una tabella del passo
+description: Convertire fra passo, velocità e tempo d'arrivo, perché le proiezioni a passo costante sbagliano, e che cosa fa in proposito la formula di Riegel.
+keywords:
+  - tabella del passo
+  - calcolatore del passo di corsa
+  - tabella del passo maratona
+  - previsione del tempo di gara
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [running-pace, target-heart-rate, calories-burned]
+relatedGuides: [understanding-heart-rate-zones, met-values-explained]
+readingMinutes: 5
+---
+
+Una tabella del passo associa a ogni passo un tempo d'arrivo su diverse distanze. Scendi fino al tuo passo al chilometro, spostati fino a una distanza, ed ecco il tempo.
+
+L'aritmetica è banale. La parte interessante è ciò che una tabella del passo non può dirti, ed è proprio in quel divario che quasi tutti la usano male.
+
+## Le tre grandezze
+
+Passo, velocità e tempo sono la stessa informazione detta in tre modi.
+
+**Il passo** è tempo per unità di distanza: 5:00 al chilometro. Più basso vuol dire più veloce, e questo inciampa chi confronta.
+
+**La velocità** è distanza per unità di tempo: 12 km/h. Più alta vuol dire più veloce.
+
+**Il tempo d'arrivo** è il passo moltiplicato per la distanza.
+
+Conversioni:
+
+```
+passo al km      = tempo / distanza in km
+velocità in km/h = 60 / passo in minuti al km
+tempo finale     = passo al km × distanza in km
+```
+
+Un passo di 5:00/km sono 12 km/h, e danno 25:00 su 5 km, 50:00 su 10 km e 3:30:59 in maratona.
+
+Chi corre ragiona in passo, perché è ciò che mostra l'orologio ed è ciò che si tiene in gara. Chi pedala ragiona in velocità. Nessuno dei due è più corretto.
+
+## Chilometri e miglia
+
+Un miglio vale 1,609344 chilometri, quindi il passo al miglio è il passo al chilometro moltiplicato per 1,609344.
+
+5:00/km fa 8:03/miglio. 4:00/km fa 6:26/miglio. 6:00/km fa 9:39/miglio.
+
+L'approssimazione comune «aggiungi il sessanta per cento» basta per il calcolo a mente e sbaglia di qualche secondo su una maratona.
+
+## I parziali, e gli ultimi 195 metri
+
+Una tabella dei parziali mostra il tempo trascorso a ogni intervallo. A passo costante è una semplice moltiplicazione, e il suo valore sta nell'uso il giorno di gara: se devi passare al quindicesimo chilometro in 1:15:00 e l'orologio segna 1:13:30, stai andando troppo forte.
+
+C'è un dettaglio che quasi tutte le tabelle sbagliano. Una maratona misura 42,195 km, quindi dopo 42 parziali interi da un chilometro restano 195 metri. Le tabelle che si fermano al chilometro 42 omettono in silenzio quegli ultimi 195 metri, che a passo maratona sono quasi un minuto, ed è il minuto che interessa di più.
+
+Il [calcolatore del passo](/it/calculators/running-pace/) mostra quel tratto parziale finale e lo segnala come parziale, perché una tabella dei parziali che finisce prima del traguardo sbaglia esattamente dove conta.
+
+Lo stesso vale per la mezza maratona, a 21,0975 km, e per qualsiasi gara la cui distanza non sia un multiplo intero del tuo intervallo di parziali.
+
+## Perché le proiezioni sbagliano
+
+Ecco che cosa capire di ogni tabella di «tempi equivalenti».
+
+Se corri 5 km in 25:00, quello è 5:00/km. Tieni 5:00/km per una maratona e arrivi in 3:30:59.
+
+Non lo farai. Non lo fa nessuno.
+
+Il passo cala al crescere della distanza, per ragioni fisiologiche e non motivazionali. Il glicogeno si esaurisce. La termoregolazione diventa limitante. Il danno muscolare si accumula. L'intensità relativa che riesci a sostenere scende man mano che la durata si allunga: un corridore ben allenato potrebbe tenere il 95 per cento del passo di soglia sui 10 km e l'85 per cento in maratona.
+
+Le proiezioni del calcolatore presuppongono un passo costante, e la pagina lo dichiara. Rispondono a «che cosa darebbe lo stesso passo su una distanza diversa?»: un confronto a parità di condizioni, utile per impostare un allenamento. Non rispondono a «che cosa potrei correre in gara?».
+
+## La formula di Riegel
+
+Lo strumento standard per una previsione vera è quello di Peter Riegel:
+
+```
+T₂ = T₁ × (D₂ / D₁)^1,06
+```
+
+T₁ è il tuo tempo noto sulla distanza D₁, e T₂ è il tempo previsto su D₂. L'esponente 1,06 è un fattore di fatica: se il passo reggesse alla perfezione l'esponente sarebbe 1,0, e lo 0,06 in più codifica quanto rallenti al crescere della distanza.
+
+Applicata a quei 25:00 sui 5 km, Riegel prevede circa 3:57 per una maratona invece di 3:31: ventisei minuti più lenta della proiezione a passo costante, e molto più vicina alla realtà.
+
+Riegel ha limiti che vale la pena conoscere. Presuppone un allenamento adeguato alla distanza obiettivo, e non è poco: uno specialista dei 5 km che non ha mai corso oltre i 15 km non centrerà una previsione di maratona alla Riegel, per quanto sia veloce sui 5 km. Anche l'esponente varia fra individui: chi è meglio allenato sulle lunghe ha esponenti effettivi più bassi, cioè tiene meglio il passo al crescere della distanza. E estrapolare molto lontano, come dai 5 km alla maratona, accumula più errore di un salto breve come dai 10 km alla mezza.
+
+## Passo costante contro negative split
+
+Dal punto di vista fisiologico il passo costante è vicino all'ottimo per la prestazione a cronometro sulla maggior parte delle distanze. Partire forte alza il lattato e svuota il glicogeno presto, e il tempo perso nella seconda metà supera quello guadagnato nella prima.
+
+Il consiglio di correre in negative split — seconda metà più veloce della prima — è in realtà il consiglio di non correre in positive split. Gran parte delle gare amatoriali si perde nei primi tre chilometri, per l'adrenalina e per il farsi trascinare da chi parte più forte.
+
+Una tabella dei parziali qui aiuta, e vale la pena farci qualcosa di concreto: scrivi i tuoi parziali obiettivo sulla mano o sul quadrante, e nei primi chilometri tratta l'essere _in anticipo_ su di essi come un problema, non come un motivo per sentirti bene.
+
+## Usare la tabella in allenamento
+
+**Il lavoro di soglia** sta attorno al passo gara dei 10 km-mezza maratona, all'incirca 15-20 secondi al chilometro più lento del passo dei 5 km per la maggior parte dei corridori.
+
+**La corsa lenta** dovrebbe essere assai più lenta di come quasi tutti la corrono: di norma 60-90 secondi al chilometro più lenta della soglia. Se il tuo passo lento e il tuo passo di soglia sono vicini, quella è la zona grigia descritta nelle [zone di frequenza cardiaca](/it/guides/understanding-heart-rate-zones/), ed è lì che tanto lavoro di allenamento va sprecato.
+
+**Provare il passo gara** conta soprattutto in maratona, dove tenere un passo preciso per ore è una capacità a sé. Leggere la tabella dei parziali finché i numeri non diventano familiari è a tutti gli effetti parte della preparazione.

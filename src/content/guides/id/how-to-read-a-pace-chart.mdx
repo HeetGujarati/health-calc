@@ -1,0 +1,100 @@
+---
+title: Cara membaca tabel tempo lari
+description: Mengubah antara tempo, kecepatan, dan waktu tempuh, mengapa proyeksi pada tempo tetap itu keliru, dan apa yang dilakukan rumus Riegel terhadapnya.
+keywords:
+  - tabel tempo lari
+  - kalkulator tempo lari
+  - tabel tempo maraton
+  - ramalan waktu lomba
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [running-pace, target-heart-rate, calories-burned]
+relatedGuides: [understanding-heart-rate-zones, met-values-explained]
+readingMinutes: 5
+---
+
+Tabel tempo memetakan tempo lari ke waktu tempuh untuk berbagai jarak. Turun sampai tempo per kilometer Anda, geser ke satu jarak, dan waktunya sudah di situ.
+
+Hitungannya sepele. Bagian yang menarik adalah apa yang tak bisa disampaikan tabel tempo, dan pada celah itulah kebanyakan orang salah memakainya.
+
+## Tiga besaran
+
+Tempo, kecepatan, dan waktu adalah keterangan yang sama yang dinyatakan dengan tiga cara.
+
+**Tempo** adalah waktu per satuan jarak — 5:00 per kilometer. Makin kecil makin cepat, dan itulah yang menjebak saat orang membandingkan.
+
+**Kecepatan** adalah jarak per satuan waktu — 12 km/jam. Makin besar makin cepat.
+
+**Waktu tempuh** adalah tempo dikalikan jarak.
+
+Cara mengubahnya:
+
+```
+tempo per km       = waktu / jarak dalam km
+kecepatan km/jam   = 60 / tempo dalam menit per km
+waktu tempuh       = tempo per km × jarak dalam km
+```
+
+Tempo 5:00/km sama dengan 12 km/jam, dan menghasilkan 25:00 untuk 5 km, 50:00 untuk 10 km, dan 3:30:59 untuk maraton.
+
+Pelari berpikir dengan tempo, karena itulah yang ditampilkan jam tangan dan itulah yang dijaga selama lomba. Pesepeda berpikir dengan kecepatan. Tak ada yang lebih benar di antara keduanya.
+
+## Kilometer dan mil
+
+Satu mil sama dengan 1,609344 kilometer, jadi tempo per mil adalah tempo per kilometer dikalikan 1,609344.
+
+5:00/km sama dengan 8:03/mil. 4:00/km sama dengan 6:26/mil. 6:00/km sama dengan 9:39/mil.
+
+Pendekatan yang lazim, “tambahkan enam puluh persen”, cukup untuk hitungan di kepala dan meleset beberapa detik sepanjang satu maraton.
+
+## Waktu antara, dan 195 meter terakhir
+
+Tabel waktu antara menunjukkan waktu berjalan pada tiap selang. Pada tempo yang rata itu sekadar perkalian, dan gunanya adalah sebagai acuan di hari lomba: jika Anda seharusnya melewati kilometer 15 pada 1:15:00 dan jam Anda menunjukkan 1:13:30, berarti Anda terlalu cepat.
+
+Ada satu hal yang salah pada kebanyakan tabel. Maraton berjarak 42,195 km, jadi setelah 42 selang penuh satu kilometer masih tersisa 195 meter. Tabel yang berhenti di kilometer 42 diam-diam menghilangkan 195 meter terakhir itu — pada tempo maraton itu hampir semenit, dan itulah menit yang paling dipedulikan orang.
+
+[Kalkulator tempo lari](/id/calculators/running-pace/) menampilkan potongan terakhir itu dan menandainya sebagai potongan sebagian, karena tabel waktu antara yang berakhir sebelum garis finis salah justru di tempat yang paling penting.
+
+Hal yang sama berlaku bagi setengah maraton di 21,0975 km, dan bagi lomba mana pun yang jaraknya bukan kelipatan bulat dari selang Anda.
+
+## Mengapa proyeksinya keliru
+
+Inilah yang perlu dipahami tentang setiap tabel “waktu setara”.
+
+Jika Anda menempuh 5 km dalam 25:00, itu berarti 5:00/km. Pertahankan 5:00/km sepanjang maraton dan Anda finis pada 3:30:59.
+
+Anda tidak akan bisa. Tak seorang pun bisa.
+
+Tempo melambat seiring bertambahnya jarak, karena sebab-sebab fisiologis, bukan soal motivasi. Glikogen menipis. Pengaturan suhu tubuh menjadi pembatas. Kerusakan otot menumpuk. Intensitas relatif yang sanggup Anda pertahankan menurun seiring memanjangnya durasi — pelari yang terlatih baik mungkin mampu menjaga 95 persen dari tempo ambangnya pada 10 km dan 85 persen pada maraton.
+
+Proyeksi pada kalkulator tempo mengandaikan tempo yang tetap, dan halamannya menyatakan hal itu. Ia menjawab “tempo yang sama ini akan memberi apa pada jarak yang lain?” — perbandingan setara yang berguna untuk menakar satu sesi latihan. Ia tidak menjawab “berapa yang bisa saya capai dalam lomba?”.
+
+## Rumus Riegel
+
+Alat baku untuk ramalan yang sesungguhnya adalah rumus Peter Riegel:
+
+```
+T₂ = T₁ × (D₂ / D₁)^1,06
+```
+
+T₁ adalah waktu Anda yang diketahui pada jarak D₁, dan T₂ adalah waktu yang diramalkan pada D₂. Pangkat 1,06 adalah faktor kelelahan: seandainya tempo bertahan sempurna, pangkatnya akan 1,0, dan kelebihan 0,06 itu menyandikan seberapa banyak Anda melambat saat jarak bertambah.
+
+Diterapkan pada 5 km 25:00 tadi, Riegel meramalkan sekitar 3:57 untuk maraton alih-alih 3:31 — dua puluh enam menit lebih lambat daripada proyeksi tempo tetap, dan jauh lebih dekat pada kenyataan.
+
+Riegel punya batas yang layak diketahui. Ia mengandaikan latihan yang memadai untuk jarak sasarannya, dan andaian itu berat: pelari yang khusus 5 km dan tak pernah menempuh lebih dari 15 km tak akan mencapai ramalan maraton Riegel, secepat apa pun 5 km-nya. Pangkatnya juga berbeda antarorang — pelari daya tahan yang terlatih lebih baik punya pangkat efektif lebih rendah, artinya mereka lebih mampu menjaga tempo saat jarak bertambah. Dan berekstrapolasi jauh, seperti dari 5 km ke maraton, menumpuk galat lebih banyak daripada lompatan pendek seperti dari 10 km ke setengah maraton.
+
+## Tempo rata lawan negative split
+
+Secara fisiologis, tempo yang rata mendekati optimum bagi penampilan pada hampir semua jarak lomba. Berangkat cepat menaikkan laktat dan menguras glikogen di awal, dan waktu yang hilang di paruh kedua melebihi yang diperoleh di paruh pertama.
+
+Nasihat untuk berlari dengan negative split — paruh kedua lebih cepat daripada paruh pertama — sebenarnya adalah nasihat agar tidak berlari dengan positive split. Kebanyakan lomba amatir hilang pada tiga kilometer pertama, karena adrenalin dan karena terbawa oleh mereka yang berangkat lebih cepat.
+
+Tabel waktu antara menolong di sini, dan patut dijadikan sesuatu yang nyata: tuliskan waktu antara sasaran Anda di telapak tangan atau pada muka jam, lalu pada kilometer-kilometer awal perlakukan keadaan _lebih cepat_ dari sasaran itu sebagai masalah, bukan sebagai alasan untuk merasa senang.
+
+## Memakai tabel dalam latihan
+
+**Latihan ambang** berada di sekitar tempo lomba 10 km sampai setengah maraton, kira-kira 15 sampai 20 detik per kilometer lebih lambat daripada tempo 5 km bagi kebanyakan pelari.
+
+**Lari ringan** seharusnya jauh lebih lambat daripada yang biasa dilakukan orang — lazimnya 60 sampai 90 detik per kilometer lebih lambat daripada tempo ambang. Jika tempo ringan dan tempo ambang Anda berdekatan, itulah zona kelabu yang diuraikan dalam [zona denyut jantung](/id/guides/understanding-heart-rate-zones/), dan di situlah banyak upaya latihan terbuang.
+
+**Melatih tempo lomba** paling penting untuk maraton, tempat menjaga satu tempo tertentu selama berjam-jam merupakan keterampilan tersendiri. Membaca tabel waktu antara sampai angka-angkanya terasa akrab adalah bagian yang sungguh-sungguh dari persiapan.

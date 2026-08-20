@@ -1,0 +1,100 @@
+---
+title: Comment lire un tableau d'allure
+description: Convertir allure, vitesse et temps d'arrivée, pourquoi les projections à allure constante sont fausses, et ce que la formule de Riegel y change.
+keywords:
+  - tableau d'allure
+  - calculateur d'allure de course
+  - tableau d'allure marathon
+  - prédiction de temps de course
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [running-pace, target-heart-rate, calories-burned]
+relatedGuides: [understanding-heart-rate-zones, met-values-explained]
+readingMinutes: 5
+---
+
+Un tableau d'allure associe une allure à un temps d'arrivée pour différentes distances. Descendez jusqu'à votre allure au kilomètre, allez jusqu'à une distance, et vous avez le temps.
+
+L'arithmétique est triviale. Ce qui est intéressant, c'est ce qu'un tableau d'allure ne peut pas vous dire, et c'est dans cet écart que la plupart des gens s'en servent mal.
+
+## Les trois grandeurs
+
+Allure, vitesse et temps sont la même information dite de trois façons.
+
+**L'allure** est un temps par unité de distance — 5:00 au kilomètre. Plus bas veut dire plus rapide, ce qui déroute quand on compare.
+
+**La vitesse** est une distance par unité de temps — 12 km/h. Plus haut veut dire plus rapide.
+
+**Le temps d'arrivée** est l'allure multipliée par la distance.
+
+Conversions :
+
+```
+allure au km    = temps / distance en km
+vitesse en km/h = 60 / allure en minutes par km
+temps total     = allure au km × distance en km
+```
+
+Une allure de 5:00/km fait 12 km/h, et donne 25:00 sur 5 km, 50:00 sur 10 km et 3:30:59 sur marathon.
+
+Les coureurs pensent en allure, parce que c'est ce qu'affiche la montre et ce qu'on tient en course. Les cyclistes pensent en vitesse. Ni l'un ni l'autre n'est plus juste.
+
+## Kilomètres et miles
+
+Un mile vaut 1,609344 kilomètre : l'allure au mile est donc l'allure au kilomètre multipliée par 1,609344.
+
+5:00/km fait 8:03/mile. 4:00/km fait 6:26/mile. 6:00/km fait 9:39/mile.
+
+L'approximation courante « ajouter soixante pour cent » suffit au calcul mental et se trompe de quelques secondes sur un marathon.
+
+## Les temps de passage, et les derniers 195 mètres
+
+Un tableau de temps de passage indique le temps écoulé à chaque intervalle. À allure régulière, c'est une simple multiplication, et sa valeur tient à son usage le jour de la course : si vous devez passer le 15e kilomètre en 1:15:00 et que la montre affiche 1:13:30, vous partez trop vite.
+
+Un détail que la plupart des tableaux ratent. Un marathon fait 42,195 km : après 42 tronçons complets d'un kilomètre, il reste 195 mètres. Les tableaux qui s'arrêtent au 42e kilomètre escamotent ces derniers 195 mètres — presque une minute à allure marathon, et c'est la minute qui compte le plus.
+
+Le [calculateur d'allure](/fr/calculators/running-pace/) affiche ce dernier tronçon partiel et le signale comme tel, parce qu'un tableau de passages qui s'arrête avant la ligne d'arrivée se trompe exactement là où cela compte.
+
+Il en va de même pour le semi-marathon, à 21,0975 km, et pour toute course dont la distance n'est pas un multiple entier de votre intervalle.
+
+## Pourquoi les projections sont fausses
+
+Voici ce qu'il faut comprendre de tout tableau de « temps équivalents ».
+
+Si vous courez un 5 km en 25:00, cela fait 5:00/km. Tenez 5:00/km sur un marathon et vous terminez en 3:30:59.
+
+Vous ne le ferez pas. Personne ne le fait.
+
+L'allure baisse quand la distance augmente, pour des raisons physiologiques et non de motivation. Le glycogène s'épuise. La thermorégulation devient limitante. Les lésions musculaires s'accumulent. L'intensité relative que l'on peut tenir diminue à mesure que la durée s'allonge : un coureur bien entraîné tiendra peut-être 95 pour cent de son allure seuil sur 10 km et 85 pour cent sur marathon.
+
+Les projections du calculateur supposent une allure constante, et la page le dit. Elles répondent à « que donnerait la même allure sur une autre distance ? » — une comparaison à conditions égales, utile pour caler une séance. Elles ne répondent pas à « que pourrais-je courir en compétition ? ».
+
+## La formule de Riegel
+
+L'outil de référence pour une véritable prédiction est celui de Peter Riegel :
+
+```
+T₂ = T₁ × (D₂ / D₁)^1,06
+```
+
+T₁ est votre temps connu sur la distance D₁, et T₂ le temps prédit sur D₂. L'exposant 1,06 est un facteur de fatigue : si l'allure tenait parfaitement, l'exposant vaudrait 1,0, et l'excédent de 0,06 encode le ralentissement à mesure que la distance croît.
+
+Appliquée à ce 5 km en 25:00, la formule de Riegel prédit environ 3:57 sur marathon plutôt que 3:31 — vingt-six minutes de plus que la projection à allure constante, et bien plus proche de la réalité.
+
+Riegel a des limites qu'il faut connaître. Elle suppose un entraînement adapté à la distance visée, ce qui n'est pas rien : un spécialiste du 5 km qui n'a jamais couru au-delà de 15 km n'atteindra pas la prédiction marathon de Riegel, quelle que soit sa vitesse sur 5 km. L'exposant varie aussi d'une personne à l'autre — les coureurs d'endurance mieux entraînés ont des exposants effectifs plus faibles, c'est-à-dire qu'ils tiennent mieux l'allure quand la distance augmente. Et extrapoler très loin, du 5 km au marathon par exemple, cumule davantage d'erreur qu'un saut court comme du 10 km au semi.
+
+## Allure régulière ou negative split
+
+Physiologiquement, l'allure régulière est proche de l'optimum pour la performance en contre-la-montre sur la plupart des distances. Partir vite élève le lactate et épuise le glycogène tôt, et le temps perdu en seconde moitié dépasse celui gagné en première.
+
+Le conseil de courir en negative split — seconde moitié plus rapide que la première — est en réalité le conseil de ne pas partir trop vite. La plupart des courses amateurs se perdent dans les trois premiers kilomètres, à cause de l'adrénaline et de l'entraînement par des partants plus rapides.
+
+Un tableau de passages aide ici, et il vaut la peine d'en faire quelque chose de concret : notez vos temps cibles sur la main ou sur le cadran, et sur les premiers kilomètres, considérez le fait d'être _en avance_ comme un problème plutôt que comme une raison de se réjouir.
+
+## Utiliser le tableau à l'entraînement
+
+**Le travail au seuil** se situe autour de l'allure de course du 10 km au semi-marathon, soit environ 15 à 20 secondes au kilomètre de moins que l'allure 5 km pour la plupart des coureurs.
+
+**Le footing facile** devrait être nettement plus lent que ce que la plupart des gens pratiquent — couramment 60 à 90 secondes au kilomètre de moins que le seuil. Si votre allure facile et votre allure seuil sont proches, c'est la zone grise décrite dans [les zones de fréquence cardiaque](/fr/guides/understanding-heart-rate-zones/), et c'est là que beaucoup d'efforts d'entraînement se perdent.
+
+**Travailler l'allure spécifique** compte surtout pour le marathon, où tenir une allure précise pendant des heures est un savoir-faire en soi. Lire le tableau de passages jusqu'à ce que les chiffres deviennent familiers fait vraiment partie de la préparation.

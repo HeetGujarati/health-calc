@@ -1,0 +1,100 @@
+---
+title: Como ler uma tabela de ritmo
+description: Converter entre ritmo, velocidade e tempo de chegada, por que projeções a ritmo constante erram, e o que a fórmula de Riegel faz a respeito.
+keywords:
+  - tabela de ritmo
+  - calculadora de ritmo de corrida
+  - tabela de ritmo de maratona
+  - previsão de tempo de prova
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [running-pace, target-heart-rate, calories-burned]
+relatedGuides: [understanding-heart-rate-zones, met-values-explained]
+readingMinutes: 5
+---
+
+Uma tabela de ritmo associa cada ritmo a um tempo de chegada em várias distâncias. Desça até o seu ritmo por quilômetro, siga até uma distância, e ali está o tempo.
+
+A aritmética é trivial. O interessante é o que uma tabela de ritmo não consegue lhe dizer, e é nessa lacuna que a maioria das pessoas a usa errado.
+
+## As três grandezas
+
+Ritmo, velocidade e tempo são a mesma informação dita de três jeitos.
+
+**Ritmo** é tempo por unidade de distância — 5:00 por quilômetro. Menor é mais rápido, o que confunde na hora de comparar.
+
+**Velocidade** é distância por unidade de tempo — 12 km/h. Maior é mais rápido.
+
+**Tempo de chegada** é o ritmo multiplicado pela distância.
+
+Conversões:
+
+```
+ritmo por km    = tempo / distância em km
+velocidade km/h = 60 / ritmo em minutos por km
+tempo total     = ritmo por km × distância em km
+```
+
+Um ritmo de 5:00/km é 12 km/h, e dá 25:00 numa prova de 5k, 50:00 num 10k e 3:30:59 numa maratona.
+
+Quem corre pensa em ritmo, porque é o que o relógio mostra e o que se sustenta na prova. Quem pedala pensa em velocidade. Nenhum dos dois é mais correto.
+
+## Quilômetros e milhas
+
+Uma milha tem 1,609344 quilômetro, então o ritmo por milha é o ritmo por quilômetro multiplicado por 1,609344.
+
+5:00/km é 8:03/milha. 4:00/km é 6:26/milha. 6:00/km é 9:39/milha.
+
+A aproximação comum de «somar sessenta por cento» serve para conta de cabeça e erra por alguns segundos ao longo de uma maratona.
+
+## Parciais, e os últimos 195 metros
+
+Uma tabela de parciais mostra o tempo acumulado em cada intervalo. Em ritmo constante é multiplicação simples, e seu valor está em servir de referência no dia da prova: se você devia passar o quilômetro 15 em 1:15:00 e o relógio marca 1:13:30, está indo rápido demais.
+
+Há um detalhe que a maioria das tabelas erra. Uma maratona tem 42,195 km, então depois de 42 parciais inteiros de um quilômetro sobram 195 metros. Tabelas que param no quilômetro 42 omitem em silêncio esses últimos 195 metros — que em ritmo de maratona são quase um minuto, e é o minuto que mais importa.
+
+A [calculadora de ritmo](/pt-br/calculators/running-pace/) mostra esse trecho parcial final e o sinaliza como parcial, porque uma tabela de parciais que termina antes da linha de chegada erra justamente onde mais conta.
+
+O mesmo vale para a meia maratona, com 21,0975 km, e para qualquer prova cuja distância não seja múltiplo inteiro do seu intervalo de parciais.
+
+## Por que as projeções erram
+
+Eis o que é preciso entender sobre qualquer tabela de «tempos equivalentes».
+
+Se você corre 5k em 25:00, isso é 5:00/km. Mantenha 5:00/km numa maratona e você termina em 3:30:59.
+
+Você não vai. Ninguém vai.
+
+O ritmo cai conforme a distância aumenta, por razões fisiológicas e não motivacionais. O glicogênio se esgota. A termorregulação passa a limitar. O dano muscular se acumula. A intensidade relativa que você consegue sustentar cai à medida que a duração se estende — um corredor bem treinado talvez sustente 95 por cento do ritmo de limiar num 10k e 85 por cento numa maratona.
+
+As projeções da calculadora de ritmo supõem ritmo constante, e a página diz isso. Elas respondem «o que o mesmo ritmo daria em outra distância?» — uma comparação equivalente, útil para planejar um treino. Elas não respondem «o que eu conseguiria correr numa prova?».
+
+## A fórmula de Riegel
+
+A ferramenta padrão para previsão de verdade é a de Peter Riegel:
+
+```
+T₂ = T₁ × (D₂ / D₁)^1,06
+```
+
+T₁ é o seu tempo conhecido na distância D₁, e T₂ é o tempo previsto em D₂. O expoente 1,06 é um fator de fadiga: se o ritmo se mantivesse perfeitamente o expoente seria 1,0, e o excedente de 0,06 codifica o quanto você desacelera conforme a distância cresce.
+
+Aplicada àquele 5k de 25:00, Riegel prevê cerca de 3:57 para uma maratona em vez de 3:31 — vinte e seis minutos mais lento do que a projeção a ritmo constante, e muito mais perto da realidade.
+
+Riegel tem limites que vale conhecer. Ela supõe treino adequado para a distância-alvo, e isso é supor muita coisa: quem é especialista em 5k e nunca correu além de 15 km não vai bater uma previsão de maratona de Riegel, por mais veloz que seja nos 5k. O expoente também varia entre pessoas — corredores de fundo mais bem treinados têm expoentes efetivos menores, ou seja, sustentam melhor o ritmo conforme a distância cresce. E extrapolar muito longe, como de 5k para maratona, acumula mais erro do que um salto curto como de 10k para meia.
+
+## Ritmo constante contra parciais negativos
+
+Fisiologicamente, o ritmo constante fica perto do ideal para desempenho em contrarrelógio na maior parte das distâncias. Sair rápido eleva o lactato e esgota o glicogênio cedo, e o tempo perdido na segunda metade supera o ganho na primeira.
+
+O conselho de correr parciais negativos — segunda metade mais rápida que a primeira — é na verdade o conselho de não correr parciais positivos. A maior parte das provas amadoras é perdida nos três primeiros quilômetros, pela adrenalina e por se deixar levar por quem larga mais forte.
+
+Uma tabela de parciais ajuda aqui, e vale fazer algo concreto com ela: escreva seus parciais-alvo na mão ou no mostrador do relógio, e nos primeiros quilômetros trate estar _à frente_ deles como um problema, não como motivo para se sentir bem.
+
+## Usando a tabela no treino
+
+**O trabalho de limiar** fica em torno do ritmo de prova de 10k a meia maratona, aproximadamente 15 a 20 segundos por quilômetro mais lento que o ritmo de 5k para a maioria dos corredores.
+
+**A corrida leve** deveria ser bem mais lenta do que a maioria das pessoas corre — comumente 60 a 90 segundos por quilômetro mais lenta que o limiar. Se o seu ritmo leve e o seu ritmo de limiar estão próximos, essa é a zona cinzenta descrita em [zonas de frequência cardíaca](/pt-br/guides/understanding-heart-rate-zones/), e é ali que muito esforço de treino se perde.
+
+**Praticar o ritmo de prova** importa mais na maratona, onde sustentar um ritmo específico por horas é uma habilidade em si. Ler a tabela de parciais até os números ficarem familiares é uma parte genuína da preparação.

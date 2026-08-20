@@ -1,0 +1,100 @@
+---
+title: Cómo leer una tabla de ritmo
+description: Convertir entre ritmo, velocidad y tiempo de llegada, por qué las proyecciones a ritmo constante fallan, y qué hace al respecto la fórmula de Riegel.
+keywords:
+  - tabla de ritmo
+  - calculadora de ritmo de carrera
+  - tabla de ritmo de maratón
+  - predicción de tiempo de carrera
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [running-pace, target-heart-rate, calories-burned]
+relatedGuides: [understanding-heart-rate-zones, met-values-explained]
+readingMinutes: 5
+---
+
+Una tabla de ritmo asigna a cada ritmo un tiempo de llegada para varias distancias. Baja hasta tu ritmo por kilómetro, avanza hasta una distancia, y ahí tienes el tiempo.
+
+La aritmética es trivial. Lo interesante es lo que una tabla de ritmo no puede decirte, y en esa brecha es donde la mayoría la usa mal.
+
+## Las tres magnitudes
+
+Ritmo, velocidad y tiempo son la misma información dicha de tres maneras.
+
+**El ritmo** es tiempo por unidad de distancia: 5:00 por kilómetro. Menos es más rápido, lo que despista al comparar.
+
+**La velocidad** es distancia por unidad de tiempo: 12 km/h. Más es más rápido.
+
+**El tiempo de llegada** es el ritmo multiplicado por la distancia.
+
+Conversiones:
+
+```
+ritmo por km   = tiempo / distancia en km
+velocidad km/h = 60 / ritmo en minutos por km
+tiempo total   = ritmo por km × distancia en km
+```
+
+Un ritmo de 5:00/km son 12 km/h, y da 25:00 en un 5k, 50:00 en un 10k y 3:30:59 en un maratón.
+
+Quien corre piensa en ritmo porque es lo que muestra el reloj y lo que sostiene en carrera. Quien pedalea piensa en velocidad. Ninguna forma es más correcta.
+
+## Kilómetros y millas
+
+Una milla son 1,609344 kilómetros, así que el ritmo por milla es el ritmo por kilómetro multiplicado por 1,609344.
+
+5:00/km son 8:03/milla. 4:00/km son 6:26/milla. 6:00/km son 9:39/milla.
+
+La aproximación habitual de «suma un sesenta por ciento» sirve para el cálculo mental y se equivoca en unos segundos a lo largo de un maratón.
+
+## Parciales, y los últimos 195 metros
+
+Una tabla de parciales muestra el tiempo acumulado en cada intervalo. A ritmo constante es una simple multiplicación, y su valor está en servir de referencia el día de carrera: si debías pasar el kilómetro 15 en 1:15:00 y el reloj marca 1:13:30, vas demasiado rápido.
+
+Hay un detalle que la mayoría de las tablas hace mal. Un maratón son 42,195 km, así que después de 42 parciales completos de un kilómetro quedan 195 metros. Las tablas que se detienen en el kilómetro 42 omiten en silencio esos últimos 195 metros, que a ritmo de maratón son casi un minuto, y es el minuto que más importa.
+
+La [calculadora de ritmo](/es/calculators/running-pace/) muestra ese último segmento parcial y lo marca como parcial, porque una tabla de parciales que termina antes de la meta se equivoca justo donde cuenta.
+
+Lo mismo vale para la media maratón, a 21,0975 km, y para cualquier carrera cuya distancia no sea múltiplo entero de tu intervalo de parciales.
+
+## Por qué las proyecciones fallan
+
+Esto es lo que hay que entender de cualquier tabla de «tiempos equivalentes».
+
+Si corres un 5k en 25:00, eso son 5:00/km. Sostén 5:00/km en un maratón y terminas en 3:30:59.
+
+No lo harás. Nadie lo hace.
+
+El ritmo cae al aumentar la distancia, por razones fisiológicas y no motivacionales. El glucógeno se agota. La termorregulación pasa a limitar. El daño muscular se acumula. La intensidad relativa que puedes sostener baja conforme se alarga la duración: alguien bien entrenado puede sostener el 95 por ciento del ritmo de umbral en 10k y el 85 por ciento en un maratón.
+
+Las proyecciones de la calculadora suponen ritmo constante, y la página lo dice. Responden a «¿qué daría el mismo ritmo en otra distancia?», una comparación equiparable, útil para planificar un entrenamiento. No responden a «¿qué podría correr en competición?».
+
+## La fórmula de Riegel
+
+La herramienta estándar para predecir de verdad es la de Peter Riegel:
+
+```
+T₂ = T₁ × (D₂ / D₁)^1,06
+```
+
+T₁ es tu tiempo conocido en la distancia D₁, y T₂ es el tiempo previsto en D₂. El exponente 1,06 es un factor de fatiga: si el ritmo se sostuviera a la perfección el exponente sería 1,0, y ese exceso de 0,06 codifica cuánto te frenas al crecer la distancia.
+
+Aplicada a ese 5k de 25:00, Riegel predice unas 3:57 para un maratón en lugar de 3:31 — veintiséis minutos más lento que la proyección a ritmo constante, y mucho más cerca de la realidad.
+
+Riegel tiene límites que conviene conocer. Supone un entrenamiento adecuado para la distancia objetivo, y eso es mucho suponer: quien se especializa en 5k y nunca ha pasado de 15 km no alcanzará una predicción de maratón de Riegel por rápido que sea en 5k. El exponente también varía entre personas: los corredores de fondo mejor entrenados tienen exponentes efectivos menores, es decir, sostienen mejor el ritmo al crecer la distancia. Y extrapolar muy lejos, como de 5k a maratón, acumula más error que un salto corto como de 10k a media.
+
+## Ritmo constante frente a parciales negativos
+
+Fisiológicamente, el ritmo constante está cerca de lo óptimo para el rendimiento contrarreloj en casi todas las distancias. Salir rápido eleva el lactato y agota el glucógeno pronto, y el tiempo perdido en la segunda mitad supera al ganado en la primera.
+
+El consejo de correr parciales negativos —segunda mitad más rápida que la primera— es en realidad el consejo de no correr parciales positivos. La mayoría de las carreras populares se pierden en los tres primeros kilómetros, por la adrenalina y por dejarse llevar por quienes salen más fuerte.
+
+Una tabla de parciales ayuda aquí, y merece la pena hacer algo concreto con ella: apunta tus parciales objetivo en la mano o en la esfera del reloj, y en los primeros kilómetros trata el ir _por delante_ de ellos como un problema y no como un motivo para sentirte bien.
+
+## Usar la tabla en el entrenamiento
+
+**El trabajo de umbral** ronda el ritmo de competición de 10k a media maratón, aproximadamente 15 a 20 segundos por kilómetro más lento que el ritmo de 5k para la mayoría.
+
+**El rodaje suave** debería ser bastante más lento de lo que suele hacerse: normalmente de 60 a 90 segundos por kilómetro más lento que el umbral. Si tu ritmo suave y tu ritmo de umbral están cerca, esa es la zona gris descrita en [las zonas de frecuencia cardíaca](/es/guides/understanding-heart-rate-zones/), y ahí es donde se desperdicia mucho esfuerzo de entrenamiento.
+
+**Practicar el ritmo de carrera** importa sobre todo en el maratón, donde sostener un ritmo concreto durante horas es una destreza en sí misma. Leer la tabla de parciales hasta que los números te resulten familiares es una parte genuina de la preparación.
