@@ -283,3 +283,374 @@ forces a non-null assertion at every call site even though the key type
 guarantees a hit — and those assertions are exactly what survives a refactor that
 makes them false. The mapped return type makes the lookup total, containing the
 single unavoidable cast inside one helper.
+
+---
+
+## Phase 3 — SEO module
+
+### 3.1 One component writes `<head>`, and nothing else may
+
+**Decision:** `Seo.astro` is the only place head tags are emitted; pages pass a
+`SeoMeta` object and never write their own.
+
+The guarantees the brief asks for are only checkable if they have one shape to
+check. With metadata centralised, "every page has exactly one canonical" and
+"every noindex page has zero hreflang alternates" become properties of one
+function rather than of 913 pages, and `audit:seo` can parse for them.
+
+### 3.2 `noIndex` suppresses the sitemap entry and the hreflang alternates too
+
+**Decision:** setting `noIndex` empties `alternates.languages` and removes the
+page from the sitemap, in the metadata builder rather than at each call site.
+
+A page excluded from the index must not be advertised as the translation to
+serve for any locale, and must not sit in a file whose entire purpose is to ask
+for crawling. Coupling all three to one flag makes them consistent by
+construction. `/search/` is the case that exercises it.
+
+### 3.3 `buildAggregateRating` ships, and emits nothing
+
+**Decision:** implement, type and test it; wire it to emit only when real
+on-page review data exists; ship with no reviews and therefore no output.
+
+Rating markup with invented numbers is the most common route to a
+spammy-structured-markup manual action, and the brief forbids fabrication
+outright. Building it now and leaving it dark means enabling it later is a data
+problem rather than a code problem. `SEO.md` documents the order of operations.
+
+### 3.4 A hand-built sitemap instead of `@astrojs/sitemap`
+
+**Decision:** generate the index and children from a page registry in
+`src/lib/seo/pages.ts`.
+
+Section 6.5 needs `xhtml:link` alternates for every locale of every URL, real
+content-derived `lastmod`, and per-section priority. The integration cannot
+express the first or the third. More importantly it derives `lastmod` from the
+build, and a `lastmod` that moves on every build tells search engines every page
+changed when none did — they learn to ignore it. The registry carries the real
+content date next to the data that produces the page.
+
+---
+
+## Phase 4 — Design system
+
+### 4.1 Boldness spent in exactly one place
+
+**Decision:** a restrained palette and type scale everywhere, with the result
+readout as the single deliberate exception.
+
+The numeral is the product. Someone arrives to get a number; everything between
+them and it is overhead. Spending the visual budget on the answer rather than on
+a hero image is also what makes the calculator fit above the fold on a 360px
+phone, which is a hard requirement rather than a preference.
+
+### 4.2 Contrast ratios are recomputed by a test, not eyeballed
+
+**Decision:** `contrast.test.ts` parses the real `tokens.css` and recomputes
+every WCAG ratio.
+
+A colour change that breaks contrast is invisible in review and obvious to
+someone who cannot read the result. Parsing the actual stylesheet rather than a
+copy of the values means the test cannot drift from what ships.
+
+### 4.3 Logical CSS properties throughout
+
+**Decision:** `ms`/`me`, `ps`/`pe`, `text-start`/`text-end`, `border-s`/`border-e`
+rather than left and right.
+
+Arabic was always in scope. Writing directional properties and fixing them later
+means auditing every template; writing logical ones from the start means the RTL
+build is a `dir` attribute. The Playwright overflow check on
+`/ar/calculators/bmi/` is what proves it held.
+
+---
+
+## Phase 5 — Calculator pages
+
+### 5.1 The ten required blocks are structural, not a checklist
+
+**Decision:** every calculator page renders through `CalculatorLayout.astro`,
+which emits the ten blocks in the required order from a `CalculatorDefinition`.
+
+A calculator that omits its citation or its FAQ does not typecheck. The
+alternative — remembering the checklist sixteen times, and again for every future
+calculator — fails on the seventeenth.
+
+### 5.2 Vanilla custom elements rather than a framework
+
+**Decision:** the islands are plain classes extending `HTMLElement`.
+
+The whole site's JavaScript budget is 35 KB gzipped. A framework runtime spends
+most of that before any of the site's own logic exists. The islands are small
+enough that a framework would add indirection rather than remove it, and
+progressive enhancement is easier to guarantee when the server-rendered form is
+the real form.
+
+### 5.3 A real submit button, even though results are live
+
+**Decision:** every calculator form has a working submit control.
+
+WCAG technique H32 and html-validate both want one, but the real reason is that a
+form with no submit control leaves keyboard and screen-reader users with no
+explicit action to take, and many people expect to press something. The island
+intercepts submit and recomputes rather than navigating.
+
+---
+
+## Phase 6 — Programmatic pages
+
+### 6.1 MET values extracted from the Compendium PDF, not from memory
+
+**Decision:** download the official 2024 Adult Compendium, parse it, and verify
+all sixty codes and values programmatically.
+
+An LLM summary of the paper disagreed with the primary source on code 16050 —
+2.5 for truck driving in the PDF against 6.8 for an e-bike in the summary. The
+PDF is the source of record and won. This is the concrete reason the brief's
+"never invent data" rule needed a process rather than an intention.
+
+### 6.2 Deterministic sentence variation, not randomness
+
+**Decision:** FNV-1a over the slug picks one of at least four variants per slot.
+
+Random selection would change the copy on every rebuild, which to a crawler looks
+like a page that keeps rewriting itself. A hash gives byte-identical rebuilds and
+different sentences per page — the two properties actually wanted. FNV-1a because
+it is fully specified, so the same slug yields the same index on any machine, in
+any runtime, forever.
+
+### 6.3 Every variant must contain a per-page placeholder
+
+**Decision:** enforced by test.
+
+A variant with no placeholder renders byte-identical on every page that selects
+it. With four variants across sixty pages that is fifteen verbatim duplicates —
+precisely what the module exists to prevent.
+
+---
+
+## Phase 7 — Guides, hubs and search
+
+### 7.1 The `SearchAction` is declared because search actually works
+
+**Decision:** build a real client-side search over a prebuilt static index.
+
+Declaring a `SearchAction` that does not function is a structured-data violation.
+The index is fetched on demand, so it costs nothing on the 912 pages that are not
+the search page and stays outside the sitewide JavaScript budget.
+
+### 7.2 Search results are built with `createElement` and `textContent`
+
+**Decision:** no `innerHTML`, enforced by ESLint rather than by discipline.
+
+This is the one page that renders user input back to the reader. Everywhere else
+the ban is prudent; here it is the difference between a search box and an XSS
+sink.
+
+---
+
+## Phase 8 — Internationalisation
+
+### 8.1 Flat message catalogs, not nested
+
+**Decision:** `Record<MessageKey, string>` with dotted keys.
+
+A nested catalog lets a locale drift structurally — an object where a string was
+expected, an array one element short, a branch quietly missing — and `Record<>`
+then cannot express the contract. Flat keys make every locale the same shape, so
+`Record<keyof typeof en, string>` is complete and sufficient, and the compiler
+rejects a locale the moment a key is missing or misspelled.
+
+### 8.2 UI catalogs in TypeScript, content catalogs in JSON
+
+**Decision:** two different formats on purpose.
+
+UI strings are hand-written and benefit from compile-time key coverage, which
+needs TypeScript. Content strings are derived from the data files and are pure
+data: JSON merges cleanly, diffs one line per changed string, and can be handed
+to a translator without them meeting a build system. The key space for the JSON
+side is generated by `scripts/extract-i18n-keys.ts`, so it cannot drift from what
+the pages ask for.
+
+### 8.3 A missing content translation falls back to English rather than failing
+
+**Decision:** `contentText` returns the English source when a key is absent;
+`i18n-content.test.ts` gates identity strings and reports the rest as coverage.
+
+A build that dies because one FAQ answer is untranslated helps nobody. A page
+that shows one English paragraph is degraded but useful, and translation can land
+incrementally. Titles, descriptions, headings and intros _are_ gated, because
+those are what a cross-locale duplicate genuinely costs something.
+
+### 8.4 The duplicate-title gate was wrong, and shipping ten locales proved it
+
+**Decision:** compare titles within a locale, not globally; report cross-locale
+collisions as a coverage figure.
+
+The original check flagged `/es/calculators/bmi/` against `/calculators/bmi/` —
+two pages that are hreflang alternates of each other and are supposed to share a
+title where the phrase is genuinely the same in both languages. "Yoga" and
+"Pilates" are not translated. Forcing them apart to satisfy a uniqueness check
+would make both titles worse. What actually harms a site is two _different_ pages
+in one language competing for one query, and that is now what the gate measures.
+
+### 8.5 `toLowerCase()` on a noun is a spelling error in German
+
+**Decision:** `nameInSentence()` lowercases only where the orthography wants it.
+
+English copy reads "calories burned walking", so the activity name is lowercased
+before interpolation. German capitalises every noun, and "radfahren" is simply
+misspelled. Scripts without letter case are unaffected either way. The SEO
+title-length check is what drew attention to the page.
+
+### 8.6 Locale-specific meta titles, distinct from the H1
+
+**Decision:** activity and lift pages carry a short `metaTitle` separate from
+their heading.
+
+A good H1 routinely exceeds the 60 characters a search result shows, and
+translations run longer than English — six Spanish and French lift titles
+overflowed. Truncating the heading reads worse than writing a title that fits, so
+both exist.
+
+### 8.7 The language switcher is a `<details>` element
+
+**Decision:** no JavaScript in the one control most likely to be needed by
+someone who landed on the wrong language.
+
+`<details>` opens, closes and is keyboard-operable natively. It also lists only
+locales where the current page genuinely exists, so it never offers a link that
+404s — on an activity outside the priority thirty it renders nothing at all.
+
+### 8.8 Latin fonts are preloaded only for Latin-script locales
+
+**Decision:** Hindi, Japanese and Arabic pages skip the three font preloads.
+
+Those pages fall back to the system stack for their scripts. Preloading 30 KB of
+a face they barely use would spend bandwidth before first paint for nothing. The
+`@font-face` declarations still apply to any Latin text on the page; they are
+just fetched normally. The cost is recorded honestly on `/accessibility/`: those
+pages do not match the Latin ones typographically.
+
+### 8.9 A translation-provenance notice on non-English pages
+
+**Decision:** a short line at the foot linking to the English original.
+
+These translations were produced in one pass without native review. On a health
+site, saying so is the honest thing to do, and it gives a reader who hits an
+awkward phrase somewhere to go rather than doubting the number.
+
+### 8.10 Thirty programmatic pages per locale, ranked by judgement and labelled
+
+**Decision:** `src/data/programmatic-priority.ts`, with the reasoning in the file.
+
+The brief asks for "the top 30 by search value". No keyword tool was consulted,
+so the file says so in as many words and gives the grounds that do not require
+one: head terms over long tail, universal activities over regional, base
+movements over variants. Inventing volume figures to justify the ordering would
+have been the fabrication the brief forbids. `SEO.md` documents how to replace it
+with measured data once Search Console has impressions.
+
+---
+
+## Phase 9 — Sitemaps and metadata audit
+
+### 9.1 `dist/locales.json` so audits do not keep their own locale list
+
+**Decision:** emit the locale path segments as build metadata.
+
+`audit-seo.mjs` needs to tell `/de/guides/` from `/guides/`. A hardcoded list in
+the script would go stale the moment a locale is added, and the failure would be
+silent: German pages would be treated as English and the duplicate check would
+fire wrongly. Reading it from the build removes the possibility.
+
+---
+
+## Phase 10 — Security
+
+### 10.1 CSP hashes computed from built output, not from source
+
+**Decision:** `generate-headers.mjs` hashes the inline scripts in `dist`.
+
+Hashing the source assumes Astro emits it unchanged. It usually does — and the
+build that stops doing so would ship a CSP that blocks the theme script, in
+production, silently. Hashing what actually shipped removes the assumption. The
+script fails if more than four distinct inline scripts appear, which is the
+number the design permits.
+
+### 10.2 zod at build time only
+
+**Decision:** content collections validate with zod; the client path uses
+hand-written guards.
+
+zod is about 12 KB gzipped against an 18 KB per-page budget, and it was doing two
+`z.enum` calls in the URL parser. Array membership checks replaced them.
+Build-time schema validation is where zod earns its size, and none of it reaches
+the browser.
+
+---
+
+## Phase 11 — Legal and monetisation
+
+### 11.1 Prose pages render from the catalog, in every locale including English
+
+**Decision:** `ProseBlocks.astro` renders a declared list of blocks.
+
+Seven hand-written `.astro` files per locale is seventy files that can diverge.
+Declaring the pages as a block list means the ten versions render the same
+headings in the same order, and the compiler already guarantees every key exists.
+`OWNER PLACEHOLDER` callouts are styled distinctly so nobody ships a site with
+"add your legal entity here" reading as body copy.
+
+### 11.2 The 404 is English-only, at the root
+
+**Decision:** one `/404.html`, no per-locale variants.
+
+Static hosts serve one not-found document for every path. A per-locale 404 needs
+host-level routing rules that Cloudflare Pages and Netlify express differently,
+which would put host-specific configuration into `DEPLOY.md` for a page that is
+`noindex` and excluded from every sitemap. It also passes
+`availableLocales={[DEFAULT_LOCALE]}` so its language switcher does not offer
+nine pages that were never built — a bug the link audit caught.
+
+---
+
+## Phase 12 — Performance, verification and release
+
+### 12.1 linkinator removed; the link audit is ours
+
+**Decision:** `scripts/audit-links.mjs` replaces it.
+
+linkinator 8 printed "scanned 0 links" under `--silent`, and returned an empty
+array under `--format json` once `--skip` was applied. The gate had been passing
+without checking anything. The replacement additionally resolves fragment
+targets: a link to a `#heading` now fails the build unless that id exists in the
+target document. 41,172 internal links and 913 fragments, verified.
+
+### 12.2 The JavaScript budget follows static imports
+
+**Decision:** charge a page for what it actually loads, not for what its script
+tags name.
+
+Counting only the tags in the HTML would miss the bulk of the calculator bundle,
+which arrives through an import. The audit walks the import graph from each entry
+point and gzips at level 9, because that is what a browser downloads.
+
+### 12.3 Lighthouse samples an RTL and a CJK locale
+
+**Decision:** ten URLs, including `/ar/calculators/bmi/` and
+`/ja/calculators/bmi/`.
+
+Eight English URLs scoring 100 says nothing about the two locales most likely to
+break: Arabic, where the whole layout mirrors, and Japanese, where the
+self-hosted faces do not apply. Adding them immediately found a real defect — the
+German breadcrumb read "Start", which is on Lighthouse's
+non-descriptive-link-text list and scored that page 92 on SEO.
+
+### 12.4 Vitest diff truncation disabled
+
+**Decision:** `chaiConfig: { truncateThreshold: 0 }`.
+
+A test that reports `expected [ 'a', …(5) ]` makes you re-run it to find out what
+failed, which is exactly when you least want to. This cost real time while
+building out the locale catalogs.
