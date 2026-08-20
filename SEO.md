@@ -112,10 +112,10 @@ it on before then.
 
 ## Locale expansion
 
-Non-English locales ship the full core set — eighteen calculators, eleven
+Non-English locales ship the full core set — nineteen calculators, eleven
 charts, fourteen guides, all the legal and policy pages — plus the thirty
 highest-value programmatic pages. English ships all 82. That is 86 pages per
-locale against 141 for English, 933 in total.
+locale against 142 for English, 943 in total.
 
 The list is `src/data/programmatic-priority.ts`, and it is editorial judgement,
 documented as such in the file.

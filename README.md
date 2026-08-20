@@ -2,7 +2,7 @@
 
 A static health and fitness calculator site. Eighteen calculators, eleven
 reference charts, fourteen guides and 82 programmatic pages, in ten languages —
-933 prerendered pages, no backend, no database, no third-party runtime requests.
+943 prerendered pages, no backend, no database, no third-party runtime requests.
 
 Every calculator names the equation it uses, cites the paper it came from,
 states what that equation assumes about the person it is applied to, and says
@@ -80,11 +80,11 @@ what makes the privacy policy short enough to be true.
 
 `npm run gate` is what CI runs. Current state on `main`:
 
-- `astro check` — 0 errors, 0 warnings, 0 hints across 171 files
+- `astro check` — 0 errors, 0 warnings, 0 hints across 174 files
 - ESLint and Prettier — clean
-- 669 unit tests; `src/lib/health/` at 99.6% statements
+- 685 unit tests; `src/lib/health/` at 99.6% statements
 - 94 Playwright tests across desktop and a 360px phone
-- 933 pages built; 42,194 internal links and 933 fragments, zero broken
+- 943 pages built; 42,705 internal links and 943 fragments, zero broken
 - SEO audit — all ten checks pass
 - JavaScript — 13.5 KB sitewide, 14.0 KB worst page, against 35 / 18 KB
 - Lighthouse — 100/100/100/100 on ten URLs including Arabic and Japanese

@@ -3,7 +3,7 @@
 Written for someone who has never used Cloudflare Pages. Follow it top to
 bottom; nothing is assumed.
 
-The site is 933 static HTML files plus assets. Any static host will serve it.
+The site is 943 static HTML files plus assets. Any static host will serve it.
 Cloudflare Pages is the primary target because its free tier has no bandwidth
 cap and it applies `_headers` without extra configuration. Netlify is documented
 as a fallback because it reads the same two files.
@@ -119,7 +119,7 @@ Click **Save and Deploy**. The first build takes two to four minutes.
 When the build finishes Cloudflare shows a `*.pages.dev` URL. Open it and
 verify:
 
-- The homepage lists eighteen calculators.
+- The homepage lists nineteen calculators.
 - `/calculators/bmi/` computes: 175 cm and 70 kg gives 22.9.
 - `/es/calculators/bmi/` is in Spanish and the URL kept the `bmi` slug.
 - `/ar/calculators/bmi/` is laid out right to left.

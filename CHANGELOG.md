@@ -10,8 +10,8 @@ corrections.
 
 ## [1.1.0] — 2026-08-20
 
-Two calculators, in all ten locales, taking the site from 913 prerendered pages
-to 933.
+Three calculators, in all ten locales, taking the site from 913 prerendered
+pages to 943.
 
 ### Added
 
@@ -32,6 +32,13 @@ somatotype, that most people come out mesomorph because three categories are too
 few, and that Sheldon's claim linking physique to temperament was discredited.
 Where frame size and BMI point in opposite directions, the result says none of
 the three labels describes that person.
+
+**Food score calculator.** Scores a serving from its calories, fat and fibre,
+using the formula disclosed in US Patent 6,040,531 of 1997 — the only version of
+it ever published in a primary source, and one whose patent family expired in 2016. It carries no fibre cap, because the 4 g cap almost every reproduction
+uses appears nowhere in the patent. The page is named for what it computes
+rather than for the brand the formula was sold under, since patents expire and
+trademarks do not.
 
 **A `cycle` category**, labelled "Menstrual cycle", alongside body composition,
 energy and intake, training and weight reference. Translated in all ten UI
