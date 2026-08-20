@@ -1,0 +1,103 @@
+---
+title: Como funciona o método de gordura corporal da Marinha dos EUA
+metaTitle: Como funciona o método da Marinha
+description: Por que uma fita métrica no pescoço e na cintura prevê a gordura corporal, de onde vêm os logaritmos, como medir direito e quando o método erra.
+keywords:
+  - fórmula de gordura corporal da marinha
+  - método navy gordura corporal
+  - gordura corporal com fita métrica
+  - hodgdon beckett
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [body-fat, army-body-fat, lean-body-mass]
+relatedGuides: [body-fat-methods-compared, why-bmi-is-a-screening-tool]
+readingMinutes: 6
+---
+
+O método da Marinha dos EUA estima a gordura corporal com uma fita métrica e nada mais. Para homens ele precisa de pescoço, cintura e altura. Para mulheres acrescenta o quadril.
+
+Que ele funcione já é um pouco surpreendente. Veja por que funciona, e onde não funciona.
+
+## As equações
+
+Dos relatórios de Hodgdon e Beckett de 1984 para o Naval Health Research Center, com todas as medidas em polegadas:
+
+```
+homens:   %gordura = 86,010 × log₁₀(cintura − pescoço) − 70,041 × log₁₀(altura) + 36,76
+
+mulheres: %gordura = 163,205 × log₁₀(cintura + quadril − pescoço) − 97,684 × log₁₀(altura) − 78,387
+```
+
+A Marinha precisava de uma triagem de composição corporal que qualquer pessoa pudesse aplicar, em qualquer lugar, com um equipamento que não custa nada e não quebra. Mediram por pesagem hidrostática uma amostra grande de militares, registraram uma série de circunferências e ajustaram uma regressão para descobrir qual combinação melhor previa o resultado hidrostático.
+
+Foram essas as equações que saíram dali. Elas relatam uma correlação em torno de 0,90 frente à pesagem hidrostática, com erro típico de três a quatro pontos percentuais.
+
+## Por que o pescoço
+
+Esta é a parte que confunde as pessoas, e é a coisa mais engenhosa da equação.
+
+O pescoço funciona como proxy do tamanho da estrutura corporal. A circunferência do pescoço se correlaciona com a constituição óssea e com o tecido magro em geral, e acumula comparativamente pouca gordura. Então subtrair o pescoço da cintura separa duas coisas que a circunferência de cintura sozinha confunde: quanta gordura você carrega no centro e quão grande você é no conjunto.
+
+Uma cintura de 100 cm significa uma coisa num levantador de 195 cm e outra num adulto sedentário de 160 cm. Subtrair o pescoço corrige isso em parte, e é por isso que a cintura sozinha preveria bem pior.
+
+Isso também explica um comportamento que parece um defeito. Se você informa um pescoço maior que a cintura, a calculadora não devolve resultado em vez de um número. A equação toma o logaritmo na base 10 da diferença, e o logaritmo de zero ou de um número negativo não é um valor real. Na prática, um pescoço mais largo que a cintura significa que a fita foi lida errado, então recusar é mais útil do que produzir algo sem sentido.
+
+## Por que logaritmos
+
+Porque a relação não é linear.
+
+Somar cinco centímetros a uma cintura de 70 cm representa uma mudança proporcional na composição corporal muito maior do que somar cinco centímetros a uma de 110 cm. Um modelo linear trataria os dois casos igual e se ajustaria mal nas duas pontas da faixa.
+
+Tomar logaritmos converte uma relação proporcional em linear, que é exatamente o que uma regressão consegue ajustar bem. Os coeficientes específicos — 86,010, 70,041, 36,76 — não têm significado fisiológico. São os números que minimizaram o erro frente às medições hidrostáticas na amostra original.
+
+## Por que a equação das mulheres é diferente
+
+Ela usa cintura mais quadril menos pescoço, e coeficientes diferentes.
+
+A distribuição de gordura difere em média entre os sexos: homens acumulam mais visceral e centralmente, mulheres mais nos quadris e coxas. Uma equação que usasse só a cintura subestimaria sistematicamente um tipo corporal que estoca gordura mais abaixo, então a circunferência do quadril é acrescentada para captar isso.
+
+As definições dos pontos de medida também diferem, e isso pega muita gente.
+
+## Medindo direito
+
+Aqui erros pequenos importam. Um centímetro na cintura move o resultado em cerca de um ponto percentual, então a técnica é quase toda a exatidão.
+
+**Pescoço.** Logo abaixo da laringe, com a fita inclinando levemente para baixo na frente. Não flexione nem tensione. Ombros relaxados e baixos.
+
+**Cintura, homens.** Horizontalmente na altura do umbigo.
+
+**Cintura, mulheres.** No ponto mais estreito do tronco, que costuma ficar acima do umbigo.
+
+Essa assimetria está no protocolo original, não é um erro. As duas equações foram ajustadas com medidas tomadas assim, então usar o ponto dos homens na equação das mulheres produz um valor para o qual a equação nunca foi calibrada.
+
+**Quadril, mulheres.** No ponto mais largo das nádegas, com a fita nivelada em toda a volta.
+
+**Tudo.** Fita justa o bastante para ficar no lugar sem comprimir a pele. Meça ao fim de uma expiração normal, sem prender nem empurrar o ar. Faça cada medida três vezes e use a mediana — só isso já remove a maior parte do ruído.
+
+Meça no mesmo horário do dia, de preferência logo cedo. A circunferência da cintura varia de verdade ao longo do dia com comida e líquidos.
+
+## Onde ele erra
+
+**Gordura acumulada nas pernas.** A equação nunca mede as pernas. Quem estoca gordura predominantemente nas coxas aparece mais magro do que é, porque a fita nem chega perto.
+
+**Musculatura abdominal grossa.** Alguém muito treinado pode ter uma cintura grande por músculo, não por gordura. A fita não distingue os dois, então o método superestima.
+
+**Pessoas muito magras.** Abaixo de cerca de oito por cento de gordura em homens, a equação perde resolução, já que a diferença cintura-pescoço deixa de mudar muito conforme sai a última gordura.
+
+**Populações diferentes da amostra original.** Ela foi ajustada em militares da Marinha dos EUA no início dos anos 1980 — um grupo relativamente em forma e relativamente jovem. Ela rende menos quanto mais longe daquela população.
+
+## Para que ele é genuinamente bom
+
+Para acompanhamento. É aí que o método justifica seu lugar.
+
+Uma fita métrica é inequívoca de um jeito que uma dobra cutânea não é. Não há profundidade de pega para julgar, nem compressão para cronometrar, nem técnica de operador para desenvolver. Meça sua própria cintura duas vezes e você obterá quase o mesmo número; peça a duas pessoas que tirem uma dobra cutânea e talvez não.
+
+Essa reprodutibilidade significa que o ruído entre medições é pequeno, então uma mudança real aparece com clareza. Mesmo que o valor absoluto carregue um viés sistemático, esse viés é aproximadamente constante — então uma queda de 22 para 19 por cento em três meses tem significado, ainda que seus valores verdadeiros fossem 25 e 22.
+
+O que é o conselho prático para qualquer método de composição corporal: escolha um, meça sempre do mesmo jeito e preste atenção à direção, não ao dígito.
+
+## Não é o padrão do Exército
+
+Vale dizer com clareza, porque os dois vivem sendo confundidos. O Exército dos EUA não usa mais nenhum método de gordura corporal baseado em fita. A Diretiva do Exército 2026-13 substituiu o teste da fita pela razão cintura-altura em julho de 2026, e a [calculadora de composição corporal do Exército](/pt-br/calculators/army-body-fat/) implementa o padrão vigente.
+
+O método da Marinha descrito aqui é uma estimativa de gordura corporal para uso pessoal. Ele não é, e nunca foi, a avaliação do Exército.

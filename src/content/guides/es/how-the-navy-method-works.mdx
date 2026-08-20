@@ -1,0 +1,103 @@
+---
+title: Cómo funciona el método de grasa corporal de la Marina de EE. UU.
+metaTitle: Cómo funciona el método US Navy
+description: Por qué una cinta métrica en cuello y cintura predice la grasa corporal, de dónde salen los logaritmos, cómo medir bien y cuándo se equivoca.
+keywords:
+  - fórmula de grasa corporal us navy
+  - método navy grasa corporal
+  - grasa corporal con cinta métrica
+  - hodgdon beckett
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [body-fat, army-body-fat, lean-body-mass]
+relatedGuides: [body-fat-methods-compared, why-bmi-is-a-screening-tool]
+readingMinutes: 6
+---
+
+El método de la Marina de EE. UU. estima la grasa corporal con una cinta métrica y nada más. Para hombres necesita cuello, cintura y estatura. Para mujeres añade la cadera.
+
+Que funcione siquiera resulta un poco sorprendente. Aquí va por qué funciona, y dónde no.
+
+## Las ecuaciones
+
+De los informes de Hodgdon y Beckett de 1984 para el Naval Health Research Center, con todas las medidas en pulgadas:
+
+```
+hombres: %grasa = 86,010 × log₁₀(cintura − cuello) − 70,041 × log₁₀(estatura) + 36,76
+
+mujeres: %grasa = 163,205 × log₁₀(cintura + cadera − cuello) − 97,684 × log₁₀(estatura) − 78,387
+```
+
+La Marina necesitaba un cribado de composición corporal que pudiera administrar cualquiera, en cualquier sitio, con material que no cuesta nada y no se rompe. Midieron por pesada hidrostática a una muestra grande de personal naval, registraron una serie de perímetros y ajustaron una regresión para hallar qué combinación predecía mejor el resultado hidrostático.
+
+Estas son las ecuaciones que salieron. Reportan una correlación en torno a 0,90 frente a la pesada hidrostática, con un error típico de tres a cuatro puntos porcentuales.
+
+## Por qué el cuello
+
+Esta es la parte que desconcierta a la gente, y es lo más ingenioso de la ecuación.
+
+El cuello actúa como sustituto del tamaño del esqueleto. Su perímetro correlaciona con la constitución ósea y con el tejido magro en general, y acumula comparativamente poca grasa. Así que restar el cuello a la cintura separa dos cosas que el perímetro de cintura por sí solo confunde: cuánta grasa llevas en el centro y cuán grande eres en conjunto.
+
+Una cintura de 100 cm significa algo distinto en un powerlifter de 195 cm que en un adulto sedentario de 160 cm. Restar el cuello corrige eso en parte, y por eso la cintura sola predeciría mucho peor.
+
+También explica un comportamiento que parece un fallo. Si introduces un cuello mayor que la cintura, la calculadora no devuelve resultado en lugar de un número. La ecuación toma el logaritmo en base 10 de la diferencia, y el logaritmo de cero o de un número negativo no es un valor real. En la práctica, un cuello más ancho que una cintura significa que se leyó mal la cinta, así que negarse es más útil que producir algo sin sentido.
+
+## Por qué logaritmos
+
+Porque la relación no es lineal.
+
+Añadir cinco centímetros a una cintura de 70 cm representa un cambio proporcional en la composición corporal mucho mayor que añadir cinco centímetros a una de 110 cm. Un modelo lineal trataría ambos casos igual y encajaría mal en los dos extremos del rango.
+
+Tomar logaritmos convierte una relación proporcional en una lineal, que es justo lo que una regresión puede ajustar bien. Los coeficientes concretos —86,010, 70,041, 36,76— no tienen significado fisiológico. Son los números que minimizaron el error frente a las mediciones hidrostáticas de la muestra original.
+
+## Por qué la ecuación de mujeres es distinta
+
+Usa cintura más cadera menos cuello, y otros coeficientes.
+
+La distribución de grasa difiere de media entre sexos: los hombres acumulan más visceral y centralmente, las mujeres más en caderas y muslos. Una ecuación que solo usara la cintura subestimaría de forma sistemática en un tipo de cuerpo que almacena grasa más abajo, así que se añade el perímetro de cadera para captarlo.
+
+Las definiciones de los puntos de medida también difieren, y eso pilla a mucha gente.
+
+## Medir correctamente
+
+Aquí los errores pequeños importan. Un centímetro en la cintura mueve el resultado alrededor de un punto porcentual, así que la técnica es casi toda la exactitud.
+
+**Cuello.** Justo por debajo de la laringe, con la cinta ligeramente inclinada hacia abajo por delante. No flexiones ni tenses. Hombros relajados y bajos.
+
+**Cintura, hombres.** Horizontal, a la altura del ombligo.
+
+**Cintura, mujeres.** En el punto más estrecho del torso, que suele estar por encima del ombligo.
+
+Esa asimetría está en el protocolo original, no es un error. Las dos ecuaciones se ajustaron con medidas tomadas así, de modo que usar el punto de los hombres para la ecuación de mujeres produce una cifra para la que la ecuación nunca se calibró.
+
+**Cadera, mujeres.** En el punto más ancho de los glúteos, con la cinta nivelada en todo el contorno.
+
+**Todo.** La cinta ceñida lo justo para quedarse en su sitio sin comprimir la piel. Mide al final de una espiración normal, sin retener ni empujar el aire. Toma cada medida tres veces y usa la mediana: eso solo ya elimina la mayor parte del ruido.
+
+Mide a la misma hora del día, idealmente a primera hora. El perímetro de cintura varía genuinamente a lo largo del día con la comida y los líquidos.
+
+## Dónde se equivoca
+
+**Grasa acumulada en las piernas.** La ecuación nunca mide las piernas. Quien almacena grasa sobre todo en los muslos marca más magro de lo que está, porque la cinta ni se acerca.
+
+**Musculatura abdominal gruesa.** Alguien muy entrenado puede tener una cintura grande por músculo y no por grasa. La cinta no distingue entre los dos, así que el método marca de más.
+
+**Personas muy magras.** Por debajo de un ocho por ciento de grasa en hombres, la ecuación pierde resolución, porque la diferencia cintura-cuello deja de cambiar mucho a medida que se va la última grasa.
+
+**Poblaciones distintas de la muestra original.** Se ajustó con personal de la Marina de EE. UU. de comienzos de los ochenta: un grupo relativamente en forma y relativamente joven. Rinde peor cuanto más te alejas de esa población.
+
+## Para qué es genuinamente bueno
+
+Para el seguimiento. Ahí es donde el método se gana su sitio.
+
+Una cinta métrica es inequívoca de un modo que un pliegue cutáneo no lo es. No hay profundidad de pellizco que juzgar, ni compresión que cronometrar, ni técnica de operador que desarrollar. Mídete la cintura dos veces y obtendrás casi el mismo número; pide a dos personas que te tomen un pliegue y quizá no.
+
+Esa reproducibilidad significa que el ruido entre mediciones es pequeño, así que un cambio real se ve con claridad. Aunque la cifra absoluta arrastre un sesgo sistemático, ese sesgo es aproximadamente constante, de modo que una bajada del 22 al 19 por ciento en tres meses significa algo, aunque tus valores reales fueran 25 y 22.
+
+Que es el consejo práctico para cualquier método de composición corporal: elige uno, mídelo siempre igual y fíjate en la dirección más que en el dígito.
+
+## No es el estándar del Ejército
+
+Conviene decirlo con claridad, porque se confunden constantemente. El Ejército de EE. UU. ya no usa ningún método de grasa corporal basado en cinta. La Directiva del Ejército 2026-13 sustituyó la prueba de cinta por la relación cintura-estatura en julio de 2026, y la [calculadora de composición corporal del Ejército](/es/calculators/army-body-fat/) implementa el estándar vigente.
+
+El método de la Marina aquí descrito es una estimación de grasa corporal para uso personal. No es, ni ha sido, la evaluación del Ejército.

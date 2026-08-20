@@ -1,0 +1,103 @@
+---
+title: Come funziona il metodo della massa grassa della US Navy
+metaTitle: Come funziona il metodo US Navy
+description: Perché un metro attorno al collo e alla vita prevede la massa grassa, da dove vengono i logaritmi, come misurare bene e quando il metodo sbaglia.
+keywords:
+  - formula massa grassa us navy
+  - metodo navy massa grassa
+  - massa grassa col metro
+  - hodgdon beckett
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [body-fat, army-body-fat, lean-body-mass]
+relatedGuides: [body-fat-methods-compared, why-bmi-is-a-screening-tool]
+readingMinutes: 6
+---
+
+Il metodo della US Navy stima la massa grassa con un metro da sarto e nient'altro. Per gli uomini gli servono collo, vita e altezza. Per le donne aggiunge i fianchi.
+
+Che funzioni è persino un po' sorprendente. Ecco perché funziona, e dove no.
+
+## Le equazioni
+
+Dai rapporti di Hodgdon e Beckett del 1984 per il Naval Health Research Center, con tutte le misure in pollici:
+
+```
+uomini: %grasso = 86,010 × log₁₀(vita − collo) − 70,041 × log₁₀(altezza) + 36,76
+
+donne:  %grasso = 163,205 × log₁₀(vita + fianchi − collo) − 97,684 × log₁₀(altezza) − 78,387
+```
+
+La Marina aveva bisogno di uno screening della composizione corporea somministrabile da chiunque, ovunque, con attrezzatura che non costa nulla e non si rompe. Misurarono con la pesata idrostatica un ampio campione di personale, registrarono una serie di circonferenze e adattarono una regressione per trovare quale combinazione prevedesse meglio il risultato idrostatico.
+
+Sono queste le equazioni che ne uscirono. Riportano una correlazione intorno a 0,90 rispetto alla pesata idrostatica, con un errore tipico di tre-quattro punti percentuali.
+
+## Perché il collo
+
+È la parte che lascia perplessi, ed è l'idea più acuta dell'equazione.
+
+Il collo fa da indicatore della corporatura. La sua circonferenza correla con la struttura scheletrica e con il tessuto magro in generale, e accumula relativamente poco grasso. Sottrarre il collo dalla vita separa quindi due cose che la sola circonferenza della vita confonde: quanto grasso porti al centro e quanto sei grande complessivamente.
+
+Una vita di 100 cm significa una cosa su un powerlifter di 195 cm e un'altra su un adulto sedentario di 160 cm. Sottrarre il collo corregge in parte questo, ed è per questo che la sola vita prevedrebbe assai peggio.
+
+Spiega anche un comportamento che sembra un difetto. Se inserisci una misura del collo maggiore della vita, il calcolatore non restituisce alcun risultato invece di un numero. L'equazione prende il logaritmo in base 10 di quella differenza, e il logaritmo di zero o di un numero negativo non è un valore reale. In pratica un collo più largo della vita significa che il metro è stato letto male, quindi rifiutare è più utile che produrre qualcosa di insensato.
+
+## Perché i logaritmi
+
+Perché la relazione non è lineare.
+
+Aggiungere cinque centimetri a una vita di 70 cm rappresenta un cambiamento proporzionale nella composizione corporea molto maggiore che aggiungerne cinque a una di 110 cm. Un modello lineare tratterebbe i due casi allo stesso modo e si adatterebbe male a entrambe le estremità dell'intervallo.
+
+Passare ai logaritmi trasforma una relazione proporzionale in una lineare, che è esattamente ciò che una regressione sa adattare bene. I coefficienti specifici — 86,010, 70,041, 36,76 — non hanno alcun significato fisiologico. Sono i numeri che hanno minimizzato l'errore rispetto alle misure idrostatiche nel campione originario.
+
+## Perché l'equazione femminile è diversa
+
+Usa vita più fianchi meno collo, e coefficienti diversi.
+
+La distribuzione del grasso differisce in media fra i sessi: gli uomini accumulano più a livello viscerale e centrale, le donne più su fianchi e cosce. Un'equazione che usasse solo la vita sottostimerebbe sistematicamente un tipo corporeo che deposita più in basso, quindi si aggiunge la circonferenza dei fianchi per coglierlo.
+
+Anche le definizioni dei punti di misura differiscono, ed è lì che molti sbagliano.
+
+## Misurare correttamente
+
+Qui gli errori piccoli contano. Un centimetro alla vita sposta il risultato di circa un punto percentuale, quindi la tecnica è quasi tutta l'accuratezza.
+
+**Collo.** Appena sotto la laringe, col metro leggermente inclinato verso il basso davanti. Non contrarre né flettere. Spalle rilassate e basse.
+
+**Vita, uomini.** Orizzontalmente all'altezza dell'ombelico.
+
+**Vita, donne.** Nel punto più stretto del tronco, che di solito sta sopra l'ombelico.
+
+Quell'asimmetria è nel protocollo originale, non è un errore. Le due equazioni sono state adattate su misure prese così, quindi usare il punto degli uomini per l'equazione delle donne produce una cifra per la quale l'equazione non è mai stata calibrata.
+
+**Fianchi, donne.** Nel punto più largo dei glutei, col metro in bolla lungo tutto il giro.
+
+**Per tutto.** Metro abbastanza aderente da restare in posizione senza comprimere la pelle. Misura alla fine di un'espirazione normale, senza trattenere né spingere fuori l'aria. Prendi ogni misura tre volte e usa la mediana: già solo questo elimina gran parte del rumore.
+
+Misura alla stessa ora del giorno, idealmente appena sveglio. La circonferenza della vita varia davvero nell'arco della giornata con cibo e liquidi.
+
+## Dove sbaglia
+
+**Grasso sulle gambe.** L'equazione non misura mai le gambe. Chi deposita grasso soprattutto sulle cosce risulta più asciutto di quanto sia, perché il metro non ci si avvicina mai.
+
+**Muscolatura addominale spessa.** Chi si allena pesantemente può avere una vita ampia per muscolo e non per grasso. Il metro non sa distinguerli, quindi il metodo sovrastima.
+
+**Persone molto asciutte.** Sotto circa l'otto per cento di grasso negli uomini l'equazione perde risoluzione, perché la differenza vita-collo smette di cambiare molto man mano che se ne va l'ultimo grasso.
+
+**Popolazioni diverse dal campione originario.** È stata adattata su personale della US Navy dei primi anni Ottanta: un gruppo relativamente in forma e relativamente giovane. Rende meno quanto più ci si allontana da quella popolazione.
+
+## A che cosa serve davvero
+
+Al monitoraggio. È qui che il metodo si guadagna il suo posto.
+
+Un metro da sarto è inequivocabile in un modo in cui una plica non lo è. Non c'è profondità di presa da valutare, né compressione da cronometrare, né tecnica dell'operatore da sviluppare. Misurati la vita due volte e otterrai quasi lo stesso numero; chiedi a due persone di prenderti una plica e forse no.
+
+Quella riproducibilità significa che il rumore fra misure è piccolo, quindi un cambiamento reale si vede chiaramente. Anche se la cifra assoluta porta una distorsione sistematica, quella distorsione è pressoché costante: un calo dal 22 al 19 per cento in tre mesi ha significato, anche se i tuoi valori veri erano 25 e 22.
+
+Che è poi il consiglio pratico per qualsiasi metodo di composizione corporea: scegline uno, misuralo sempre allo stesso modo e guarda la direzione invece della cifra.
+
+## Non è lo standard dell'esercito
+
+Vale la pena dirlo chiaramente, perché i due vengono confusi di continuo. L'esercito statunitense non usa più alcun metodo per la massa grassa basato sul metro. La Direttiva dell'esercito 2026-13 ha sostituito il test col metro con il rapporto vita-altezza nel luglio 2026, e il [calcolatore della composizione corporea dell'esercito](/it/calculators/army-body-fat/) implementa lo standard vigente.
+
+Il metodo della Marina qui descritto è una stima della massa grassa per uso personale. Non è, e non è mai stato, la valutazione dell'esercito.

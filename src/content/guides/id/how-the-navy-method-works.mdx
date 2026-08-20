@@ -1,0 +1,102 @@
+---
+title: Cara kerja metode lemak tubuh US Navy
+description: Mengapa pita ukur di leher dan pinggang dapat meramal lemak tubuh, dari mana logaritmanya datang, cara mengukur dengan benar, dan kapan ia salah baca.
+keywords:
+  - rumus lemak tubuh us navy
+  - metode navy lemak tubuh
+  - lemak tubuh dengan pita ukur
+  - hodgdon beckett
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [body-fat, army-body-fat, lean-body-mass]
+relatedGuides: [body-fat-methods-compared, why-bmi-is-a-screening-tool]
+readingMinutes: 6
+---
+
+Metode US Navy menaksir lemak tubuh dari sebuah pita ukur dan tidak lebih. Bagi laki-laki ia memerlukan leher, pinggang, dan tinggi badan. Bagi perempuan ia menambahkan panggul.
+
+Bahwa ia bekerja sama sekali sedikit mengejutkan. Berikut alasan mengapa ia bekerja, dan di mana ia tidak.
+
+## Persamaannya
+
+Dari laporan Hodgdon dan Beckett tahun 1984 untuk Naval Health Research Center, dengan semua ukuran dalam inci:
+
+```
+laki-laki: %lemak = 86,010 × log₁₀(pinggang − leher) − 70,041 × log₁₀(tinggi) + 36,76
+
+perempuan: %lemak = 163,205 × log₁₀(pinggang + panggul − leher) − 97,684 × log₁₀(tinggi) − 78,387
+```
+
+Angkatan Laut membutuhkan penyaringan komposisi tubuh yang bisa dijalankan siapa saja, di mana saja, dengan alat yang tak berbiaya dan tak bisa rusak. Mereka mengukur sampel besar personel dengan penimbangan hidrostatik, mencatat sejumlah lingkar tubuh, lalu mencocokkan regresi untuk menemukan gabungan mana yang paling baik meramalkan hasil hidrostatiknya.
+
+Inilah persamaan yang keluar dari sana. Keduanya melaporkan korelasi sekitar 0,90 terhadap penimbangan hidrostatik, dengan galat khas tiga sampai empat poin persentase.
+
+## Mengapa leher
+
+Inilah bagian yang membingungkan orang, dan inilah gagasan paling cerdik dalam persamaannya.
+
+Leher berfungsi sebagai pengganti bagi ukuran kerangka. Lingkar leher berkorelasi dengan rangka tubuh dan dengan jaringan tanpa lemak pada umumnya, dan ia menumpuk lemak relatif sedikit. Jadi mengurangkan leher dari pinggang memisahkan dua hal yang dicampuradukkan oleh lingkar pinggang mentah: seberapa banyak lemak yang Anda bawa di bagian tengah, dan seberapa besar diri Anda secara keseluruhan.
+
+Pinggang 100 cm berarti lain pada seorang lifter setinggi 195 cm dan lain pula pada orang dewasa sedenter setinggi 160 cm. Mengurangkan leher sebagian mengoreksi hal itu, dan karena itulah pinggang saja akan meramal jauh lebih buruk.
+
+Hal itu juga menjelaskan perilaku yang tampak seperti cacat. Jika Anda memasukkan ukuran leher yang lebih besar daripada pinggang, kalkulator tidak mengembalikan hasil apa pun alih-alih sebuah angka. Persamaannya mengambil logaritma basis 10 dari selisih itu, dan logaritma nol atau bilangan negatif bukanlah nilai nyata. Dalam praktiknya, leher yang lebih lebar daripada pinggang berarti pita ukurnya salah dibaca, jadi menolak lebih berguna daripada menghasilkan sesuatu yang tak bermakna.
+
+## Mengapa logaritma
+
+Karena hubungannya tidak linear.
+
+Menambahkan lima sentimeter pada pinggang 70 cm merupakan perubahan proporsional komposisi tubuh yang jauh lebih besar daripada menambahkan lima sentimeter pada pinggang 110 cm. Model linear akan memperlakukan keduanya sama dan tak cocok di kedua ujung rentangnya.
+
+Mengambil logaritma mengubah hubungan proporsional menjadi hubungan linear, dan itulah yang bisa dicocokkan regresi dengan baik. Koefisien tertentunya — 86,010, 70,041, 36,76 — tak punya makna fisiologis. Itu angka-angka yang meminimalkan galat terhadap pengukuran hidrostatik pada sampel aslinya.
+
+## Mengapa persamaan perempuan berbeda
+
+Ia memakai pinggang tambah panggul kurang leher, dan koefisien yang berbeda.
+
+Sebaran lemak berbeda secara rata-rata antara kedua jenis kelamin: laki-laki lebih banyak menumpuk di rongga perut dan di bagian tengah, perempuan lebih banyak di panggul dan paha. Persamaan yang hanya memakai pinggang akan secara sistematis terbaca terlalu rendah bagi bentuk tubuh yang menyimpan lemak lebih ke bawah, sehingga lingkar panggul ditambahkan untuk menangkapnya.
+
+Definisi titik ukurnya pun berbeda, dan di situlah banyak orang tersandung.
+
+## Mengukur dengan benar
+
+Di sini galat kecil pun penting. Satu sentimeter pada pinggang menggeser hasilnya kira-kira satu poin persentase, jadi tekniknya adalah sebagian besar dari ketepatannya.
+
+**Leher.** Tepat di bawah jakun, dengan pita sedikit menurun di bagian depan. Jangan menegangkan atau menekuk. Bahu rileks dan turun.
+
+**Pinggang, laki-laki.** Mendatar pada ketinggian pusar.
+
+**Pinggang, perempuan.** Pada titik tersempit batang tubuh, yang biasanya di atas pusar.
+
+Ketaksimetrisan itu ada dalam protokol aslinya, bukan kekeliruan. Kedua persamaan dicocokkan pada ukuran yang diambil dengan cara demikian, sehingga memakai titik laki-laki untuk persamaan perempuan menghasilkan angka yang persamaannya tak pernah dikalibrasi untuknya.
+
+**Panggul, perempuan.** Pada titik terlebar bokong, dengan pita rata sepanjang lingkarnya.
+
+**Semuanya.** Pita cukup pas agar tetap di tempatnya tanpa menekan kulit. Ukurlah pada akhir embusan napas biasa, bukan sambil menahan atau mendorong napas. Ambil tiap ukuran tiga kali dan pakai nilai tengahnya — itu saja sudah menghapus sebagian besar deraunya.
+
+Ukurlah pada jam yang sama tiap harinya, sebaiknya pagi-pagi sekali. Lingkar pinggang sungguh berubah sepanjang hari mengikuti makanan dan cairan.
+
+## Di mana ia salah baca
+
+**Lemak yang menumpuk di kaki.** Persamaannya tak pernah mengukur kaki. Orang yang menyimpan lemak terutama di paha terbaca lebih kurus daripada kenyataannya, karena pitanya tak pernah mendekat ke sana.
+
+**Otot perut yang tebal.** Orang yang berlatih berat bisa punya pinggang besar karena otot, bukan lemak. Pita tak dapat membedakan keduanya, sehingga metodenya terbaca terlalu tinggi.
+
+**Orang yang sangat kurus.** Di bawah kira-kira delapan persen lemak tubuh pada laki-laki, persamaannya kehilangan daya pisah, sebab selisih pinggang-leher berhenti banyak berubah saat sisa lemak terakhir menghilang.
+
+**Populasi yang berbeda dari sampel aslinya.** Ia dicocokkan pada personel Angkatan Laut Amerika Serikat pada awal 1980-an — kelompok yang relatif bugar dan relatif muda. Kinerjanya menurun seiring makin jauhnya seseorang dari populasi itu.
+
+## Untuk apa ia sungguh baik
+
+Untuk pelacakan. Di situlah metode ini pantas mendapat tempatnya.
+
+Pita ukur bersifat tegas dengan cara yang tak dimiliki jepitan lipatan kulit. Tak ada kedalaman jepitan yang harus dinilai, tak ada pemampatan yang harus dihitung waktunya, tak ada teknik pengukur yang harus dikembangkan. Ukur pinggang Anda sendiri dua kali dan Anda akan memperoleh angka yang hampir sama; mintalah dua orang mengambil lipatan kulit, dan mungkin tidak.
+
+Keterulangan itu berarti derau antarpengukuran kecil, sehingga perubahan yang nyata tampak jelas. Sekalipun angka mutlaknya membawa kecondongan sistematis, kecondongan itu kira-kira tetap — jadi penurunan dari 22 ke 19 persen selama tiga bulan itu bermakna, meski nilai Anda yang sebenarnya adalah 25 dan 22.
+
+Dan itulah nasihat praktis bagi metode komposisi tubuh mana pun: pilih satu, ukur dengan cara yang sama setiap kali, dan perhatikan arahnya, bukan angkanya.
+
+## Bukan standar Angkatan Darat
+
+Ini layak dinyatakan dengan tegas, karena keduanya terus-menerus tertukar. Angkatan Darat Amerika Serikat sudah sama sekali tidak memakai metode lemak tubuh berbasis pita ukur. Direktif Angkatan Darat 2026-13 menggantikan uji pita ukur dengan rasio pinggang terhadap tinggi pada Juli 2026, dan [kalkulator komposisi tubuh Angkatan Darat](/id/calculators/army-body-fat/) menerapkan standar yang berlaku sekarang.
+
+Metode Angkatan Laut yang diuraikan di sini adalah taksiran lemak tubuh untuk pemakaian pribadi. Ia bukan, dan tak pernah menjadi, penilaian Angkatan Darat.

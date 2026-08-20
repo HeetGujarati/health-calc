@@ -1,0 +1,103 @@
+---
+title: Wie die Körperfettmethode der US Navy funktioniert
+metaTitle: Wie die US-Navy-Methode arbeitet
+description: Warum ein Maßband an Hals und Taille Körperfett vorhersagt, woher die Logarithmen kommen, wie man richtig misst und wann die Methode danebenliegt.
+keywords:
+  - US-Navy-Körperfettformel
+  - Navy-Methode Körperfett
+  - Körperfett mit Maßband
+  - Hodgdon Beckett
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [body-fat, army-body-fat, lean-body-mass]
+relatedGuides: [body-fat-methods-compared, why-bmi-is-a-screening-tool]
+readingMinutes: 6
+---
+
+Die Methode der US Navy schätzt Körperfett aus einem Maßband und sonst nichts. Für Männer braucht sie Hals, Taille und Größe. Für Frauen kommt die Hüfte dazu.
+
+Dass sie überhaupt funktioniert, überrascht ein wenig. Hier steht, warum sie es tut und wo nicht.
+
+## Die Gleichungen
+
+Aus den Berichten von Hodgdon und Beckett von 1984 für das Naval Health Research Center, alle Maße in Zoll:
+
+```
+Männer: %KF = 86,010 × log₁₀(Taille − Hals) − 70,041 × log₁₀(Größe) + 36,76
+
+Frauen: %KF = 163,205 × log₁₀(Taille + Hüfte − Hals) − 97,684 × log₁₀(Größe) − 78,387
+```
+
+Die Navy brauchte ein Screening der Körperzusammensetzung, das jede Person überall durchführen kann, mit Ausrüstung, die nichts kostet und nicht kaputtgeht. Sie vermaßen eine große Stichprobe von Marineangehörigen hydrostatisch, erfassten eine Reihe von Umfängen und passten eine Regression an, um herauszufinden, welche Kombination das hydrostatische Ergebnis am besten vorhersagt.
+
+Das sind die Gleichungen, die dabei herauskamen. Sie berichten eine Korrelation um 0,90 gegenüber der hydrostatischen Wägung, bei einem typischen Fehler von drei bis vier Prozentpunkten.
+
+## Warum der Hals
+
+Das ist der Teil, der Menschen rätseln lässt, und es ist der klügste Einfall der Gleichung.
+
+Der Hals dient als Stellvertreter für die Statur. Sein Umfang korreliert mit dem Knochenbau und mit fettfreiem Gewebe allgemein, und er lagert vergleichsweise wenig Fett ein. Den Hals von der Taille abzuziehen trennt also zwei Dinge, die der reine Taillenumfang vermischt: wie viel Fett Sie zentral tragen und wie groß Sie insgesamt sind.
+
+Eine Taille von 100 cm bedeutet bei einem 195 cm großen Kraftdreikämpfer etwas anderes als bei einem 160 cm großen, wenig aktiven Erwachsenen. Den Hals abzuziehen korrigiert das teilweise, und deshalb würde die Taille allein weit schlechter vorhersagen.
+
+Es erklärt außerdem ein Verhalten, das wie ein Fehler aussieht. Geben Sie einen Halsumfang größer als die Taille ein, liefert der Rechner kein Ergebnis statt einer Zahl. Die Gleichung nimmt den Zehnerlogarithmus dieser Differenz, und der Logarithmus von null oder einer negativen Zahl ist kein reeller Wert. In der Praxis heißt ein Hals breiter als die Taille, dass das Band falsch abgelesen wurde — die Verweigerung ist also nützlicher, als etwas Bedeutungsloses auszugeben.
+
+## Warum Logarithmen
+
+Weil der Zusammenhang nicht linear ist.
+
+Fünf Zentimeter auf eine Taille von 70 cm sind eine viel größere anteilige Veränderung der Körperzusammensetzung als fünf Zentimeter auf 110 cm. Ein lineares Modell behandelte beide gleich und passte an beiden Enden des Bereichs schlecht.
+
+Logarithmen verwandeln einen anteiligen Zusammenhang in einen linearen, und genau den kann eine Regression gut anpassen. Die konkreten Koeffizienten — 86,010, 70,041, 36,76 — haben keine physiologische Bedeutung. Es sind die Zahlen, die den Fehler gegenüber den hydrostatischen Messungen in der ursprünglichen Stichprobe minimierten.
+
+## Warum die Gleichung für Frauen abweicht
+
+Sie nutzt Taille plus Hüfte minus Hals und andere Koeffizienten.
+
+Die Fettverteilung unterscheidet sich im Mittel zwischen den Geschlechtern: Männer lagern mehr viszeral und zentral ein, Frauen mehr an Hüften und Oberschenkeln. Eine Gleichung nur mit der Taille läse bei einem Körpertyp, der weiter unten speichert, systematisch zu niedrig — deshalb kommt der Hüftumfang hinzu, um das zu erfassen.
+
+Auch die Definitionen der Messstellen unterscheiden sich, und daran scheitern viele.
+
+## Richtig messen
+
+Hier zählen kleine Fehler. Ein Zentimeter an der Taille verschiebt das Ergebnis um rund einen Prozentpunkt, die Technik macht also den Großteil der Genauigkeit aus.
+
+**Hals.** Direkt unterhalb des Kehlkopfs, das Band vorn leicht abfallend. Nicht anspannen, nicht beugen. Schultern locker und unten.
+
+**Taille, Männer.** Waagerecht auf Nabelhöhe.
+
+**Taille, Frauen.** An der schmalsten Stelle des Rumpfes, meist oberhalb des Nabels.
+
+Diese Asymmetrie steht so im ursprünglichen Protokoll, sie ist kein Fehler. Beide Gleichungen wurden an so erhobenen Maßen angepasst; die Männerstelle für die Frauengleichung zu verwenden erzeugt eine Zahl, für die die Gleichung nie kalibriert wurde.
+
+**Hüfte, Frauen.** An der breitesten Stelle des Gesäßes, Band ringsum waagerecht.
+
+**Für alles.** Band so eng, dass es hält, ohne die Haut einzudrücken. Am Ende einer normalen Ausatmung messen, nicht Luft anhalten oder herausdrücken. Jede Messung dreimal nehmen und den Median verwenden — allein das beseitigt den größten Teil des Rauschens.
+
+Messen Sie zur gleichen Tageszeit, idealerweise morgens als Erstes. Der Taillenumfang schwankt im Tagesverlauf tatsächlich mit Essen und Flüssigkeit.
+
+## Wo sie danebenliegt
+
+**Fett an den Beinen.** Die Gleichung misst die Beine nie. Wer Fett überwiegend an den Oberschenkeln speichert, liest schlanker als er ist, weil das Band dort nie hinkommt.
+
+**Kräftige Bauchmuskulatur.** Wer schwer trainiert, kann eine große Taille aus Muskel statt Fett haben. Das Band kann beides nicht unterscheiden, die Methode liest also zu hoch.
+
+**Sehr schlanke Menschen.** Unterhalb von etwa acht Prozent Körperfett bei Männern verliert die Gleichung an Auflösung, weil sich die Differenz aus Taille und Hals kaum noch ändert, während das letzte Fett verschwindet.
+
+**Bevölkerungen anders als die Ausgangsstichprobe.** Sie wurde an Marineangehörigen der frühen 1980er angepasst — einer relativ fitten, relativ jungen Gruppe. Je weiter man sich davon entfernt, desto schwächer arbeitet sie.
+
+## Wofür sie wirklich taugt
+
+Fürs Verfolgen. Dort verdient sich die Methode ihren Platz.
+
+Ein Maßband ist eindeutig, wie es ein Hautfaltengriff nicht ist. Keine Grifftiefe zu beurteilen, keine Kompression abzupassen, keine Bedienertechnik zu erlernen. Messen Sie Ihre Taille zweimal, und Sie erhalten fast dieselbe Zahl; lassen Sie zwei Personen eine Hautfalte nehmen, vielleicht nicht.
+
+Diese Reproduzierbarkeit heißt, dass das Rauschen zwischen Messungen klein ist, eine echte Veränderung zeigt sich also deutlich. Selbst wenn die absolute Zahl einen systematischen Fehler trägt, ist dieser ungefähr konstant — ein Rückgang von 22 auf 19 Prozent über drei Monate sagt also etwas aus, auch wenn Ihre wahren Werte 25 und 22 waren.
+
+Und das ist der praktische Rat für jede Methode der Körperzusammensetzung: Wählen Sie eine, messen Sie jedes Mal gleich, und achten Sie auf die Richtung statt auf die Ziffer.
+
+## Nicht der Standard der Army
+
+Das gehört klar gesagt, weil beides ständig verwechselt wird. Die US Army verwendet überhaupt keine maßbandbasierte Körperfettmethode mehr. Die Armee-Direktive 2026-13 ersetzte den Maßbandtest im Juli 2026 durch das Taille-Größe-Verhältnis, und der [Körperzusammensetzungs-Rechner der Armee](/de/calculators/army-body-fat/) setzt den geltenden Standard um.
+
+Die hier beschriebene Navy-Methode ist eine Körperfettschätzung für den privaten Gebrauch. Sie ist nicht — und war nie — die Beurteilung der Armee.

@@ -1,0 +1,103 @@
+---
+title: Comment fonctionne la méthode de masse grasse de l'US Navy
+metaTitle: La méthode de l'US Navy
+description: Pourquoi un mètre ruban au cou et à la taille prédit la masse grasse, d'où viennent les logarithmes, comment mesurer correctement et quand elle se trompe.
+keywords:
+  - formule masse grasse us navy
+  - méthode navy masse grasse
+  - masse grasse au mètre ruban
+  - hodgdon beckett
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [body-fat, army-body-fat, lean-body-mass]
+relatedGuides: [body-fat-methods-compared, why-bmi-is-a-screening-tool]
+readingMinutes: 6
+---
+
+La méthode de l'US Navy estime la masse grasse à partir d'un mètre ruban et de rien d'autre. Pour les hommes, il lui faut le cou, la taille et la stature. Pour les femmes, elle ajoute les hanches.
+
+Qu'elle fonctionne est un peu surprenant. Voici pourquoi elle fonctionne, et là où elle échoue.
+
+## Les équations
+
+Issues des rapports de Hodgdon et Beckett de 1984 pour le Naval Health Research Center, toutes mesures en pouces :
+
+```
+hommes : %MG = 86,010 × log₁₀(taille du ventre − cou) − 70,041 × log₁₀(stature) + 36,76
+
+femmes : %MG = 163,205 × log₁₀(taille du ventre + hanches − cou) − 97,684 × log₁₀(stature) − 78,387
+```
+
+La Navy avait besoin d'un dépistage de composition corporelle administrable par n'importe qui, n'importe où, avec un matériel qui ne coûte rien et ne peut pas tomber en panne. Ils ont mesuré par pesée hydrostatique un large échantillon de personnels, relevé une série de circonférences, et ajusté une régression pour trouver la combinaison qui prédisait le mieux le résultat hydrostatique.
+
+Ce sont les équations qui en sont sorties. Elles rapportent une corrélation d'environ 0,90 face à la pesée hydrostatique, avec une erreur typique de trois à quatre points de pourcentage.
+
+## Pourquoi le cou
+
+C'est la partie qui intrigue, et c'est l'idée la plus fine de l'équation.
+
+Le cou tient lieu d'indicateur de la carrure. Son tour de cou corrèle avec la charpente osseuse et avec le tissu maigre en général, et il accumule comparativement peu de graisse. Soustraire le cou de la taille sépare donc deux choses que le tour de taille brut confond : combien de graisse vous portez au centre, et quelle est votre taille globale.
+
+Un tour de taille de 100 cm ne signifie pas la même chose chez un powerlifter de 195 cm et chez un adulte sédentaire de 160 cm. Soustraire le cou corrige partiellement cela, et c'est pourquoi la taille seule prédirait bien moins bien.
+
+Cela explique aussi un comportement qui ressemble à un bug. Si vous saisissez un tour de cou supérieur à votre tour de taille, le calculateur ne renvoie pas de résultat plutôt qu'un nombre. L'équation prend le logarithme décimal de la différence, et le logarithme de zéro ou d'un nombre négatif n'est pas une valeur réelle. En pratique, un cou plus large qu'une taille signifie que le ruban a été mal lu : refuser est donc plus utile que produire quelque chose de dénué de sens.
+
+## Pourquoi des logarithmes
+
+Parce que la relation n'est pas linéaire.
+
+Ajouter cinq centimètres à un tour de taille de 70 cm représente un changement proportionnel de composition corporelle bien plus grand qu'ajouter cinq centimètres à un tour de 110 cm. Un modèle linéaire traiterait les deux cas de la même façon et s'ajusterait mal aux deux extrémités.
+
+Passer aux logarithmes convertit une relation proportionnelle en relation linéaire, ce qu'une régression sait bien ajuster. Les coefficients précis — 86,010, 70,041, 36,76 — n'ont aucune signification physiologique. Ce sont les nombres qui ont minimisé l'erreur face aux mesures hydrostatiques dans l'échantillon d'origine.
+
+## Pourquoi l'équation féminine diffère
+
+Elle utilise taille plus hanches moins cou, et d'autres coefficients.
+
+La répartition de la graisse diffère en moyenne selon le sexe : les hommes accumulent davantage en viscéral et au centre, les femmes davantage aux hanches et aux cuisses. Une équation n'utilisant que la taille sous-estimerait systématiquement un type morphologique qui stocke plus bas : le tour de hanches est donc ajouté pour le capter.
+
+Les définitions des sites de mesure diffèrent aussi, et c'est là que beaucoup se trompent.
+
+## Mesurer correctement
+
+Ici, les petites erreurs comptent. Un centimètre à la taille déplace le résultat d'environ un point de pourcentage : la technique fait donc l'essentiel de l'exactitude.
+
+**Cou.** Juste sous le larynx, ruban légèrement incliné vers le bas à l'avant. Ne contractez pas, ne fléchissez pas. Épaules relâchées, basses.
+
+**Taille, hommes.** Horizontalement au niveau du nombril.
+
+**Taille, femmes.** Au point le plus étroit du tronc, généralement au-dessus du nombril.
+
+Cette asymétrie figure dans le protocole d'origine, ce n'est pas une erreur. Les deux équations ont été ajustées sur des mesures prises ainsi : utiliser le site des hommes pour l'équation féminine produit donc un chiffre pour lequel l'équation n'a jamais été calibrée.
+
+**Hanches, femmes.** Au point le plus large des fessiers, ruban de niveau sur tout le tour.
+
+**Dans tous les cas.** Ruban assez ajusté pour tenir sans comprimer la peau. Mesurez en fin d'expiration normale, sans bloquer ni pousser. Prenez chaque mesure trois fois et gardez la médiane — cela seul élimine l'essentiel du bruit.
+
+Mesurez à la même heure, idéalement au réveil. Le tour de taille varie réellement au fil de la journée avec les repas et les liquides.
+
+## Là où elle se trompe
+
+**Graisse stockée sur les jambes.** L'équation ne mesure jamais les jambes. Qui stocke surtout aux cuisses paraît plus sec qu'il ne l'est, parce que le ruban ne s'en approche jamais.
+
+**Musculature abdominale épaisse.** Un pratiquant très entraîné peut avoir une taille large par le muscle et non par la graisse. Le ruban ne distingue pas les deux : la méthode surestime alors.
+
+**Personnes très sèches.** En dessous d'environ huit pour cent de masse grasse chez l'homme, l'équation perd en résolution, car l'écart taille-cou cesse de beaucoup bouger à mesure que part la dernière graisse.
+
+**Populations éloignées de l'échantillon d'origine.** Elle a été ajustée sur des personnels de l'US Navy du début des années 1980 — un groupe relativement en forme et relativement jeune. Elle est moins performante à mesure qu'on s'en éloigne.
+
+## Ce pour quoi elle est vraiment bonne
+
+Le suivi. C'est là que la méthode mérite sa place.
+
+Un mètre ruban est sans ambiguïté là où un pli cutané ne l'est pas. Aucune profondeur de pincement à juger, aucune compression à chronométrer, aucune technique d'opérateur à acquérir. Mesurez votre tour de taille deux fois et vous obtiendrez presque le même nombre ; demandez à deux personnes de prendre un pli et ce ne sera peut-être pas le cas.
+
+Cette reproductibilité fait que le bruit entre mesures est faible : un changement réel se voit donc nettement. Même si le chiffre absolu porte un biais systématique, ce biais est à peu près constant — une baisse de 22 à 19 pour cent en trois mois a donc du sens, même si vos vraies valeurs étaient 25 et 22.
+
+C'est le conseil pratique valable pour n'importe quelle méthode de composition corporelle : choisissez-en une, mesurez toujours de la même façon, et regardez la direction plutôt que le chiffre.
+
+## Ce n'est pas la norme de l'Army
+
+Cela mérite d'être dit clairement, car les deux sont constamment confondus. L'US Army n'utilise plus du tout de méthode de masse grasse au mètre ruban. La directive 2026-13 a remplacé le test au ruban par le rapport tour de taille sur taille en juillet 2026, et le [calculateur de composition corporelle de l'Army](/fr/calculators/army-body-fat/) applique la norme en vigueur.
+
+La méthode de la Navy décrite ici est une estimation de masse grasse à usage personnel. Elle n'est pas, et n'a pas été, l'évaluation de l'Army.
