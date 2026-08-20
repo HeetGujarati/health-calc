@@ -1,0 +1,478 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import Disclaimer from '../../../components/Disclaimer.astro';
+import TranslationNotice from '../../../components/TranslationNotice.astro';
+import { LIFTS, getLift, LIFT_CATEGORY_LABELS } from '../../../data/lifts';
+import { localeItemRoutes } from '../../../lib/i18n/routes';
+import { localesFor } from '../../../lib/seo/pages';
+import { useTranslations } from '../../../lib/i18n';
+import { translateLift } from '../../../lib/i18n/content';
+import { formatInteger, formatNumber } from '../../../lib/i18n/format';
+import { variantsFor } from '../../../i18n/templates';
+import type { LiftDefinition } from '../../../data/lifts';
+import type { Locale } from '../../../config/locales';
+import { buildToolMetadata } from '../../../lib/seo/metadata';
+import {
+  buildBreadcrumbList,
+  buildFaqPage,
+  buildHowTo,
+  buildSoftwareApplication,
+  type JsonLdObject,
+} from '../../../lib/seo/schema';
+import { getLocalePath } from '../../../lib/seo/urls';
+import { lowerFirst, renderVariant } from '../../../lib/content/templates';
+import {
+  ONE_REP_MAX_PERCENTAGES,
+  allOneRepMaxEstimates,
+  epley,
+  loadForReps,
+} from '../../../lib/health/onerepmax';
+import { asKilograms } from '../../../lib/health/units';
+import { roundTo } from '../../../lib/health/rounding';
+
+export function getStaticPaths() {
+  return localeItemRoutes(LIFTS, 'lifts');
+}
+
+const { locale, item } = Astro.props as { locale: Locale; item: LiftDefinition };
+const t = useTranslations(locale);
+const lift = translateLift(item, locale);
+const path = `/one-rep-max/${lift.slug}`;
+
+const values = {
+  lift: lift.name.toLowerCase(),
+  Lift: lift.name,
+  biasNote: lowerFirst(lift.estimateBias),
+};
+
+const intro = renderVariant(variantsFor('liftIntro', locale), lift.slug, 'intro', values);
+const accuracy = renderVariant(variantsFor('liftAccuracy', locale), lift.slug, 'accuracy', values);
+
+const lowerName = lift.name.toLowerCase();
+
+const availableLocales = localesFor('lifts', lift.slug);
+
+/**
+ * The H1 names the calculator in full; the <title> is shorter, because a good
+ * heading routinely exceeds the 60 characters a search result shows and
+ * truncating the heading reads worse than writing a title that fits.
+ */
+const meta = buildToolMetadata({
+  title: t('lift.metaTitle', { lift: lift.name }),
+  description: t('lift.metaDescription', { liftLower: lowerName }),
+  path,
+  locale,
+  keywords: [`${lowerName} 1rm`, t('lift.h1', { lift: lowerName })],
+  image: { url: '/og/one-rep-max.png', alt: lift.name },
+  availableLocales,
+});
+
+const crumbs = [
+  { name: t('nav.home'), path: '/' },
+  { name: t('hub.lifts.title'), path: '/one-rep-max' },
+  { name: lift.name, path },
+];
+
+const faq = [
+  { question: t('lift.faq.q1', { liftLower: lowerName }), answer: t('lift.faq.a1') },
+  { question: t('lift.faq.q2', { liftLower: lowerName }), answer: lift.estimateBias },
+  { question: t('lift.faq.q3'), answer: t('lift.faq.a3') },
+  {
+    question: t('lift.faq.q4', { liftLower: lowerName }),
+    answer: t('lift.faq.a4', { reps: lift.typicalReps }),
+  },
+  { question: t('lift.faq.q5'), answer: t('lift.faq.a5') },
+];
+
+const schemas: JsonLdObject[] = [
+  buildSoftwareApplication({
+    name: t('lift.h1', { lift: lift.name }),
+    description: meta.description,
+    path,
+    locale,
+    applicationSubCategory: 'Strength training',
+  }),
+  buildHowTo({
+    name: t('lift.howToName', { liftLower: lowerName }),
+    description: meta.description,
+    path,
+    locale,
+    totalTime: 'PT1M',
+    steps: [
+      {
+        name: t('lift.step1.name'),
+        text: t('lift.step1.text', { liftLower: lowerName }),
+        anchor: 'step-1',
+      },
+      { name: t('lift.step2.name'), text: t('lift.step2.text'), anchor: 'step-2' },
+      { name: t('lift.step3.name'), text: t('lift.step3.text'), anchor: 'step-3' },
+    ],
+  }),
+];
+
+const faqSchema = buildFaqPage(faq);
+if (faqSchema !== null) schemas.push(faqSchema);
+const breadcrumbs = buildBreadcrumbList(crumbs, locale);
+if (breadcrumbs !== null) schemas.push(breadcrumbs);
+
+/** Reps down the side, loads across the top. Precomputed with Epley. */
+const REPS = [1, 2, 3, 5, 8, 10, 12];
+const LOADS = [40, 60, 80, 100, 120, 140, 160];
+
+const related = lift.related
+  .map((relatedSlug) => getLift(relatedSlug))
+  .filter((entry) => entry !== null)
+  .filter((entry) => localesFor('lifts', entry.slug).includes(locale))
+  .map((entry) => translateLift(entry, locale));
+
+/** Percentage table anchored on a round 100 kg estimate. */
+const percentageRows = ONE_REP_MAX_PERCENTAGES.map((percent) => ({
+  percent,
+  load: roundTo((100 * percent) / 100, 1),
+  reps: roundTo(30 * (100 / percent - 1), 0),
+}));
+---
+
+<BaseLayout meta={meta} currentPath={path} schemas={schemas} availableLocales={availableLocales}>
+  <div class="mx-auto max-w-5xl px-4 py-6">
+    <Breadcrumbs items={crumbs} locale={locale} label={t('nav.breadcrumb')} />
+
+    <h1 class="mt-4 text-2xl sm:text-3xl">{t('lift.h1', { lift: lift.name })}</h1>
+    <p class="mt-3 max-w-[var(--measure)] text-lg text-graphite">{intro}</p>
+
+    <calculator-widget
+      data-calculator="one-rep-max"
+      class="mt-6 block rounded-lg border border-rule bg-raised p-4 sm:p-6"
+    >
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div id="step-1">
+          <h2 class="sr-only">{t('lift.enterSet')}</h2>
+          <form novalidate>
+            <fieldset class="m-0 border-0 p-0">
+              <legend class="sr-only">{t('calc.units')}</legend>
+              <div
+                class="mb-5 inline-flex rounded-md border border-edge"
+                role="radiogroup"
+                aria-label={t('calc.units')}
+              >
+                <label
+                  class="flex min-h-11 cursor-pointer items-center rounded-s-md px-4 text-base has-[:checked]:bg-ink has-[:checked]:text-paper"
+                >
+                  <input type="radio" name="units" value="metric" checked class="sr-only" />
+                  {t('calc.metric')}
+                </label>
+                <label
+                  class="flex min-h-11 cursor-pointer items-center rounded-e-md border-s border-edge px-4 text-base has-[:checked]:bg-ink has-[:checked]:text-paper"
+                >
+                  <input type="radio" name="units" value="imperial" class="sr-only" />
+                  {t('calc.imperial')}
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label for="load" class="block text-xs font-semibold text-graphite">
+                  {t('lift.weightLifted')}
+                </label>
+                <div class="mt-1 flex items-center gap-2">
+                  <input
+                    id="load"
+                    name="load"
+                    type="number"
+                    inputmode="decimal"
+                    min="1"
+                    max="1000"
+                    step="0.5"
+                    class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                  />
+                  <span class="text-xs text-graphite" data-unit-metric="kg" data-unit-imperial="lb"
+                    >kg</span
+                  >
+                </div>
+              </div>
+
+              <div>
+                <label for="reps" class="block text-xs font-semibold text-graphite">
+                  {t('lift.reps')}
+                </label>
+                <div class="mt-1 flex items-center gap-2">
+                  <input
+                    id="reps"
+                    name="reps"
+                    type="number"
+                    inputmode="numeric"
+                    min="1"
+                    max="20"
+                    step="1"
+                    value="5"
+                    class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                  />
+                  <span class="text-xs text-graphite">{t('lift.repsUnit')}</span>
+                </div>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label for="formula" class="block text-xs font-semibold text-graphite">
+                  {t('lift.formula')}
+                </label>
+                <select
+                  id="formula"
+                  name="formula"
+                  class="mt-1 min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                >
+                  <option value="epley" selected>Epley (1985)</option>
+                  <option value="brzycki">Brzycki (1993)</option>
+                  <option value="lombardi">Lombardi (1989)</option>
+                  <option value="oconner">O'Conner (1989)</option>
+                  <option value="wathan">Wathan (1994)</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="mt-6 min-h-11 w-full rounded-md border border-edge bg-ink px-4 text-base font-semibold text-paper sm:w-auto"
+            >
+              {t('calc.calculate')}
+            </button>
+          </form>
+        </div>
+
+        <div id="step-2" class="lg:border-s lg:border-rule lg:ps-8">
+          <h2 class="text-xs font-semibold tracking-wide text-graphite uppercase">
+            {t('calc.result')}
+          </h2>
+          <div data-result aria-live="polite" aria-atomic="true" class="mt-2 min-h-32"></div>
+          <noscript>
+            <p class="mt-2 max-w-[var(--measure)] text-base">{t('lift.noscript')}</p>
+          </noscript>
+          <Disclaimer locale={locale} />
+        </div>
+      </div>
+    </calculator-widget>
+
+    <section id="step-3" class="mt-12" aria-labelledby="lift-notes">
+      <h2 id="lift-notes" class="text-xl">{t('lift.specificHeading', { lift: lowerName })}</h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">{lift.summary}</p>
+      <p class="mt-4 max-w-[var(--measure)] text-base">{accuracy}</p>
+
+      <ul class="mt-4 max-w-[var(--measure)] list-disc space-y-2 ps-6 text-base">
+        {lift.notes.map((note) => <li>{note}</li>)}
+      </ul>
+
+      <dl
+        class="mt-6 grid max-w-[var(--measure)] gap-x-4 gap-y-1 text-base sm:grid-cols-[9rem_1fr]"
+      >
+        <dt class="text-xs text-graphite">{t('lift.typicalReps')}</dt>
+        <dd class="m-0">{lift.typicalReps}</dd>
+        <dt class="text-xs text-graphite">{t('common.category')}</dt>
+        <dd class="m-0">{LIFT_CATEGORY_LABELS[lift.category]}</dd>
+      </dl>
+    </section>
+
+    <section class="mt-12" aria-labelledby="estimate-table">
+      <h2 id="estimate-table" class="text-xl">
+        {t('lift.estimateHeading', { lift: lowerName })}
+      </h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">{t('lift.estimateNote')}</p>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">{t('lift.repMaxCaption')}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-start text-xs text-graphite">
+                {t('common.weight')}
+              </th>
+              {
+                REPS.map((reps) => (
+                  <th
+                    scope="col"
+                    class="numeral border-b border-rule p-2 text-right text-xs text-graphite"
+                  >
+                    {formatInteger(reps, locale)} {t('lift.repsUnit')}
+                  </th>
+                ))
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              LOADS.map((load) => (
+                <tr>
+                  <th scope="row" class="numeral border-b border-rule p-2 text-left font-normal">
+                    {formatInteger(load, locale)} kg
+                  </th>
+                  {REPS.map((reps) => (
+                    <td class="numeral border-b border-rule p-2 text-right">
+                      {formatNumber(roundTo(epley(asKilograms(load), reps), 1), locale)}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="percentage-table">
+      <h2 id="percentage-table" class="text-xl">{t('lift.percentageHeading')}</h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">{t('lift.percentageNote')}</p>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">{t('lift.percentageTableCaption')}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-start text-xs text-graphite">
+                {t('lift.columnPercentage')}
+              </th>
+              <th scope="col" class="border-b border-rule p-2 text-end text-xs text-graphite">
+                {t('lift.columnLoad100')}
+              </th>
+              <th scope="col" class="border-b border-rule p-2 text-end text-xs text-graphite">
+                {t('lift.columnApproxReps')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              percentageRows.map((row) => (
+                <tr>
+                  <th scope="row" class="numeral border-b border-rule p-2 text-left font-normal">
+                    {formatInteger(row.percent, locale)}%
+                  </th>
+                  <td class="numeral border-b border-rule p-2 text-end">
+                    {formatNumber(row.load, locale)} kg
+                  </td>
+                  <td class="numeral border-b border-rule p-2 text-end">
+                    {formatInteger(row.reps, locale)}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="conversion">
+      <h2 id="conversion" class="text-xl">{t('lift.conversionHeading')}</h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">{t('lift.conversionNote')}</p>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">{t('lift.comparisonHeading')}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-start text-xs text-graphite">
+                {t('lift.reps')}
+              </th>
+              <th scope="col" class="border-b border-rule p-2 text-end text-xs text-graphite">
+                {t('lift.columnLoadFor100')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              REPS.map((reps) => (
+                <tr>
+                  <th scope="row" class="numeral border-b border-rule p-2 text-start font-normal">
+                    {formatInteger(reps, locale)}
+                  </th>
+                  <td class="numeral border-b border-rule p-2 text-end">
+                    {formatNumber(roundTo(loadForReps(100, reps), 1), locale)} kg
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">{t('lift.comparisonCaption')}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-start text-xs text-graphite">
+                {t('lift.formula')}
+              </th>
+              <th scope="col" class="border-b border-rule p-2 text-end text-xs text-graphite">
+                {t('lift.column100x5')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              Object.entries(allOneRepMaxEstimates(asKilograms(100), 5)).map(([name, value]) => (
+                <tr>
+                  <th
+                    scope="row"
+                    class="border-b border-rule p-2 text-start font-normal capitalize"
+                  >
+                    {name}
+                  </th>
+                  <td class="numeral border-b border-rule p-2 text-end">
+                    {value === null ? '—' : `${formatNumber(roundTo(value, 1), locale)} kg`}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="faq">
+      <h2 id="faq" class="text-xl">{t('calc.questions')}</h2>
+      <dl class="mt-4 max-w-[var(--measure)]">
+        {
+          faq.map((entry) => (
+            <div class="border-b border-rule py-4">
+              <dt class="font-display text-base font-semibold">{entry.question}</dt>
+              <dd class="m-0 mt-2 text-base text-graphite">{entry.answer}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="mt-12" aria-labelledby="related-lifts">
+      <h2 id="related-lifts" class="text-xs font-semibold tracking-wide text-graphite uppercase">
+        {t('lift.otherLifts')}
+      </h2>
+      <ul class="mt-2 grid list-none gap-x-8 p-0 sm:grid-cols-2">
+        {
+          related.map((entry) => (
+            <li>
+              <a
+                href={getLocalePath(`/one-rep-max/${entry.slug}`, locale)}
+                class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+              >
+                {entry.name}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a
+            href={getLocalePath('/guides/one-rep-max-formulas-compared', locale)}
+            class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+          >
+            {t('lift.formulasGuide')}
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <TranslationNotice locale={locale} path={path} />
+  </div>
+</BaseLayout>
+
+<script>
+  import '../../../components/islands/calculator';
+</script>

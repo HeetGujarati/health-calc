@@ -1,0 +1,44 @@
+---
+import { DEFAULT_LOCALE, type Locale } from '../config/locales';
+import { getLocalePath } from '../lib/seo/urls';
+import { useTranslations } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+  /** Locale-independent path, so the link lands on the same page in English. */
+  path: string;
+}
+
+const { locale, path } = Astro.props;
+const t = useTranslations(locale);
+
+/**
+ * Translation provenance, on non-English pages only.
+ *
+ * These translations were produced in one pass and have not been reviewed by a
+ * native speaker of each language. Saying so is the honest thing to do on a
+ * health site, and it gives a reader who hits an awkward phrase somewhere to
+ * go rather than doubting the number.
+ *
+ * It is small, at the foot of the page, and links to the English original with
+ * an explicit `hreflang` and `lang` so assistive technology announces the
+ * change of language.
+ */
+---
+
+{
+  locale !== DEFAULT_LOCALE && (
+    <p class="mt-12 border-t border-rule pt-6 text-xs text-graphite">
+      {t('translation.notice')}{' '}
+      <a
+        href={getLocalePath(path, DEFAULT_LOCALE)}
+        hreflang={DEFAULT_LOCALE}
+        lang={DEFAULT_LOCALE}
+        dir="ltr"
+        class="underline hover:text-ink"
+      >
+        {t('translation.viewEnglish')}
+      </a>
+    </p>
+  )
+}

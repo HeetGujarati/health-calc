@@ -1,0 +1,42 @@
+---
+import ProseLayout from '../../layouts/ProseLayout.astro';
+import ProseBlocks, { type Block } from '../../components/ProseBlocks.astro';
+import { localeRoutes } from '../../lib/i18n/routes';
+import { useTranslations } from '../../lib/i18n';
+import type { Locale } from '../../config/locales';
+
+export function getStaticPaths() {
+  return localeRoutes();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+
+/**
+ * The accessibility standard this site targets, how it was tested, and what is known to fall short.
+ */
+const BLOCKS: readonly Block[] = [
+  { kind: 'p', key: 'a11y.p1' },
+  { kind: 'h2', key: 'a11y.h2What' },
+  {
+    kind: 'ul',
+    keys: ['a11y.li1', 'a11y.li2', 'a11y.li3', 'a11y.li4', 'a11y.li5', 'a11y.li6', 'a11y.li7'],
+  },
+  { kind: 'h2', key: 'a11y.h2Testing' },
+  { kind: 'p', key: 'a11y.p2' },
+  { kind: 'p', key: 'a11y.p3' },
+  { kind: 'h2', key: 'a11y.h2Known' },
+  { kind: 'p', key: 'a11y.p4' },
+];
+---
+
+<ProseLayout
+  title={t('a11y.title')}
+  description={t('a11y.description')}
+  path="/accessibility"
+  locale={locale}
+  lastUpdated="2026-08-20"
+  keywords={['accessibility', 'wcag']}
+>
+  <ProseBlocks locale={locale} blocks={BLOCKS} />
+</ProseLayout>

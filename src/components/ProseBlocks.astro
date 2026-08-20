@@ -1,0 +1,62 @@
+---
+import type { Locale } from '../config/locales';
+import { useTranslations, type MessageKey } from '../lib/i18n';
+
+/**
+ * A prose page rendered from the message catalog.
+ *
+ * The legal, editorial and about pages are the ones a launch checklist cares
+ * about most, and they are also the ones most likely to drift between locales
+ * if each is a hand-written .astro file. Declaring them as a list of blocks
+ * means the ten language versions cannot diverge structurally: they render the
+ * same headings in the same order, and the compiler already guarantees every
+ * key exists in every locale.
+ *
+ * `notice` is for the OWNER PLACEHOLDER callouts, which are styled distinctly
+ * so nobody ships a site with "add your legal entity here" reading as body copy.
+ */
+export type Block =
+  | { readonly kind: 'p'; readonly key: MessageKey }
+  | { readonly kind: 'h2'; readonly key: MessageKey }
+  | { readonly kind: 'ul'; readonly keys: readonly MessageKey[] }
+  | { readonly kind: 'notice'; readonly key: MessageKey }
+  | { readonly kind: 'email'; readonly key: MessageKey; readonly address: string };
+
+interface Props {
+  locale: Locale;
+  blocks: readonly Block[];
+  /** Values interpolated into any block that carries a placeholder. */
+  values?: Readonly<Record<string, string | number>>;
+}
+
+const { locale, blocks, values = {} } = Astro.props;
+const t = useTranslations(locale);
+---
+
+{
+  blocks.map((block) => {
+    if (block.kind === 'h2') return <h2>{t(block.key, values)}</h2>;
+    if (block.kind === 'p') return <p>{t(block.key, values)}</p>;
+    if (block.kind === 'ul') {
+      return (
+        <ul>
+          {block.keys.map((key) => (
+            <li>{t(key, values)}</li>
+          ))}
+        </ul>
+      );
+    }
+    if (block.kind === 'email') {
+      return (
+        <p>
+          {t(block.key, values)}: <a href={`mailto:${block.address}`}>{block.address}</a>
+        </p>
+      );
+    }
+    return (
+      <p class="rounded-md border border-caution/40 bg-caution-surface p-3 text-xs text-caution">
+        {t(block.key, values)}
+      </p>
+    );
+  })
+}

@@ -155,19 +155,25 @@ export const DISTANCE_DEMANDS: readonly string[] = [
   '{demands}',
 ];
 
-/** Describes where a MET value sits on the Compendium's range, in words. */
-export const metComparison = (met: number): string => {
-  if (met < 3) return 'toward the light end';
-  if (met < 6) return 'in the moderate band';
-  if (met < 9) return 'in the vigorous band';
-  return 'toward the demanding end';
+/**
+ * Where a MET value sits on the Compendium's range, as a message key.
+ *
+ * Returns a key rather than a phrase because the result is dropped mid-sentence
+ * into translated copy, and the four bands decline differently in different
+ * languages. The caller resolves it through the locale's catalog.
+ */
+export const metBandKey = (
+  met: number
+): 'metBand.light' | 'metBand.moderate' | 'metBand.vigorous' | 'metBand.demanding' => {
+  if (met < 3) return 'metBand.light';
+  if (met < 6) return 'metBand.moderate';
+  if (met < 9) return 'metBand.vigorous';
+  return 'metBand.demanding';
 };
 
 /** Share of gross energy attributable to the activity itself, as a percentage. */
-export const netShareOfGross = (met: number): string => {
-  if (met <= 1) return 'none';
-  return `${Math.round(((met - 1) / met) * 100).toString()} per cent`;
-};
+export const netSharePercent = (met: number): number | null =>
+  met <= 1 ? null : Math.round(((met - 1) / met) * 100);
 
 /** Lowercases the first character, for mid-sentence insertion. */
 export const lowerFirst = (text: string): string =>

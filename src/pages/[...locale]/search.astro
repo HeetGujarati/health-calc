@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { calculatorsByCategory } from '../../data/calculators';
+import { buildBaseMetadata } from '../../lib/seo/metadata';
+import { buildBreadcrumbList, type JsonLdObject } from '../../lib/seo/schema';
+import { getLocalePath } from '../../lib/seo/urls';
+import { localeRoutes } from '../../lib/i18n/routes';
+import { useTranslations, type MessageKey } from '../../lib/i18n';
+import { calculatorText } from '../../lib/i18n/content';
+import type { Locale } from '../../config/locales';
+
+export function getStaticPaths() {
+  return localeRoutes();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+const path = '/search';
+
+/**
+ * The search page.
+ *
+ * noIndex, and deliberately so. A search results page has no stable content —
+ * it renders whatever the query string asks for — and indexing it produces the
+ * thin, near-duplicate pages Google's own guidance tells you to keep out of the
+ * index. The robots.txt also disallows /search/?.
+ *
+ * The page still exists and works, which is what matters: the homepage declares
+ * a SearchAction pointing here, and declaring one that does not function is a
+ * structured data violation.
+ *
+ * Setting noIndex here also suppresses this page's hreflang alternates and its
+ * sitemap entry, which the metadata builder handles automatically.
+ */
+const meta = buildBaseMetadata({
+  title: t('search.title'),
+  description: t('search.description'),
+  path,
+  locale,
+  noIndex: true,
+});
+
+const crumbs = [
+  { name: t('nav.home'), path: '/' },
+  { name: t('search.title'), path },
+];
+
+const schemas: JsonLdObject[] = [];
+const breadcrumbs = buildBreadcrumbList(crumbs, locale);
+if (breadcrumbs !== null) schemas.push(breadcrumbs);
+
+const groups = calculatorsByCategory();
+
+/**
+ * Locale-dependent strings reach the island through data attributes rather than
+ * by bundling a catalog into it. The search island is the only page-specific
+ * script on the site, and shipping ten locales of copy inside it would cost
+ * every reader bytes for nine languages they cannot read.
+ */
+const islandStrings = {
+  'data-index-url': `${getLocalePath('/search-index.json', locale).replace(/\/$/, '')}`,
+  'data-label-calculator': t('search.typeCalculator'),
+  'data-label-guide': t('search.typeGuide'),
+  'data-label-page': t('search.typePage'),
+  'data-no-results': t('search.noResults', { query: '{query}' }),
+  'data-result-count': t('search.resultCount', { count: '{count}', query: '{query}' }),
+  'data-result-count-one': t('search.resultCountOne', { query: '{query}' }),
+  'data-unavailable': t('search.unavailable'),
+};
+---
+
+<BaseLayout meta={meta} currentPath={path} schemas={schemas}>
+  <div class="mx-auto max-w-3xl px-4 py-6">
+    <Breadcrumbs items={crumbs} locale={locale} label={t('nav.breadcrumb')} />
+
+    <h1 class="mt-4 text-2xl sm:text-3xl">{t('search.title')}</h1>
+
+    <site-search class="mt-6 block" {...islandStrings}>
+      <form role="search">
+        <label for="search-query" class="block text-xs font-semibold text-graphite">
+          {t('search.label')}
+        </label>
+        <div class="mt-1 flex gap-2">
+          <input
+            id="search-query"
+            type="search"
+            name="q"
+            autocomplete="off"
+            class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+          />
+          <button
+            type="submit"
+            class="min-h-11 rounded-md border border-edge bg-ink px-4 text-base font-semibold text-paper"
+          >
+            {t('search.submit')}
+          </button>
+        </div>
+      </form>
+
+      {/* Announced politely so a screen reader hears the result count without losing the input. */}
+      <p data-search-status aria-live="polite" class="mt-4 text-xs text-graphite"></p>
+
+      <div data-search-results></div>
+    </site-search>
+
+    {
+      /*
+      The full directory, server-rendered. Search needs JavaScript; this does
+      not, so the page is useful either way rather than being an empty box.
+    */
+    }
+    <section class="mt-12 border-t border-rule pt-8" aria-labelledby="browse">
+      <h2 id="browse" class="text-xl">{t('search.browse')}</h2>
+
+      <div class="mt-6 space-y-8">
+        {
+          groups.map((group) => (
+            <div>
+              <h3 class="text-xs font-semibold tracking-wide text-graphite uppercase">
+                {t(`category.${group.id}` as MessageKey)}
+              </h3>
+              <ul class="mt-2 grid list-none gap-x-8 p-0 sm:grid-cols-2">
+                {group.items.map((entry) => (
+                  <li>
+                    <a
+                      href={getLocalePath(`/calculators/${entry.slug}`, locale)}
+                      class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+                    >
+                      {calculatorText(entry.slug, 'heading', locale, entry.heading)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="mt-8 text-base">
+        <a href={getLocalePath('/guides', locale)} class="text-signal underline">
+          {t('search.allGuides')}
+        </a>
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../../components/islands/search';
+</script>

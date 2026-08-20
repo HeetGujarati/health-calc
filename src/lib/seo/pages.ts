@@ -3,7 +3,8 @@ import { CHART_DEFINITIONS } from '../../data/charts';
 import { ACTIVITIES } from '../../data/activities';
 import { LIFTS } from '../../data/lifts';
 import { DISTANCES } from '../../data/distances';
-import { SITE } from '../../config/site';
+import { SITE, hasFullProgrammaticSet } from '../../config/site';
+import { PRIORITY_PROGRAMMATIC } from '../../data/programmatic-priority';
 import type { Locale } from '../../config/locales';
 
 /**
@@ -51,14 +52,26 @@ const REVIEWED = '2026-08-20';
 /**
  * Locales a page exists in.
  *
- * Every page currently ships in English only. When phase 8 adds locales this
- * becomes the single place that decides which pages are translated, and both
- * the sitemap and the hreflang map follow automatically — so they cannot
- * disagree, which is the failure the build gate exists to catch.
+ * The single place that decides which pages are translated. The sitemap, the
+ * hreflang map and `getStaticPaths` all read it, so they cannot disagree —
+ * which is the failure the build gate exists to catch.
+ *
+ * Core, calculator, chart and guide pages ship in every locale. Programmatic
+ * pages ship in full only for English and for any locale listed in
+ * `FULL_PROGRAMMATIC_LOCALES`; every other locale gets the thirty priority
+ * pages from section 5.3.
  */
-const localesFor = (section: SitemapSection): readonly Locale[] => {
-  void section;
-  return SITE.locales.filter((locale) => locale === SITE.defaultLocale);
+export const localesFor = (section: SitemapSection, slug?: string): readonly Locale[] => {
+  const isProgrammatic = section === 'activities' || section === 'lifts' || section === 'distances';
+
+  if (!isProgrammatic) return SITE.translatedLocales;
+
+  // A programmatic page with no slug cannot be checked against the priority
+  // list, so it is treated as full-set-only rather than silently shipped
+  // everywhere.
+  const isPriority = slug !== undefined && PRIORITY_PROGRAMMATIC.has(slug);
+
+  return SITE.translatedLocales.filter((locale) => hasFullProgrammaticSet(locale) || isPriority);
 };
 
 const core: readonly PageEntry[] = [
@@ -182,7 +195,7 @@ const calculators: readonly PageEntry[] = CALCULATOR_DEFINITIONS.map((definition
   priority: 0.8,
   changefreq: 'weekly' as const,
   lastmod: definition.lastUpdated,
-  locales: localesFor('calculators'),
+  locales: localesFor('calculators', definition.slug),
 }));
 
 const charts: readonly PageEntry[] = CHART_DEFINITIONS.map((chart) => ({
@@ -191,7 +204,7 @@ const charts: readonly PageEntry[] = CHART_DEFINITIONS.map((chart) => ({
   priority: 0.7,
   changefreq: 'monthly' as const,
   lastmod: chart.lastUpdated,
-  locales: localesFor('charts'),
+  locales: localesFor('charts', chart.slug),
 }));
 
 const activities: readonly PageEntry[] = ACTIVITIES.map((activity) => ({
@@ -200,7 +213,7 @@ const activities: readonly PageEntry[] = ACTIVITIES.map((activity) => ({
   priority: 0.8,
   changefreq: 'weekly' as const,
   lastmod: REVIEWED,
-  locales: localesFor('activities'),
+  locales: localesFor('activities', activity.slug),
 }));
 
 const lifts: readonly PageEntry[] = LIFTS.map((lift) => ({
@@ -209,7 +222,7 @@ const lifts: readonly PageEntry[] = LIFTS.map((lift) => ({
   priority: 0.8,
   changefreq: 'weekly' as const,
   lastmod: REVIEWED,
-  locales: localesFor('lifts'),
+  locales: localesFor('lifts', lift.slug),
 }));
 
 const distances: readonly PageEntry[] = DISTANCES.map((distance) => ({
@@ -218,7 +231,7 @@ const distances: readonly PageEntry[] = DISTANCES.map((distance) => ({
   priority: 0.8,
   changefreq: 'weekly' as const,
   lastmod: REVIEWED,
-  locales: localesFor('distances'),
+  locales: localesFor('distances', distance.slug),
 }));
 
 /** Guides are async because they come from a content collection. */
@@ -231,7 +244,7 @@ export const guideEntries = async (): Promise<readonly PageEntry[]> => {
     priority: 0.7,
     changefreq: 'monthly' as const,
     lastmod: guide.data.updated.toISOString().slice(0, 10),
-    locales: localesFor('guides'),
+    locales: localesFor('guides', guide.id),
   }));
 };
 

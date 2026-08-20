@@ -327,4 +327,185 @@ export const fr: Messages = {
   'cookies.h2Ads': 'Si la publicité est activée',
   'cookies.p5':
     "La publicité n'est pas activée. Le code qui l'afficherait existe et réserve sa place dans la mise en page, mais n'affiche rien. Si elle était activée, les partenaires publicitaires déposeraient leurs propres cookies, une bannière de consentement demanderait votre accord avant tout dépôt, et cette page les énumérerait avant que cela n'arrive.",
+
+  // --- Chart, activity, lift and distance page templates ---
+  'common.related': 'À voir aussi',
+  'common.lastReviewed': 'Dernière révision : {date}.',
+  'common.category': 'Catégorie',
+  'common.weight': 'Poids',
+  'common.duration': 'Durée',
+  'chart.workItOut': 'Calculez-le avec vos propres chiffres',
+  'chart.workItOutBody':
+    'Ce tableau est calculé à partir des mêmes équations que le calculateur, les deux concordent donc toujours.',
+  'chart.relatedGuides': 'Guides liés',
+  'activity.h1': 'Calories brûlées {activity}',
+  'activity.metSection': "La valeur MET et d'où elle vient",
+  'activity.listedAs': 'Figure sous',
+  'activity.referenceNote':
+    'Énergie brute en kilocalories. Lisez horizontalement depuis votre poids et verticalement depuis votre durée. Une personne de 70 kg dépense environ {gross} kcal par heure, dont à peu près {net} au-dessus de ce que le repos aurait coûté.',
+  'activity.compareNote':
+    'Énergie dépensée en trente minutes à 70 kg, pour que les activités soient directement comparables.',
+  'activity.compareCaption': 'Comparaison avec des activités proches',
+  'activity.columnKcal30': 'kcal / 30 min',
+  'activity.noscript':
+    'Les résultats en direct nécessitent JavaScript. Le tableau ci-dessous est précalculé et fonctionne sans lui.',
+  'activity.allActivities': 'Toutes les activités',
+  'activity.metaDescription':
+    "Combien de calories brûle l'activité {activity}, selon le poids et la durée. Utilise la valeur MET publiée de {met} du Compendium pour adultes de 2024.",
+  'lift.enterSet': 'Saisissez votre série',
+  'lift.typicalReps': 'Répétitions habituelles',
+  'lift.percentageTableCaption':
+    'Pourcentage de la répétition maximale avec les répétitions attendues',
+  'lift.repMaxCaption': 'Répétition maximale estimée selon la charge soulevée et les répétitions',
+  'lift.comparisonHeading': 'Conversion des répétitions maximales et comparaison des formules',
+  'lift.comparisonCaption': 'Les cinq équations comparées pour 100 kg en cinq répétitions',
+  'distance.enterTime': 'Saisissez un temps final',
+  'search.typeCalculator': 'Calculateur',
+  'search.typeGuide': 'Guide',
+  'search.typePage': 'Page',
+  'search.unavailable':
+    "La recherche est indisponible pour le moment. L'annuaire des calculateurs contient tout.",
+
+  // --- Chart, activity, lift and distance page templates ---
+  'metBand.light': "vers le bas de l'échelle",
+  'metBand.moderate': 'dans la plage modérée',
+  'metBand.vigorous': 'dans la plage soutenue',
+  'metBand.demanding': "vers le haut de l'échelle",
+  'netShare.none': 'rien',
+  'netShare.percent': '{value} pour cent',
+
+  // --- Programmatic page copy ---
+  'activity.appName': 'Calculateur de calories brûlées {activity}',
+  'activity.howToName': 'Comment calculer les calories brûlées {activity}',
+  'activity.step1.name': 'Saisissez votre poids et votre durée',
+  'activity.step1.text':
+    'Choisissez les unités métriques ou impériales, puis saisissez votre poids et le temps passé {activity}.',
+  'activity.step2.name': 'Lisez le résultat',
+  'activity.step2.text':
+    "Le résultat se met à jour au fil de la saisie et affiche l'énergie brute ainsi que le chiffre au-dessus du repos.",
+  'activity.step3.name': 'Vérifiez la valeur MET et sa source',
+  'activity.step3.text':
+    'Le code du Compendium et la description derrière la valeur de {met} MET figurent sous le calculateur.',
+  'activity.faq.q1': 'Combien de calories brûle {activity} ?',
+  'activity.faq.a1':
+    'À {met} MET, une personne de 70 kg dépense environ {kcal30} kcal en trente minutes. La dépense augmente avec le poids : une personne de 90 kg en dépense environ un tiers de plus pour la même séance.',
+  'activity.faq.q2': 'Quelle est la valeur MET de {activity} ?',
+  'activity.faq.a2':
+    '{met} MET, sous le code {code} du Compendium. Un MET est un multiple du métabolisme de repos.',
+  'activity.faq.q3': 'Dois-je soustraire mon métabolisme de repos ?',
+  'activity.faq.a3':
+    "Si vous ajoutez ceci à un chiffre de maintenance qui inclut déjà le repos, oui. Le chiffre net retire l'environ un MET-heure par heure que votre corps aurait dépensé de toute façon, ce qui pour {activity} laisse à peu près {netShare} du total brut.",
+  'activity.faq.q4': 'Pourquoi le poids change-t-il le résultat ?',
+  'activity.faq.a4':
+    "Une valeur MET est une énergie par kilogramme de masse corporelle, donc la même activité coûte plus cher à un corps plus lourd. C'est pourquoi le poids est une donnée saisie et non une hypothèse, et pourquoi les chiffres génériques de calories brûlées sans poids n'ont presque aucun sens.",
+  'activity.faq.q5': 'Quelle est la précision de ce chiffre ?',
+  'activity.faq.a5':
+    "C'est une estimation issue d'une moyenne de population. Les comparaisons publiées avec la calorimétrie indirecte relèvent des écarts individuels de vingt à trente pour cent : servez-vous-en pour comparer des activités, pas comme d'un compte à rattraper en mangeant.",
+  'lift.h1': 'Calculateur de répétition maximale au {lift}',
+  'lift.metaDescription':
+    "Estimez votre répétition maximale au {liftLower} à partir d'une série, avec les cinq équations publiées comparées et un tableau de pourcentages pour les charges d'entraînement.",
+  'lift.howToName': 'Comment estimer une répétition maximale au {liftLower}',
+  'lift.step1.name': 'Saisissez la charge et les répétitions',
+  'lift.step1.text':
+    'Saisissez la charge soulevée au {liftLower} et le nombre de répétitions réalisées.',
+  'lift.step2.name': "Lisez l'estimation",
+  'lift.step2.text':
+    'Les cinq équations sont affichées, avec leur moyenne et un tableau de pourcentages.',
+  'lift.step3.name': 'Vérifiez le comportement des équations sur ce mouvement',
+  'lift.step3.text':
+    'Les notes ci-dessous expliquent comment ces équations se transposent à ce mouvement en particulier.',
+  'lift.faq.q1': 'Comment estimer mon maximum au {liftLower} ?',
+  'lift.faq.a1':
+    "Faites une série jusqu'à l'échec ou tout près, saisissez la charge et les répétitions, les équations font le reste. Un triple lourd donne une estimation bien plus fiable qu'une série de douze, car les cinq équations ont été validées entre deux et dix répétitions.",
+  'lift.faq.q2': 'Les estimations de 1RM sont-elles fiables pour le {liftLower} ?',
+  'lift.faq.q3': 'Quelle formule utiliser ?',
+  'lift.faq.a3':
+    "Wathan et Epley suivent les données mesurées sur la plage la plus large ; Brzycki est la plus prudente et exacte à une répétition. La moyenne des cinq est un chiffre unique plus défendable que n'importe laquelle prise seule, et l'écart entre elles indique la confiance que mérite l'estimation.",
+  'lift.faq.q4': 'Quelle plage de répétitions convient au {liftLower} ?',
+  'lift.faq.a4':
+    "Ce mouvement se travaille généralement dans la plage de {reps} répétitions. Les estimations issues de cette plage sont les plus fiables, car elles sont les plus proches de l'endroit où les équations ont été ajustées.",
+  'lift.faq.q5': 'Vaut-il mieux tester un vrai maximum ?',
+  'lift.faq.a5':
+    "Seulement si vous avez besoin du chiffre pour la compétition, et alors avec une parade et un échauffement complet. Pour la programmation, une estimation issue d'un triple lourd est presque aussi utile et coûte bien moins en récupération et en risque.",
+  'distance.h1': "Calculateur d'allure pour le {distance}",
+  'distance.metaDescription':
+    "Tableau d'allure et calculateur pour le {distance} : conversion entre allure, vitesse et temps final, avec les passages et une note honnête sur les projections de course.",
+  'distance.howToName': "Comment calculer l'allure sur {distanceLower}",
+  'distance.step1.name': 'Saisissez un temps final',
+  'distance.step1.text':
+    'Saisissez un temps cible ou réel sur {distanceLower} au format h:mm:ss ou m:ss.',
+  'distance.step2.name': "Lisez l'allure",
+  'distance.step2.text':
+    "L'allure au kilomètre et au mile, la vitesse et les passages se mettent à jour au fil de la saisie.",
+  'distance.step3.name': "Consultez le tableau d'allure",
+  'distance.step3.text':
+    'Le tableau ci-dessous associe chaque allure de la plage habituelle à un temps final.',
+  'distance.faq.q1': 'Quelle allure me faut-il pour un temps donné sur {short} ?',
+  'distance.faq.a1':
+    'Divisez le temps cible par la distance en kilomètres. Pour le {distance}, {midPace} au kilomètre donne {midTime}. Le tableau ci-dessous couvre la plage dans laquelle la plupart des coureurs concourent.',
+  'distance.faq.q2': "Comment gérer l'allure sur un {short} ?",
+  'distance.faq.q3': "Qu'est-ce qui limite la performance sur {short} ?",
+  'distance.faq.q4': "Les projections vers d'autres distances sont-elles fiables ?",
+  'distance.faq.a4':
+    "Non, et la page le dit. Elles supposent que la même allure tient sur une distance différente, ce qui est faux : l'allure baisse quand la distance augmente. La formule de Riegel applique un exposant de fatigue et reste le bon outil pour une véritable prédiction.",
+  'distance.faq.q5': 'Pourquoi le tableau des passages comporte-t-il un dernier segment partiel ?',
+  'distance.faq.a5':
+    "Parce que le {distance} fait {km} km, ce qui ne correspond pas à un nombre entier d'intervalles. Le dernier segment partiel est affiché plutôt qu'omis, car un tableau qui s'arrête avant la ligne d'arrivée est faux précisément là où cela compte.",
+
+  // --- Lift and distance page chrome ---
+  'lift.weightLifted': 'Charge soulevée',
+  'lift.reps': 'Répétitions',
+  'lift.repsUnit': 'reps',
+  'lift.formula': 'Formule',
+  'lift.noscript':
+    'Les résultats en direct nécessitent JavaScript. Les tableaux ci-dessous sont précalculés et fonctionnent sans lui.',
+  'lift.specificHeading': 'Le {lift} en particulier',
+  'lift.estimateHeading': 'Maximum estimé au {lift} selon la charge et les répétitions',
+  'lift.estimateNote':
+    "Estimations d'Epley en kilogrammes. Lisez horizontalement depuis la charge soulevée et verticalement depuis les répétitions réalisées. Les colonnes au-delà de dix répétitions sont affichées mais sont les moins fiables.",
+  'lift.percentageHeading': 'Tableau de pourcentages',
+  'lift.percentageNote':
+    "Charges d'entraînement en proportion d'un maximum de 100 kg, avec les répétitions que chaque pourcentage permet habituellement. Adaptez proportionnellement à votre propre estimation.",
+  'lift.columnPercentage': 'Pourcentage',
+  'lift.columnLoad100': 'Charge à partir de 100 kg',
+  'lift.columnApproxReps': 'Répétitions approximatives',
+  'lift.conversionHeading': 'Conversion des répétitions maximales',
+  'lift.conversionNote':
+    'Ce à quoi correspond un maximum estimé de 100 kg pour chaque nombre de répétitions, et comment les cinq équations se comparent pour une série de cinq à 100 kg.',
+  'lift.columnLoadFor100': 'Charge pour un maximum de 100 kg',
+  'lift.column100x5': '100 kg × 5 reps',
+  'lift.otherLifts': 'Autres mouvements',
+  'lift.formulasGuide': 'En quoi les formules de 1RM diffèrent',
+  'distance.finishTime': 'Temps final',
+  'distance.noscript':
+    "Les résultats en direct nécessitent JavaScript. Le tableau d'allure ci-dessous est précalculé et fonctionne sans lui.",
+  'distance.aboutHeading': 'Le {distance}',
+  'distance.length': 'Distance : {km} km ({metres} m).',
+  'distance.fixedByRules': 'Fixée par la règle 55 de compétition de World Athletics.',
+  'distance.chartHeading': "Tableau d'allure du {distance}",
+  'distance.chartNote':
+    "Temps final, allure au mile et vitesse pour chaque allure au kilomètre. Tout est calculé en mètres et en secondes puis converti une seule fois, de sorte qu'aucun arrondi ne s'accumule le long du tableau.",
+  'distance.columnPaceKm': 'Allure / km',
+  'distance.columnPaceMile': 'Allure / mile',
+  'distance.columnSpeed': 'Vitesse',
+  'distance.columnDistance': 'Distance',
+  'distance.columnElapsed': 'Temps écoulé',
+  'distance.otherDistances': 'Autres distances',
+  'distance.paceChartGuide': "Comment lire un tableau d'allure",
+
+  // --- Prose page detail ---
+  'about.h2Absent': 'Ce qui manque volontairement',
+  'about.pAbsent':
+    "Certains calculateurs sont volontairement absents. La fonction rénale, la surface corporelle pour le dosage de chimiothérapie et l'alcoolémie produisent des chiffres qui alimentent de vraies décisions, et relèvent d'un clinicien. Les calculateurs de grossesse et de fertilité constituent la catégorie la plus scrutée en santé et sont bien servis par des éditeurs médicaux établis.",
+  'about.h2Built': 'Comment le site est construit',
+  'about.pBuilt':
+    "Des pages statiques, sans compte et sans base de données. Les calculs s'exécutent dans votre navigateur et il n'existe aucun serveur vers lequel les envoyer. Chaque formule est vérifiée face aux exemples résolus de son article d'origine par une suite de tests automatisée, ce qui permet d'attraper les erreurs de transcription qui rendent un calculateur silencieusement faux.",
+  'contact.h2NoForm': "Pourquoi il n'y a pas de formulaire de contact",
+  'contact.pNoForm':
+    "Un formulaire doit envoyer votre message quelque part, ce qui suppose un serveur, donc un endroit où il est stocké et une chose de plus à sécuriser. Ce site est composé de fichiers statiques sans backend, et c'est précisément pour cela que rien de ce que vous saisissez dans un calculateur ne peut quitter votre appareil. Une adresse e-mail est un juste échange.",
+  'contact.ownerNotice':
+    "MARQUEUR PROPRIÉTAIRE : remplacez l'adresse de contact dans src/config/site.ts avant la mise en ligne. Elle apparaît ici, dans la politique de confidentialité, dans les conditions et dans security.txt, et modifier ce seul fichier les met toutes à jour.",
+
+  // --- Short meta title, distinct from the H1 ---
+  'lift.metaTitle': 'Calculateur de 1RM : {lift}',
 };

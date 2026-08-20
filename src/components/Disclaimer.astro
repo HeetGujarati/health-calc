@@ -1,4 +1,14 @@
 ---
+import type { Locale } from '../config/locales';
+import { useTranslations } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
 /**
  * The safety disclaimer required on every calculator page by section 4.3
  * rule 7: above the fold, in the results area, plain language, calm.
@@ -13,8 +23,4 @@
  */
 ---
 
-<p class="mt-4 max-w-[var(--measure)] text-xs text-graphite">
-  These are estimates from population-level equations, and individual needs vary — this is not
-  medical advice. If you have concerns about eating, weight or body image, a doctor or a qualified
-  professional is the right place to take them.
-</p>
+<p class="mt-4 max-w-[var(--measure)] text-xs text-graphite">{t('disclaimer.body')}</p>

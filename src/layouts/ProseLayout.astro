@@ -3,6 +3,9 @@ import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { buildBaseMetadata } from '../lib/seo/metadata';
 import { buildBreadcrumbList, type JsonLdObject } from '../lib/seo/schema';
+import TranslationNotice from '../components/TranslationNotice.astro';
+import { useTranslations } from '../lib/i18n';
+import { formatDate } from '../lib/i18n/format';
 import type { Locale } from '../config/locales';
 
 interface Props {
@@ -10,7 +13,7 @@ interface Props {
   metaTitle?: string;
   description: string;
   path: string;
-  locale?: Locale;
+  locale: Locale;
   lastUpdated?: string;
   keywords?: readonly string[];
   noIndex?: boolean;
@@ -21,11 +24,13 @@ const {
   metaTitle,
   description,
   path,
-  locale = 'en',
+  locale,
   lastUpdated,
   keywords = [],
   noIndex = false,
 } = Astro.props;
+
+const t = useTranslations(locale);
 
 /**
  * Layout for prose pages: about, legal, policy and accessibility.
@@ -43,7 +48,7 @@ const meta = buildBaseMetadata({
 });
 
 const crumbs = [
-  { name: 'Home', path: '/' },
+  { name: t('nav.home'), path: '/' },
   { name: title, path },
 ];
 
@@ -51,24 +56,17 @@ const schemas: JsonLdObject[] = [];
 const breadcrumbs = buildBreadcrumbList(crumbs, locale);
 if (breadcrumbs !== null) schemas.push(breadcrumbs);
 
-const lastUpdatedLabel =
-  lastUpdated === undefined
-    ? null
-    : new Date(lastUpdated).toLocaleDateString('en-GB', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      });
+const lastUpdatedLabel = lastUpdated === undefined ? null : formatDate(lastUpdated, locale);
 ---
 
 <BaseLayout meta={meta} currentPath={path} schemas={schemas}>
   <div class="mx-auto max-w-3xl px-4 py-6">
-    <Breadcrumbs items={crumbs} locale={locale} label="Breadcrumb" />
+    <Breadcrumbs items={crumbs} locale={locale} label={t('nav.breadcrumb')} />
 
     <h1 class="mt-4 text-2xl sm:text-3xl">{title}</h1>
 
     <div
-      class="mt-6 [&_a]:text-signal [&_a]:underline [&_h2]:mt-10 [&_h2]:text-xl [&_h3]:mt-6 [&_h3]:text-lg [&_li]:mt-1 [&_p]:mt-4 [&_p]:max-w-[var(--measure)] [&_p]:text-base [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6"
+      class="mt-6 [&_a]:text-signal [&_a]:underline [&_h2]:mt-10 [&_h2]:text-xl [&_h3]:mt-6 [&_h3]:text-lg [&_li]:mt-1 [&_p]:mt-4 [&_p]:max-w-[var(--measure)] [&_p]:text-base [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:ps-6"
     >
       <slot />
     </div>
@@ -76,9 +74,11 @@ const lastUpdatedLabel =
     {
       lastUpdatedLabel !== null && (
         <p class="mt-12 text-xs text-graphite">
-          Last updated <time datetime={lastUpdated}>{lastUpdatedLabel}</time>.
+          <time datetime={lastUpdated}>{t('common.lastReviewed', { date: lastUpdatedLabel })}</time>
         </p>
       )
     }
+
+    <TranslationNotice locale={locale} path={path} />
   </div>
 </BaseLayout>

@@ -3,8 +3,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { calculatorsByCategory } from '../data/calculators';
 import { buildBaseMetadata } from '../lib/seo/metadata';
 import { getLocalePath } from '../lib/seo/urls';
+import { useTranslations, type MessageKey } from '../lib/i18n';
+import { DEFAULT_LOCALE } from '../config/locales';
 
+/**
+ * English only, and served from /404.html at the root.
+ *
+ * Static hosts serve one not-found document for every path, so a per-locale
+ * 404 would need host-level routing rules that Cloudflare Pages and Netlify
+ * express differently. The page is noIndex and excluded from every sitemap, so
+ * a single English version costs nothing in search and keeps DEPLOY.md to one
+ * host-agnostic instruction. See DECISIONS.md.
+ */
 const locale = 'en' as const;
+const t = useTranslations(locale);
 
 /**
  * Custom 404.
@@ -17,8 +29,8 @@ const locale = 'en' as const;
  * fastest route back to whatever the reader wanted.
  */
 const meta = buildBaseMetadata({
-  title: 'Page not found',
-  description: 'That page does not exist. Every calculator on the site is listed below.',
+  title: t('notFound.title'),
+  description: t('notFound.description'),
   path: '/404',
   locale,
   noIndex: true,
@@ -27,27 +39,24 @@ const meta = buildBaseMetadata({
 const groups = calculatorsByCategory();
 ---
 
-<BaseLayout meta={meta} currentPath="/404">
+<BaseLayout meta={meta} currentPath="/404" availableLocales={[DEFAULT_LOCALE]}>
   <div class="mx-auto max-w-3xl px-4 py-6">
-    <p class="numeral mt-8 text-xs tracking-wide text-graphite uppercase">Error 404</p>
-    <h1 class="mt-2 text-2xl sm:text-3xl">That page does not exist</h1>
-    <p class="mt-3 max-w-[var(--measure)] text-lg text-graphite">
-      The address may be mistyped, or the page may have moved. Everything the site has is listed
-      below.
-    </p>
+    <p class="numeral mt-8 text-xs tracking-wide text-graphite uppercase">{t('notFound.label')}</p>
+    <h1 class="mt-2 text-2xl sm:text-3xl">{t('notFound.heading')}</h1>
+    <p class="mt-3 max-w-[var(--measure)] text-lg text-graphite">{t('notFound.intro')}</p>
 
     <div class="mt-8 flex flex-wrap gap-3">
       <a
         href={getLocalePath('/calculators', locale)}
         class="inline-flex min-h-11 items-center rounded-md border border-edge bg-ink px-4 text-base font-semibold text-paper no-underline"
       >
-        All calculators
+        {t('notFound.allCalculators')}
       </a>
       <a
         href={getLocalePath('/search', locale)}
         class="inline-flex min-h-11 items-center rounded-md border border-edge px-4 text-base font-semibold text-ink no-underline"
       >
-        Search
+        {t('notFound.search')}
       </a>
     </div>
 
@@ -59,7 +68,7 @@ const groups = calculatorsByCategory();
               id={`nf-${group.id}`}
               class="text-xs font-semibold tracking-wide text-graphite uppercase"
             >
-              {group.label}
+              {t(`category.${group.id}` as MessageKey)}
             </h2>
             <ul class="mt-2 grid list-none gap-x-8 p-0 sm:grid-cols-2">
               {group.items.map((item) => (
@@ -79,9 +88,13 @@ const groups = calculatorsByCategory();
     </div>
 
     <p class="mt-12 text-base">
-      <a href={getLocalePath('/guides', locale)} class="text-signal underline">Guides</a>
+      <a href={getLocalePath('/guides', locale)} class="text-signal underline"
+        >{t('notFound.guides')}</a
+      >
       {' · '}
-      <a href={getLocalePath('/charts', locale)} class="text-signal underline">Charts</a>
+      <a href={getLocalePath('/charts', locale)} class="text-signal underline"
+        >{t('notFound.charts')}</a
+      >
       {' · '}
       <a href={getLocalePath('/contact', locale)} class="text-signal underline">
         Report a broken link

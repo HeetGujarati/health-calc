@@ -2,46 +2,68 @@
 import { SITE } from '../config/site';
 import type { Locale } from '../config/locales';
 import { getLocalePath } from '../lib/seo/urls';
+import { useTranslations, type MessageKey } from '../lib/i18n';
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
+const t = useTranslations(locale);
 
-const SECTIONS = [
+interface Section {
+  readonly heading: MessageKey;
+  readonly links: readonly { readonly path: string; readonly key: MessageKey }[];
+}
+
+const SECTIONS: readonly Section[] = [
   {
-    heading: 'Calculators',
+    heading: 'footer.calculators',
     links: [
-      { path: '/calculators', label: 'All calculators' },
-      { path: '/charts', label: 'Reference charts' },
-      { path: '/guides', label: 'Guides' },
-      { path: '/calories-burned', label: 'Calories by activity' },
-      { path: '/one-rep-max', label: 'One rep max by lift' },
-      { path: '/pace', label: 'Pace by distance' },
-      { path: '/search', label: 'Search' },
+      { path: '/calculators', key: 'footer.allCalculators' },
+      { path: '/charts', key: 'footer.referenceCharts' },
+      { path: '/guides', key: 'footer.guides' },
+      { path: '/calories-burned', key: 'footer.caloriesByActivity' },
+      { path: '/one-rep-max', key: 'footer.oneRepMaxByLift' },
+      { path: '/pace', key: 'footer.paceByDistance' },
+      { path: '/search', key: 'footer.search' },
     ],
   },
   {
-    heading: 'About',
+    heading: 'footer.about',
     links: [
-      { path: '/about', label: 'About' },
-      { path: '/editorial-policy', label: 'Editorial policy' },
-      { path: '/accessibility', label: 'Accessibility' },
-      { path: '/contact', label: 'Contact' },
+      { path: '/about', key: 'footer.aboutLink' },
+      { path: '/editorial-policy', key: 'footer.editorialPolicy' },
+      { path: '/accessibility', key: 'footer.accessibility' },
+      { path: '/contact', key: 'footer.contact' },
     ],
   },
   {
-    heading: 'Legal',
+    heading: 'footer.legal',
     links: [
-      { path: '/privacy', label: 'Privacy' },
-      { path: '/terms', label: 'Terms' },
-      { path: '/cookies', label: 'Cookies' },
+      { path: '/privacy', key: 'footer.privacy' },
+      { path: '/terms', key: 'footer.terms' },
+      { path: '/cookies', key: 'footer.cookies' },
     ],
   },
-] as const;
+];
 
 const year = 2026;
+
+/**
+ * The copyright line embeds a link to the editorial policy. Rather than
+ * splitting the sentence in the catalog — which forces every translator into
+ * English word order — the catalog holds the whole sentence and the link text
+ * separately, and the sentence is split around the link text at render time.
+ * A translation that moves the phrase to the front of the sentence still works.
+ */
+const copyright = t('footer.copyright', { year, site: SITE.name });
+const linkText = t('footer.copyrightLink');
+const linkIndex = copyright.indexOf(linkText);
+const [beforeLink, afterLink] =
+  linkIndex === -1
+    ? [copyright, '']
+    : [copyright.slice(0, linkIndex), copyright.slice(linkIndex + linkText.length)];
 ---
 
 <footer class="mt-16 border-t border-rule bg-paper">
@@ -49,9 +71,9 @@ const year = 2026;
     <div class="grid gap-8 sm:grid-cols-3">
       {
         SECTIONS.map((section) => (
-          <nav aria-label={section.heading}>
+          <nav aria-label={t(section.heading)}>
             <h2 class="mb-3 font-display text-xs font-semibold tracking-wide text-graphite uppercase">
-              {section.heading}
+              {t(section.heading)}
             </h2>
             <ul class="m-0 list-none space-y-2 p-0">
               {section.links.map((link) => (
@@ -60,7 +82,7 @@ const year = 2026;
                     href={getLocalePath(link.path, locale)}
                     class="text-base text-graphite no-underline hover:text-ink hover:underline"
                   >
-                    {link.label}
+                    {t(link.key)}
                   </a>
                 </li>
               ))}
@@ -78,17 +100,19 @@ const year = 2026;
     */
     }
     <p class="mt-10 max-w-[var(--measure)] text-xs text-graphite">
-      {SITE.name} gives estimates from published, population-level equations. Individual needs vary, and
-      this is not medical advice. If you have concerns about eating, weight or body image, a doctor or
-      a qualified professional is the right place to take them.
+      {t('footer.disclaimer', { site: SITE.name })}
     </p>
 
     <p class="mt-4 text-xs text-graphite">
-      &copy; {year}
-      {SITE.name}. Formulas are cited on every page; see the
-      <a href={getLocalePath('/editorial-policy', locale)} class="underline hover:text-ink">
-        editorial policy
-      </a>.
+      {beforeLink}
+      {
+        linkIndex !== -1 && (
+          <a href={getLocalePath('/editorial-policy', locale)} class="underline hover:text-ink">
+            {linkText}
+          </a>
+        )
+      }
+      {afterLink}
     </p>
   </div>
 </footer>

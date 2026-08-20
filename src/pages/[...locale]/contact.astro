@@ -1,0 +1,40 @@
+---
+import ProseLayout from '../../layouts/ProseLayout.astro';
+import ProseBlocks, { type Block } from '../../components/ProseBlocks.astro';
+import { localeRoutes } from '../../lib/i18n/routes';
+import { useTranslations } from '../../lib/i18n';
+import { SITE } from '../../config/site';
+import type { Locale } from '../../config/locales';
+
+export function getStaticPaths() {
+  return localeRoutes();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+
+/**
+ * How to report a formula error, a broken link or an accessibility problem.
+ */
+const BLOCKS: readonly Block[] = [
+  { kind: 'p', key: 'contact.p1' },
+  { kind: 'email', key: 'contact.emailLabel', address: SITE.contactEmail },
+  { kind: 'notice', key: 'contact.ownerNotice' },
+  { kind: 'p', key: 'contact.p2' },
+  { kind: 'h2', key: 'contact.h2NoForm' },
+  { kind: 'p', key: 'contact.pNoForm' },
+  { kind: 'h2', key: 'contact.h2Response' },
+  { kind: 'p', key: 'contact.p3' },
+];
+---
+
+<ProseLayout
+  title={t('contact.title')}
+  description={t('contact.description')}
+  path="/contact"
+  locale={locale}
+  lastUpdated="2026-08-20"
+  keywords={['contact']}
+>
+  <ProseBlocks locale={locale} blocks={BLOCKS} />
+</ProseLayout>

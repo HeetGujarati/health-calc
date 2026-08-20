@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import TranslationNotice from '../../../components/TranslationNotice.astro';
+import { LIFTS, liftsByCategory } from '../../../data/lifts';
+import { buildBaseMetadata } from '../../../lib/seo/metadata';
+import { buildBreadcrumbList, type JsonLdObject } from '../../../lib/seo/schema';
+import { getLocalePath } from '../../../lib/seo/urls';
+import { localeRoutes } from '../../../lib/i18n/routes';
+import { useTranslations } from '../../../lib/i18n';
+import { translateLift } from '../../../lib/i18n/content';
+import { localesFor } from '../../../lib/seo/pages';
+import type { Locale } from '../../../config/locales';
+
+export function getStaticPaths() {
+  return localeRoutes();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+const path = '/one-rep-max';
+
+const meta = buildBaseMetadata({
+  title: t('hub.lifts.title'),
+  description: t('hub.lifts.description', { count: LIFTS.length }),
+  path,
+  locale,
+  keywords: ['one rep max by lift', '1rm calculator', 'max calculator'],
+});
+
+const crumbs = [
+  { name: t('nav.home'), path: '/' },
+  { name: t('hub.lifts.title'), path },
+];
+
+const schemas: JsonLdObject[] = [];
+const breadcrumbs = buildBreadcrumbList(crumbs, locale);
+if (breadcrumbs !== null) schemas.push(breadcrumbs);
+
+/** Only lifts with a page in this locale; see section 5.3. */
+const shipsHere = (slug: string): boolean => localesFor('lifts', slug).includes(locale);
+
+const groups = liftsByCategory()
+  .map((group) => ({
+    ...group,
+    items: group.items
+      .filter((lift) => shipsHere(lift.slug))
+      .map((lift) => translateLift(lift, locale)),
+  }))
+  .filter((group) => group.items.length > 0);
+---
+
+<BaseLayout meta={meta} currentPath={path} schemas={schemas}>
+  <div class="mx-auto max-w-3xl px-4 py-6">
+    <Breadcrumbs items={crumbs} locale={locale} label={t('nav.breadcrumb')} />
+
+    <h1 class="mt-4 text-2xl sm:text-3xl">{t('hub.lifts.title')}</h1>
+    <p class="mt-3 max-w-[var(--measure)] text-lg text-graphite">{t('hub.lifts.intro')}</p>
+
+    <div class="mt-10 space-y-10">
+      {
+        groups.map((group) => (
+          <section aria-labelledby={`lift-${group.id}`}>
+            <h2 id={`lift-${group.id}`} class="border-b border-rule pb-2 text-xl">
+              {group.label}
+            </h2>
+            <ul class="mt-4 list-none space-y-4 p-0">
+              {group.items.map((lift) => (
+                <li>
+                  <a
+                    href={getLocalePath(`/one-rep-max/${lift.slug}`, locale)}
+                    class="font-display text-base font-semibold text-ink no-underline hover:text-signal hover:underline"
+                  >
+                    {lift.name}
+                  </a>
+                  <p class="mt-1 max-w-[var(--measure)] text-base text-graphite">{lift.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <TranslationNotice locale={locale} path={path} />
+  </div>
+</BaseLayout>

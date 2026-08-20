@@ -363,4 +363,181 @@ export const en = {
   'cookies.h2Ads': 'If advertising is enabled',
   'cookies.p5':
     'Advertising is not enabled. The code to display it exists and reserves its space in the layout, but renders nothing. If it is switched on, advertising partners would set their own cookies, a consent banner would ask before any of them were set, and this page would list them before that happened.',
+
+  // --- Chart, activity, lift and distance page templates ---
+  'common.related': 'Related',
+  'common.lastReviewed': 'Last reviewed {date}.',
+  'common.category': 'Category',
+  'common.weight': 'Weight',
+  'common.duration': 'Duration',
+  'chart.workItOut': 'Work it out for your own numbers',
+  'chart.workItOutBody':
+    'This chart is computed from the same equations as the calculator, so the two always agree.',
+  'chart.relatedGuides': 'Related guides',
+  'activity.h1': 'Calories burned {activity}',
+  'activity.metSection': 'The MET value and where it comes from',
+  'activity.listedAs': 'Listed as',
+  'activity.referenceNote':
+    'Gross energy in kilocalories. Read across from your weight and down from your duration. A 70 kg person uses about {gross} kcal an hour, of which roughly {net} is above what resting would have cost.',
+  'activity.compareNote':
+    'Energy used per thirty minutes at 70 kg, so the activities are directly comparable.',
+  'activity.compareCaption': 'Comparison with related activities',
+  'activity.columnKcal30': 'kcal / 30 min',
+  'activity.noscript':
+    'Live results need JavaScript. The table below is precomputed and works without it.',
+  'activity.allActivities': 'All activities',
+  'activity.metaDescription':
+    'How many calories {activity} burns, by body weight and duration. Uses the published MET value of {met} from the 2024 Adult Compendium.',
+  'lift.enterSet': 'Enter your set',
+  'lift.typicalReps': 'Typical reps',
+  'lift.percentageTableCaption': 'Percentage of one rep max with expected repetitions',
+  'lift.repMaxCaption': 'Estimated one rep max by weight lifted and repetitions',
+  'lift.comparisonHeading': 'Rep max conversion and formula comparison',
+  'lift.comparisonCaption': 'The five equations compared for 100 kg times five',
+  'distance.enterTime': 'Enter a finish time',
+  'search.typeCalculator': 'Calculator',
+  'search.typeGuide': 'Guide',
+  'search.typePage': 'Page',
+  'search.unavailable':
+    'Search is unavailable right now. The calculator directory lists everything.',
+
+  // --- Chart, activity, lift and distance page templates ---
+  'metBand.light': 'toward the light end',
+  'metBand.moderate': 'in the moderate band',
+  'metBand.vigorous': 'in the vigorous band',
+  'metBand.demanding': 'toward the demanding end',
+  'netShare.none': 'none',
+  'netShare.percent': '{value} per cent',
+
+  // --- Programmatic page copy ---
+  'activity.appName': 'Calories burned {activity} calculator',
+  'activity.howToName': 'How to work out calories burned {activity}',
+  'activity.step1.name': 'Enter your weight and duration',
+  'activity.step1.text':
+    'Choose metric or imperial, then enter your body weight and how long you spent {activity}.',
+  'activity.step2.name': 'Read the result',
+  'activity.step2.text':
+    'The result updates as you type, showing gross energy and the figure above resting.',
+  'activity.step3.name': 'Check the MET value and its source',
+  'activity.step3.text':
+    'The Compendium code and description behind the {met} MET value are shown below the calculator.',
+  'activity.faq.q1': 'How many calories does {activity} burn?',
+  'activity.faq.a1':
+    'At {met} METs, a 70 kg person uses about {kcal30} kcal in thirty minutes. Energy use scales with body weight, so a 90 kg person uses roughly a third more for the same session.',
+  'activity.faq.q2': 'What is the MET value for {activity}?',
+  'activity.faq.a2':
+    '{met} METs, listed under Compendium code {code}. A MET is a multiple of resting metabolic rate.',
+  'activity.faq.q3': 'Should I subtract my resting metabolism?',
+  'activity.faq.a3':
+    'If you are adding this to a maintenance figure that already includes rest, yes. The net figure removes the roughly one MET-hour per hour your body would have spent anyway, which for {activity} leaves about {netShare} of the gross total.',
+  'activity.faq.q4': 'Why does body weight change the answer?',
+  'activity.faq.a4':
+    'A MET value is energy per kilogram of body mass, so the same activity costs more for a heavier body. That is why weight is an input rather than an assumption, and why generic calories-burned figures without a weight are close to meaningless.',
+  'activity.faq.q5': 'How accurate is this figure?',
+  'activity.faq.a5':
+    'It is an estimate from a population average. Published comparisons against indirect calorimetry find individual discrepancies of twenty to thirty per cent, so use it to compare activities rather than as a ledger to eat back.',
+  'lift.h1': '{lift} one rep max calculator',
+  'lift.metaDescription':
+    'Estimate your {liftLower} one rep max from a set, with all five published equations compared and a percentage table for training loads.',
+  'lift.howToName': 'How to estimate a {liftLower} one rep max',
+  'lift.step1.name': 'Enter the weight and repetitions',
+  'lift.step1.text':
+    'Enter the weight you lifted on the {liftLower} and how many repetitions you completed.',
+  'lift.step2.name': 'Read the estimate',
+  'lift.step2.text':
+    'All five equations are shown, along with their average and a percentage table.',
+  'lift.step3.name': 'Check how the equations behave on this lift',
+  'lift.step3.text':
+    'The notes below explain how these equations transfer to this movement specifically.',
+  'lift.faq.q1': 'How do I estimate my {liftLower} max?',
+  'lift.faq.a1':
+    'Take a set to or near failure, enter the weight and the repetitions, and the equations do the rest. A heavy triple gives a far more reliable estimate than a set of twelve, because all five equations were validated in the two to ten repetition range.',
+  'lift.faq.q2': 'Are 1RM estimates accurate for the {liftLower}?',
+  'lift.faq.q3': 'Which formula should I use?',
+  'lift.faq.a3':
+    'Wathan and Epley track measured data across the widest range; Brzycki is the most conservative and is exact at a single repetition. The average of all five is a more defensible single number than any one of them, and the spread between them tells you how much confidence the estimate deserves.',
+  'lift.faq.q4': 'What repetition range suits the {liftLower}?',
+  'lift.faq.a4':
+    'This lift is usually trained in the {reps} repetition range. Estimates taken from within that range are the most trustworthy, because they sit closest to where the equations were fitted.',
+  'lift.faq.q5': 'Should I test a true maximum instead?',
+  'lift.faq.a5':
+    'Only if you need the number for competition, and then with a spotter and a full warm-up. For programming, an estimate from a heavy triple is nearly as useful and costs far less recovery and risk.',
+  'distance.h1': '{distance} pace calculator',
+  'distance.metaDescription':
+    '{distance} pace chart and calculator: convert between pace, speed and finish time, with splits and an honest note on race projections.',
+  'distance.howToName': 'How to work out {distanceLower} pace',
+  'distance.step1.name': 'Enter a finish time',
+  'distance.step1.text': 'Enter a target or actual {distanceLower} time as h:mm:ss or m:ss.',
+  'distance.step2.name': 'Read the pace',
+  'distance.step2.text': 'Pace per kilometre and per mile, speed, and splits update as you type.',
+  'distance.step3.name': 'Check the pace chart',
+  'distance.step3.text': 'The chart below maps every pace in the usual range to a finish time.',
+  'distance.faq.q1': 'What pace do I need for a given {short} time?',
+  'distance.faq.a1':
+    'Divide the target time by the distance in kilometres. For the {distance}, {midPace} per kilometre gives {midTime}. The chart below covers the range most runners race in.',
+  'distance.faq.q2': 'How should I pace a {short}?',
+  'distance.faq.q3': 'What limits performance over the {short}?',
+  'distance.faq.q4': 'Are the projections to other distances reliable?',
+  'distance.faq.a4':
+    "No, and the page says so. They assume the same pace holds over a different distance, which it does not — pace falls as distance rises. Riegel's formula applies a fatigue exponent and is the right tool for actual prediction.",
+  'distance.faq.q5': 'Why does the split table have a partial final segment?',
+  'distance.faq.a5':
+    'Because {distance} is {km} km, which is not a whole number of split intervals. The final partial segment is shown rather than dropped, since a table that ends before the finish line is wrong exactly where it matters.',
+
+  // --- Lift and distance page chrome ---
+  'lift.weightLifted': 'Weight lifted',
+  'lift.reps': 'Repetitions',
+  'lift.repsUnit': 'reps',
+  'lift.formula': 'Formula',
+  'lift.noscript':
+    'Live results need JavaScript. The tables below are precomputed and work without it.',
+  'lift.specificHeading': 'The {lift} specifically',
+  'lift.estimateHeading': 'Estimated {lift} max by weight and reps',
+  'lift.estimateNote':
+    'Epley estimates in kilograms. Read across from the weight you lifted and down from the repetitions you managed. Columns beyond ten repetitions are shown but are the least reliable.',
+  'lift.percentageHeading': 'Percentage table',
+  'lift.percentageNote':
+    'Training loads as a share of a 100 kg maximum, with the repetitions each percentage typically allows. Scale proportionally to your own estimate.',
+  'lift.columnPercentage': 'Percentage',
+  'lift.columnLoad100': 'Load from 100 kg',
+  'lift.columnApproxReps': 'Approximate reps',
+  'lift.conversionHeading': 'Rep-max conversion',
+  'lift.conversionNote':
+    'What a 100 kg estimated maximum corresponds to at each repetition count, and how the five equations compare for a 100 kg set of five.',
+  'lift.columnLoadFor100': 'Load for a 100 kg max',
+  'lift.column100x5': '100 kg × 5 reps',
+  'lift.otherLifts': 'Other lifts',
+  'lift.formulasGuide': 'How 1RM formulas differ',
+  'distance.finishTime': 'Finish time',
+  'distance.noscript':
+    'Live results need JavaScript. The pace chart below is precomputed and works without it.',
+  'distance.aboutHeading': 'The {distance}',
+  'distance.length': 'Distance: {km} km ({metres} m).',
+  'distance.fixedByRules': 'Fixed by World Athletics Competition Rule 55.',
+  'distance.chartHeading': '{distance} pace chart',
+  'distance.chartNote':
+    'Finish time, pace per mile and speed for each pace per kilometre. Everything is computed in metres and seconds and converted once, so no rounding accumulates down the table.',
+  'distance.columnPaceKm': 'Pace / km',
+  'distance.columnPaceMile': 'Pace / mile',
+  'distance.columnSpeed': 'Speed',
+  'distance.columnDistance': 'Distance',
+  'distance.columnElapsed': 'Elapsed',
+  'distance.otherDistances': 'Other distances',
+  'distance.paceChartGuide': 'How to read a pace chart',
+
+  // --- Prose page detail ---
+  'about.h2Absent': 'What is deliberately missing',
+  'about.pAbsent':
+    'Some calculators are absent on purpose. Kidney function, body surface area for chemotherapy dosing and blood alcohol content all produce numbers that feed real decisions, and they belong with a clinician. Pregnancy and fertility calculators are the highest-scrutiny category in health and are properly served by established medical publishers.',
+  'about.h2Built': 'How it is built',
+  'about.pBuilt':
+    'Static pages, no accounts, no database. The calculations run in your browser and there is no server to send them to. Every formula is checked against worked examples from its source paper in an automated test suite, which is what catches the transcription errors that quietly make a calculator wrong.',
+  'contact.h2NoForm': 'Why there is no contact form',
+  'contact.pNoForm':
+    'A form needs somewhere to send the submission, which means a server, which means somewhere your message is stored and something else to secure. This site is static files with no backend, and keeping it that way is the reason nothing you type into a calculator can leave your device. An email address is a fair trade for that.',
+  'contact.ownerNotice':
+    'OWNER PLACEHOLDER: replace the contact address in src/config/site.ts before launch. It appears here, in the privacy policy, in the terms and in security.txt, and changing that one file updates all of them.',
+
+  // --- Short meta title, distinct from the H1 ---
+  'lift.metaTitle': '{lift} one rep max calculator',
 } as const;

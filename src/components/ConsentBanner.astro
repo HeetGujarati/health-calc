@@ -1,4 +1,15 @@
 ---
+import type { Locale } from '../config/locales';
+import { getLocalePath } from '../lib/seo/urls';
+import { useTranslations } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
 /**
  * Consent banner — inactive by default, and it renders nothing at all while
  * inactive.
@@ -36,15 +47,13 @@ const needsConsent = adsEnabled || analyticsEnabled;
       <div class="mx-auto flex max-w-3xl flex-col gap-4 sm:flex-row sm:items-center">
         <div>
           <h2 id="consent-heading" class="font-display text-base font-semibold">
-            Cookies on this site
+            {t('consent.heading')}
           </h2>
           <p class="mt-1 max-w-[var(--measure)] text-xs text-graphite">
-            We would like to set cookies for advertising. Nothing you enter into a calculator is
-            ever sent anywhere. See the{' '}
-            <a href="/cookies/" class="underline">
-              cookie policy
+            {t('consent.body')}{' '}
+            <a href={getLocalePath('/cookies', locale)} class="underline">
+              {t('footer.cookies')}
             </a>
-            .
           </p>
         </div>
 
@@ -58,14 +67,14 @@ const needsConsent = adsEnabled || analyticsEnabled;
             data-consent="reject"
             class="min-h-11 rounded-md border border-edge px-4 text-base font-semibold text-ink"
           >
-            Reject
+            {t('consent.reject')}
           </button>
           <button
             type="button"
             data-consent="accept"
             class="min-h-11 rounded-md border border-edge bg-ink px-4 text-base font-semibold text-paper"
           >
-            Accept
+            {t('consent.accept')}
           </button>
         </div>
       </div>

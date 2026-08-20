@@ -325,4 +325,185 @@ export const id: Messages = {
   'cookies.h2Ads': 'Jika iklan diaktifkan',
   'cookies.p5':
     'Iklan tidak diaktifkan. Kode untuk menampilkannya ada dan menyediakan ruangnya di tata letak, tetapi tidak menampilkan apa pun. Jika dinyalakan, mitra periklanan akan memasang kuki mereka sendiri, spanduk persetujuan akan bertanya sebelum satu pun dipasang, dan halaman ini akan mendaftarkannya sebelum hal itu terjadi.',
+
+  // --- Chart, activity, lift and distance page templates ---
+  'common.related': 'Terkait',
+  'common.lastReviewed': 'Terakhir ditinjau {date}.',
+  'common.category': 'Kategori',
+  'common.weight': 'Berat',
+  'common.duration': 'Durasi',
+  'chart.workItOut': 'Hitung dengan angka Anda sendiri',
+  'chart.workItOutBody':
+    'Tabel ini dihitung dari persamaan yang sama dengan kalkulatornya, jadi keduanya selalu sejalan.',
+  'chart.relatedGuides': 'Panduan terkait',
+  'activity.h1': 'Kalori terbakar saat {activity}',
+  'activity.metSection': 'Nilai MET dan dari mana asalnya',
+  'activity.listedAs': 'Tercatat sebagai',
+  'activity.referenceNote':
+    'Energi bruto dalam kilokalori. Baca mendatar dari berat badan Anda dan menurun dari durasi Anda. Orang dengan berat 70 kg memakai sekitar {gross} kkal per jam, dan kira-kira {net} di antaranya berada di atas yang akan terpakai saat istirahat.',
+  'activity.compareNote':
+    'Energi yang terpakai dalam tiga puluh menit pada 70 kg, sehingga aktivitasnya bisa dibandingkan langsung.',
+  'activity.compareCaption': 'Perbandingan dengan aktivitas terkait',
+  'activity.columnKcal30': 'kkal / 30 mnt',
+  'activity.noscript':
+    'Hasil langsung membutuhkan JavaScript. Tabel di bawah sudah dihitung sebelumnya dan berfungsi tanpanya.',
+  'activity.allActivities': 'Semua aktivitas',
+  'activity.metaDescription':
+    'Berapa kalori yang terbakar saat {activity}, menurut berat badan dan durasi. Memakai nilai MET terbitan {met} dari Adult Compendium 2024.',
+  'lift.enterSet': 'Masukkan set Anda',
+  'lift.typicalReps': 'Repetisi umum',
+  'lift.percentageTableCaption':
+    'Persentase dari beban maksimal satu repetisi beserta repetisi yang diharapkan',
+  'lift.repMaxCaption':
+    'Perkiraan beban maksimal satu repetisi menurut beban yang diangkat dan jumlah repetisi',
+  'lift.comparisonHeading': 'Konversi maksimal per repetisi dan perbandingan rumus',
+  'lift.comparisonCaption': 'Kelima persamaan dibandingkan untuk 100 kg dikali lima',
+  'distance.enterTime': 'Masukkan waktu akhir',
+  'search.typeCalculator': 'Kalkulator',
+  'search.typeGuide': 'Panduan',
+  'search.typePage': 'Halaman',
+  'search.unavailable': 'Pencarian sedang tidak tersedia. Direktori kalkulator memuat semuanya.',
+
+  // --- Chart, activity, lift and distance page templates ---
+  'metBand.light': 'ke arah ujung ringan',
+  'metBand.moderate': 'pada rentang sedang',
+  'metBand.vigorous': 'pada rentang berat',
+  'metBand.demanding': 'ke arah ujung paling berat',
+  'netShare.none': 'tidak ada',
+  'netShare.percent': '{value} persen',
+
+  // --- Programmatic page copy ---
+  'activity.appName': 'Kalkulator kalori terbakar saat {activity}',
+  'activity.howToName': 'Cara menghitung kalori terbakar saat {activity}',
+  'activity.step1.name': 'Masukkan berat dan durasi Anda',
+  'activity.step1.text':
+    'Pilih satuan metrik atau imperial, lalu masukkan berat badan Anda dan berapa lama Anda melakukan {activity}.',
+  'activity.step2.name': 'Baca hasilnya',
+  'activity.step2.text':
+    'Hasil diperbarui saat Anda mengetik, menampilkan energi bruto dan angka di atas istirahat.',
+  'activity.step3.name': 'Periksa nilai MET dan sumbernya',
+  'activity.step3.text':
+    'Kode Compendium dan keterangan di balik nilai {met} MET ditampilkan di bawah kalkulator.',
+  'activity.faq.q1': 'Berapa kalori yang terbakar saat {activity}?',
+  'activity.faq.a1':
+    'Pada {met} MET, orang dengan berat 70 kg memakai sekitar {kcal30} kkal dalam tiga puluh menit. Pemakaian energi mengikuti berat badan, jadi orang 90 kg memakai kira-kira sepertiga lebih banyak untuk sesi yang sama.',
+  'activity.faq.q2': 'Berapa nilai MET untuk {activity}?',
+  'activity.faq.a2':
+    '{met} MET, tercantum pada kode Compendium {code}. Satu MET adalah kelipatan laju metabolisme istirahat.',
+  'activity.faq.q3': 'Perlukah saya mengurangi metabolisme istirahat?',
+  'activity.faq.a3':
+    'Kalau Anda menambahkannya ke angka pemeliharaan yang sudah mencakup istirahat, ya. Angka bersih menghapus kira-kira satu MET-jam per jam yang tetap akan terpakai tubuh Anda, sehingga untuk {activity} tersisa sekitar {netShare} dari total bruto.',
+  'activity.faq.q4': 'Mengapa berat badan mengubah jawabannya?',
+  'activity.faq.a4':
+    'Nilai MET adalah energi per kilogram massa tubuh, jadi aktivitas yang sama lebih mahal bagi tubuh yang lebih berat. Itulah sebabnya berat menjadi masukan, bukan asumsi, dan sebabnya angka kalori terbakar yang umum tanpa berat badan hampir tak bermakna.',
+  'activity.faq.q5': 'Seberapa akurat angka ini?',
+  'activity.faq.a5':
+    'Ini perkiraan dari rata-rata populasi. Perbandingan terbitan dengan kalorimetri tak langsung menemukan selisih perorangan dua puluh sampai tiga puluh persen, jadi pakailah untuk membandingkan aktivitas, bukan sebagai catatan utang yang harus dimakan kembali.',
+  'lift.h1': 'Kalkulator beban maksimal satu repetisi {lift}',
+  'lift.metaDescription':
+    'Perkirakan beban maksimal satu repetisi {liftLower} Anda dari sebuah set, dengan kelima persamaan terbitan dibandingkan dan tabel persentase untuk beban latihan.',
+  'lift.howToName': 'Cara memperkirakan beban maksimal satu repetisi {liftLower}',
+  'lift.step1.name': 'Masukkan beban dan repetisi',
+  'lift.step1.text':
+    'Masukkan beban yang Anda angkat pada {liftLower} dan berapa repetisi yang Anda selesaikan.',
+  'lift.step2.name': 'Baca perkiraannya',
+  'lift.step2.text':
+    'Kelima persamaan ditampilkan, beserta rata-ratanya dan sebuah tabel persentase.',
+  'lift.step3.name': 'Periksa perilaku persamaan pada gerakan ini',
+  'lift.step3.text':
+    'Catatan di bawah menjelaskan bagaimana persamaan ini berpindah ke gerakan ini secara khusus.',
+  'lift.faq.q1': 'Bagaimana cara memperkirakan maksimal {liftLower} saya?',
+  'lift.faq.a1':
+    'Lakukan set sampai atau mendekati gagal, masukkan beban dan repetisinya, sisanya dikerjakan persamaan. Triple berat memberi perkiraan yang jauh lebih andal daripada set dua belas repetisi, karena kelima persamaan divalidasi pada rentang dua sampai sepuluh repetisi.',
+  'lift.faq.q2': 'Apakah perkiraan 1RM akurat untuk {liftLower}?',
+  'lift.faq.q3': 'Rumus mana yang sebaiknya saya pakai?',
+  'lift.faq.a3':
+    'Wathan dan Epley mengikuti data terukur pada rentang terluas; Brzycki paling konservatif dan tepat pada satu repetisi. Rata-rata kelimanya adalah satu angka yang lebih bisa dipertanggungjawabkan daripada mana pun secara sendiri, dan rentang di antara mereka menunjukkan seberapa besar kepercayaan yang pantas diberikan.',
+  'lift.faq.q4': 'Rentang repetisi mana yang cocok untuk {liftLower}?',
+  'lift.faq.a4':
+    'Gerakan ini biasanya dilatih pada rentang {reps} repetisi. Perkiraan yang diambil dari dalam rentang itu paling bisa dipercaya, karena paling dekat dengan tempat persamaan itu disesuaikan.',
+  'lift.faq.q5': 'Sebaiknya saya menguji maksimal sungguhan saja?',
+  'lift.faq.a5':
+    'Hanya jika Anda membutuhkan angkanya untuk kompetisi, dan itu pun dengan penjaga dan pemanasan penuh. Untuk menyusun program, perkiraan dari triple berat hampir sama bergunanya dan jauh lebih murah dari sisi pemulihan dan risiko.',
+  'distance.h1': 'Kalkulator pace {distance}',
+  'distance.metaDescription':
+    'Tabel pace dan kalkulator {distance}: konversi antara pace, kecepatan, dan waktu akhir, lengkap dengan split dan catatan jujur tentang proyeksi lomba.',
+  'distance.howToName': 'Cara menghitung pace {distanceLower}',
+  'distance.step1.name': 'Masukkan waktu akhir',
+  'distance.step1.text':
+    'Masukkan waktu sasaran atau waktu nyata {distanceLower} dalam format j:mm:dd atau m:dd.',
+  'distance.step2.name': 'Baca pace-nya',
+  'distance.step2.text':
+    'Pace per kilometer dan per mil, kecepatan, serta split diperbarui saat Anda mengetik.',
+  'distance.step3.name': 'Periksa tabel pace',
+  'distance.step3.text':
+    'Tabel di bawah memetakan setiap pace pada rentang umum ke sebuah waktu akhir.',
+  'distance.faq.q1': 'Pace berapa yang saya butuhkan untuk waktu {short} tertentu?',
+  'distance.faq.a1':
+    'Bagi waktu sasaran dengan jarak dalam kilometer. Untuk {distance}, {midPace} per kilometer menghasilkan {midTime}. Tabel di bawah mencakup rentang yang dipakai kebanyakan pelari saat berlomba.',
+  'distance.faq.q2': 'Bagaimana sebaiknya saya mengatur pace {short}?',
+  'distance.faq.q3': 'Apa yang membatasi performa pada {short}?',
+  'distance.faq.q4': 'Apakah proyeksi ke jarak lain bisa diandalkan?',
+  'distance.faq.a4':
+    'Tidak, dan halaman ini mengatakannya. Proyeksi itu mengandaikan pace yang sama bertahan pada jarak berbeda, padahal tidak: pace menurun seiring jarak bertambah. Rumus Riegel menerapkan eksponen kelelahan dan itulah alat yang tepat untuk prediksi sungguhan.',
+  'distance.faq.q5': 'Mengapa tabel split punya segmen terakhir yang tidak penuh?',
+  'distance.faq.a5':
+    'Karena {distance} adalah {km} km, yang bukan kelipatan bulat dari interval split. Segmen terakhir yang tidak penuh tetap ditampilkan alih-alih dibuang, sebab tabel yang berakhir sebelum garis finis justru salah di tempat yang paling penting.',
+
+  // --- Lift and distance page chrome ---
+  'lift.weightLifted': 'Beban yang diangkat',
+  'lift.reps': 'Repetisi',
+  'lift.repsUnit': 'rep',
+  'lift.formula': 'Rumus',
+  'lift.noscript':
+    'Hasil langsung membutuhkan JavaScript. Tabel di bawah sudah dihitung sebelumnya dan berfungsi tanpanya.',
+  'lift.specificHeading': '{lift} secara khusus',
+  'lift.estimateHeading': 'Perkiraan maksimal {lift} menurut beban dan repetisi',
+  'lift.estimateNote':
+    'Perkiraan Epley dalam kilogram. Baca mendatar dari beban yang Anda angkat dan menurun dari repetisi yang Anda capai. Kolom di atas sepuluh repetisi tetap ditampilkan tetapi paling tidak andal.',
+  'lift.percentageHeading': 'Tabel persentase',
+  'lift.percentageNote':
+    'Beban latihan sebagai bagian dari maksimal 100 kg, beserta repetisi yang biasanya dimungkinkan tiap persentase. Sesuaikan secara proporsional dengan perkiraan Anda sendiri.',
+  'lift.columnPercentage': 'Persentase',
+  'lift.columnLoad100': 'Beban dari 100 kg',
+  'lift.columnApproxReps': 'Perkiraan repetisi',
+  'lift.conversionHeading': 'Konversi maksimal per repetisi',
+  'lift.conversionNote':
+    'Berapa nilai maksimal perkiraan 100 kg pada tiap jumlah repetisi, dan bagaimana kelima persamaan dibandingkan untuk set lima repetisi pada 100 kg.',
+  'lift.columnLoadFor100': 'Beban untuk maksimal 100 kg',
+  'lift.column100x5': '100 kg × 5 rep',
+  'lift.otherLifts': 'Gerakan lain',
+  'lift.formulasGuide': 'Bagaimana rumus 1RM berbeda',
+  'distance.finishTime': 'Waktu akhir',
+  'distance.noscript':
+    'Hasil langsung membutuhkan JavaScript. Tabel pace di bawah sudah dihitung sebelumnya dan berfungsi tanpanya.',
+  'distance.aboutHeading': '{distance}',
+  'distance.length': 'Jarak: {km} km ({metres} m).',
+  'distance.fixedByRules': 'Ditetapkan oleh World Athletics Competition Rule 55.',
+  'distance.chartHeading': 'Tabel pace {distance}',
+  'distance.chartNote':
+    'Waktu akhir, pace per mil, dan kecepatan untuk tiap pace per kilometer. Semuanya dihitung dalam meter dan detik lalu dikonversi sekali saja, sehingga tidak ada pembulatan yang menumpuk di sepanjang tabel.',
+  'distance.columnPaceKm': 'Pace / km',
+  'distance.columnPaceMile': 'Pace / mil',
+  'distance.columnSpeed': 'Kecepatan',
+  'distance.columnDistance': 'Jarak',
+  'distance.columnElapsed': 'Waktu tempuh',
+  'distance.otherDistances': 'Jarak lain',
+  'distance.paceChartGuide': 'Cara membaca tabel pace',
+
+  // --- Prose page detail ---
+  'about.h2Absent': 'Apa yang sengaja tidak ada',
+  'about.pAbsent':
+    'Beberapa kalkulator sengaja tidak disediakan. Fungsi ginjal, luas permukaan tubuh untuk dosis kemoterapi, dan kadar alkohol dalam darah menghasilkan angka yang memengaruhi keputusan nyata, dan itu ranah klinisi. Kalkulator kehamilan dan kesuburan adalah kategori dengan pengawasan paling ketat di bidang kesehatan dan sudah dilayani dengan baik oleh penerbit medis mapan.',
+  'about.h2Built': 'Bagaimana situs ini dibangun',
+  'about.pBuilt':
+    'Halaman statis, tanpa akun, tanpa basis data. Perhitungan berjalan di peramban Anda dan tidak ada peladen tempat mengirimkannya. Setiap rumus diperiksa terhadap contoh terhitung dari makalah asalnya dalam rangkaian uji otomatis, dan itulah yang menangkap kesalahan penyalinan yang diam-diam membuat sebuah kalkulator salah.',
+  'contact.h2NoForm': 'Mengapa tidak ada formulir kontak',
+  'contact.pNoForm':
+    'Formulir butuh tempat untuk mengirim kiriman Anda, artinya sebuah peladen, artinya tempat pesan Anda tersimpan dan satu hal lagi yang harus diamankan. Situs ini berkas statis tanpa backend, dan mempertahankannya begitu adalah alasan tidak ada yang Anda ketik di kalkulator bisa keluar dari perangkat Anda. Sebuah alamat surel adalah pertukaran yang adil untuk itu.',
+  'contact.ownerNotice':
+    'PENANDA PEMILIK: ganti alamat kontak di src/config/site.ts sebelum peluncuran. Alamat itu muncul di sini, di kebijakan privasi, di ketentuan, dan di security.txt, dan mengubah satu berkas itu memperbarui semuanya.',
+
+  // --- Short meta title, distinct from the H1 ---
+  'lift.metaTitle': 'Kalkulator 1RM {lift}',
 };

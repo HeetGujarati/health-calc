@@ -1,0 +1,511 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import Disclaimer from '../../../components/Disclaimer.astro';
+import TranslationNotice from '../../../components/TranslationNotice.astro';
+import { ACTIVITIES, getActivity, CATEGORY_LABELS } from '../../../data/activities';
+import { buildToolMetadata } from '../../../lib/seo/metadata';
+import {
+  buildBreadcrumbList,
+  buildFaqPage,
+  buildHowTo,
+  buildSoftwareApplication,
+  type JsonLdObject,
+} from '../../../lib/seo/schema';
+import { getLocalePath } from '../../../lib/seo/urls';
+import { localeItemRoutes } from '../../../lib/i18n/routes';
+import { localesFor } from '../../../lib/seo/pages';
+import { useTranslations } from '../../../lib/i18n';
+import { translateActivity } from '../../../lib/i18n/content';
+import { formatInteger, formatNumber } from '../../../lib/i18n/format';
+import { variantsFor } from '../../../i18n/templates';
+import { metBandKey, netSharePercent, renderVariant } from '../../../lib/content/templates';
+import {
+  REFERENCE_DURATIONS_MIN,
+  REFERENCE_MASSES_KG,
+  caloriesBurned,
+  netCaloriesBurned,
+} from '../../../lib/health/caloriesburned';
+import { asKilograms, asMet, minutesToSeconds } from '../../../lib/health/units';
+import { roundTo } from '../../../lib/health/rounding';
+import type { ActivityDefinition } from '../../../data/activities';
+import type { Locale } from '../../../config/locales';
+
+export function getStaticPaths() {
+  return localeItemRoutes(ACTIVITIES, 'activities');
+}
+
+const { locale, item } = Astro.props as { locale: Locale; item: ActivityDefinition };
+const t = useTranslations(locale);
+const activity = translateActivity(item, locale);
+const path = `/calories-burned/${activity.slug}`;
+
+/**
+ * Prose is assembled from parameterised templates selected by a hash of the
+ * slug, so no paragraph repeats verbatim across the sixty activity pages while
+ * builds stay byte-reproducible. The variant set is per locale, with the same
+ * arity everywhere. See src/i18n/templates/.
+ */
+const share = netSharePercent(activity.met);
+const netShare =
+  share === null
+    ? t('netShare.none')
+    : t('netShare.percent', { value: formatInteger(share, locale) });
+
+const values = {
+  activity: activity.name.toLowerCase(),
+  Activity: activity.name,
+  met: formatNumber(activity.met, locale),
+  comparison: t(metBandKey(activity.met)),
+  netShare,
+};
+
+const intro = renderVariant(variantsFor('activityIntro', locale), activity.slug, 'intro', values);
+const metExplanation = renderVariant(
+  variantsFor('activityMet', locale),
+  activity.slug,
+  'met',
+  values
+);
+const accuracy = renderVariant(
+  variantsFor('activityAccuracy', locale),
+  activity.slug,
+  'accuracy',
+  values
+);
+const netNote = renderVariant(variantsFor('activityNet', locale), activity.slug, 'net', values);
+
+const lowerName = activity.name.toLowerCase();
+const metText = formatNumber(activity.met, locale);
+
+const kcal30 = roundTo(
+  caloriesBurned(asMet(activity.met), asKilograms(70), minutesToSeconds(30)),
+  0
+);
+
+const availableLocales = localesFor('activities', activity.slug);
+
+const meta = buildToolMetadata({
+  title: t('activity.h1', { activity: lowerName }),
+  description: t('activity.metaDescription', { activity: lowerName, met: metText }),
+  path,
+  locale,
+  keywords: [
+    `${t('activity.h1', { activity: lowerName })}`,
+    `${lowerName} ${t('hub.activities.columnMet')}`,
+  ],
+  image: { url: '/og/calories-burned.png', alt: activity.name },
+  availableLocales,
+});
+
+const crumbs = [
+  { name: t('nav.home'), path: '/' },
+  { name: t('hub.activities.title'), path: '/calories-burned' },
+  { name: activity.name, path },
+];
+
+const faq = [
+  {
+    question: t('activity.faq.q1', { activity: lowerName }),
+    answer: t('activity.faq.a1', {
+      met: metText,
+      kcal30: formatInteger(kcal30, locale),
+    }),
+  },
+  {
+    question: t('activity.faq.q2', { activity: lowerName }),
+    answer: t('activity.faq.a2', { met: metText, code: activity.code }),
+  },
+  {
+    question: t('activity.faq.q3'),
+    answer: t('activity.faq.a3', { activity: lowerName, netShare }),
+  },
+  { question: t('activity.faq.q4'), answer: t('activity.faq.a4') },
+  { question: t('activity.faq.q5'), answer: t('activity.faq.a5') },
+];
+
+const schemas: JsonLdObject[] = [
+  buildSoftwareApplication({
+    name: t('activity.appName', { activity: lowerName }),
+    description: meta.description,
+    path,
+    locale,
+    applicationSubCategory: 'Energy expenditure',
+  }),
+  buildHowTo({
+    name: t('activity.howToName', { activity: lowerName }),
+    description: meta.description,
+    path,
+    locale,
+    totalTime: 'PT1M',
+    steps: [
+      {
+        name: t('activity.step1.name'),
+        text: t('activity.step1.text', { activity: lowerName }),
+        anchor: 'step-1',
+      },
+      { name: t('activity.step2.name'), text: t('activity.step2.text'), anchor: 'step-2' },
+      {
+        name: t('activity.step3.name'),
+        text: t('activity.step3.text', { met: metText }),
+        anchor: 'step-3',
+      },
+    ],
+  }),
+];
+
+const faqSchema = buildFaqPage(faq);
+if (faqSchema !== null) schemas.push(faqSchema);
+const breadcrumbs = buildBreadcrumbList(crumbs, locale);
+if (breadcrumbs !== null) schemas.push(breadcrumbs);
+
+/** Precomputed 6 x 6 grid, so the page carries substance with JavaScript off. */
+const grid = REFERENCE_MASSES_KG.map((massKg) => ({
+  massKg,
+  cells: REFERENCE_DURATIONS_MIN.map((minutes) =>
+    roundTo(caloriesBurned(asMet(activity.met), asKilograms(massKg), minutesToSeconds(minutes)), 0)
+  ),
+}));
+
+/**
+ * Related activities are filtered to those that exist in this locale. Outside
+ * English the cluster is the thirty priority pages, so an unfiltered list would
+ * link to URLs that were never built.
+ */
+const related = activity.related
+  .map((relatedSlug) => getActivity(relatedSlug))
+  .filter((entry) => entry !== null)
+  .filter((entry) => localesFor('activities', entry.slug).includes(locale))
+  .map((entry) => translateActivity(entry, locale));
+
+const netPerHour = roundTo(
+  netCaloriesBurned(asMet(activity.met), asKilograms(70), minutesToSeconds(60)),
+  0
+);
+const grossPerHour = roundTo(
+  caloriesBurned(asMet(activity.met), asKilograms(70), minutesToSeconds(60)),
+  0
+);
+---
+
+<BaseLayout meta={meta} currentPath={path} schemas={schemas} availableLocales={availableLocales}>
+  <div class="mx-auto max-w-5xl px-4 py-6">
+    <Breadcrumbs items={crumbs} locale={locale} label={t('nav.breadcrumb')} />
+
+    <h1 class="mt-4 text-2xl sm:text-3xl">{t('activity.h1', { activity: lowerName })}</h1>
+    <p class="mt-3 max-w-[var(--measure)] text-lg text-graphite">{intro}</p>
+
+    <calculator-widget
+      data-calculator="calories-burned"
+      class="mt-6 block rounded-lg border border-rule bg-raised p-4 sm:p-6"
+    >
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div id="step-1">
+          <h2 class="sr-only">{t('calc.enterDetails')}</h2>
+          <form novalidate>
+            <fieldset class="m-0 border-0 p-0">
+              <legend class="sr-only">{t('calc.units')}</legend>
+              <div
+                class="mb-5 inline-flex rounded-md border border-edge"
+                role="radiogroup"
+                aria-label={t('calc.units')}
+              >
+                <label
+                  class="flex min-h-11 cursor-pointer items-center rounded-s-md px-4 text-base has-[:checked]:bg-ink has-[:checked]:text-paper"
+                >
+                  <input type="radio" name="units" value="metric" checked class="sr-only" />
+                  {t('calc.metric')}
+                </label>
+                <label
+                  class="flex min-h-11 cursor-pointer items-center rounded-e-md border-s border-edge px-4 text-base has-[:checked]:bg-ink has-[:checked]:text-paper"
+                >
+                  <input type="radio" name="units" value="imperial" class="sr-only" />
+                  {t('calc.imperial')}
+                </label>
+              </div>
+            </fieldset>
+
+            {/* The MET is fixed to this activity, so it is a hidden bound parameter. */}
+            <input type="hidden" name="met" value={String(activity.met)} />
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label for="weight" class="block text-xs font-semibold text-graphite">
+                  {t('common.weight')}
+                </label>
+                <div class="mt-1 flex items-center gap-2">
+                  <input
+                    id="weight"
+                    name="weight"
+                    type="number"
+                    inputmode="decimal"
+                    min="20"
+                    max="400"
+                    step="0.1"
+                    class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                  />
+                  <span class="text-xs text-graphite" data-unit-metric="kg" data-unit-imperial="lb"
+                    >kg</span
+                  >
+                </div>
+              </div>
+
+              <div>
+                <label for="minutes" class="block text-xs font-semibold text-graphite">
+                  {t('common.duration')}
+                </label>
+                <div class="mt-1 flex items-center gap-2">
+                  <input
+                    id="minutes"
+                    name="minutes"
+                    type="number"
+                    inputmode="numeric"
+                    min="1"
+                    max="480"
+                    step="5"
+                    value="30"
+                    class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+                  />
+                  <span class="text-xs text-graphite">min</span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="mt-6 min-h-11 w-full rounded-md border border-edge bg-ink px-4 text-base font-semibold text-paper sm:w-auto"
+            >
+              {t('calc.calculate')}
+            </button>
+          </form>
+        </div>
+
+        <div id="step-2" class="lg:border-s lg:border-rule lg:ps-8">
+          <h2 class="text-xs font-semibold tracking-wide text-graphite uppercase">
+            {t('calc.result')}
+          </h2>
+          <div data-result aria-live="polite" aria-atomic="true" class="mt-2 min-h-32"></div>
+          <noscript>
+            <p class="mt-2 max-w-[var(--measure)] text-base">{t('activity.noscript')}</p>
+          </noscript>
+          <Disclaimer locale={locale} />
+        </div>
+      </div>
+    </calculator-widget>
+
+    <section id="step-3" class="mt-12" aria-labelledby="met-value">
+      <h2 id="met-value" class="text-xl">{t('activity.metSection')}</h2>
+
+      <dl
+        class="mt-4 grid max-w-[var(--measure)] gap-x-4 gap-y-1 text-base sm:grid-cols-[9rem_1fr]"
+      >
+        <dt class="text-xs text-graphite">{t('activity.metValue')}</dt>
+        <dd class="numeral m-0">{metText}</dd>
+        <dt class="text-xs text-graphite">{t('activity.compendiumCode')}</dt>
+        <dd class="numeral m-0">{activity.code}</dd>
+        <dt class="text-xs text-graphite">{t('activity.listedAs')}</dt>
+        {
+          /*
+          Quoted verbatim from the Compendium and left in English on purpose:
+          it is the evidence for the MET value, and a translated quotation is no
+          longer checkable against the source.
+        */
+        }
+        <dd class="m-0" lang="en" dir="ltr">{activity.compendiumDescription}</dd>
+        <dt class="text-xs text-graphite">{t('common.category')}</dt>
+        <dd class="m-0">{CATEGORY_LABELS[activity.category]}</dd>
+      </dl>
+
+      <p class="mt-4 max-w-[var(--measure)] text-base">{metExplanation}</p>
+
+      <pre
+        class="numeral mt-4 overflow-x-auto rounded-md border border-rule bg-paper p-3 text-xs"
+        dir="ltr"><code>kcal = MET × kg × h
+     = {activity.met} × weight × hours
+
+net of resting:
+kcal = ({activity.met} − 1) × weight × hours</code></pre>
+
+      <p class="mt-3 text-xs text-graphite">{t('hub.activities.source')}</p>
+
+      <p class="mt-4 max-w-[var(--measure)] text-base">{netNote}</p>
+      <p class="mt-4 max-w-[var(--measure)] text-base">{accuracy}</p>
+    </section>
+
+    <section class="mt-12" aria-labelledby="reference">
+      <h2 id="reference" class="text-xl">{t('activity.referenceTable')}</h2>
+      <p class="mt-3 max-w-[var(--measure)] text-base">
+        {
+          t('activity.referenceNote', {
+            gross: formatInteger(grossPerHour, locale),
+            net: formatInteger(netPerHour, locale),
+          })
+        }
+      </p>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-base">
+          <caption class="sr-only">{t('activity.referenceTable')}</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="border-b border-rule p-2 text-start text-xs text-graphite">
+                {t('activity.columnWeight')}
+              </th>
+              {
+                REFERENCE_DURATIONS_MIN.map((minutes) => (
+                  <th
+                    scope="col"
+                    class="numeral border-b border-rule p-2 text-end text-xs text-graphite"
+                  >
+                    {formatInteger(minutes, locale)} min
+                  </th>
+                ))
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              grid.map((row) => (
+                <tr>
+                  <th scope="row" class="numeral border-b border-rule p-2 text-start font-normal">
+                    {formatInteger(row.massKg, locale)} kg
+                  </th>
+                  {row.cells.map((cell) => (
+                    <td class="numeral border-b border-rule p-2 text-end">
+                      {formatInteger(cell, locale)}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {
+      related.length > 0 && (
+        <section class="mt-12" aria-labelledby="compare">
+          <h2 id="compare" class="text-xl">
+            {t('activity.compare')}
+          </h2>
+          <p class="mt-3 max-w-[var(--measure)] text-base">{t('activity.compareNote')}</p>
+
+          <div class="mt-4 overflow-x-auto">
+            <table class="w-full border-collapse text-base">
+              <caption class="sr-only">{t('activity.compareCaption')}</caption>
+              <thead>
+                <tr>
+                  <th scope="col" class="border-b border-rule p-2 text-start text-xs text-graphite">
+                    {t('hub.activities.columnActivity')}
+                  </th>
+                  <th scope="col" class="border-b border-rule p-2 text-end text-xs text-graphite">
+                    {t('hub.activities.columnMet')}
+                  </th>
+                  <th scope="col" class="border-b border-rule p-2 text-end text-xs text-graphite">
+                    {t('activity.columnKcal30')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" class="border-b border-rule p-2 text-start font-semibold">
+                    {activity.name}
+                  </th>
+                  <td class="numeral border-b border-rule p-2 text-end">{metText}</td>
+                  <td class="numeral border-b border-rule p-2 text-end">
+                    {formatInteger(kcal30, locale)}
+                  </td>
+                </tr>
+                {related.map((entry) => (
+                  <tr>
+                    <th scope="row" class="border-b border-rule p-2 text-start font-normal">
+                      <a
+                        href={getLocalePath(`/calories-burned/${entry.slug}`, locale)}
+                        class="text-ink no-underline hover:text-signal hover:underline"
+                      >
+                        {entry.name}
+                      </a>
+                    </th>
+                    <td class="numeral border-b border-rule p-2 text-end">
+                      {formatNumber(entry.met, locale)}
+                    </td>
+                    <td class="numeral border-b border-rule p-2 text-end">
+                      {formatInteger(
+                        roundTo(
+                          caloriesBurned(asMet(entry.met), asKilograms(70), minutesToSeconds(30)),
+                          0
+                        ),
+                        locale
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="mt-12" aria-labelledby="faq">
+      <h2 id="faq" class="text-xl">{t('calc.questions')}</h2>
+      <dl class="mt-4 max-w-[var(--measure)]">
+        {
+          faq.map((entry) => (
+            <div class="border-b border-rule py-4">
+              <dt class="font-display text-base font-semibold">{entry.question}</dt>
+              <dd class="m-0 mt-2 text-base text-graphite">{entry.answer}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="mt-12" aria-labelledby="related-tools">
+      <h2 id="related-tools" class="text-xs font-semibold tracking-wide text-graphite uppercase">
+        {t('common.related')}
+      </h2>
+      <ul class="mt-2 grid list-none gap-x-8 p-0 sm:grid-cols-2">
+        <li>
+          <a
+            href={getLocalePath('/calculators/calories-burned', locale)}
+            class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+          >
+            {t('hub.activities.title')}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getLocalePath('/calculators/tdee', locale)}
+            class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+          >
+            TDEE
+          </a>
+        </li>
+        <li>
+          <a
+            href={getLocalePath('/guides/met-values-explained', locale)}
+            class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+          >
+            {t('activity.metValue')}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getLocalePath('/calories-burned', locale)}
+            class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
+          >
+            {t('activity.allActivities')}
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <TranslationNotice locale={locale} path={path} />
+  </div>
+</BaseLayout>
+
+<script>
+  import '../../../components/islands/calculator';
+</script>

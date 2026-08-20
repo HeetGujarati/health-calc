@@ -3,11 +3,14 @@ import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CalculatorForm from '../components/CalculatorForm.astro';
 import Disclaimer from '../components/Disclaimer.astro';
+import TranslationNotice from '../components/TranslationNotice.astro';
 import type { CalculatorDefinition } from '../data/calculators/types';
-import { CALCULATOR_CATEGORIES } from '../data/calculators/types';
 import { getCalculator } from '../data/calculators';
-import { GUIDE_TITLES } from '../data/guides/titles';
 import { buildToolMetadata } from '../lib/seo/metadata';
+import { useTranslations, type MessageKey } from '../lib/i18n';
+import { translateCalculator } from '../lib/i18n/content';
+import { formatDate } from '../lib/i18n/format';
+import { guidesFor, guideSlug } from '../lib/i18n/guides';
 import {
   buildBreadcrumbList,
   buildFaqPage,
@@ -20,10 +23,18 @@ import type { Locale } from '../config/locales';
 
 interface Props {
   definition: CalculatorDefinition;
-  locale?: Locale;
+  locale: Locale;
 }
 
-const { definition, locale = 'en' } = Astro.props;
+const { definition: source, locale } = Astro.props;
+const t = useTranslations(locale);
+
+/**
+ * Prose is swapped for the locale here, once, so nothing below this line has
+ * to know that translation exists. Numbers, equations, citations and MET
+ * values are untouched by design — see lib/i18n/content.ts.
+ */
+const definition = translateCalculator(source, locale);
 const path = `/calculators/${definition.slug}`;
 
 /**
@@ -42,11 +53,11 @@ const meta = buildToolMetadata({
   image: { url: '/og/calculators.png', alt: definition.heading },
 });
 
-const category = CALCULATOR_CATEGORIES.find((entry) => entry.id === definition.category);
+const categoryLabel = t(`category.${definition.category}` as MessageKey);
 
 const crumbs = [
-  { name: 'Home', path: '/' },
-  { name: 'Calculators', path: '/calculators' },
+  { name: t('nav.home'), path: '/' },
+  { name: t('hub.calculators.title'), path: '/calculators' },
   { name: definition.heading, path },
 ];
 
@@ -59,7 +70,7 @@ const schemas: JsonLdObject[] = [
     applicationSubCategory: definition.applicationSubCategory,
   }),
   buildHowTo({
-    name: `How to use the ${definition.heading.toLowerCase()}`,
+    name: definition.heading,
     description: definition.description,
     path,
     locale,
@@ -79,18 +90,20 @@ const alternativeFormulas = definition.formulas.filter((formula) => formula.isDe
 
 const related = definition.relatedCalculators
   .map((slug) => getCalculator(slug))
-  .filter((entry): entry is CalculatorDefinition => entry !== null);
+  .filter((entry): entry is CalculatorDefinition => entry !== null)
+  .map((entry) => translateCalculator(entry, locale));
 
-const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en-GB', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const localeGuides = await guidesFor(locale);
+const relatedGuides = definition.relatedGuides
+  .map((slug) => localeGuides.find((entry) => guideSlug(entry) === slug))
+  .filter((entry) => entry !== undefined);
+
+const lastUpdatedLabel = formatDate(definition.lastUpdated, locale);
 ---
 
 <BaseLayout meta={meta} currentPath={path} schemas={schemas}>
   <div class="mx-auto max-w-5xl px-4 py-4 sm:py-6">
-    <Breadcrumbs items={crumbs} locale={locale} label="Breadcrumb" />
+    <Breadcrumbs items={crumbs} locale={locale} label={t('nav.breadcrumb')} />
 
     {/* 1. H1 naming the calculator. */}
     <h1 class="mt-3 text-2xl sm:mt-4 sm:text-3xl">{definition.heading}</h1>
@@ -113,32 +126,31 @@ const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en
     >
       <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-8">
         <div id="step-1">
-          <h2 class="sr-only">Enter your details</h2>
-          <CalculatorForm slug={definition.slug} inputs={definition.inputs} />
+          <h2 class="sr-only">{t('calc.enterDetails')}</h2>
+          <CalculatorForm slug={definition.slug} inputs={definition.inputs} locale={locale} />
         </div>
 
-        <div id="step-2" class="lg:border-l lg:border-rule lg:pl-8">
-          <h2 class="text-xs font-semibold tracking-wide text-graphite uppercase">Result</h2>
+        <div id="step-2" class="lg:border-s lg:border-rule lg:ps-8">
+          <h2 class="text-xs font-semibold tracking-wide text-graphite uppercase">
+            {t('calc.result')}
+          </h2>
 
           <div data-result aria-live="polite" aria-atomic="true" class="mt-2 min-h-32">
             {/* Filled by the island. Empty until the reader enters something. */}
           </div>
 
           <noscript>
-            <p class="mt-2 max-w-[var(--measure)] text-base">
-              Live results need JavaScript. The reference table further down this page is
-              precomputed and works without it.
-            </p>
+            <p class="mt-2 max-w-[var(--measure)] text-base">{t('calc.noscript')}</p>
           </noscript>
 
-          <Disclaimer />
+          <Disclaimer locale={locale} />
         </div>
       </div>
     </calculator-widget>
 
     {/* 5. How this is calculated: the actual formula, its source, its assumptions. */}
     <section id="step-3" class="mt-12" aria-labelledby="how-it-works">
-      <h2 id="how-it-works" class="text-xl">How this is calculated</h2>
+      <h2 id="how-it-works" class="text-xl">{t('calc.howItWorks')}</h2>
 
       {
         definition.formulas.map((formula) => (
@@ -146,7 +158,9 @@ const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en
             <h3 class="text-lg">
               {formula.name}
               {formula.isDefault === true && (
-                <span class="ml-2 align-middle text-xs font-normal text-graphite">default</span>
+                <span class="ms-2 align-middle text-xs font-normal text-graphite">
+                  {t('calc.default')}
+                </span>
               )}
             </h3>
 
@@ -155,11 +169,11 @@ const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en
             </pre>
 
             <dl class="mt-3 grid gap-x-4 gap-y-1 text-xs sm:grid-cols-[8rem_1fr]">
-              <dt class="text-graphite">Source</dt>
+              <dt class="text-graphite">{t('calc.source')}</dt>
               <dd class="m-0">{formula.source}</dd>
-              <dt class="text-graphite">Assumes</dt>
+              <dt class="text-graphite">{t('calc.assumes')}</dt>
               <dd class="m-0">{formula.assumes}</dd>
-              <dt class="text-graphite">Accuracy</dt>
+              <dt class="text-graphite">{t('calc.accuracy')}</dt>
               <dd class="m-0">{formula.accuracy}</dd>
             </dl>
           </div>
@@ -172,10 +186,13 @@ const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en
       alternativeFormulas.length > 0 && defaultFormula !== undefined && (
         <section class="mt-12" aria-labelledby="which-formula">
           <h2 id="which-formula" class="text-xl">
-            Which formula should you use
+            {t('calc.whichFormula')}
           </h2>
           <p class="mt-3 max-w-[var(--measure)] text-base">
-            This page defaults to {defaultFormula.name}. {defaultFormula.accuracy}
+            {t('calc.defaultsTo', {
+              formula: defaultFormula.name,
+              accuracy: defaultFormula.accuracy,
+            })}
           </p>
           <ul class="mt-3 max-w-[var(--measure)] space-y-2 text-base">
             {alternativeFormulas.map((formula) => (
@@ -204,14 +221,14 @@ const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en
           <caption class="sr-only">{definition.referenceTable.caption}</caption>
           <thead>
             <tr>
-              <th scope="col" class="border-b border-rule p-2 text-left text-xs text-graphite">
+              <th scope="col" class="border-b border-rule p-2 text-start text-xs text-graphite">
                 {definition.referenceTable.rowHeader}
               </th>
               {
                 definition.referenceTable.columns.map((column) => (
                   <th
                     scope="col"
-                    class="numeral border-b border-rule p-2 text-right text-xs text-graphite"
+                    class="numeral border-b border-rule p-2 text-end text-xs text-graphite"
                   >
                     {column}
                   </th>
@@ -223,11 +240,11 @@ const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en
             {
               definition.referenceTable.rows.map((row) => (
                 <tr>
-                  <th scope="row" class="border-b border-rule p-2 text-left font-normal">
+                  <th scope="row" class="border-b border-rule p-2 text-start font-normal">
                     {row.label}
                   </th>
                   {row.cells.map((cell) => (
-                    <td class="numeral border-b border-rule p-2 text-right">{cell}</td>
+                    <td class="numeral border-b border-rule p-2 text-end">{cell}</td>
                   ))}
                 </tr>
               ))
@@ -239,7 +256,7 @@ const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en
 
     {/* 8. FAQ, specific to this calculator. */}
     <section class="mt-12" aria-labelledby="faq">
-      <h2 id="faq" class="text-xl">Questions</h2>
+      <h2 id="faq" class="text-xl">{t('calc.questions')}</h2>
       <dl class="mt-4 max-w-[var(--measure)]">
         {
           definition.faq.map((entry) => (
@@ -254,11 +271,13 @@ const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en
 
     {/* 9. Six related calculators and two guides. */}
     <section class="mt-12" aria-labelledby="related">
-      <h2 id="related" class="text-xl">Related</h2>
+      <h2 id="related" class="text-xl">{t('calc.related')}</h2>
 
       <div class="mt-4 grid gap-8 sm:grid-cols-2">
         <div>
-          <h3 class="text-xs font-semibold tracking-wide text-graphite uppercase">Calculators</h3>
+          <h3 class="text-xs font-semibold tracking-wide text-graphite uppercase">
+            {t('calc.relatedCalculators')}
+          </h3>
           <ul class="mt-2 list-none space-y-1 p-0">
             {
               related.map((entry) => (
@@ -276,16 +295,18 @@ const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en
         </div>
 
         <div>
-          <h3 class="text-xs font-semibold tracking-wide text-graphite uppercase">Guides</h3>
+          <h3 class="text-xs font-semibold tracking-wide text-graphite uppercase">
+            {t('calc.relatedGuides')}
+          </h3>
           <ul class="mt-2 list-none space-y-1 p-0">
             {
-              definition.relatedGuides.map((slug) => (
+              relatedGuides.map((entry) => (
                 <li>
                   <a
-                    href={getLocalePath(`/guides/${slug}`, locale)}
+                    href={getLocalePath(`/guides/${guideSlug(entry)}`, locale)}
                     class="flex min-h-11 items-center text-base text-ink no-underline hover:text-signal hover:underline"
                   >
-                    {GUIDE_TITLES[slug] ?? slug}
+                    {entry.data.title}
                   </a>
                 </li>
               ))
@@ -297,9 +318,12 @@ const lastUpdatedLabel = new Date(definition.lastUpdated).toLocaleDateString('en
 
     {/* 10. Real last-updated date. */}
     <p class="mt-12 text-xs text-graphite">
-      Last reviewed <time datetime={definition.lastUpdated}>{lastUpdatedLabel}</time>. Category:
-      {' '}{category?.label ?? 'Calculator'}.
+      <time datetime={definition.lastUpdated}>
+        {t('calc.lastReviewed', { date: lastUpdatedLabel, category: categoryLabel })}
+      </time>
     </p>
+
+    <TranslationNotice locale={locale} path={path} />
   </div>
 </BaseLayout>
 

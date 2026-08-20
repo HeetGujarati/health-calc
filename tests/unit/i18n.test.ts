@@ -35,8 +35,19 @@ const IDENTICAL_BY_DESIGN: Readonly<Partial<Record<Locale, readonly string[]>>> 
     'consent.heading',
     'cookies.title',
     'footer.cookies',
+    'activity.columnKcal30',
+    'lift.repsUnit',
+    'lift.column100x5',
   ],
-  'pt-BR': ['calc.imperial', 'consent.heading', 'cookies.title', 'footer.cookies'],
+  'pt-BR': [
+    'calc.imperial',
+    'consent.heading',
+    'cookies.title',
+    'footer.cookies',
+    'activity.columnKcal30',
+    'lift.column100x5',
+    'lift.repsUnit',
+  ],
   // French shares a great deal of this vocabulary with English outright.
   fr: [
     'calc.questions',
@@ -54,6 +65,12 @@ const IDENTICAL_BY_DESIGN: Readonly<Partial<Record<Locale, readonly string[]>>> 
     'consent.heading',
     'cookies.title',
     'footer.cookies',
+    'activity.columnKcal30',
+    'distance.columnDistance',
+    'lift.column100x5',
+    'lift.repsUnit',
+    'search.typeGuide',
+    'search.typePage',
   ],
   // "Training", "Code" and "Imperial" are ordinary German.
   de: [
@@ -63,11 +80,13 @@ const IDENTICAL_BY_DESIGN: Readonly<Partial<Record<Locale, readonly string[]>>> 
     'cookies.title',
     'footer.cookies',
     'hub.activities.columnCode',
+    'activity.columnKcal30',
+    'distance.columnPaceKm',
   ],
   // "Privacy" and "Home" are the ordinary Italian usage, not English left in.
-  it: ['footer.privacy', 'nav.home', 'privacy.title'],
+  it: ['footer.privacy', 'nav.home', 'privacy.title', 'activity.columnKcal30', 'lift.formula'],
   hi: [],
-  id: ['footer.legal', 'calc.imperial'],
+  id: ['footer.legal', 'calc.imperial', 'distance.columnPaceKm'],
   ja: [],
   ar: [],
 };

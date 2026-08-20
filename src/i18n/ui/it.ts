@@ -326,4 +326,184 @@ export const it: Messages = {
   'cookies.h2Ads': 'Se la pubblicità venisse attivata',
   'cookies.p5':
     'La pubblicità non è attiva. Il codice per mostrarla esiste e riserva il suo spazio nel layout, ma non mostra nulla. Se venisse attivata, i partner pubblicitari imposterebbero i propri cookie, un banner di consenso lo chiederebbe prima che ne venisse impostato uno e questa pagina li elencherebbe prima che ciò accadesse.',
+
+  // --- Chart, activity, lift and distance page templates ---
+  'common.related': 'Correlati',
+  'common.lastReviewed': 'Ultima revisione: {date}.',
+  'common.category': 'Categoria',
+  'common.weight': 'Peso',
+  'common.duration': 'Durata',
+  'chart.workItOut': 'Calcolalo con i tuoi numeri',
+  'chart.workItOutBody':
+    'Questa tabella è calcolata con le stesse equazioni del calcolatore, quindi le due concordano sempre.',
+  'chart.relatedGuides': 'Guide correlate',
+  'activity.h1': 'Calorie bruciate {activity}',
+  'activity.metSection': 'Il valore MET e da dove viene',
+  'activity.listedAs': 'Riportato come',
+  'activity.referenceNote':
+    "Energia lorda in chilocalorie. Leggi in orizzontale dal tuo peso e in verticale dalla tua durata. Una persona di 70 kg consuma circa {gross} kcal all'ora, di cui all'incirca {net} al di sopra di quanto sarebbe costato il riposo.",
+  'activity.compareNote':
+    'Energia consumata in trenta minuti a 70 kg, così le attività sono direttamente confrontabili.',
+  'activity.compareCaption': 'Confronto con attività correlate',
+  'activity.columnKcal30': 'kcal / 30 min',
+  'activity.noscript':
+    'I risultati in tempo reale richiedono JavaScript. La tabella qui sotto è precalcolata e funziona anche senza.',
+  'activity.allActivities': 'Tutte le attività',
+  'activity.metaDescription':
+    'Quante calorie si bruciano {activity}, per peso corporeo e durata. Usa il valore MET pubblicato di {met} del Compendium per adulti del 2024.',
+  'lift.enterSet': 'Inserisci la tua serie',
+  'lift.typicalReps': 'Ripetizioni tipiche',
+  'lift.percentageTableCaption': 'Percentuale del massimale con le ripetizioni attese',
+  'lift.repMaxCaption': 'Massimale stimato in base al peso sollevato e alle ripetizioni',
+  'lift.comparisonHeading': 'Conversione dei massimali per ripetizioni e confronto tra formule',
+  'lift.comparisonCaption': 'Le cinque equazioni a confronto per 100 kg per cinque ripetizioni',
+  'distance.enterTime': 'Inserisci un tempo finale',
+  'search.typeCalculator': 'Calcolatore',
+  'search.typeGuide': 'Guida',
+  'search.typePage': 'Pagina',
+  'search.unavailable':
+    'La ricerca non è disponibile in questo momento. Il catalogo dei calcolatori contiene tutto.',
+
+  // --- Chart, activity, lift and distance page templates ---
+  'metBand.light': "verso l'estremo leggero",
+  'metBand.moderate': 'nella fascia moderata',
+  'metBand.vigorous': 'nella fascia intensa',
+  'metBand.demanding': "verso l'estremo impegnativo",
+  'netShare.none': 'niente',
+  'netShare.percent': 'il {value} per cento',
+
+  // --- Programmatic page copy ---
+  'activity.appName': 'Calcolatore delle calorie bruciate {activity}',
+  'activity.howToName': 'Come calcolare le calorie bruciate {activity}',
+  'activity.step1.name': 'Inserisci peso e durata',
+  'activity.step1.text':
+    'Scegli il sistema metrico o quello imperiale, poi inserisci il tuo peso corporeo e quanto tempo hai dedicato a {activity}.',
+  'activity.step2.name': 'Leggi il risultato',
+  'activity.step2.text':
+    "Il risultato si aggiorna mentre scrivi e mostra l'energia lorda e il valore al di sopra del riposo.",
+  'activity.step3.name': 'Controlla il valore MET e la sua fonte',
+  'activity.step3.text':
+    'Il codice del Compendium e la descrizione dietro il valore di {met} MET sono sotto il calcolatore.',
+  'activity.faq.q1': 'Quante calorie si bruciano {activity}?',
+  'activity.faq.a1':
+    "A {met} MET, una persona di 70 kg consuma circa {kcal30} kcal in trenta minuti. Il consumo scala con il peso corporeo, quindi una persona di 90 kg ne consuma all'incirca un terzo in più per la stessa sessione.",
+  'activity.faq.q2': 'Qual è il valore MET di {activity}?',
+  'activity.faq.a2':
+    '{met} MET, con il codice {code} del Compendium. Un MET è un multiplo del metabolismo a riposo.',
+  'activity.faq.q3': 'Devo sottrarre il metabolismo a riposo?',
+  'activity.faq.a3':
+    "Se stai sommando questo a un valore di mantenimento che già include il riposo, sì. Il valore netto toglie il circa un MET-ora per ora che il tuo corpo avrebbe comunque speso, il che per {activity} lascia all'incirca {netShare} del totale lordo.",
+  'activity.faq.q4': 'Perché il peso corporeo cambia il risultato?',
+  'activity.faq.a4':
+    'Un valore MET è energia per chilogrammo di massa corporea, quindi la stessa attività costa di più a un corpo più pesante. Ecco perché il peso è un dato da inserire e non un presupposto, ed ecco perché i numeri generici di calorie bruciate senza un peso sono quasi privi di significato.',
+  'activity.faq.q5': 'Quanto è accurato questo valore?',
+  'activity.faq.a5':
+    'È una stima ricavata da una media di popolazione. I confronti pubblicati con la calorimetria indiretta trovano discrepanze individuali dal venti al trenta per cento: usalo per confrontare attività, non come un conto da recuperare mangiando.',
+  'lift.h1': 'Calcolatore del massimale nella {lift}',
+  'lift.metaDescription':
+    'Stima il tuo massimale nella {liftLower} a partire da una serie, con tutte e cinque le equazioni pubblicate a confronto e una tabella di percentuali per i carichi di allenamento.',
+  'lift.howToName': 'Come stimare un massimale nella {liftLower}',
+  'lift.step1.name': 'Inserisci peso e ripetizioni',
+  'lift.step1.text':
+    'Inserisci il peso che hai sollevato nella {liftLower} e quante ripetizioni hai completato.',
+  'lift.step2.name': 'Leggi la stima',
+  'lift.step2.text':
+    'Sono mostrate tutte e cinque le equazioni, insieme alla loro media e a una tabella di percentuali.',
+  'lift.step3.name': 'Controlla come si comportano le equazioni in questo esercizio',
+  'lift.step3.text':
+    'Le note qui sotto spiegano come queste equazioni si trasferiscono a questo movimento in particolare.',
+  'lift.faq.q1': 'Come stimo il mio massimale nella {liftLower}?',
+  'lift.faq.a1':
+    "Fai una serie a cedimento o vicino a esso, inserisci il peso e le ripetizioni, e le equazioni fanno il resto. Una tripla pesante dà una stima molto più affidabile di una serie da dodici, perché tutte e cinque le equazioni sono state validate nell'intervallo da due a dieci ripetizioni.",
+  'lift.faq.q2': 'Le stime del massimale sono accurate per la {liftLower}?',
+  'lift.faq.q3': 'Quale formula dovrei usare?',
+  'lift.faq.a3':
+    "Wathan ed Epley seguono i dati misurati sull'intervallo più ampio; Brzycki è la più conservativa ed è esatta a una singola ripetizione. La media delle cinque è un numero unico più difendibile di ciascuna presa da sola, e la dispersione tra loro dice quanta fiducia meriti la stima.",
+  'lift.faq.q4': 'Quale intervallo di ripetizioni si adatta alla {liftLower}?',
+  'lift.faq.a4':
+    "Questo esercizio si allena di solito nell'intervallo di {reps} ripetizioni. Le stime prese dentro quell'intervallo sono le più affidabili, perché stanno più vicino a dove le equazioni sono state adattate.",
+  'lift.faq.q5': 'Meglio testare un massimale vero?',
+  'lift.faq.a5':
+    'Solo se ti serve il numero per la gara, e allora con chi ti assiste e un riscaldamento completo. Per programmare, una stima da una tripla pesante è quasi altrettanto utile e costa molto meno in recupero e rischio.',
+  'distance.h1': 'Calcolatore del passo per la {distance}',
+  'distance.metaDescription':
+    'Tabella del passo e calcolatore per la {distance}: converti tra passo, velocità e tempo finale, con i parziali e una nota onesta sulle proiezioni di gara.',
+  'distance.howToName': 'Come calcolare il passo sulla {distanceLower}',
+  'distance.step1.name': 'Inserisci un tempo finale',
+  'distance.step1.text':
+    'Inserisci un tempo obiettivo o reale sulla {distanceLower} nel formato h:mm:ss o m:ss.',
+  'distance.step2.name': 'Leggi il passo',
+  'distance.step2.text':
+    'Il passo al chilometro e al miglio, la velocità e i parziali si aggiornano mentre scrivi.',
+  'distance.step3.name': 'Consulta la tabella del passo',
+  'distance.step3.text':
+    "La tabella qui sotto associa ogni passo dell'intervallo abituale a un tempo finale.",
+  'distance.faq.q1': 'Che passo mi serve per un dato tempo sulla {short}?',
+  'distance.faq.a1':
+    "Dividi il tempo obiettivo per la distanza in chilometri. Per la {distance}, {midPace} al chilometro dà {midTime}. La tabella qui sotto copre l'intervallo in cui gareggia la maggior parte dei podisti.",
+  'distance.faq.q2': 'Come dovrei gestire il passo su una {short}?',
+  'distance.faq.q3': 'Che cosa limita la prestazione sulla {short}?',
+  'distance.faq.q4': 'Le proiezioni verso altre distanze sono affidabili?',
+  'distance.faq.a4':
+    'No, e la pagina lo dice. Presuppongono che lo stesso passo regga su una distanza diversa, il che non accade: il passo cala man mano che la distanza cresce. La formula di Riegel applica un esponente di fatica ed è lo strumento giusto per una previsione vera.',
+  'distance.faq.q5': 'Perché la tabella dei parziali ha un ultimo tratto incompleto?',
+  'distance.faq.a5':
+    "Perché la {distance} misura {km} km, che non è un numero intero di intervalli di parziale. L'ultimo tratto parziale viene mostrato invece che omesso, dato che una tabella che finisce prima del traguardo sbaglia proprio dove conta.",
+
+  // --- Lift and distance page chrome ---
+  'lift.weightLifted': 'Peso sollevato',
+  'lift.reps': 'Ripetizioni',
+  'lift.repsUnit': 'rip.',
+  'lift.formula': 'Formula',
+  'lift.noscript':
+    'I risultati in tempo reale richiedono JavaScript. Le tabelle qui sotto sono precalcolate e funzionano anche senza.',
+  'lift.specificHeading': 'La {lift} nello specifico',
+  'lift.estimateHeading': 'Massimale stimato nella {lift} per peso e ripetizioni',
+  'lift.estimateNote':
+    'Stime di Epley in chilogrammi. Leggi in orizzontale dal peso che hai sollevato e in verticale dalle ripetizioni che hai gestito. Le colonne oltre le dieci ripetizioni sono mostrate ma sono le meno affidabili.',
+  'lift.percentageHeading': 'Tabella delle percentuali',
+  'lift.percentageNote':
+    'Carichi di allenamento come quota di un massimale di 100 kg, con le ripetizioni che ogni percentuale di norma consente. Scala proporzionalmente alla tua stima.',
+  'lift.columnPercentage': 'Percentuale',
+  'lift.columnLoad100': 'Carico da 100 kg',
+  'lift.columnApproxReps': 'Ripetizioni approssimative',
+  'lift.conversionHeading': 'Conversione dei massimali per ripetizioni',
+  'lift.conversionNote':
+    'A che cosa corrisponde un massimale stimato di 100 kg a ciascun numero di ripetizioni, e come si confrontano le cinque equazioni per una serie da cinque a 100 kg.',
+  'lift.columnLoadFor100': 'Carico per un massimale di 100 kg',
+  'lift.column100x5': '100 kg × 5 rip.',
+  'lift.otherLifts': 'Altri esercizi',
+  'lift.formulasGuide': 'In che cosa differiscono le formule del massimale',
+  'distance.finishTime': 'Tempo finale',
+  'distance.noscript':
+    'I risultati in tempo reale richiedono JavaScript. La tabella del passo qui sotto è precalcolata e funziona anche senza.',
+  'distance.aboutHeading': 'La {distance}',
+  'distance.length': 'Distanza: {km} km ({metres} m).',
+  'distance.fixedByRules': 'Fissata dalla Regola 55 di competizione di World Athletics.',
+  'distance.chartHeading': 'Tabella del passo della {distance}',
+  'distance.chartNote':
+    'Tempo finale, passo al miglio e velocità per ogni passo al chilometro. Tutto è calcolato in metri e secondi e convertito una sola volta, così nessun arrotondamento si accumula lungo la tabella.',
+  'distance.columnPaceKm': 'Passo / km',
+  'distance.columnPaceMile': 'Passo / miglio',
+  'distance.columnSpeed': 'Velocità',
+  'distance.columnDistance': 'Distanza',
+  'distance.columnElapsed': 'Trascorso',
+  'distance.otherDistances': 'Altre distanze',
+  'distance.paceChartGuide': 'Come leggere una tabella del passo',
+
+  // --- Prose page detail ---
+  'about.h2Absent': 'Che cosa manca di proposito',
+  'about.pAbsent':
+    'Alcuni calcolatori mancano di proposito. Funzione renale, superficie corporea per il dosaggio della chemioterapia e tasso alcolemico producono numeri che alimentano decisioni reali, e competono a un clinico. I calcolatori di gravidanza e fertilità sono la categoria più scrutinata in ambito sanitario e sono ben serviti da editori medici affermati.',
+  'about.h2Built': 'Come è costruito',
+  'about.pBuilt':
+    'Pagine statiche, senza account e senza database. I calcoli girano nel tuo browser e non esiste alcun server a cui inviarli. Ogni formula è verificata contro gli esempi svolti del suo articolo di origine in una suite di test automatizzata, ed è questo che intercetta gli errori di trascrizione che rendono un calcolatore silenziosamente sbagliato.',
+  'contact.h2NoForm': "Perché non c'è un modulo di contatto",
+  'contact.pNoForm':
+    "Un modulo ha bisogno di un posto dove inviare quello che scrivi, il che significa un server, il che significa un posto dove il tuo messaggio resta salvato e un'altra cosa da mettere in sicurezza. Questo sito sono file statici senza backend, e tenerlo così è il motivo per cui nulla di ciò che digiti in un calcolatore può lasciare il tuo dispositivo. Un indirizzo e-mail è uno scambio equo.",
+  'contact.ownerNotice':
+    "SEGNAPOSTO DEL PROPRIETARIO: sostituisci l'indirizzo di contatto in src/config/site.ts prima del lancio. Compare qui, nell'informativa sulla privacy, nei termini e in security.txt, e cambiare quell'unico file li aggiorna tutti.",
+
+  // --- Short meta title, distinct from the H1 ---
+  'lift.metaTitle': 'Calcolatore 1RM: {lift}',
 };

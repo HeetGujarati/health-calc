@@ -1,0 +1,24 @@
+---
+import CalculatorLayout from '../../../layouts/CalculatorLayout.astro';
+import { CALCULATOR_DEFINITIONS } from '../../../data/calculators';
+import { localeItemRoutes } from '../../../lib/i18n/routes';
+import type { CalculatorDefinition } from '../../../data/calculators/types';
+import type { Locale } from '../../../config/locales';
+
+/**
+ * All sixteen calculator pages, in every locale.
+ *
+ * getStaticPaths derives the routes from the definitions, so the dynamic
+ * parameter is validated against a static allowlist by construction — anything
+ * not in this list is not built, and therefore 404s. That is the requirement in
+ * section 11 of the brief, satisfied structurally rather than by a runtime
+ * check that could be forgotten.
+ */
+export function getStaticPaths() {
+  return localeItemRoutes(CALCULATOR_DEFINITIONS, 'calculators');
+}
+
+const { locale, item } = Astro.props as { locale: Locale; item: CalculatorDefinition };
+---
+
+<CalculatorLayout definition={item} locale={locale} />

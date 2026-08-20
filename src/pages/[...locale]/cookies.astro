@@ -1,0 +1,40 @@
+---
+import ProseLayout from '../../layouts/ProseLayout.astro';
+import ProseBlocks, { type Block } from '../../components/ProseBlocks.astro';
+import { localeRoutes } from '../../lib/i18n/routes';
+import { useTranslations } from '../../lib/i18n';
+import type { Locale } from '../../config/locales';
+
+export function getStaticPaths() {
+  return localeRoutes();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+
+/**
+ * Which cookies the site sets, which is none, and what would change if advertising were enabled.
+ */
+const BLOCKS: readonly Block[] = [
+  { kind: 'p', key: 'cookies.p1' },
+  { kind: 'h2', key: 'cookies.h2Storage' },
+  { kind: 'p', key: 'cookies.p2' },
+  { kind: 'ul', keys: ['cookies.li1', 'cookies.li2'] },
+  { kind: 'p', key: 'cookies.p3' },
+  { kind: 'h2', key: 'cookies.h2Third' },
+  { kind: 'p', key: 'cookies.p4' },
+  { kind: 'h2', key: 'cookies.h2Ads' },
+  { kind: 'p', key: 'cookies.p5' },
+];
+---
+
+<ProseLayout
+  title={t('cookies.title')}
+  description={t('cookies.description')}
+  path="/cookies"
+  locale={locale}
+  lastUpdated="2026-08-20"
+  keywords={['cookies', 'local storage']}
+>
+  <ProseBlocks locale={locale} blocks={BLOCKS} />
+</ProseLayout>

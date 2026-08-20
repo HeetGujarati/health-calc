@@ -327,4 +327,186 @@ export const de: Messages = {
   'cookies.h2Ads': 'Falls Werbung aktiviert wird',
   'cookies.p5':
     'Werbung ist nicht aktiviert. Der Code zur Anzeige existiert und reserviert seinen Platz im Layout, zeigt aber nichts an. Würde er eingeschaltet, würden Werbepartner eigene Cookies setzen, ein Einwilligungsbanner würde vorher fragen, und diese Seite würde sie auflisten, bevor das geschieht.',
+
+  // --- Chart, activity, lift and distance page templates ---
+  'common.related': 'Verwandtes',
+  'common.lastReviewed': 'Zuletzt geprüft am {date}.',
+  'common.category': 'Kategorie',
+  'common.weight': 'Gewicht',
+  'common.duration': 'Dauer',
+  'chart.workItOut': 'Mit Ihren eigenen Zahlen rechnen',
+  'chart.workItOutBody':
+    'Diese Tabelle ist aus denselben Gleichungen berechnet wie der Rechner, beide stimmen also immer überein.',
+  'chart.relatedGuides': 'Verwandte Ratgeber',
+  'activity.h1': 'Kalorienverbrauch: {activity}',
+  'activity.metSection': 'Der MET-Wert und woher er stammt',
+  'activity.listedAs': 'Geführt als',
+  'activity.referenceNote':
+    'Bruttoenergie in Kilokalorien. Lesen Sie waagerecht von Ihrem Gewicht und senkrecht von Ihrer Dauer. Eine Person mit 70 kg verbraucht etwa {gross} kcal pro Stunde, davon rund {net} über dem, was Ruhe gekostet hätte.',
+  'activity.compareNote':
+    'Energieverbrauch in dreißig Minuten bei 70 kg, damit die Aktivitäten direkt vergleichbar sind.',
+  'activity.compareCaption': 'Vergleich mit verwandten Aktivitäten',
+  'activity.columnKcal30': 'kcal / 30 min',
+  'activity.noscript':
+    'Live-Ergebnisse brauchen JavaScript. Die Tabelle unten ist vorberechnet und funktioniert auch ohne.',
+  'activity.allActivities': 'Alle Aktivitäten',
+  'activity.metaDescription':
+    'Wie viele Kalorien {activity} verbraucht, nach Körpergewicht und Dauer. Verwendet den veröffentlichten MET-Wert von {met} aus dem Adult Compendium 2024.',
+  'lift.enterSet': 'Ihren Satz eintragen',
+  'lift.typicalReps': 'Übliche Wiederholungen',
+  'lift.percentageTableCaption':
+    'Prozentsatz des Einwiederholungsmaximums mit den erwarteten Wiederholungen',
+  'lift.repMaxCaption':
+    'Geschätztes Einwiederholungsmaximum nach bewegtem Gewicht und Wiederholungen',
+  'lift.comparisonHeading': 'Umrechnung von Wiederholungsmaxima und Formelvergleich',
+  'lift.comparisonCaption': 'Die fünf Gleichungen im Vergleich für 100 kg mal fünf',
+  'distance.enterTime': 'Eine Zielzeit eintragen',
+  'search.typeCalculator': 'Rechner',
+  'search.typeGuide': 'Ratgeber',
+  'search.typePage': 'Seite',
+  'search.unavailable':
+    'Die Suche ist gerade nicht verfügbar. Das Rechnerverzeichnis listet alles auf.',
+
+  // --- Chart, activity, lift and distance page templates ---
+  'metBand.light': 'am leichten Ende',
+  'metBand.moderate': 'im moderaten Bereich',
+  'metBand.vigorous': 'im intensiven Bereich',
+  'metBand.demanding': 'am fordernden Ende',
+  'netShare.none': 'nichts',
+  'netShare.percent': '{value} Prozent',
+
+  // --- Programmatic page copy ---
+  'activity.appName': 'Rechner für den Kalorienverbrauch: {activity}',
+  'activity.howToName': 'So ermitteln Sie den Kalorienverbrauch bei {activity}',
+  'activity.step1.name': 'Gewicht und Dauer eintragen',
+  'activity.step1.text':
+    'Wählen Sie metrisch oder imperial und tragen Sie dann Ihr Körpergewicht ein sowie die Zeit, die Sie mit {activity} verbracht haben.',
+  'activity.step2.name': 'Ergebnis ablesen',
+  'activity.step2.text':
+    'Das Ergebnis aktualisiert sich beim Tippen und zeigt die Bruttoenergie sowie den Wert über dem Ruheumsatz.',
+  'activity.step3.name': 'MET-Wert und Quelle prüfen',
+  'activity.step3.text':
+    'Der Compendium-Code und die Beschreibung hinter dem Wert von {met} MET stehen unter dem Rechner.',
+  'activity.faq.q1': 'Wie viele Kalorien verbraucht {activity}?',
+  'activity.faq.a1':
+    'Bei {met} MET verbraucht eine Person mit 70 kg in dreißig Minuten etwa {kcal30} kcal. Der Verbrauch skaliert mit dem Körpergewicht, eine Person mit 90 kg verbraucht bei derselben Einheit also rund ein Drittel mehr.',
+  'activity.faq.q2': 'Welchen MET-Wert hat {activity}?',
+  'activity.faq.a2':
+    '{met} MET, geführt unter dem Compendium-Code {code}. Ein MET ist ein Vielfaches des Ruheumsatzes.',
+  'activity.faq.q3': 'Soll ich meinen Ruheumsatz abziehen?',
+  'activity.faq.a3':
+    'Wenn Sie dies zu einem Erhaltungswert addieren, der die Ruhe bereits enthält, ja. Die Nettozahl entfernt die rund eine MET-Stunde pro Stunde, die Ihr Körper ohnehin verbraucht hätte, womit bei {activity} etwa {netShare} der Bruttomenge übrig bleiben.',
+  'activity.faq.q4': 'Warum ändert das Körpergewicht das Ergebnis?',
+  'activity.faq.a4':
+    'Ein MET-Wert ist Energie pro Kilogramm Körpermasse, dieselbe Aktivität kostet einen schwereren Körper also mehr. Deshalb ist Gewicht eine Eingabe und keine Annahme, und deshalb sind pauschale Kalorienangaben ohne Gewicht nahezu bedeutungslos.',
+  'activity.faq.q5': 'Wie genau ist diese Zahl?',
+  'activity.faq.a5':
+    'Sie ist eine Schätzung aus einem Bevölkerungsmittel. Veröffentlichte Vergleiche mit indirekter Kalorimetrie finden individuelle Abweichungen von zwanzig bis dreißig Prozent — nutzen Sie sie zum Vergleich von Aktivitäten, nicht als Konto, das man nachisst.',
+  'lift.h1': '1RM-Rechner für {lift}',
+  'lift.metaDescription':
+    'Schätzen Sie Ihr Einwiederholungsmaximum beim {liftLower} aus einem Satz, mit allen fünf veröffentlichten Gleichungen im Vergleich und einer Prozenttabelle für Trainingsgewichte.',
+  'lift.howToName': 'So schätzen Sie ein Einwiederholungsmaximum beim {liftLower}',
+  'lift.step1.name': 'Gewicht und Wiederholungen eintragen',
+  'lift.step1.text':
+    'Tragen Sie das beim {liftLower} bewegte Gewicht und die Zahl der geschafften Wiederholungen ein.',
+  'lift.step2.name': 'Schätzung ablesen',
+  'lift.step2.text':
+    'Alle fünf Gleichungen werden angezeigt, dazu ihr Mittelwert und eine Prozenttabelle.',
+  'lift.step3.name': 'Prüfen, wie sich die Gleichungen bei dieser Übung verhalten',
+  'lift.step3.text':
+    'Die Anmerkungen unten erklären, wie sich diese Gleichungen auf genau diese Bewegung übertragen.',
+  'lift.faq.q1': 'Wie schätze ich mein Maximum beim {liftLower}?',
+  'lift.faq.a1':
+    'Machen Sie einen Satz bis zum oder nahe ans Muskelversagen, tragen Sie Gewicht und Wiederholungen ein, den Rest erledigen die Gleichungen. Ein schwerer Dreier liefert eine weit verlässlichere Schätzung als ein Satz mit zwölf, denn alle fünf Gleichungen wurden im Bereich von zwei bis zehn Wiederholungen validiert.',
+  'lift.faq.q2': 'Sind 1RM-Schätzungen beim {liftLower} genau?',
+  'lift.faq.q3': 'Welche Formel soll ich nehmen?',
+  'lift.faq.a3':
+    'Wathan und Epley folgen den gemessenen Daten über den weitesten Bereich; Brzycki ist die konservativste und bei einer einzigen Wiederholung exakt. Der Mittelwert aller fünf ist als Einzelzahl besser begründbar als jede für sich, und die Spanne zwischen ihnen sagt, wie viel Vertrauen die Schätzung verdient.',
+  'lift.faq.q4': 'Welcher Wiederholungsbereich passt zum {liftLower}?',
+  'lift.faq.a4':
+    'Diese Übung wird üblicherweise im Bereich von {reps} Wiederholungen trainiert. Schätzungen aus diesem Bereich sind am verlässlichsten, weil sie dem Bereich am nächsten liegen, in dem die Gleichungen angepasst wurden.',
+  'lift.faq.q5': 'Sollte ich stattdessen ein echtes Maximum testen?',
+  'lift.faq.a5':
+    'Nur wenn Sie die Zahl für einen Wettkampf brauchen, und dann mit Sicherheitsstellung und vollem Aufwärmen. Fürs Programmieren ist eine Schätzung aus einem schweren Dreier fast ebenso nützlich und kostet deutlich weniger Erholung und Risiko.',
+  'distance.h1': 'Pace-Rechner für {distance}',
+  'distance.metaDescription':
+    'Pace-Tabelle und Rechner für {distance}: Umrechnung zwischen Pace, Geschwindigkeit und Zielzeit, mit Zwischenzeiten und einer ehrlichen Anmerkung zu Wettkampfprognosen.',
+  'distance.howToName': 'So ermitteln Sie die Pace über {distanceLower}',
+  'distance.step1.name': 'Eine Zielzeit eintragen',
+  'distance.step1.text':
+    'Tragen Sie eine angestrebte oder tatsächliche {distanceLower}-Zeit als h:mm:ss oder m:ss ein.',
+  'distance.step2.name': 'Pace ablesen',
+  'distance.step2.text':
+    'Pace pro Kilometer und pro Meile, Geschwindigkeit und Zwischenzeiten aktualisieren sich beim Tippen.',
+  'distance.step3.name': 'Pace-Tabelle prüfen',
+  'distance.step3.text':
+    'Die Tabelle unten ordnet jeder Pace im üblichen Bereich eine Zielzeit zu.',
+  'distance.faq.q1': 'Welche Pace brauche ich für eine bestimmte {short}-Zeit?',
+  'distance.faq.a1':
+    'Teilen Sie die Zielzeit durch die Distanz in Kilometern. Für {distance} ergibt {midPace} pro Kilometer eine Zeit von {midTime}. Die Tabelle unten deckt den Bereich ab, in dem die meisten antreten.',
+  'distance.faq.q2': 'Wie sollte ich einen {short} einteilen?',
+  'distance.faq.q3': 'Was begrenzt die Leistung über {short}?',
+  'distance.faq.q4': 'Sind die Hochrechnungen auf andere Distanzen verlässlich?',
+  'distance.faq.a4':
+    'Nein, und die Seite sagt das auch. Sie setzen voraus, dass dieselbe Pace über eine andere Distanz hält, was nicht stimmt: Die Pace sinkt, wenn die Distanz steigt. Riegels Formel wendet einen Ermüdungsexponenten an und ist das richtige Werkzeug für echte Prognosen.',
+  'distance.faq.q5': 'Warum hat die Zwischenzeittabelle einen unvollständigen letzten Abschnitt?',
+  'distance.faq.a5':
+    'Weil {distance} {km} km lang ist, was keine ganze Zahl an Split-Intervallen ergibt. Der letzte Teilabschnitt wird gezeigt statt weggelassen, denn eine Tabelle, die vor der Ziellinie endet, ist genau dort falsch, wo es zählt.',
+
+  // --- Lift and distance page chrome ---
+  'lift.weightLifted': 'Bewegtes Gewicht',
+  'lift.reps': 'Wiederholungen',
+  'lift.repsUnit': 'Wdh.',
+  'lift.formula': 'Formel',
+  'lift.noscript':
+    'Live-Ergebnisse brauchen JavaScript. Die Tabellen unten sind vorberechnet und funktionieren auch ohne.',
+  'lift.specificHeading': 'Speziell zum {lift}',
+  'lift.estimateHeading': 'Geschätztes Maximum beim {lift} nach Gewicht und Wiederholungen',
+  'lift.estimateNote':
+    'Epley-Schätzungen in Kilogramm. Lesen Sie waagerecht vom bewegten Gewicht und senkrecht von den geschafften Wiederholungen. Spalten jenseits von zehn Wiederholungen werden gezeigt, sind aber am unzuverlässigsten.',
+  'lift.percentageHeading': 'Prozenttabelle',
+  'lift.percentageNote':
+    'Trainingsgewichte als Anteil eines Maximums von 100 kg, mit den Wiederholungen, die jeder Prozentsatz üblicherweise zulässt. Rechnen Sie proportional auf Ihre eigene Schätzung um.',
+  'lift.columnPercentage': 'Prozent',
+  'lift.columnLoad100': 'Gewicht bei 100 kg',
+  'lift.columnApproxReps': 'Ungefähre Wiederholungen',
+  'lift.conversionHeading': 'Umrechnung von Wiederholungsmaxima',
+  'lift.conversionNote':
+    'Wofür ein geschätztes Maximum von 100 kg bei jeder Wiederholungszahl steht, und wie die fünf Gleichungen bei einem Satz von 100 kg mal fünf abschneiden.',
+  'lift.columnLoadFor100': 'Gewicht für ein Maximum von 100 kg',
+  'lift.column100x5': '100 kg × 5 Wdh.',
+  'lift.otherLifts': 'Andere Übungen',
+  'lift.formulasGuide': 'Worin sich die 1RM-Formeln unterscheiden',
+  'distance.finishTime': 'Zielzeit',
+  'distance.noscript':
+    'Live-Ergebnisse brauchen JavaScript. Die Pace-Tabelle unten ist vorberechnet und funktioniert auch ohne.',
+  'distance.aboutHeading': 'Der {distance}',
+  'distance.length': 'Distanz: {km} km ({metres} m).',
+  'distance.fixedByRules': 'Festgelegt durch World Athletics Competition Rule 55.',
+  'distance.chartHeading': 'Pace-Tabelle für {distance}',
+  'distance.chartNote':
+    'Zielzeit, Pace pro Meile und Geschwindigkeit für jede Pace pro Kilometer. Alles wird in Metern und Sekunden gerechnet und einmal umgerechnet, sodass sich über die Tabelle hinweg keine Rundungsfehler summieren.',
+  'distance.columnPaceKm': 'Pace / km',
+  'distance.columnPaceMile': 'Pace / Meile',
+  'distance.columnSpeed': 'Geschwindigkeit',
+  'distance.columnDistance': 'Distanz',
+  'distance.columnElapsed': 'Verstrichen',
+  'distance.otherDistances': 'Andere Distanzen',
+  'distance.paceChartGuide': 'So lesen Sie eine Pace-Tabelle',
+
+  // --- Prose page detail ---
+  'about.h2Absent': 'Was bewusst fehlt',
+  'about.pAbsent':
+    'Manche Rechner fehlen mit Absicht. Nierenfunktion, Körperoberfläche für die Chemotherapiedosierung und Blutalkoholkonzentration liefern Zahlen, die in echte Entscheidungen einfließen, und gehören in ärztliche Hand. Schwangerschafts- und Fruchtbarkeitsrechner sind die am strengsten geprüfte Kategorie im Gesundheitsbereich und werden von etablierten medizinischen Verlagen gut abgedeckt.',
+  'about.h2Built': 'Wie die Website gebaut ist',
+  'about.pBuilt':
+    'Statische Seiten, keine Konten, keine Datenbank. Die Berechnungen laufen in Ihrem Browser, und es gibt keinen Server, an den sie gehen könnten. Jede Formel wird in einer automatisierten Testsuite gegen durchgerechnete Beispiele aus ihrer Quellarbeit geprüft — das fängt die Übertragungsfehler ab, die einen Rechner still und leise falsch machen.',
+  'contact.h2NoForm': 'Warum es kein Kontaktformular gibt',
+  'contact.pNoForm':
+    'Ein Formular braucht ein Ziel für die Übermittlung, also einen Server, also einen Ort, an dem Ihre Nachricht liegt, und noch etwas, das abgesichert werden muss. Diese Website besteht aus statischen Dateien ohne Backend, und genau deshalb kann nichts, was Sie in einen Rechner eintippen, Ihr Gerät verlassen. Eine E-Mail-Adresse ist dafür ein fairer Tausch.',
+  'contact.ownerNotice':
+    'PLATZHALTER FÜR DEN BETREIBER: Ersetzen Sie die Kontaktadresse in src/config/site.ts vor dem Start. Sie erscheint hier, in der Datenschutzerklärung, in den Nutzungsbedingungen und in security.txt — eine Änderung in dieser einen Datei aktualisiert alle.',
+
+  // --- Short meta title, distinct from the H1 ---
+  'lift.metaTitle': '1RM-Rechner: {lift}',
 };

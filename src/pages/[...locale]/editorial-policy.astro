@@ -1,0 +1,45 @@
+---
+import ProseLayout from '../../layouts/ProseLayout.astro';
+import ProseBlocks, { type Block } from '../../components/ProseBlocks.astro';
+import { localeRoutes } from '../../lib/i18n/routes';
+import { useTranslations } from '../../lib/i18n';
+import type { Locale } from '../../config/locales';
+
+export function getStaticPaths() {
+  return localeRoutes();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+
+/**
+ * How formulas are chosen, how sources are cited, what gets refused, and how often pages are reviewed.
+ */
+const BLOCKS: readonly Block[] = [
+  { kind: 'h2', key: 'editorial.h2Selection' },
+  { kind: 'p', key: 'editorial.p1' },
+  { kind: 'p', key: 'editorial.p2' },
+  { kind: 'h2', key: 'editorial.h2Citation' },
+  { kind: 'p', key: 'editorial.p3' },
+  { kind: 'h2', key: 'editorial.h2Refused' },
+  {
+    kind: 'ul',
+    keys: ['editorial.li1', 'editorial.li2', 'editorial.li3', 'editorial.li4', 'editorial.li5'],
+  },
+  { kind: 'h2', key: 'editorial.h2Review' },
+  { kind: 'p', key: 'editorial.p4' },
+  { kind: 'h2', key: 'editorial.h2Corrections' },
+  { kind: 'p', key: 'editorial.p5' },
+];
+---
+
+<ProseLayout
+  title={t('editorial.title')}
+  description={t('editorial.description')}
+  path="/editorial-policy"
+  locale={locale}
+  lastUpdated="2026-08-20"
+  keywords={['editorial policy', 'sourcing', 'citations']}
+>
+  <ProseBlocks locale={locale} blocks={BLOCKS} />
+</ProseLayout>

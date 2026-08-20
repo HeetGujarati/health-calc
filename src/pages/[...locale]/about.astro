@@ -1,0 +1,41 @@
+---
+import ProseLayout from '../../layouts/ProseLayout.astro';
+import ProseBlocks, { type Block } from '../../components/ProseBlocks.astro';
+import { localeRoutes } from '../../lib/i18n/routes';
+import { useTranslations } from '../../lib/i18n';
+import type { Locale } from '../../config/locales';
+
+export function getStaticPaths() {
+  return localeRoutes();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+
+/**
+ * What the site is, what it deliberately leaves out, and how it is built.
+ */
+const BLOCKS: readonly Block[] = [
+  { kind: 'p', key: 'about.p1' },
+  { kind: 'p', key: 'about.p2' },
+  { kind: 'h2', key: 'about.h2Built' },
+  { kind: 'p', key: 'about.pBuilt' },
+  { kind: 'p', key: 'about.p3' },
+  { kind: 'h2', key: 'about.h2Absent' },
+  { kind: 'p', key: 'about.pAbsent' },
+  { kind: 'h2', key: 'about.h2Limits' },
+  { kind: 'p', key: 'about.p4' },
+  { kind: 'p', key: 'about.p5' },
+];
+---
+
+<ProseLayout
+  title={t('about.title')}
+  description={t('about.description')}
+  path="/about"
+  locale={locale}
+  lastUpdated="2026-08-20"
+  keywords={['about', 'fitness calculator site']}
+>
+  <ProseBlocks locale={locale} blocks={BLOCKS} />
+</ProseLayout>

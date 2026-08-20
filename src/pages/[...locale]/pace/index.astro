@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import TranslationNotice from '../../../components/TranslationNotice.astro';
+import { DISTANCES } from '../../../data/distances';
+import { buildBaseMetadata } from '../../../lib/seo/metadata';
+import { buildBreadcrumbList, type JsonLdObject } from '../../../lib/seo/schema';
+import { getLocalePath } from '../../../lib/seo/urls';
+import { localeRoutes } from '../../../lib/i18n/routes';
+import { useTranslations } from '../../../lib/i18n';
+import { translateDistance } from '../../../lib/i18n/content';
+import { formatNumber } from '../../../lib/i18n/format';
+import { localesFor } from '../../../lib/seo/pages';
+import { roundTo } from '../../../lib/health/rounding';
+import type { Locale } from '../../../config/locales';
+
+export function getStaticPaths() {
+  return localeRoutes();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+const path = '/pace';
+
+const meta = buildBaseMetadata({
+  title: t('hub.distances.title'),
+  description: t('hub.distances.description', { count: DISTANCES.length }),
+  path,
+  locale,
+  keywords: ['pace chart', 'race pace calculator', 'running splits'],
+});
+
+const crumbs = [
+  { name: t('nav.home'), path: '/' },
+  { name: t('hub.distances.title'), path },
+];
+
+const schemas: JsonLdObject[] = [];
+const breadcrumbs = buildBreadcrumbList(crumbs, locale);
+if (breadcrumbs !== null) schemas.push(breadcrumbs);
+
+/** Only distances with a page in this locale; see section 5.3. */
+const distances = DISTANCES.filter((distance) =>
+  localesFor('distances', distance.slug).includes(locale)
+).map((distance) => translateDistance(distance, locale));
+---
+
+<BaseLayout meta={meta} currentPath={path} schemas={schemas}>
+  <div class="mx-auto max-w-3xl px-4 py-6">
+    <Breadcrumbs items={crumbs} locale={locale} label={t('nav.breadcrumb')} />
+
+    <h1 class="mt-4 text-2xl sm:text-3xl">{t('hub.distances.title')}</h1>
+    <p class="mt-3 max-w-[var(--measure)] text-lg text-graphite">
+      {t('hub.distances.intro', { count: distances.length })}
+    </p>
+
+    <ul class="mt-10 list-none space-y-6 p-0">
+      {
+        distances.map((distance) => (
+          <li class="border-b border-rule pb-6">
+            <a
+              href={getLocalePath(`/pace/${distance.slug}`, locale)}
+              class="font-display text-lg font-semibold text-ink no-underline hover:text-signal hover:underline"
+            >
+              {distance.name}
+            </a>
+            <span class="numeral ms-2 text-xs text-graphite">
+              {formatNumber(roundTo(distance.metres / 1000, 4), locale)} km
+            </span>
+            <p class="mt-2 max-w-[var(--measure)] text-base text-graphite">{distance.summary}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <TranslationNotice locale={locale} path={path} />
+  </div>
+</BaseLayout>

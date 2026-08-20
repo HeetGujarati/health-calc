@@ -23,11 +23,14 @@ interface SearchDocument {
   readonly c: 'calculator' | 'guide' | 'page';
 }
 
-const TYPE_LABELS: Record<SearchDocument['c'], string> = {
-  calculator: 'Calculator',
-  guide: 'Guide',
-  page: 'Page',
-};
+/**
+ * Copy comes from data attributes on the host element, filled in by the page in
+ * the reader's locale. Bundling a ten-locale catalog into the island would cost
+ * every reader the bytes for nine languages they cannot read, and this is the
+ * only page-specific script on the site.
+ */
+const attr = (host: HTMLElement, name: string, fallback: string): string =>
+  host.dataset[name] ?? fallback;
 
 /** Queries longer than this are truncated before use. */
 const MAX_QUERY_LENGTH = 64;
@@ -70,8 +73,21 @@ class SiteSearch extends HTMLElement {
   #status: HTMLElement | null = null;
   #documents: readonly SearchDocument[] | null = null;
   #loading = false;
+  #labels: Record<SearchDocument['c'], string> = {
+    calculator: 'Calculator',
+    guide: 'Guide',
+    page: 'Page',
+  };
+  #indexUrl = '/search-index.json';
 
   connectedCallback(): void {
+    this.#indexUrl = attr(this, 'indexUrl', this.#indexUrl);
+    this.#labels = {
+      calculator: attr(this, 'labelCalculator', 'Calculator'),
+      guide: attr(this, 'labelGuide', 'Guide'),
+      page: attr(this, 'labelPage', 'Page'),
+    };
+
     this.#input = this.querySelector('input[type="search"]');
     this.#results = this.querySelector('[data-search-results]');
     this.#status = this.querySelector('[data-search-status]');
@@ -114,14 +130,12 @@ class SiteSearch extends HTMLElement {
     this.#loading = true;
 
     try {
-      const response = await fetch('/search-index.json');
+      const response = await fetch(this.#indexUrl);
       if (!response.ok) throw new Error(`Index request failed: ${String(response.status)}`);
       this.#documents = (await response.json()) as readonly SearchDocument[];
       return this.#documents;
     } catch {
-      this.#setStatus(
-        'Search is unavailable right now. The calculator directory lists everything.'
-      );
+      this.#setStatus(attr(this, 'unavailable', 'Search is unavailable.'));
       return [];
     } finally {
       this.#loading = false;
@@ -178,11 +192,19 @@ class SiteSearch extends HTMLElement {
     results.replaceChildren();
 
     if (documents.length === 0) {
-      this.#setStatus(`No results for “${query}”. Try a shorter or more general term.`);
+      this.#setStatus(
+        attr(this, 'noResults', 'No results for "{query}".').replace('{query}', query)
+      );
       return;
     }
 
-    this.#setStatus(documents.length === 1 ? '1 result' : `${String(documents.length)} results`);
+    const template =
+      documents.length === 1
+        ? attr(this, 'resultCountOne', '1 result for "{query}".')
+        : attr(this, 'resultCount', '{count} results for "{query}".');
+    this.#setStatus(
+      template.replace('{count}', String(documents.length)).replace('{query}', query)
+    );
 
     const list = document.createElement('ul');
     list.className = 'mt-6 list-none space-y-6 p-0';
@@ -198,8 +220,8 @@ class SiteSearch extends HTMLElement {
       link.textContent = doc.t;
 
       const type = document.createElement('span');
-      type.className = 'ml-2 align-middle text-xs font-normal text-graphite';
-      type.textContent = TYPE_LABELS[doc.c];
+      type.className = 'ms-2 align-middle text-xs font-normal text-graphite';
+      type.textContent = this.#labels[doc.c];
 
       const heading = document.createElement('p');
       heading.className = 'm-0';

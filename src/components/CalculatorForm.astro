@@ -1,12 +1,16 @@
 ---
 import type { InputField } from '../data/calculators/types';
+import type { Locale } from '../config/locales';
+import { useTranslations } from '../lib/i18n';
 
 interface Props {
   slug: string;
   inputs: readonly InputField[];
+  locale: Locale;
 }
 
-const { slug, inputs } = Astro.props;
+const { slug, inputs, locale } = Astro.props;
+const t = useTranslations(locale);
 
 /**
  * The calculator form.
@@ -27,18 +31,18 @@ const fieldId = (name: string): string => `${slug}-${name}`;
 
 <form novalidate>
   <fieldset class="m-0 border-0 p-0">
-    <legend class="sr-only">Units</legend>
+    <legend class="sr-only">{t('calc.units')}</legend>
     <div
       class="mb-5 inline-flex rounded-md border border-edge"
       role="radiogroup"
-      aria-label="Units"
+      aria-label={t('calc.units')}
     >
       {
         (['metric', 'imperial'] as const).map((system, index) => (
           <label
             class:list={[
               'flex min-h-11 cursor-pointer items-center px-4 text-base',
-              index === 0 ? 'rounded-l-md' : 'rounded-r-md border-l border-edge',
+              index === 0 ? 'rounded-s-md' : 'rounded-e-md border-s border-edge',
               'has-[:checked]:bg-ink has-[:checked]:text-paper',
             ]}
           >
@@ -49,7 +53,7 @@ const fieldId = (name: string): string => `${slug}-${name}`;
               checked={system === 'metric'}
               class="sr-only"
             />
-            {system === 'metric' ? 'Metric' : 'Imperial'}
+            {system === 'metric' ? t('calc.metric') : t('calc.imperial')}
           </label>
         ))
       }
@@ -131,7 +135,7 @@ const fieldId = (name: string): string => `${slug}-${name}`;
                       min="1"
                       max="8"
                       step="1"
-                      aria-label="Height, feet"
+                      aria-label={`${t('calc.enterDetails')} (ft)`}
                       class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
                       disabled
                     />
@@ -143,7 +147,7 @@ const fieldId = (name: string): string => `${slug}-${name}`;
                       min="0"
                       max="11.9"
                       step="0.5"
-                      aria-label="Height, inches"
+                      aria-label={`${t('calc.enterDetails')} (in)`}
                       class="min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
                       disabled
                     />
@@ -197,6 +201,6 @@ const fieldId = (name: string): string => `${slug}-${name}`;
     type="submit"
     class="mt-4 min-h-11 w-full rounded-md border border-edge bg-ink px-4 text-base font-semibold text-paper sm:mt-6 sm:w-auto"
   >
-    Calculate
+    {t('calc.calculate')}
   </button>
 </form>

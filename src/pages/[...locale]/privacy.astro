@@ -1,0 +1,51 @@
+---
+import ProseLayout from '../../layouts/ProseLayout.astro';
+import ProseBlocks, { type Block } from '../../components/ProseBlocks.astro';
+import { localeRoutes } from '../../lib/i18n/routes';
+import { useTranslations } from '../../lib/i18n';
+import { formatDate } from '../../lib/i18n/format';
+import type { Locale } from '../../config/locales';
+
+export function getStaticPaths() {
+  return localeRoutes();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+
+// The policy's own last-updated date, interpolated into privacy.lastUpdated
+// as well as rendered by the layout, so the two cannot disagree.
+const lastReviewedLabel = formatDate('2026-08-20', locale);
+
+/**
+ * What the site collects, which is almost nothing, and the reader rights that follow from that.
+ */
+const BLOCKS: readonly Block[] = [
+  { kind: 'p', key: 'privacy.p1' },
+  { kind: 'h2', key: 'privacy.h2Collect' },
+  { kind: 'p', key: 'privacy.p2' },
+  { kind: 'p', key: 'privacy.p3' },
+  { kind: 'h2', key: 'privacy.h2Server' },
+  { kind: 'p', key: 'privacy.p4' },
+  { kind: 'h2', key: 'privacy.h2Future' },
+  { kind: 'p', key: 'privacy.p5' },
+  { kind: 'h2', key: 'privacy.h2Rights' },
+  { kind: 'p', key: 'privacy.p6' },
+  { kind: 'h2', key: 'privacy.h2Children' },
+  { kind: 'p', key: 'privacy.p7' },
+  { kind: 'h2', key: 'privacy.h2Changes' },
+  { kind: 'p', key: 'privacy.p8' },
+  { kind: 'notice', key: 'privacy.ownerNotice' },
+];
+---
+
+<ProseLayout
+  title={t('privacy.title')}
+  description={t('privacy.description')}
+  path="/privacy"
+  locale={locale}
+  lastUpdated="2026-08-20"
+  keywords={['privacy', 'gdpr', 'ccpa']}
+>
+  <ProseBlocks locale={locale} blocks={BLOCKS} values={{ date: lastReviewedLabel }} />
+</ProseLayout>

@@ -161,8 +161,12 @@ export const SITE: SiteConfig = Object.freeze({
    */
   FULL_PROGRAMMATIC_LOCALES: [],
 
-  /** Phase 8 adds the remaining nine here as their content lands. */
-  translatedLocales: ['en'] as readonly Locale[],
+  /**
+   * All ten ship. Every page in `translatedLocales` is built, appears in the
+   * sitemap and is advertised in hreflang — the three cannot disagree, because
+   * they all read this list.
+   */
+  translatedLocales: LOCALE_CODES,
 });
 
 /** Number of programmatic pages a non-full locale receives, per section 5.3. */

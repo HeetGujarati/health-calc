@@ -1,0 +1,44 @@
+---
+import ProseLayout from '../../layouts/ProseLayout.astro';
+import ProseBlocks, { type Block } from '../../components/ProseBlocks.astro';
+import { localeRoutes } from '../../lib/i18n/routes';
+import { useTranslations } from '../../lib/i18n';
+import type { Locale } from '../../config/locales';
+
+export function getStaticPaths() {
+  return localeRoutes();
+}
+
+const { locale } = Astro.props as { locale: Locale };
+const t = useTranslations(locale);
+
+/**
+ * The terms under which the site is provided, including the limits of what its estimates can be used for.
+ */
+const BLOCKS: readonly Block[] = [
+  { kind: 'h2', key: 'terms.h2Use' },
+  { kind: 'p', key: 'terms.p1' },
+  { kind: 'h2', key: 'terms.h2NotAdvice' },
+  { kind: 'p', key: 'terms.p2' },
+  { kind: 'p', key: 'terms.p3' },
+  { kind: 'h2', key: 'terms.h2Accuracy' },
+  { kind: 'p', key: 'terms.p4' },
+  { kind: 'h2', key: 'terms.h2Liability' },
+  { kind: 'p', key: 'terms.p5' },
+  { kind: 'h2', key: 'terms.h2Ip' },
+  { kind: 'p', key: 'terms.p6' },
+  { kind: 'h2', key: 'terms.h2Law' },
+  { kind: 'notice', key: 'terms.ownerNotice' },
+];
+---
+
+<ProseLayout
+  title={t('terms.title')}
+  description={t('terms.description')}
+  path="/terms"
+  locale={locale}
+  lastUpdated="2026-08-20"
+  keywords={['terms', 'disclaimer']}
+>
+  <ProseBlocks locale={locale} blocks={BLOCKS} />
+</ProseLayout>
