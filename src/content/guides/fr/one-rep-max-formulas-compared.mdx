@@ -1,0 +1,114 @@
+---
+title: En quoi les formules de 1RM diffèrent et quand chacune est juste
+metaTitle: Les formules de 1RM comparées
+description: Cinq équations publiées estiment votre maximum à une répétition. Où elles s'accordent, où elles divergent, et pourquoi l'écart entre elles est le vrai signal.
+keywords:
+  - comparaison des formules de 1rm
+  - epley contre brzycki
+  - fiabilité du maximum à une répétition
+  - estimer son 1rm
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [one-rep-max, protein, calories-burned]
+relatedGuides: [how-to-set-a-protein-target, met-values-explained]
+readingMinutes: 6
+---
+
+Vous avez soulevé 100 kg pour cinq répétitions. Quel est votre maximum à une répétition ?
+
+Cinq équations publiées y répondent, et elles donnent 116,7, 112,5, 117,5, 112,5 et 116,6. Un écart de cinq kilogrammes, assez petit pour rester utile et assez grand pour mériter qu'on le comprenne.
+
+## Les cinq équations
+
+**Epley** (1985) :
+
+```
+1RM = c × (1 + r / 30)
+```
+
+**Brzycki** (1993) :
+
+```
+1RM = c × 36 / (37 − r)
+```
+
+**Lombardi** (1989) :
+
+```
+1RM = c × r^0,10
+```
+
+**O'Conner** (1989) :
+
+```
+1RM = c × (1 + r / 40)
+```
+
+**Wathan** (1994) :
+
+```
+1RM = 100c / (48,8 + 53,8 × e^(−0,075r))
+```
+
+Trois formes sont représentées. Epley et O'Conner sont linéaires : chaque répétition ajoute une fraction fixe. Lombardi est une fonction puissance. Wathan est exponentielle, le modèle le plus élaboré du lot et celui qui se comporte le mieux sur la plage la plus large.
+
+## Là où elles s'accordent
+
+Aux faibles répétitions, étroitement. À une, deux ou trois répétitions, les cinq équations se regroupent à quelques pour cent près, parce qu'elles ont toutes été ajustées sur des données de cette zone et qu'il reste peu de place pour diverger.
+
+C'est là l'enseignement pratique : **une estimation issue d'une série de trois vaut bien plus qu'une estimation issue d'une série de dix.** Si vous voulez un chiffre de 1RM exploitable, testez un triple lourd plutôt qu'une série à l'échec à douze.
+
+## Là où elles divergent
+
+Au-dessus d'une dizaine de répétitions, nettement.
+
+À 100 kg pour 15 répétitions : Epley donne 150, Brzycki 163,6, O'Conner 137,5. Soit 26 kg d'écart, plus large que la précision utile de chacune.
+
+La raison est physiologique et non mathématique. Vers dix à douze répétitions, le facteur limitant cesse d'être la force maximale pour devenir l'endurance musculaire — et l'endurance à un pourcentage donné du maximum varie énormément d'un individu à l'autre. Certains font vingt répétitions à 70 pour cent de leur maximum ; d'autres en font douze. Aucune équation ne prenant que la charge et les répétitions ne peut savoir de qui il s'agit.
+
+Les cinq ont été validées entre deux et dix répétitions. Au-delà, elles extrapolent, et elles extrapolent différemment parce que leurs formes sous-jacentes diffèrent.
+
+## Lire l'écart
+
+C'est l'habitude la plus utile en se servant du [calculateur de 1RM](/fr/calculators/one-rep-max/) : regardez à quel point les cinq estimations s'écartent, et pas seulement celle que vous avez retenue.
+
+Quand elles se regroupent à deux kilos près, l'estimation est fiable. Quand elles s'étalent sur dix kilos ou plus, elle mérite bien moins de confiance, et la lecture honnête est « quelque part dans cette plage ».
+
+La moyenne des cinq est un nombre unique plus défendable que n'importe quelle formule prise seule, parce qu'elle ne s'engage pas sur les hypothèses d'un seul modèle quant à la forme de la relation charge-répétitions. Le calculateur l'affiche pour cette raison.
+
+## Deux particularités utiles à connaître
+
+**Epley n'est pas exacte à une répétition.** Donnez-lui un single à 100 kg et elle renvoie 103,3 kg, parce que sa formule ajoute r/30 à un multiplicateur de 1 sans traiter r = 1 comme un cas particulier. Brzycki, Lombardi et Wathan renvoient la charge elle-même. C'est une propriété connue d'Epley et non un bug, et c'est pourquoi Epley s'emploie mieux à partir de trois répétitions.
+
+**Brzycki est indéfinie à 37 répétitions.** Son dénominateur vaut 37 − r, qui atteint zéro à cet endroit. Le calculateur ne renvoie rien plutôt qu'un infini, même si la validation des entrées plafonne les répétitions bien avant que ce cas devienne atteignable.
+
+## L'exercice compte plus que la formule
+
+C'est la limite dont personne ne parle, et elle est plus grande que les différences entre équations.
+
+Ces équations proviennent surtout de données de développé couché et de squat. La relation entre répétitions et charge n'est pas la même pour tous les mouvements.
+
+**Le soulevé de terre** permet en général moins de répétitions à pourcentage donné que ne le prédisent les équations : les estimations sont donc hautes. La fatigue de la prise, l'absence de cycle étirement-raccourcissement au départ à l'arrêt et la demande générale y contribuent.
+
+**Les mouvements olympiques** — épaulés, arrachés — ne devraient pas être estimés ainsi du tout. Ils sont limités par la technique et la vitesse de production de force, non par la capacité à forcer, et la technique se dégrade sous la fatigue d'une manière que les modèles charge-répétitions ne saisissent pas.
+
+**Les exercices d'isolation** autorisent souvent plus de répétitions à pourcentage donné que les mouvements polyarticulaires : les estimations sont alors basses.
+
+Si vous les employez sur un mouvement autre que le développé couché ou le squat, attendez-vous à un biais systématique dans une direction constante, et calibrez avec vos propres tests dans le temps.
+
+## Faut-il tester un vrai maximum
+
+Pour la compétition, oui — avec parade, échauffement complet et un plan d'essais.
+
+Pour la programmation, en général non. Une estimation issue d'un triple lourd est presque aussi utile, comporte bien moins de risque de blessure, et ne coûte pas les jours de récupération qu'exige une véritable tentative maximale. La plupart des programmes de force reposent sur des pourcentages déjà approximatifs, et une erreur de 3 pour cent sur le maximum supposé est absorbée par le fait que vous alliez de toute façon ajuster selon les sensations.
+
+## Utiliser les pourcentages
+
+Le [tableau de pourcentages](/fr/calculators/one-rep-max/) convertit un maximum estimé en charges d'entraînement. En gros :
+
+- **50 à 65 pour cent** — travail technique, travail de vitesse, volume accessoire en séries longues
+- **70 à 80 pour cent** — l'essentiel du travail d'hypertrophie, séries de six à douze
+- **80 à 90 pour cent** — travail de force, séries de trois à six
+- **90 pour cent et plus** — affûtage, singles et doubles
+
+Rappelez-vous que ces pourcentages reposent sur une estimation qui porte déjà une erreur. Si un 85 pour cent prescrit vous semble être un 95, l'estimation était haute — ajustez la charge de travail plutôt que de vous fier au calcul. La barre est une meilleure donnée que l'équation.

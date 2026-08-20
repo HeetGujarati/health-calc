@@ -1,0 +1,114 @@
+---
+title: In che cosa differiscono le formule del massimale e quando ciascuna è accurata
+metaTitle: Formule del massimale a confronto
+description: Cinque equazioni pubblicate stimano il tuo massimale da una serie. Dove concordano, dove divergono, e perché il divario fra loro è il segnale utile.
+keywords:
+  - confronto formule massimale
+  - epley contro brzycki
+  - accuratezza del massimale
+  - stimare il massimale dalle ripetizioni
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [one-rep-max, protein, calories-burned]
+relatedGuides: [how-to-set-a-protein-target, met-values-explained]
+readingMinutes: 6
+---
+
+Hai sollevato 100 kg per cinque ripetizioni. Qual è il tuo massimale a una ripetizione?
+
+Cinque equazioni pubblicate rispondono, e danno 116,7, 112,5, 117,5, 112,5 e 116,6. Un divario di cinque chilogrammi: abbastanza piccolo da essere utile e abbastanza grande da meritare una spiegazione.
+
+## Le cinque equazioni
+
+**Epley** (1985):
+
+```
+massimale = c × (1 + r / 30)
+```
+
+**Brzycki** (1993):
+
+```
+massimale = c × 36 / (37 − r)
+```
+
+**Lombardi** (1989):
+
+```
+massimale = c × r^0,10
+```
+
+**O'Conner** (1989):
+
+```
+massimale = c × (1 + r / 40)
+```
+
+**Wathan** (1994):
+
+```
+massimale = 100c / (48,8 + 53,8 × e^(−0,075r))
+```
+
+Sono rappresentate tre forme. Epley e O'Conner sono lineari: ogni ripetizione aggiunge una frazione fissa. Lombardi è una funzione di potenza. Wathan è esponenziale, il modello più raffinato del gruppo e quello che si comporta meglio sull'intervallo più ampio.
+
+## Dove concordano
+
+Alle basse ripetizioni, strettamente. A una, due o tre ripetizioni le cinque equazioni si stringono entro un paio di punti percentuali, perché sono state tutte adattate su dati di quella zona e non resta molto spazio per divergere.
+
+Questa è la lezione pratica: **una stima da una serie di tre vale assai più di una stima da una serie di dieci.** Se vuoi un numero di massimale utilizzabile, prova con una tripla pesante invece che con una serie a cedimento da dodici.
+
+## Dove divergono
+
+Sopra le dieci ripetizioni circa, nettamente.
+
+A 100 kg per 15 ripetizioni: Epley dà 150, Brzycki dà 163,6, O'Conner dà 137,5. Sono 26 kg di divario, più ampio della precisione utile di ciascuna.
+
+La ragione è fisiologica, non matematica. Attorno alle dieci-dodici ripetizioni il fattore limitante smette di essere la forza massimale e diventa la resistenza muscolare, e la resistenza a una data percentuale del massimo varia enormemente fra individui. Alcuni fanno venti ripetizioni al 70 per cento del proprio massimo; altri arrivano a dodici. Nessuna equazione che prenda solo carico e ripetizioni può sapere quale sei tu.
+
+Tutte e cinque sono state validate nell'intervallo da due a dieci. Oltre stanno estrapolando, e estrapolano in modo diverso perché le loro forme di fondo differiscono.
+
+## Leggere il divario
+
+È l'abitudine più utile quando si usa il [calcolatore del massimale](/it/calculators/one-rep-max/): guarda quanto sono distanti fra loro le cinque stime, non soltanto quella che hai scelto.
+
+Quando si stringono entro un paio di chili, la stima è affidabile. Quando si allargano di dieci o più, merita molta meno fiducia, e la lettura onesta è «da qualche parte in quella fascia».
+
+La media delle cinque è un numero singolo più difendibile di qualunque formula presa da sola, perché non si impegna con le assunzioni di un solo modello sulla forma della relazione carico-ripetizioni. Il calcolatore la mostra proprio per questo.
+
+## Due stranezze da conoscere
+
+**Epley non è esatta a una ripetizione.** Dalle un singolo da 100 kg e restituisce 103,3 kg, perché la sua formula somma r/30 a un moltiplicatore di 1 e non tratta r = 1 come caso speciale. Brzycki, Lombardi e Wathan restituiscono il carico stesso. È una proprietà nota di Epley, non un difetto, ed è per questo che Epley si usa meglio da tre ripetizioni in su.
+
+**Brzycki è indefinita a 37 ripetizioni.** Il suo denominatore è 37 − r, che lì raggiunge lo zero. Il calcolatore non restituisce nulla invece di infinito, benché la validazione degli input limiti le ripetizioni molto prima che quel caso sia raggiungibile.
+
+## L'esercizio conta più della formula
+
+È il limite che nessuno menziona, ed è più grande delle differenze fra le equazioni.
+
+Queste equazioni derivano in gran parte da dati di panca e squat. La relazione fra ripetizioni e carico non è la stessa per ogni esercizio.
+
+**Lo stacco** consente di norma meno ripetizioni a una data percentuale di quante ne prevedano le equazioni, quindi le stime risultano alte. L'affaticamento della presa, l'assenza del ciclo allungamento-accorciamento partendo da fermo e la pura richiesta sistemica contribuiscono tutti.
+
+**Le alzate olimpiche** — slanci, strappi — non andrebbero stimate così affatto. Sono limitate dalla tecnica e dalla rapidità di sviluppo della forza, non da quanta forza riesci a spremere, e la tecnica si degrada sotto fatica in modi che i modelli carico-ripetizioni non colgono.
+
+**Gli esercizi di isolamento** tendono a consentire più ripetizioni a una data percentuale rispetto ai multiarticolari, quindi le stime risultano basse.
+
+Se le usi su un esercizio diverso dalla panca o dallo squat, aspettati una distorsione sistematica in una direzione costante, e taratela nel tempo sui tuoi stessi test.
+
+## Conviene testare un massimale reale
+
+Per la gara sì, con un assistente, un riscaldamento accurato e un piano di tentativi.
+
+Per la programmazione, di solito no. Una stima da una tripla pesante è quasi altrettanto utile, comporta un rischio di infortunio molto minore e non costa i giorni di recupero che costa un vero tentativo massimale. Quasi tutti i programmi di forza si basano su percentuali già approssimative, e un errore del 3 per cento sul massimale presunto viene assorbito dal fatto che avresti comunque corretto in base a come andava la seduta.
+
+## Usare le percentuali
+
+La [tabella delle percentuali](/it/calculators/one-rep-max/) converte un massimale stimato in carichi di allenamento. In linea di massima:
+
+- **50-65 per cento** — lavoro tecnico, lavoro di velocità, volume accessorio ad alte ripetizioni
+- **70-80 per cento** — il grosso del lavoro di ipertrofia, serie da sei a dodici
+- **80-90 per cento** — lavoro di forza, serie da tre a sei
+- **90 per cento e oltre** — picco di forma, singole e doppie
+
+Ricorda che queste percentuali poggiano su una stima che già porta un errore. Se un 85 per cento prescritto ti sembra un 95, la stima era alta: correggi il carico di lavoro invece di fidarti dell'aritmetica. Il bilanciere è un dato migliore dell'equazione.
