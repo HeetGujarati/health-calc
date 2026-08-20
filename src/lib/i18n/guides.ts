@@ -15,9 +15,17 @@ import { DEFAULT_LOCALE, type Locale } from '../../config/locales';
  * rather than dropping the page: the guide is linked from calculator pages in
  * every locale, and a missing translation should degrade to English prose, not
  * to a 404. `i18n-content.test.ts` asserts there are no fallbacks left.
+ *
+ * Ids are compared lower-cased because Astro's glob loader lower-cases the
+ * path when it derives an id: `pt-BR/<slug>.mdx` becomes `pt-br/<slug>`, while
+ * the `Locale` union spells it `pt-BR`. Matching them literally silently fails
+ * for that one locale, which looks exactly like a missing translation.
  */
 
 export type GuideEntry = CollectionEntry<'guides'>;
+
+/** The id prefix a translation of `locale` carries, as the loader writes it. */
+const idPrefix = (locale: Locale): string => `${locale.toLowerCase()}/`;
 
 /** The slug of a guide, with any locale prefix removed. */
 export const guideSlug = (entry: GuideEntry): string => {
@@ -29,8 +37,8 @@ export const guideSlug = (entry: GuideEntry): string => {
 export const guideLocale = (entry: GuideEntry, locales: readonly Locale[]): Locale => {
   const parts = entry.id.split('/');
   if (parts.length < 2) return DEFAULT_LOCALE;
-  const prefix = parts[0];
-  return locales.find((locale) => locale === prefix) ?? DEFAULT_LOCALE;
+  const prefix = parts[0]?.toLowerCase();
+  return locales.find((locale) => locale.toLowerCase() === prefix) ?? DEFAULT_LOCALE;
 };
 
 /** Every English guide, which defines the canonical set of slugs. */
@@ -53,9 +61,10 @@ export const guidesFor = async (locale: Locale): Promise<readonly GuideEntry[]> 
     return [...english].sort((a, b) => a.data.title.localeCompare(b.data.title));
   }
 
+  const prefix = idPrefix(locale);
   const translated = new Map(
     all
-      .filter((entry) => entry.id.startsWith(`${locale}/`))
+      .filter((entry) => entry.id.toLowerCase().startsWith(prefix))
       .map((entry) => [guideSlug(entry), entry])
   );
 
@@ -68,7 +77,8 @@ export const guidesFor = async (locale: Locale): Promise<readonly GuideEntry[]> 
 export const guideFor = async (slug: string, locale: Locale): Promise<GuideEntry | null> => {
   const all = await getCollection('guides');
   if (locale !== DEFAULT_LOCALE) {
-    const translated = all.find((entry) => entry.id === `${locale}/${slug}`);
+    const wanted = `${idPrefix(locale)}${slug}`;
+    const translated = all.find((entry) => entry.id.toLowerCase() === wanted);
     if (translated !== undefined) return translated;
   }
   return all.find((entry) => entry.id === slug) ?? null;
