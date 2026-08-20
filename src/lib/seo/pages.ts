@@ -234,10 +234,18 @@ const distances: readonly PageEntry[] = DISTANCES.map((distance) => ({
   locales: localesFor('distances', distance.slug),
 }));
 
-/** Guides are async because they come from a content collection. */
+/**
+ * Guides are async because they come from a content collection.
+ *
+ * Translations live at `<locale>/<slug>.mdx` in the same collection, so the
+ * entries are filtered to the English set: a slug is one page with alternates,
+ * not ten pages. Without the filter the sitemap emits `/ja/guides/ar/<slug>/`,
+ * which is a URL no route builds.
+ */
 export const guideEntries = async (): Promise<readonly PageEntry[]> => {
   const { getCollection } = await import('astro:content');
-  const guides = await getCollection('guides');
+  const all = await getCollection('guides');
+  const guides = all.filter((guide) => !guide.id.includes('/'));
   return guides.map((guide) => ({
     path: `/guides/${guide.id}`,
     section: 'guides' as const,

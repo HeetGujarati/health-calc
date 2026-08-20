@@ -26,10 +26,11 @@ import {
  *
  * - **No dead keys.** A catalog entry no data file asks for is either a typo
  *   or a leftover from deleted content, and both are worth knowing about.
- * - **Coverage per locale**, reported per group. A missing key is not a crash
- *   — `contentText` falls back to English — so this is the only thing that
- *   makes the gap visible. `MINIMUM_COVERAGE` is raised as translation lands;
- *   it never falls.
+ * - **Coverage per locale.** A missing key is not a crash — `contentText`
+ *   falls back to English — so this is the only thing that makes the gap
+ *   visible. Every locale is now complete, and `MINIMUM_COVERAGE` is 1: a key
+ *   added to a data file without a translation in all nine catalogs fails the
+ *   build rather than silently shipping English inside a Japanese page.
  */
 
 const NON_DEFAULT: readonly Locale[] = LOCALES.map((locale) => locale.code).filter(
@@ -49,9 +50,9 @@ const requiredKeys = (): readonly string[] => [
  *
  * These are the strings that become a page's `<title>`, `<meta description>`
  * and `<h1>` — the ones a duplicate across locales genuinely costs something.
- * Body prose is tracked by the coverage figure below rather than gated, so a
- * partially translated locale still ships a working page with an English
- * paragraph rather than no page at all.
+ * Kept as a separate assertion from the coverage floor because it names the
+ * offending keys directly, and because it stays meaningful if a future locale
+ * is ever added mid-translation.
  */
 const IDENTITY_SUFFIXES = ['.heading', '.metaTitle', '.description', '.intro', '.keywords'];
 
@@ -59,8 +60,8 @@ const isIdentityKey = (key: string): boolean =>
   (key.startsWith('calc.') || key.startsWith('chart.')) &&
   IDENTITY_SUFFIXES.some((suffix) => key.endsWith(suffix));
 
-/** Raised as translation lands. Never lowered. */
-const MINIMUM_COVERAGE = 0.72;
+/** Raised as translation lands. Never lowered. At 1 since every locale landed. */
+const MINIMUM_COVERAGE = 1;
 
 describe('content catalogs', () => {
   const required = requiredKeys();
@@ -92,11 +93,12 @@ describe('content catalogs', () => {
 
   it.each(NON_DEFAULT)('%s meets the coverage floor', (locale) => {
     const catalog = CONTENT_MESSAGES[locale];
-    const done = required.filter((key) => catalog[key] !== undefined).length;
+    const missing = required.filter((key) => catalog[key] === undefined);
+    const done = required.length - missing.length;
     const coverage = done / required.length;
     expect(
       coverage,
-      `${locale}: ${String(done)}/${String(required.length)}`
+      `${locale}: ${String(done)}/${String(required.length)}; first missing: ${missing.slice(0, 5).join(', ')}`
     ).toBeGreaterThanOrEqual(MINIMUM_COVERAGE);
   });
 
