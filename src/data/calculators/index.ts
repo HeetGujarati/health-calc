@@ -15,6 +15,7 @@ import {
 } from './definitions/training';
 import { bodyType } from './definitions/bodytype';
 import { period } from './definitions/cycle';
+import { foodScoreCalc } from './definitions/foodscore';
 import {
   CALCULATOR_CATEGORIES,
   type CalculatorCategoryId,
@@ -45,6 +46,7 @@ export const CALCULATOR_DEFINITIONS: readonly CalculatorDefinition[] = [
   healthyWeightRange,
   period,
   bodyType,
+  foodScoreCalc,
 ];
 
 const BY_SLUG = new Map(CALCULATOR_DEFINITIONS.map((entry) => [entry.slug, entry]));

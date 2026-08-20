@@ -15,13 +15,14 @@ import {
   type ProteinLevelId,
 } from '../../health/protein';
 import { waterIntake, type Climate } from '../../health/water';
+import { fibrePerPoint, foodScore } from '../../health/foodscore';
 import { boerLeanBodyMass } from '../../health/leanmass';
 import { formatNumber } from '../../health/rounding';
 import { firstError } from '../../health/errors';
 import { parseAge, parseDurationSeconds, parseSex } from '../../health/validation';
 import { asKilograms, asSeconds, minutesToSeconds } from '../../health/units';
 import { readChoice, readHeight, readMass, unitSystemOf } from '../inputs';
-import { failure, type CalculatorResult, type FormValues } from '../result';
+import { failure, type CalculatorResult, type FormValues, type ResultNote } from '../result';
 
 /**
  * Energy and intake calculators.
@@ -445,5 +446,75 @@ export const computeWaterIntake = (values: FormValues, locale: string): Calculat
         text: 'The Institute of Medicine report that supplies the reference values also states that the great majority of healthy people meet their needs by letting thirst guide them. These are population reference values, not a target anyone has to hit. The "eight glasses a day" rule has no identifiable source in the literature.',
       },
     ],
+  };
+};
+
+/**
+ * Reads a non-negative nutrition figure straight off a label.
+ *
+ * Values arrive as typed strings and can also come from the query string, so an
+ * unparseable or negative entry is rejected rather than coerced — a negative
+ * fat figure would quietly subtract from the score.
+ */
+const readNutritionValue = (values: FormValues, field: string, max: number): number | null => {
+  const raw = values[field];
+  if (raw === undefined || raw.trim() === '') return null;
+
+  const parsed = Number(raw.trim());
+  if (!Number.isFinite(parsed) || parsed < 0 || parsed > max) return null;
+  return parsed;
+};
+
+/**
+ * Food score from calories, fat and fibre.
+ *
+ * The result shows all three contributions rather than only the total, because
+ * the single useful thing this formula says is how it weighs them against each
+ * other — a gram of fibre cancels 2.4 times what a gram of fat adds — and that
+ * is invisible in a bare number.
+ */
+export const computeFoodScore = (values: FormValues, locale: string): CalculatorResult => {
+  const kcal = readNutritionValue(values, 'kcal', 5000);
+  if (kcal === null) {
+    return failure({
+      code: 'not_a_number',
+      message: 'Enter the calories per serving, as a number of kcal.',
+      field: 'kcal',
+    });
+  }
+
+  const fatGrams = readNutritionValue(values, 'fat', 500) ?? 0;
+  const fibreGrams = readNutritionValue(values, 'fibre', 200) ?? 0;
+
+  const result = foodScore({ kcal, fatGrams, fibreGrams });
+
+  const notes: ResultNote[] = [
+    {
+      tone: 'info',
+      text: `This formula counts calories and fat, and gives credit for fibre. It knows nothing about protein, sugar, salt, or whether the food is a vegetable or a biscuit — two foods with the same calories, fat and fibre score identically. Every ${String(fibrePerPoint())} g of fibre cancels one point.`,
+    },
+  ];
+
+  if (result.floored) {
+    notes.push({
+      tone: 'info',
+      text: 'The fibre subtracted more than the calories and fat added, so the arithmetic went below zero. The score is shown as zero, which is the lowest value the formula was defined to produce.',
+    });
+  }
+
+  return {
+    ok: true,
+    primary: { label: 'Food score', value: formatNumber(result.score, locale, 'calories') },
+    summary: `This serving scores ${formatNumber(result.score, locale, 'calories')}.`,
+    secondary: [
+      {
+        label: 'From calories',
+        value: `+${formatNumber(result.fromCalories, locale, 'bmiPrime')}`,
+      },
+      { label: 'From fat', value: `+${formatNumber(result.fromFat, locale, 'bmiPrime')}` },
+      { label: 'From fibre', value: `−${formatNumber(result.fromFibre, locale, 'bmiPrime')}` },
+      { label: 'Before rounding', value: formatNumber(result.raw, locale, 'bmiPrime') },
+    ],
+    notes,
   };
 };

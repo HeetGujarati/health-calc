@@ -311,7 +311,7 @@ export const calorie: CalculatorDefinition = {
     },
   ],
   referenceTable: calorieTable(),
-  relatedCalculators: ['tdee', 'bmr', 'macro', 'protein', 'healthy-weight-range', 'bmi'],
+  relatedCalculators: ['tdee', 'bmr', 'macro', 'protein', 'healthy-weight-range', 'food-score'],
   relatedGuides: [
     'building-a-sustainable-calorie-target',
     'the-maintenance-calories-misconception',
@@ -404,7 +404,7 @@ export const macro: CalculatorDefinition = {
     },
   ],
   referenceTable: macroTable(),
-  relatedCalculators: ['calorie', 'protein', 'tdee', 'bmr', 'body-fat', 'lean-body-mass'],
+  relatedCalculators: ['calorie', 'protein', 'tdee', 'bmr', 'body-fat', 'food-score'],
   relatedGuides: ['how-to-set-a-protein-target', 'building-a-sustainable-calorie-target'],
   lastUpdated: REVIEWED,
   published: REVIEWED,

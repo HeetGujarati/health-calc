@@ -10,6 +10,7 @@ import {
 import {
   computeBmr,
   computeCalorieGoal,
+  computeFoodScore,
   computeMacros,
   computeProtein,
   computeTdee,
@@ -55,6 +56,7 @@ export const CALCULATORS: Readonly<Record<string, ComputeFn>> = {
   'army-body-fat': computeArmyBodyFat,
   period: computePeriod,
   'body-type': computeBodyType,
+  'food-score': computeFoodScore,
 };
 
 export const calculatorSlugs = Object.keys(CALCULATORS);

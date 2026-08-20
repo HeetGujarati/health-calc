@@ -15,6 +15,7 @@ import { finishTime, formatDuration } from '../../lib/health/pace';
 import { waterIntake } from '../../lib/health/water';
 import { armyBodyComposition } from '../../lib/health/armybodyfat';
 import { FRAME_CUTOFFS } from '../../lib/health/bodytype';
+import { foodScore } from '../../lib/health/foodscore';
 import { forDisplay, roundTo } from '../../lib/health/rounding';
 import {
   asBeatsPerMinute,
@@ -56,6 +57,22 @@ export const bmiTable = (): ReferenceTable => {
       cells: weights.map((weight) =>
         n(bodyMassIndex(asKilograms(weight), asCentimetres(height)), 1)
       ),
+    })),
+  };
+};
+
+export const foodScoreTable = (): ReferenceTable => {
+  const calories = [100, 150, 200, 250, 300, 400, 500];
+  const fats = [0, 5, 10, 20];
+  return {
+    caption: 'Food score by calories and fat, at zero fibre',
+    note: 'Read across from the calories in a serving and down from its fat. Fibre is not in this table because it only subtracts: every 5 g takes one point off whatever you find here. The pattern worth noticing is how little fat has to change to move the score compared with calories.',
+    rowHeader: 'Calories',
+    columnHeader: 'Fat',
+    columns: fats.map((fat) => `${String(fat)} g`),
+    rows: calories.map((kcal) => ({
+      label: `${String(kcal)} kcal`,
+      cells: fats.map((fat) => n(foodScore({ kcal, fatGrams: fat, fibreGrams: 0 }).score)),
     })),
   };
 };
