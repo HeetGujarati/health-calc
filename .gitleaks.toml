@@ -1,0 +1,32 @@
+# gitleaks configuration.
+#
+# Secret scanning is unavailable on a private repository without GitHub
+# Advanced Security, so gitleaks covers that gap in CI. See SECURITY.md.
+#
+# The default rule set is kept in full and this file only narrows where the
+# high-entropy heuristics apply.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Translated prose is not a credential store"
+
+# `generic-api-key` scores a string on entropy and on the words near it. That
+# heuristic is right for source and configuration, and wrong for natural
+# language: it flagged an Indonesian sentence about the eight-glasses-of-water
+# rule in `id.json` as a secret, on nothing more than the shape of the words.
+#
+# With ten locales of FAQ answers, formula notes and table captions — over a
+# thousand keys each — more of these are certain, and each one is a build that
+# fails for a reason nobody can act on. The paths below hold translated content
+# and nothing else: no endpoint, no credential and no configuration is read from
+# them, and the schema that validates them has no field one could hide in.
+#
+# Everything a secret could plausibly reach — source, scripts, workflows,
+# configuration, the lockfile — is still scanned by the full default rule set.
+paths = [
+  '''^src/i18n/content/[^/]+\.json$''',
+  '''^src/i18n/ui/[^/]+\.ts$''',
+  '''^src/content/guides/.*\.mdx$''',
+]

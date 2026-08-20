@@ -39,7 +39,11 @@ Mitigations:
   `@lhci/cli` and both absent from the production tree.
 - Dependabot alerts, automated security fixes, and weekly update PRs for both npm
   and GitHub Actions.
-- CodeQL scans JavaScript and TypeScript weekly and on every push.
+- CodeQL scans JavaScript and TypeScript weekly and on every push. The analysis
+  runs, but publishing its results needs code scanning enabled on the
+  repository, which is Advanced Security on a private repo — see the known gaps
+  below. Until it is enabled the job fails at the upload step and no alert is
+  ever raised.
 - Runtime dependencies are deliberately few. The site ships **zero** third-party
   JavaScript to the browser: no analytics, no tag manager, no ad script, no
   embedded widgets, no font CDN. Every byte executed in a visitor's browser was
@@ -162,6 +166,19 @@ private repositories, and this repository must stay private. A gitleaks step in
 CI catches committed secrets on every push, but it detects them _after_ the
 commit rather than blocking the push. There is no free equivalent of push
 protection.
+
+**CodeQL results are not published.** Uploading them needs code scanning
+enabled, which is the same Advanced Security gate. The analysis has run and
+failed at the upload on every commit since it was added, so no CodeQL finding
+has ever been reported. Enabling code scanning in the repository settings is the
+only fix; nothing in this repo can grant it.
+
+**gitleaks does not read the translation catalogs.** `.gitleaks.toml` excludes
+`src/i18n/content/`, `src/i18n/ui/` and the guide MDX, because the
+`generic-api-key` heuristic scores natural language as a credential and ten
+locales of prose produce a steady supply of false positives. Those paths hold
+translated content and nothing else. Everything a secret could plausibly reach
+is still scanned.
 
 **No external penetration test.** The site has not been reviewed by a third
 party.
