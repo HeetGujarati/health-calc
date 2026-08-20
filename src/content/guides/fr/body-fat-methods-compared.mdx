@@ -1,0 +1,114 @@
+---
+title: Comment les méthodes de mesure de la masse grasse se comparent
+metaTitle: Les méthodes de masse grasse
+description: DEXA, pesée hydrostatique, pinces, mètre ruban et balances connectées, classés selon ce qu'ils mesurent vraiment et ce que chacun se trompe à faire.
+keywords:
+  - mesure de masse grasse la plus exacte
+  - dexa contre pinces à plis
+  - fiabilité des tests de masse grasse
+  - précision de l'impédancemétrie
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [body-fat, lean-body-mass, bmi]
+relatedGuides: [how-the-navy-method-works, why-bmi-is-a-screening-tool]
+readingMinutes: 7
+---
+
+Rien de ce qui vous est accessible ne mesure directement la masse grasse. Une mesure directe suppose l'analyse chimique du tissu, ce qui exige un cadavre.
+
+Tout le reste déduit la graisse d'autre chose — densité, résistance électrique, épaisseur d'un pli cutané, circonférence — au moyen d'une équation ajustée sur une population de référence. Comprendre _à partir de quoi_ chaque méthode déduit est la clé pour savoir quand elle vous induira en erreur.
+
+## Les méthodes de référence
+
+**La pesée hydrostatique** a été l'étalon-or pendant des décennies. On vous pèse sous l'eau, ce qui donne la densité du corps entier, et la densité se convertit en pourcentage de graisse par l'équation de Siri. La graisse est moins dense que le tissu maigre : une personne plus grasse flotte davantage.
+
+**La pléthysmographie par déplacement d'air** — le Bod Pod — fait la même chose en mesurant l'air déplacé au lieu de l'eau. Exactitude comparable, expérience nettement plus agréable.
+
+**La DEXA** est l'étalon moderne en pratique. Un balayage aux rayons X à faible dose distingue os, tissu maigre et graisse par leur atténuation différente, et fournit une répartition régionale en plus du total. La précision sur des examens répétés est bonne, généralement à un ou deux points de pourcentage près.
+
+La DEXA comporte une réserve qui surprend : les résultats diffèrent selon les fabricants et selon les versions logicielles. Un examen sur une machine et un autre sur une autre peuvent différer de plusieurs points. Pour suivre une évolution, utilisez toujours la même machine.
+
+**Erreur typique :** 1 à 3 points de pourcentage. **Coût :** une visite en clinique.
+
+## L'hypothèse à deux compartiments
+
+Tout ce qui repose sur la densité corporelle — hydrostatique, Bod Pod et toutes les équations de plis cutanés — s'appuie sur l'équation de Siri :
+
+```
+%MG = 495 / densité corporelle − 450
+```
+
+Cette équation suppose que la masse grasse a une densité de 0,900 g/cm³ et la masse non grasse 1,100 g/cm³. Ces constantes viennent d'un petit nombre d'analyses de cadavres de jeunes adultes blancs.
+
+La densité de la masse non grasse n'est en réalité pas constante. Elle varie avec la densité minérale osseuse, l'hydratation et l'âge. Une personne aux os inhabituellement denses paraît plus sèche qu'elle ne l'est ; une personne à faible densité osseuse paraît plus grasse. Des différences systématiques ont été documentées entre groupes ethniques, et les constantes conviennent mieux à certaines populations qu'à d'autres.
+
+C'est un plancher pour l'exactitude de toute méthode fondée sur la densité, y compris toutes les équations de pinces, et aucun soin de mesure ne le supprime.
+
+## Les pinces à plis cutanés
+
+Pincez la peau et la graisse sous-cutanée à des sites définis, mesurez l'épaisseur, additionnez les sites, et passez le total dans une régression qui prédit la densité corporelle.
+
+Les équations de Jackson-Pollock font référence. Il en existe des versions à 3 et à 7 sites, toutes deux présentes sur le [calculateur de masse grasse](/fr/calculators/body-fat/).
+
+Entre des mains expertes, les pinces sont vraiment bonnes : 3 à 4 points de pourcentage face à la DEXA, et mieux encore pour suivre l'évolution d'une même personne dans le temps.
+
+Entre des mains inexpérimentées, elles sont médiocres, et les modes de défaillance sont précis. La localisation du site doit être exacte, car l'épaisseur de graisse change sur quelques centimètres. La profondeur du pincement doit être constante. La lecture doit se faire à un intervalle fixe après la pose de la pince, car le tissu se comprime sous la pression. Deux opérateurs mesurant le même sujet peuvent différer de plusieurs points, et la même personne mesurant deux fois peut différer d'un point ou plus.
+
+La version à 7 sites est plus exacte en principe et cumule l'erreur de mesure sur davantage de sites en pratique. Pour la plupart des gens, celle à 3 sites est le meilleur compromis.
+
+**Erreur typique :** 3 à 4 points avec une bonne technique, nettement plus sans. **Coût :** une vingtaine d'euros pour une pince.
+
+## Les méthodes par circonférences
+
+Mesurez des tours — cou, taille, et hanches chez les femmes — et prédisez la masse grasse à partir des rapports. La méthode de l'US Navy est la plus connue, et c'est celle par défaut sur ce site.
+
+L'idée est que l'écart entre tour de taille et tour de cou capte la graisse centrale tout en corrigeant de la carrure. C'est rudimentaire, et cela fonctionne mieux que de raison : Hodgdon et Beckett ont rapporté une corrélation d'environ 0,90 face à la pesée hydrostatique, avec une erreur typique de 3 à 4 points de pourcentage.
+
+Ses échecs sont prévisibles. Quelqu'un qui stocke surtout sur les jambes paraît sec, parce que l'équation ne regarde jamais là. Une personne très musclée à la taille épaisse par la musculature abdominale paraît plus grasse qu'elle ne l'est. La méthode est détaillée dans [comment fonctionne la méthode de l'US Navy](/fr/guides/how-the-navy-method-works/).
+
+Son immense avantage est la reproductibilité. Un mètre ruban est sans ambiguïté là où un pli cutané ne l'est pas : le bruit d'une mesure à l'autre est donc faible, ce qui la rend bonne pour le suivi même quand le chiffre absolu est décalé.
+
+**Erreur typique :** 3 à 4 points. **Coût :** un mètre ruban.
+
+## L'impédancemétrie
+
+Balances connectées et appareils à main font passer un faible courant dans le corps et mesurent la résistance. Le tissu maigre est surtout de l'eau et conduit bien ; la graisse non. La résistance corrèle donc avec la composition corporelle.
+
+Elle corrèle plus fortement encore avec l'état d'hydratation, et c'est le problème. Les valeurs bougent selon ce que vous avez bu, l'heure du dernier repas, un exercice récent, la température cutanée et — pour les balances pied à pied — la transpiration des pieds. Des écarts de plusieurs points sur une seule journée sont ordinaires.
+
+Les appareils grand public appliquent en outre des équations propriétaires non publiées : vous ne pouvez pas savoir quelles hypothèses fait votre balance.
+
+Utilisée de façon constante — même heure, même état d'hydratation, mêmes conditions — la _tendance_ est un peu informative. Une mesure isolée ne l'est pas.
+
+**Erreur typique :** 4 à 8 points, pire quand l'hydratation varie. **Coût :** intégré à de nombreuses balances.
+
+## Les estimations à partir de l'IMC
+
+L'équation de Deurenberg prédit la masse grasse à partir de l'IMC, de l'âge et du sexe. Elle n'exige aucune mesure du corps au-delà de la taille et du poids.
+
+Elle hérite de toutes les limites de l'IMC, puisque l'IMC est sa seule entrée corporelle. Elle ne distingue pas le muscle de la graisse et surestime donc nettement chez les personnes musclées — précisément le groupe le plus susceptible de vouloir ce chiffre.
+
+Elle figure sur le calculateur parce qu'elle est très citée et ne demande aucun matériel. C'est l'option la moins exacte qui s'y trouve, et la page le dit.
+
+**Erreur typique :** 5 points ou plus, bien davantage chez les athlètes.
+
+## Le classement
+
+| Méthode                     | Erreur typique | Praticité                        |
+| --------------------------- | -------------- | -------------------------------- |
+| DEXA                        | 1–3 points     | Visite en clinique               |
+| Hydrostatique / Bod Pod     | 2–3 points     | Structure spécialisée            |
+| Plis cutanés, opérateur formé | 3–4 points   | Peu coûteux, exige la technique  |
+| Mètre ruban US Navy         | 3–4 points     | Le moins cher, le plus reproductible |
+| Balances à impédance        | 4–8 points     | Pratiques, bruitées              |
+| Fondées sur l'IMC           | 5+ points      | Aucun matériel                   |
+
+## Ce qui compte réellement
+
+Deux choses méritent d'être intégrées.
+
+**Le chiffre absolu est moins utile qu'il n'y paraît.** Une lecture au mètre de 20 pour cent signifie quelque part entre 16 et 24. Courir après une valeur précise avec des méthodes qui divergent de 5 points, c'est courir après du bruit.
+
+**Pour le suivi, la constance l'emporte sur l'exactitude.** Une méthode avec un biais systématique de 4 points montre quand même fidèlement l'évolution, car le biais s'annule. Choisissez une méthode, mesurez dans les mêmes conditions — même heure, même hydratation, la même personne pour les plis — et observez la direction sur plusieurs mois.
+
+Qui change de méthode et constate un saut de cinq points n'a pas changé. Il a changé d'instrument.
