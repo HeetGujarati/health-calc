@@ -333,6 +333,92 @@ as 0.550 and fails. Rounding is applied before comparison, so a raw ratio of
 
 ---
 
+## Menstrual cycle dates — `cycle.ts`
+
+**Not a published equation, and the page says so.** This is arithmetic in the
+same sense pace is: there is no paper to cite for adding a number of days to a
+date.
+
+| Quantity          | Equation                                |
+| ----------------- | --------------------------------------- |
+| Next period start | last period start + cycle length        |
+| nth period start  | last period start + (cycle length × n)  |
+| Period end        | that period's start + period length − 1 |
+
+What is published is the interval those figures sit in: Mihm M, Gangooly S,
+Muttukrishna S., "The normal menstrual cycle in women", _Animal Reproduction
+Science_ 124(3–4), 2011, 229–236. Adult cycles run roughly 21 to 35 days, with
+28 the commonly quoted midpoint rather than a figure anyone is expected to hit.
+The form accepts 20 to 45 days, wider at both ends, so that someone outside the
+usual range gets an answer rather than a rejection.
+
+**The one assumption, and it is a strong one.** Every future cycle is exactly as
+long as the one entered. Cycle length varies from one cycle to the next in most
+people, and because the projection multiplies the interval, the error multiplies
+with it — the sixth date is roughly six times as uncertain as the first.
+Projecting from an average of several recent cycles is better than projecting
+from one.
+
+Each date is projected from the original date rather than from the previous
+projection, so rounding cannot accumulate across cycles. The end date counts the
+first day: a three-day period starting on the 1st ends on the 3rd, not the 4th.
+
+Dates enter and leave as `YYYY-MM-DD` and are UTC epoch days in between. The
+same input worked out in Auckland and in Los Angeles has to give the same
+calendar date, and local `Date` construction makes that untrue for several hours
+a day. Dates that do not exist are rejected rather than rolled forward, because
+`Date.UTC` turns 30 February into 2 March and would answer confidently for the
+wrong day.
+
+**What this deliberately does not compute.** No ovulation estimate, no fertile
+window, no conception or due date. The site states on `/about/` and in
+`llms.txt` that it does not publish those, and the arithmetic sitting unused in
+a module would contradict that as loudly as a page would.
+
+---
+
+## Body type and frame size — `bodytype.ts`
+
+| Quantity          | Form                                                                                                  |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| Frame ratio       | height(cm) / wrist circumference(cm)                                                                  |
+| Frame size, men   | small > 10.4; large < 9.6; medium in between                                                          |
+| Frame size, women | small > 11.0; large < 10.1; medium in between                                                         |
+| Build label       | small frame and BMI < 20 → ectomorph; large frame and BMI ≥ 27 → endomorph; anything else → mesomorph |
+
+Cut-points as reproduced in Grant JP., _Handbook of Total Parenteral Nutrition_,
+2nd ed., 1992, from the Metropolitan Life frame-size tables.
+
+The direction inverts and is easy to get backwards: a **larger** ratio means a
+slighter wrist for the height, which is the **small** frame.
+
+**The label is a description, not a measurement.** The three names come from
+Sheldon WH., _The Varieties of Human Physique_, 1940, whose claim that physique
+predicts temperament was discredited; the photographic method it rested on is
+better remembered as a scandal than as science. What survives in sports science
+is the Heath-Carter anthropometric method — Heath B, Carter JEL., "A modified
+somatotype method", _American Journal of Physical Anthropology_ 27(1), 1967,
+57–74 — which needs skinfold calipers at four sites, two bone breadths and two
+limb girths. **It is not implemented here**, because height, weight and a wrist
+cannot produce it. Nothing in the module is named `somatotype`, since that would
+imply the method this does not use.
+
+**What the frame ratio is worth.** The wrist carries little muscle and almost no
+fat, so its circumference tracks skeletal size and barely moves with weight —
+which is what makes it usable at all. The cut-points are the weak part: they
+come from mid-century insurance reference tables rather than a population study,
+and the sex split reflects those reference groups rather than a difference in
+how skeletons scale. Treat the boundaries as approximate.
+
+Most people come out mesomorph, which is a fact about a three-category scheme
+rather than about the population. Where frame size and BMI point in opposite
+directions — a slight frame carrying a high BMI, or the reverse — the result is
+flagged as mixed and says none of the three labels describes that person. A test
+asserts that mixed and a non-mesomorph label can never both be true, since the
+page would otherwise contradict itself.
+
+---
+
 ## Display rounding — `rounding.ts`
 
 Formulas return full precision. Rounding happens exactly once, at display.

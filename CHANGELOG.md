@@ -8,6 +8,48 @@ and the project uses [semantic versioning](https://semver.org/spec/v2.0.0.html)
 minor when pages or calculators are added, and the patch for fixes and content
 corrections.
 
+## [1.1.0] — 2026-08-20
+
+Two calculators, in all ten locales, taking the site from 913 prerendered pages
+to 933.
+
+### Added
+
+**Period calculator.** Projects the start dates of the next six periods from the
+first day of the last one and a usual cycle length. Dates only: no ovulation
+estimate, no fertile window, no conception or due date. The page states that
+scope rather than leaving it to be inferred, because someone searching for a
+period calculator is often looking for exactly what this one declines to
+provide. The arithmetic works in UTC epoch days throughout, so the same input
+gives the same calendar date in every timezone, and each date is projected from
+the original rather than from the previous projection, so error cannot
+accumulate across cycles.
+
+**Body type calculator.** Frame size from the height-to-wrist ratio, with the
+familiar ectomorph, mesomorph and endomorph label reported second as the loose
+description it is. The page says outright that this is not a Heath-Carter
+somatotype, that most people come out mesomorph because three categories are too
+few, and that Sheldon's claim linking physique to temperament was discredited.
+Where frame size and BMI point in opposite directions, the result says none of
+the three labels describes that person.
+
+**A `cycle` category**, labelled "Menstrual cycle", alongside body composition,
+energy and intake, training and weight reference. Translated in all ten UI
+catalogs.
+
+**A date input type.** The calculator form had no way to ask for a date before
+this. Its bounds are fixed rather than a rolling window, so nothing derived from
+the build clock can change the emitted HTML on every build.
+
+### Removed
+
+**A body surface area calculator**, added and reverted the same day. It computed
+correctly, and it still had to go: `/about/` and `llms.txt` both name body
+surface area, kidney function and blood alcohol content as tools whose output
+feeds medical decisions and which this site therefore does not publish. Shipping
+one would have made that statement false, so the commit was reverted rather than
+kept behind a caveat.
+
 ## [1.0.0] — 2026-08-20
 
 First release. 913 prerendered pages across ten locales.
@@ -85,4 +127,5 @@ JavaScript budget, and Lighthouse.
 | `astro check`            | 0 errors, 0 warnings, 0 hints across 162 files         |
 | Formula library coverage | 99.6% statements, 99.4% branches                       |
 
+[1.1.0]: https://github.com/HITMAN5050/Health/releases/tag/v1.1.0
 [1.0.0]: https://github.com/HITMAN5050/Health/releases/tag/v1.0.0

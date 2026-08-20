@@ -28,7 +28,7 @@ import type { ComputeFn } from './result';
  * Slug to compute function.
  *
  * One registry, imported by the single client island, so Astro emits one shared
- * chunk across all sixteen calculator pages rather than a bundle per page. The
+ * chunk across all eighteen calculator pages rather than a bundle per page. The
  * functions are pure arithmetic over small modules, so the whole registry costs
  * a few kilobytes.
  *

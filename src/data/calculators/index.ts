@@ -22,7 +22,7 @@ import {
 } from './types';
 
 /**
- * The sixteen launch calculators.
+ * The eighteen calculators.
  *
  * Order here is the order they appear in the directory, grouped by category.
  */

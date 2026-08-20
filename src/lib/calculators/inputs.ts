@@ -29,7 +29,7 @@ import type { FormValues } from './result';
  * Every calculator accepts both unit systems, and each one converts to metric
  * at the boundary so the formula modules only ever see kilograms and
  * centimetres. Doing the conversion once, here, is what stops a unit bug from
- * being reimplemented sixteen times.
+ * being reimplemented eighteen times.
  */
 
 export const unitSystemOf = (values: FormValues): UnitSystem => {

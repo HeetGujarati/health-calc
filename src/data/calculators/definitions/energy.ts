@@ -588,7 +588,10 @@ export const waterIntakeCalc: CalculatorDefinition = {
     },
   ],
   referenceTable: waterTable(),
-  relatedCalculators: ['calories-burned', 'tdee', 'calorie', 'protein', 'macro', 'bmr'],
+  // `period` because fluid retention shifts across the menstrual cycle, which is
+  // one of the larger sources of day-to-day variation in how much water a person
+  // is holding — and one this page would otherwise leave unexplained.
+  relatedCalculators: ['calories-burned', 'tdee', 'calorie', 'protein', 'period', 'bmr'],
   relatedGuides: ['met-values-explained', 'why-scale-weight-fluctuates'],
   lastUpdated: REVIEWED,
   published: REVIEWED,
