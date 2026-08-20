@@ -1,0 +1,95 @@
+---
+title: Mifflin-St Jeor face à Harris-Benedict et Katch-McArdle
+metaTitle: Les équations comparées
+description: Trois équations du métabolisme de base, trois réponses pour la même personne. Laquelle est la plus exacte, quand, et pourquoi la meilleure sur le papier déçoit.
+keywords:
+  - mifflin st jeor contre harris benedict
+  - formule katch mcardle
+  - équation du métabolisme de base la plus exacte
+  - comparaison des formules
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [bmr, tdee, lean-body-mass]
+relatedGuides: [how-bmr-is-calculated, body-fat-methods-compared]
+readingMinutes: 6
+---
+
+Faites passer un homme de 80 kg, 180 cm, 30 ans dans les trois équations standard du métabolisme de base et vous obtenez 1 780, 1 854 et — si vous savez que sa masse maigre est de 64 kg — 1 752. Un écart d'environ 100 kcal, qui se creuse dès qu'un coefficient d'activité s'applique par-dessus.
+
+Elles ne peuvent pas toutes avoir raison. Voici comment choisir.
+
+## Les candidates
+
+**Mifflin-St Jeor** (1990) provient de 498 adultes en bonne santé mesurés par calorimétrie indirecte :
+
+```
+hommes : MB = 10P + 6,25T − 5A + 5
+femmes : MB = 10P + 6,25T − 5A − 161
+```
+
+**Harris-Benedict révisée** (Roza et Shizgal, 1984) a repris l'équation d'origine de 1919 sur un jeu de données plus large :
+
+```
+hommes : MB = 88,362 + 13,397P + 4,799T − 5,677A
+femmes : MB = 447,593 + 9,247P + 3,098T − 4,330A
+```
+
+**Katch-McArdle** n'utilise qu'une variable :
+
+```
+MB = 370 + 21,6 × masse maigre (kg)
+```
+
+P est en kilogrammes, T en centimètres, A en années.
+
+## Ce qu'ont trouvé les études de validation
+
+La comparaison la plus citée est la revue systématique de Frankenfield et collègues pour l'American Dietetic Association, qui a évalué la fréquence à laquelle chaque équation prédisait la dépense de repos mesurée à moins de dix pour cent près.
+
+Mifflin-St Jeor s'est révélée la meilleure aussi bien chez les adultes obèses que non obèses, et c'est l'équation que recommande l'Academy of Nutrition and Dietetics. Harris-Benedict, y compris dans sa version révisée, avait tendance à surestimer — généralement d'environ cinq pour cent, davantage chez les personnes obèses.
+
+La raison est simple. Harris et Benedict ont mesuré 239 personnes au début du XXe siècle. Cette cohorte différait d'une population actuelle par sa composition corporelle et sans doute par des aspects que personne n'a consignés, et la calorimétrie elle-même a beaucoup progressé au cours des soixante-dix ans qui séparent les deux travaux. Les décimales supplémentaires de la version révisée reflètent l'ajustement, pas un surcroît d'exactitude.
+
+## L'exception Katch-McArdle
+
+Katch-McArdle est le cas intéressant, car savoir si elle est la meilleure ou la pire des trois dépend entièrement d'un seul élément.
+
+C'est la seule équation qui réagisse à la composition corporelle. Taille, poids, âge et sexe sont tous des indicateurs indirects de la quantité de tissu métaboliquement actif. La masse maigre, elle, est cette quantité directement. Si vous la connaissez, vous avez sauté les indicateurs et rejoint la variable qui compte vraiment.
+
+C'est pourquoi elle surpasse les autres dans les populations à composition corporelle inhabituelle — athlètes entraînés, personnes à fort pourcentage de masse grasse, quiconque que les indicateurs taille-poids lisent mal. Chez une personne sèche et musclée, Mifflin-St Jeor sous-estime parce qu'elle ne voit pas le muscle ; Katch-McArdle le voit.
+
+Le piège est l'entrée. Presque personne ne dispose d'une masse maigre mesurée. Ce que les gens ont, c'est une estimation, généralement issue d'un mètre ruban ou d'une équation fondée sur l'IMC — et celles-ci portent trois à quatre points de pourcentage d'erreur, qui se répercutent directement sur le chiffre du métabolisme de base.
+
+L'ordre s'inverse donc :
+
+- **Masse maigre mesurée par DEXA :** Katch-McArdle est la plus exacte des trois.
+- **Masse maigre estimée au mètre ruban :** à peu près comparable à Mifflin-St Jeor, avec plus de variance.
+- **Masse maigre estimée à partir de l'IMC :** moins bonne que Mifflin-St Jeor, car vous avez ajouté l'erreur d'une seconde équation à la première sans rien y gagner.
+
+Le [calculateur de métabolisme de base](/fr/calculators/bmr/) utilise l'équation de Boer pour estimer la masse maigre lorsque vous n'en fournissez pas, et le signale sur la page. C'est honnête, mais cela reste une estimation, et la note existe pour que personne ne prenne le chiffre de Katch-McArdle pour une mesure.
+
+## La réponse pratique
+
+**Utilisez Mifflin-St Jeor** sauf si vous disposez d'un pourcentage de masse grasse mesuré. C'est l'équation la mieux validée pour la population générale, et elle n'exige que ce que vous savez déjà.
+
+**Utilisez Katch-McArdle** si vous avez passé une DEXA ou disposez d'une mesure fiable de composition corporelle, et particulièrement si vous êtes très sec ou très musclé. C'est là que les équations fondées sur des indicateurs indirects peinent le plus.
+
+**Utilisez Harris-Benedict** pour comparer avec des documents plus anciens, ou si un autre système avec lequel vous travaillez l'emploie et que vous souhaitez rester cohérent. Pas parce qu'elle serait plus exacte, car elle ne l'est pas.
+
+## Pourquoi l'écart compte plus que le vainqueur
+
+Voici ce qu'il faut retenir : le désaccord entre les équations est plus petit que l'erreur de chacune d'elles prise isolément.
+
+Les équations prédictives tombent à moins de dix pour cent de la dépense de repos mesurée chez la plupart des gens. Dix pour cent de 1 800 kcal font 180 kcal. L'écart entre Mifflin-St Jeor et Harris-Benedict pour une même personne est typiquement de 70 à 100 kcal — largement à l'intérieur de la marge d'erreur de l'une comme de l'autre.
+
+Choisir la « bonne » équation rapporte donc moins qu'il n'y paraît. Vous choisissez entre trois estimations qui portent à peu près la même incertitude, et retenir la mieux validée est raisonnable sans être décisif.
+
+Le [calculateur affiche les trois](/fr/calculators/bmr/) précisément pour cette raison. Quand elles se regroupent étroitement, l'estimation est probablement correcte. Quand elles s'écartent nettement — ce qui arrive aux extrêmes de taille, de poids et d'âge — cet écart vous dit que le nombre mérite moins de confiance qu'un chiffre unique ne le laisserait croire.
+
+## Que faire de ce nombre
+
+Ne le mangez pas. Le métabolisme de base est ce qu'il vous faudrait allongé, immobile, toute la journée ; c'est une entrée d'une cible calorique, pas la cible. Cette distinction est traitée dans [comment se calcule le métabolisme de base](/fr/guides/how-bmr-is-calculated/), et s'y tromper est le contresens le plus lourd de conséquences avec ces équations.
+
+Multipliez par un niveau d'activité pour obtenir la dépense énergétique totale, en acceptant que le coefficient introduise plus d'erreur que le choix de l'équation n'en avait introduit. Traitez ensuite le résultat comme une hypothèse de départ, mangez à ce niveau pendant quinze jours, et ajustez d'après ce que fait réellement votre poids.
+
+Votre propre réponse mesurée bat toutes les équations de cette page, et il faut deux semaines pour l'obtenir.

@@ -1,0 +1,95 @@
+---
+title: Mifflin-St Jeor contra Harris-Benedict e Katch-McArdle
+metaTitle: Equações de TMB comparadas
+description: Três equações de TMB, três respostas diferentes para a mesma pessoa. Qual é mais exata, quando, e por que a melhor no papel costuma falhar na prática.
+keywords:
+  - mifflin st jeor contra harris benedict
+  - fórmula katch mcardle
+  - equação de tmb mais exata
+  - comparação de fórmulas de tmb
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [bmr, tdee, lean-body-mass]
+relatedGuides: [how-bmr-is-calculated, body-fat-methods-compared]
+readingMinutes: 6
+---
+
+Passe um homem de 80 kg, 180 cm e 30 anos pelas três equações padrão de taxa metabólica basal e você obtém 1.780, 1.854 e — se souber que a massa magra dele é 64 kg — 1.752. Uma dispersão de cerca de 100 kcal, que aumenta assim que um multiplicador de atividade é aplicado por cima.
+
+Elas não podem estar todas certas. Veja como decidir qual usar.
+
+## As candidatas
+
+**Mifflin-St Jeor** (1990) veio de 498 adultos saudáveis medidos por calorimetria indireta:
+
+```
+homens:   TMB = 10P + 6,25A − 5I + 5
+mulheres: TMB = 10P + 6,25A − 5I − 161
+```
+
+**Harris-Benedict revisada** (Roza e Shizgal, 1984) reelaborou a equação original de 1919 com um conjunto de dados maior:
+
+```
+homens:   TMB = 88,362 + 13,397P + 4,799A − 5,677I
+mulheres: TMB = 447,593 + 9,247P + 3,098A − 4,330I
+```
+
+**Katch-McArdle** usa uma única variável:
+
+```
+TMB = 370 + 21,6 × massa magra (kg)
+```
+
+P é quilogramas, A é centímetros, I é anos.
+
+## O que os estudos de validação encontraram
+
+A comparação mais citada é a revisão sistemática de Frankenfield e colegas para a American Dietetic Association, que avaliou com que frequência cada equação previa o gasto energético de repouso medido com erro inferior a dez por cento.
+
+Mifflin-St Jeor teve o melhor desempenho tanto em adultos com obesidade quanto sem, e é a equação recomendada pela Academy of Nutrition and Dietetics. Harris-Benedict, inclusive a versão revisada, tendia a superestimar — em geral cerca de cinco por cento, e mais em pessoas com obesidade.
+
+A razão é direta. Harris e Benedict mediram 239 pessoas no início do século XX. Aquela coorte diferia de uma população moderna em composição corporal e provavelmente em aspectos que ninguém registrou, e a própria calorimetria melhorou bastante nos setenta anos entre os dois estudos. As casas decimais extras da versão revisada refletem o processo de ajuste, não exatidão adicional.
+
+## A exceção Katch-McArdle
+
+Katch-McArdle é o caso interessante, porque se ela é a melhor ou a pior das três depende inteiramente de uma coisa.
+
+É a única equação que responde à composição corporal. Altura, peso, idade e sexo são todos proxies para quanto tecido metabolicamente ativo você carrega. A massa magra é essa quantidade diretamente. Se você a conhece, pulou os proxies e foi direto à variável que de fato importa.
+
+É por isso que ela supera as outras em populações cuja composição corporal é incomum — atletas treinados, pessoas com percentuais altos de gordura, qualquer um que os proxies de altura e peso leiam mal. Para uma pessoa magra e musculosa, Mifflin-St Jeor subestima porque não enxerga o músculo; Katch-McArdle enxerga.
+
+A pegadinha está no dado de entrada. Quase ninguém tem massa magra medida. O que as pessoas têm é uma estimativa de massa magra, em geral de uma fita métrica ou de uma equação baseada no IMC — e essas carregam três a quatro pontos percentuais de erro, que se propagam direto para o valor da TMB.
+
+Então a ordem se inverte:
+
+- **Massa magra medida por DXA:** Katch-McArdle é a mais exata das três.
+- **Massa magra estimada por fita métrica:** aproximadamente comparável a Mifflin-St Jeor, com mais variância.
+- **Massa magra estimada a partir do IMC:** pior que Mifflin-St Jeor, porque você somou o erro de uma segunda equação ao da primeira sem ganho algum.
+
+A [calculadora de TMB](/pt-br/calculators/bmr/) usa a equação de Boer para estimar a massa magra quando você não fornece uma, e diz isso na página. Isso é honesto, mas continua sendo uma estimativa, e a nota existe para que ninguém confunda o valor de Katch-McArdle com uma medição.
+
+## A resposta prática
+
+**Use Mifflin-St Jeor** a menos que você tenha um percentual de gordura medido. É a equação mais bem validada para a população geral e precisa apenas do que você já sabe.
+
+**Use Katch-McArdle** se você fez um exame de DXA ou tem uma medição confiável de composição corporal, e em especial se for notavelmente magro ou notavelmente musculoso. É aí que as equações baseadas em proxies mais se atrapalham.
+
+**Use Harris-Benedict** para comparar com material mais antigo, ou se algum outro sistema com o qual você trabalha a utiliza e você quer consistência. Não porque ela seja mais exata, porque não é.
+
+## Por que a dispersão importa mais do que o vencedor
+
+Eis o que vale levar daqui: a discordância entre as equações é menor do que o erro de qualquer uma delas isoladamente.
+
+Equações preditivas ficam dentro de dez por cento do gasto de repouso medido para a maioria das pessoas. Dez por cento de 1.800 kcal são 180 kcal. A distância entre Mifflin-St Jeor e Harris-Benedict para a mesma pessoa é tipicamente de 70 a 100 kcal — bem dentro da faixa de erro de qualquer uma delas.
+
+Então escolher a equação «certa» rende menos do que parece. Você está escolhendo entre três estimativas que carregam aproximadamente a mesma incerteza, e ficar com a mais bem validada é sensato, mas não decisivo.
+
+A [calculadora mostra as três](/pt-br/calculators/bmr/) exatamente por essa razão. Quando elas se agrupam bem juntas, a estimativa é provavelmente razoável. Quando se espalham muito — o que acontece nos extremos de altura, peso e idade —, essa dispersão está lhe dizendo que o número merece menos confiança do que um valor único sugeriria.
+
+## O que fazer com o número
+
+Não coma esse valor. A TMB é o que você precisaria deitado imóvel o dia inteiro; é uma entrada para uma meta calórica, não a meta. Essa distinção é tratada em [como a taxa metabólica basal é calculada](/pt-br/guides/how-bmr-is-calculated/), e errá-la é a leitura equivocada de maior consequência dessas equações.
+
+Multiplique por um nível de atividade para obter o gasto energético diário total, aceitando que o multiplicador introduz mais erro do que a escolha da equação introduziu. Depois trate o resultado como hipótese inicial, coma nesse nível por quinze dias e ajuste conforme o que o seu peso de fato fizer.
+
+Sua própria resposta medida ganha de todas as equações desta página, e leva duas semanas para ser obtida.
