@@ -23,6 +23,15 @@ jobs:
     name: Verify
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    permissions:
+      contents: read
+      # gitleaks lists the commits on a pull request to decide what to scan, so
+      # on a `pull_request` event it needs this and the workflow default of
+      # `contents: read` alone gives a 403. Push events never exercised the
+      # call, which is why the gap only appeared on the first PR.
+      pull-requests: read
+
     steps:
       # Actions are pinned to full commit SHAs, not tags, so a retagged
       # release cannot silently change what runs here.

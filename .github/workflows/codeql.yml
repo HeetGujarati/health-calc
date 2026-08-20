@@ -23,6 +23,12 @@ jobs:
       # Raised only here, and only as far as CodeQL needs to upload results.
       security-events: write
       contents: read
+      # The analyze action reads its own workflow run to attach results to the
+      # right commit. That call is `GET /actions/runs/{id}`, which a private
+      # repository does not grant by default: without it the analysis finishes,
+      # exports the SARIF, and then fails on upload with "Resource not
+      # accessible by integration". Every run since CodeQL was added failed here.
+      actions: read
 
     strategy:
       fail-fast: false
