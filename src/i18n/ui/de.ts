@@ -8,7 +8,7 @@ export const de: Messages = {
   'nav.guides': 'Ratgeber',
   'nav.skipToContent': 'Zum Inhalt springen',
   'nav.breadcrumb': 'Brotkrumennavigation',
-  'nav.home': 'Start',
+  'nav.home': 'Startseite',
   'nav.useDarkTheme': 'Dunkles Design verwenden',
   'nav.useLightTheme': 'Helles Design verwenden',
   'nav.language': 'Sprache',
