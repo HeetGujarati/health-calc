@@ -202,7 +202,10 @@ Some GitHub settings cannot be set from a file. In the repository's
    — routing, sitemaps and `hreflang` all read `localesFor()` — but a report is
    cheap and a silent break is not.
 4. **Watch the translation coverage figure.** `npm run audit:seo` prints how
-   many titles and descriptions are still shared across locales. See `SEO.md`.
+   many titles are still shared across locales. Ten are, and all ten are genuine
+   coincidences between languages. Shared _descriptions_ are a build failure
+   rather than a figure, so that half of the line should always read 0. See
+   `SEO.md`.
 
 ---
 

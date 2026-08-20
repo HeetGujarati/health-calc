@@ -66,7 +66,7 @@ const localeOf = (path) => {
   return LOCALE_SEGMENTS.has(first) ? first : 'en';
 };
 
-/** Cross-locale collisions: a coverage figure, not a failure. See below. */
+/** Cross-locale collisions: titles are a figure, descriptions fail. See below. */
 const titleOwner = new Map();
 const descriptionOwner = new Map();
 const sharedTitles = new Set();
@@ -120,9 +120,17 @@ for (const file of files) {
    * is two *different* pages in the same language competing for one query, and
    * that is what this measures.
    *
-   * Cross-locale collisions are counted separately and printed as a coverage
-   * figure rather than a failure, because that is what they are: a translation
-   * still to be written, not a broken page.
+   * Cross-locale collisions are counted separately. Titles are printed as a
+   * coverage figure, because a handful of genuine coincidences survive full
+   * translation — "Privacy" is the same word in English and Italian, "Cookies"
+   * in five Latin-script locales, "Buscar" in Spanish and Portuguese — and
+   * failing on those would force worse titles to satisfy a check.
+   *
+   * Descriptions are a hard failure. A description is 50 to 157 characters of
+   * original prose; two locales cannot arrive at the same one by coincidence,
+   * so a shared description means a page is shipping English inside a
+   * translated shell. That was true of every guide until the translations
+   * landed, and this gate is what keeps it from silently coming back.
    */
   const pageLocale = localeOf(page);
 
@@ -160,8 +168,15 @@ for (const file of files) {
       } else descriptions.set(key, page);
 
       const owner = descriptionOwner.get(description);
-      if (owner !== undefined && owner !== pageLocale) sharedDescriptions.add(description);
-      else descriptionOwner.set(description, pageLocale);
+      if (owner !== undefined && owner.locale !== pageLocale) {
+        sharedDescriptions.add(description);
+        fail(
+          'untranslated-description',
+          `${page} (${pageLocale}) shares its description with ${owner.page} (${owner.locale})`
+        );
+      } else if (owner === undefined) {
+        descriptionOwner.set(description, { locale: pageLocale, page });
+      }
     }
   }
 
@@ -265,7 +280,7 @@ for (const { check, detail } of problems) {
 
 console.log(`SEO audit: ${files.length} pages, ${builtPaths.size} URLs`);
 console.log(
-  `Translation coverage: ${sharedTitles.size} title(s) and ${sharedDescriptions.size} description(s) still shared across locales`
+  `Translation coverage: ${sharedTitles.size} title(s) shared across locales (coincidences), ${sharedDescriptions.size} description(s) shared (must be 0)`
 );
 
 if (problems.length === 0) {

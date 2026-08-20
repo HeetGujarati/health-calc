@@ -1,7 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import { rehypeHeadingIds, unified } from '@astrojs/markdown-remark';
 import tailwindcss from '@tailwindcss/vite';
+import { rehypeAsciiHeadingIds } from './src/lib/markdown/ascii-heading-ids.mjs';
 // Astro loads this config through Vite, so the locale definitions can be shared
 // with the SEO module rather than restated here. Restating them would let the
 // routing config and the hreflang map drift apart silently — the failure mode
@@ -52,6 +54,21 @@ const config = {
      * follow the theme like everything else.
      */
     syntaxHighlight: false,
+
+    /*
+     * Heading ids, then a pass that makes them usable identifiers.
+     *
+     * Configured through `processor: unified({...})` because Astro 7 deprecated
+     * the top-level `rehypePlugins` key — `astro check` says so on every run,
+     * and a deprecation warning that nobody acts on is how a build breaks at the
+     * next major.
+     *
+     * `rehypeHeadingIds` — the plugin that assigns the ids in the first place —
+     * is listed explicitly rather than inherited, because user plugins run
+     * before Astro's own and the second pass would otherwise see no ids at all.
+     * See the plugin for why the translated headings need it.
+     */
+    processor: unified({ rehypePlugins: [rehypeHeadingIds, rehypeAsciiHeadingIds] }),
   },
   i18n: {
     /*

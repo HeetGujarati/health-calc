@@ -72,8 +72,11 @@ jobs:
       - name: Check internal links
         run: npm run audit:links
 
+      # Zero advisories in anything that ships, high and above in the dev tree,
+      # with named exceptions for the two that have no version to move to.
+      # See the header of scripts/audit-deps.mjs.
       - name: Audit dependencies
-        run: npm audit --audit-level=high
+        run: npm run audit:deps
 
       # Secret scanning is unavailable on a private repo without GitHub
       # Advanced Security, so gitleaks covers that gap. See SECURITY.md.

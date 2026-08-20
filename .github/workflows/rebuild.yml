@@ -44,7 +44,7 @@ jobs:
         run: npm run audit:links
 
       - name: Audit dependencies
-        run: npm audit --audit-level=high
+        run: npm run audit:deps
 
       # Deployment itself is handled by Cloudflare Pages watching the branch.
       # This job exists to prove the build still passes on current dependencies

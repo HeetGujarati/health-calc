@@ -17,6 +17,17 @@ import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp from 'sharp';
 
+/*
+ * libvips sizes its pixel cache and its thread pool for a machine doing bulk
+ * image work. This script writes ten small PNGs, one at a time, immediately
+ * after a build that has just held the whole page set in memory — so the cache
+ * is never read twice and the extra threads only compete for allocations. Both
+ * are turned off: it costs nothing here and keeps the step inside the memory a
+ * modest CI runner has left at the end of a build.
+ */
+sharp.cache(false);
+sharp.concurrency(1);
+
 const DIST = 'dist';
 const OG_DIR = join(DIST, 'og');
 

@@ -654,3 +654,123 @@ non-descriptive-link-text list and scored that page 92 on SEO.
 A test that reports `expected [ 'a', …(5) ]` makes you re-run it to find out what
 failed, which is exactly when you least want to. This cost real time while
 building out the locale catalogs.
+
+### 12.5 A description shared across locales fails the build; a shared title does not
+
+**Decision:** `audit-seo.mjs` treats the two collisions differently.
+
+Both used to be printed as one coverage figure, which was right while the
+translation backlog existed and wrong the moment it closed. They are not the same
+signal. A title is a few words, and a handful of genuine coincidences survive
+full translation — "Privacy" is the same word in English and Italian, "Cookies"
+in five Latin-script locales, "Buscar" in Spanish and Portuguese. Failing on
+those would force worse titles to satisfy a check; ten remain and they are all
+real.
+
+A description is 50 to 157 characters of original prose. Two locales do not
+arrive at the same one by coincidence, so a match means a page is shipping
+English inside a translated shell — the exact defect the translation work
+existed to remove, and one that is invisible in the rendered page unless you read
+the language. It is now a named failure, `untranslated-description`, reporting
+both pages and both locales. The count is 0 and the gate is what keeps it there.
+
+### 12.6 Heading ids are rewritten to ASCII
+
+**Decision:** a rehype plugin, `src/lib/markdown/ascii-heading-ids.mjs`, runs
+after `rehypeHeadingIds`.
+
+Astro slugs a heading by lower-casing it and keeping every letter, so the
+translated guides produced ids like `qué-encontraron-los-estudios-de-validación`
+and `検証研究が見いだしたこと`. Those are legal HTML5 — the spec allows any id
+without whitespace — but they are not usable identifiers: `querySelector` and CSS
+have to escape them, and a copied link percent-encodes into forty characters of
+noise. html-validate flags them under `valid-id`.
+
+An id is rewritten only when it is not already `[A-Za-z][A-Za-z0-9_-]*`, so no
+English or Indonesian anchor moves. Latin scripts fold to ASCII, which is
+lossless in practice for a fragment. Non-Latin scripts keep whatever ASCII the
+heading contained — a Japanese heading about Katch-McArdle still anchors at
+`katch-mcardle` — and fall back to the heading's ordinal when nothing survives.
+`section-4` says less than the heading does, but it is stable across builds,
+which is the property a fragment actually needs. The alternative, hand-writing an
+`id` into 126 translated files, has no such guarantee.
+
+Astro runs user rehype plugins before its own, so `rehypeHeadingIds` — the plugin
+that assigns the ids being rewritten — has to be listed explicitly ahead of this
+one or it sees nothing.
+
+### 12.7 The dependency gate splits what ships from what builds
+
+**Decision:** `scripts/audit-deps.mjs` replaces `npm audit --audit-level=high`.
+
+The control section 12 asks for could never pass on this tree. Every high
+advisory arrives through one dev dependency, `@lhci/cli`, and one of them — the
+symlink path traversal in `extract-zip` — has no patched release at all; npm's
+suggested remedy is `@lhci/cli@0.1.0`, from 2019. A gate that fails every build
+for a reason nobody can act on is a gate everyone learns to ignore, which is
+worse than not having one.
+
+So the check splits along the line that matters. Anything in `dependencies` ends
+up in the artifact or in the process that writes it, and is held to zero
+advisories at any severity. Anything in `devDependencies` fails at high and above
+too — CI holds a token — unless it is listed with a package, a reason and a
+review date. Two are, both reached only through `@lhci/cli` and both absent from
+the production tree.
+
+An exception that no longer matches any advisory is itself a failure, so the list
+cannot outlive the problem it describes: whoever upgrades `@lhci/cli` past this
+is told to delete the entry rather than discovering it years later.
+
+### 12.8 `astro check` runs through a wrapper that bounds the V8 heap
+
+**Decision:** `npm run check` is `node scripts/check.mjs`, not `astro check`.
+
+The Astro language service holds every `.astro`, `.ts` and content-collection
+type in one process, peaking around 300 MB here — unremarkable, except that V8
+sizes its young generation from total system RAM rather than free memory and will
+try to grow new space 16 MB at a time. Near the commit limit that allocation
+fails and Node aborts with `NewSpace::EnsureCurrentCapacity Allocation failed`,
+which reads as "out of memory" at 300 MB of heap and sends you looking in
+entirely the wrong place. Capping the semi-space keeps the growth steps small
+enough to succeed.
+
+A wrapper rather than a `NODE_OPTIONS=` prefix in the npm script because npm runs
+scripts through `cmd.exe` on Windows, where that prefix is a syntax error and not
+an assignment. An existing `NODE_OPTIONS` wins, so CI can override it without
+editing the file.
+
+### 12.9 sharp's cache and thread pool are turned off
+
+**Decision:** `sharp.cache(false)` and `sharp.concurrency(1)` in
+`generate-images.mjs`.
+
+libvips sizes both for a machine doing bulk image work. This script writes ten
+small PNGs, one at a time, immediately after a build that has just held 913 pages
+in memory — so the pixel cache is never read twice and the extra threads only
+compete for allocations. Turning both off costs nothing measurable here (232 ms
+for ten images) and keeps the step inside the memory a modest CI runner has left
+at the end of a build.
+
+### 12.10 The e2e suite never reuses a server it did not start
+
+**Decision:** `reuseExistingServer: false`, and the port is overridable with
+`PORT`.
+
+`reuseExistingServer: !process.env.CI` is the Playwright default and it is
+unsafe on a developer machine. Playwright asks for the URL and treats a 200 as
+proof of life; it cannot tell whose server answered. 4321 is Astro's default
+port, so any Astro project left running on the machine owns it — and an
+unrelated one was, during this phase. The suite adopted it, loaded a site that
+serves its own `/` and 404s everything else, and reported 59 failures about
+elements missing from pages it had never opened. Every one of them was a lie
+about this repository.
+
+That is the same failure as 12.1 wearing different clothes: a verification step
+that reports on something other than what it claims to be checking. With reuse
+off, an occupied port is a startup error naming the port. The cost is starting a
+static server per run, which binds in under a second, against a class of failure
+that reads as a real regression and is not.
+
+`PORT` is threaded through to `scripts/serve.mjs` so the suite can still be run
+beside something else deliberately, which is the legitimate case reuse was
+covering.

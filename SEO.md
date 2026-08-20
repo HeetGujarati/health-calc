@@ -156,20 +156,32 @@ the comment at the top of that file should be updated to say so.
 `npm run audit:seo` prints a line like:
 
 ```
-Translation coverage: 36 title(s) and 14 description(s) still shared across locales
+Translation coverage: 10 title(s) shared across locales (coincidences), 0 description(s) shared (must be 0)
 ```
 
-That is not a failure. Two pages that are hreflang alternates are _supposed_ to
-share a title where the phrase is genuinely the same in both languages. The
-number is a backlog: how many pages still render English identity strings
-because their translation has not been written yet. Almost all of the current
-count is guides.
+The two halves mean different things.
 
-Duplicate titles **within** a locale are a failure, and `audit:seo` treats them
-as one. That is where a duplicate actually costs something — two different pages
-in one language competing for one query.
+**Shared titles are not a failure.** Two pages that are hreflang alternates are
+_supposed_ to share a title where the phrase is genuinely the same in both
+languages. The ten remaining are exactly that: "Privacy" is the same word in
+English and Italian, "Cookies" in five Latin-script locales, "Buscar" in Spanish
+and Portuguese. Failing on those would force worse titles to satisfy a check.
+Expect the number to move a little as titles are edited; a jump of dozens means
+a locale stopped translating something, and that is worth looking into.
 
-To reduce the shared count, translate guides. See `CONTENT.md`.
+**Shared descriptions are a failure**, reported as `untranslated-description`
+with both pages and both locales named. A description is 50 to 157 characters of
+original prose, so two locales cannot arrive at the same one by accident — a
+match means a page is shipping English inside a translated shell. The count is 0
+and this gate is what keeps it there.
+
+Duplicate titles **within** a locale are also a failure. That is where a
+duplicate actually costs something — two different pages in one language
+competing for one query.
+
+Catalog coverage is gated separately, in `tests/unit/i18n-content.test.ts`, at
+100%: a key added to a data file without a translation in all nine catalogs
+fails the build. See `CONTENT.md`.
 
 ---
 
@@ -191,8 +203,10 @@ invented data, and a manual action costs more than the rich result is worth.
 
 ## Things that would help, in rough order
 
-1. **Translate the guides.** Fourteen articles × nine locales is the single
-   biggest remaining SEO gap, and it is what the coverage figure is measuring.
+1. **Get a native speaker over each locale.** Translation coverage is complete —
+   all fourteen guides in all ten languages, and every catalog string with it —
+   but none of it has had native review, and that is now the largest quality gap
+   in the non-English pages. Prioritise by traffic once Search Console has it.
 2. **Get the domain into Search Console** and watch the hreflang report.
 3. **Build external links to the guides, not the calculators.** Calculator pages
    attract few natural links; an explanation of why BMR equations disagree

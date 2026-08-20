@@ -23,23 +23,24 @@ Node 22.22.3 or newer. Several dependencies declare a floor above 22.18, and
 
 ## Scripts
 
-| Script                    | What it does                                                   |
-| ------------------------- | -------------------------------------------------------------- |
-| `dev`                     | Astro dev server                                               |
-| `build`                   | Static build, then generates OG images, icons and the manifest |
-| `preview`                 | Serves `dist`                                                  |
-| `check`                   | `astro check` — TypeScript across `.ts` and `.astro`           |
-| `lint`                    | ESLint, including the banned-API rules                         |
-| `format` / `format:check` | Prettier                                                       |
-| `test` / `test:coverage`  | Vitest, with a 95% floor on `src/lib/health/`                  |
-| `test:e2e`                | Playwright, desktop and a 360px phone                          |
-| `headers`                 | Regenerates `_headers` with CSP hashes from the built output   |
-| `audit:html`              | html-validate, including WCAG rules                            |
-| `audit:seo`               | Canonicals, duplicates, hreflang, JSON-LD, HowTo anchors       |
-| `audit:budget`            | JavaScript budget, gzipped, following static imports           |
-| `audit:links`             | Every internal link and fragment in `dist`                     |
-| `audit:lighthouse`        | Lighthouse CI over ten URLs                                    |
-| `gate`                    | All of the above except e2e and Lighthouse, in CI order        |
+| Script                    | What it does                                                    |
+| ------------------------- | --------------------------------------------------------------- |
+| `dev`                     | Astro dev server                                                |
+| `build`                   | Static build, then generates OG images, icons and the manifest  |
+| `preview`                 | Serves `dist`                                                   |
+| `check`                   | `astro check` — TypeScript across `.ts` and `.astro`            |
+| `lint`                    | ESLint, including the banned-API rules                          |
+| `format` / `format:check` | Prettier                                                        |
+| `test` / `test:coverage`  | Vitest, with a 95% floor on `src/lib/health/`                   |
+| `test:e2e`                | Playwright, desktop and a 360px phone; `PORT` moves it off 4321 |
+| `headers`                 | Regenerates `_headers` with CSP hashes from the built output    |
+| `audit:html`              | html-validate, including WCAG rules                             |
+| `audit:seo`               | Canonicals, duplicates, hreflang, JSON-LD, HowTo anchors        |
+| `audit:budget`            | JavaScript budget, gzipped, following static imports            |
+| `audit:links`             | Every internal link and fragment in `dist`                      |
+| `audit:deps`              | Zero advisories in what ships; high and above in the dev tree   |
+| `audit:lighthouse`        | Lighthouse CI over ten URLs                                     |
+| `gate`                    | All of the above except e2e and Lighthouse, in CI order         |
 
 ## Layout
 
@@ -50,6 +51,7 @@ src/
   lib/seo/         metadata, canonical URLs, hreflang, JSON-LD, sitemaps
   lib/i18n/        translator, route helpers, Intl formatting, guide lookup
   lib/content/     deterministic sentence variation
+  lib/markdown/    rehype passes applied to guide MDX at build time
   i18n/ui/         ten typed UI catalogs, checked for key coverage by tsc
   i18n/content/    nine JSON content catalogs keyed off the data files
   i18n/templates/  per-locale sentence-variation variants

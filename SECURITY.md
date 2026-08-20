@@ -30,7 +30,13 @@ Mitigations:
 - Every dependency pinned to an exact version, with the lockfile committed.
   Nothing floats.
 - `npm ci` in CI, so builds install exactly the locked tree.
-- `npm audit --audit-level=high` fails the build.
+- `npm run audit:deps` fails the build. Anything in `dependencies` — the code
+  that ships or builds the artifact — is held to **zero** advisories at any
+  severity. Anything in `devDependencies` fails at high and above unless it is
+  listed in `scripts/audit-deps.mjs` with a package, a reason and a review date;
+  an exception that stops matching any advisory fails too, so the list cannot
+  outlive the problem. Two are currently accepted, both reached only through
+  `@lhci/cli` and both absent from the production tree.
 - Dependabot alerts, automated security fixes, and weekly update PRs for both npm
   and GitHub Actions.
 - CodeQL scans JavaScript and TypeScript weekly and on every push.

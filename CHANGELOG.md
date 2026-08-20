@@ -30,13 +30,16 @@ calculator it belongs to, so the two cannot disagree. All are real rendered
 tables with an explanation of how to read them, never an image.
 
 **Guides.** Fourteen original articles, 1,000 to 1,600 words, on where the
-equations come from and how much confidence they deserve.
+equations come from and how much confidence they deserve — each translated into
+all nine other locales, 140 files in total.
 
 **Ten locales.** English at the root, plus Spanish, Brazilian Portuguese,
 French, German, Italian, Hindi, Indonesian, Japanese and Arabic. Arabic is
 right-to-left. Every locale gets all sixteen calculators, all eleven charts, all
 fourteen guides, every core and legal page, and the thirty highest-value
-programmatic pages.
+programmatic pages. Nothing falls back to English: every title, description,
+heading, FAQ answer, form field, reference table and guide body is written in
+the language of the page it appears on.
 
 **Search.** A real client-side search over a per-locale static index, which is
 why the homepage can honestly declare a `SearchAction`.
@@ -62,15 +65,9 @@ JavaScript budget, and Lighthouse.
 ### Known limitations
 
 - **Translations have not had native review.** They were produced in one pass.
-  Non-English pages say so and link to the English original.
-- **Body prose is translated at 36% across the content catalogs.** Titles,
-  descriptions, headings and intros are complete in all ten locales; deeper
-  content — FAQ answers, formula assumption notes, reference table captions —
-  falls back to English where a translation has not been written. The gap is
-  reported by `npm run audit:seo` as a coverage figure and gated at a floor
-  that only rises.
-- **Guides are English-only.** The fourteen articles are linked from calculator
-  pages in every locale and currently render in English there.
+  Non-English pages say so and link to the English original. This is now the
+  only outstanding translation concern: coverage itself is complete, and both
+  the content catalogs and the SEO audit fail the build if it regresses.
 - **The three self-hosted typefaces cover Latin scripts only.** Hindi, Japanese
   and Arabic pages fall back to the system stack, which renders correctly but
   does not match the Latin pages typographically. Recorded on `/accessibility/`.
@@ -85,7 +82,7 @@ JavaScript budget, and Lighthouse.
 | Internal links verified  | 41,172, plus 913 fragments; zero broken                |
 | JavaScript, gzipped      | 13.5 KB sitewide of 35 KB; 14.0 KB worst page of 18 KB |
 | Lighthouse               | 100 / 100 / 100 / 100 across ten URLs, three runs each |
-| `astro check`            | 0 errors, 0 warnings, 0 hints across 157 files         |
-| Formula library coverage | 99.5% statements, 98.8% branches                       |
+| `astro check`            | 0 errors, 0 warnings, 0 hints across 162 files         |
+| Formula library coverage | 99.6% statements, 99.4% branches                       |
 
 [1.0.0]: https://github.com/HITMAN5050/Health/releases/tag/v1.0.0

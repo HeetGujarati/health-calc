@@ -1,6 +1,6 @@
 {
   "name": "fitness-calculators",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -10,7 +10,7 @@
     "dev": "astro dev",
     "build": "astro build && node scripts/generate-images.mjs",
     "preview": "astro preview",
-    "check": "astro check",
+    "check": "node scripts/check.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -22,10 +22,11 @@
     "audit:links": "node scripts/audit-links.mjs",
     "audit:html": "html-validate \"dist/**/*.html\"",
     "audit:seo": "node scripts/audit-seo.mjs",
-    "gate": "npm run check && npm run lint && npm run format:check && npm run test:coverage && npm run build && npm run headers && npm run audit:html && npm run audit:seo && npm run audit:budget && npm run audit:links",
+    "gate": "npm run check && npm run lint && npm run format:check && npm run test:coverage && npm run build && npm run headers && npm run audit:html && npm run audit:seo && npm run audit:budget && npm run audit:links && npm run audit:deps",
     "headers": "node scripts/generate-headers.mjs",
     "serve": "node scripts/serve.mjs",
     "audit:budget": "node scripts/audit-budget.mjs",
+    "audit:deps": "node scripts/audit-deps.mjs",
     "audit:lighthouse": "lhci autorun"
   },
   "dependencies": {
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "@astrojs/markdown-remark": "7.2.4",
     "@astrojs/mdx": "7.0.7",
     "@eslint/js": "10.0.1",
     "@lhci/cli": "0.15.1",

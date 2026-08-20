@@ -62,9 +62,17 @@ npx vitest run tests/unit/i18n-content.test.ts
 ```
 
 which fails on a key no page needs (a typo, or a leftover from deleted content)
-and on any missing title, description, heading, intro or keyword set. Body prose
-is tracked by a coverage percentage rather than gated, so translation can land
-incrementally without ever breaking a build.
+and on any missing title, description, heading, intro or keyword set.
+
+Body prose was tracked by a coverage percentage while translation landed
+incrementally. Every locale is now complete, so `MINIMUM_COVERAGE` in that test
+is 1: a key added to a data file without a translation in all nine catalogs
+fails the build rather than quietly shipping English inside a Japanese page. The
+floor is raised as translation lands and never lowered.
+
+The same rule is enforced on the built output. `npm run audit:seo` fails if two
+locales ship the same meta description, which is what an untranslated page looks
+like from outside. See `SEO.md`.
 
 ### What is deliberately not translated
 
@@ -108,11 +116,21 @@ corpus.
 English guides are `src/content/guides/{slug}.mdx`. Translations are
 `src/content/guides/{locale}/{slug}.mdx` — same slug, same frontmatter schema,
 same zod validation. A guide missing its description or its dates fails the
-build whatever language it is in.
+build whatever language it is in. All fourteen exist in all ten languages: 140
+files.
 
 A locale with no translation of a guide falls back to the English entry rather
 than dropping the page, because the guide is linked from calculator pages in
-every locale and a missing translation should degrade to English prose, not to a 404.
+every locale and a missing translation should degrade to English prose, not to
+a 404. Nothing relies on that path today; it is what makes it safe to add a
+fifteenth guide in English first.
+
+Headings do not need hand-written anchors.
+`src/lib/markdown/ascii-heading-ids.mjs` rewrites any generated id that is not a
+usable identifier — accented Latin folds to ASCII, non-Latin scripts keep
+whatever ASCII the heading contained and fall back to `section-{n}` — so a
+translated heading still gets a linkable, stable fragment. English and
+Indonesian ids are left exactly as they were.
 
 ### Writing one
 
