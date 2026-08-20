@@ -1,0 +1,116 @@
+---
+title: Os valores MET explicados
+description: O que é um equivalente metabólico, de onde vêm os valores do Compendium e por que duas calculadoras discordam sobre o mesmo treino.
+keywords:
+  - o que é um valor met
+  - equivalente metabólico
+  - compendium of physical activities
+  - fórmula de calorias gastas
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [calories-burned, tdee, target-heart-rate]
+relatedGuides: [the-maintenance-calories-misconception, understanding-heart-rate-zones]
+readingMinutes: 6
+---
+
+Um MET é um equivalente metabólico de tarefa: um múltiplo da taxa metabólica de repouso. Um MET é o que o seu corpo custa sem fazer nada. Uma atividade a oito METs custa cerca de oito vezes mais energia por minuto.
+
+É uma ideia elegante, porque torna as atividades comparáveis entre pessoas de tamanhos diferentes sem precisar medir ninguém.
+
+## A definição
+
+Um MET é definido como um consumo de oxigênio de **3,5 mililitros por quilograma de massa corporal por minuto**. Esse valor foi escolhido para representar o metabolismo de repouso de um adulto típico.
+
+É uma convenção, e um tanto generosa. O consumo de oxigênio de repouso medido em populações reais fica muitas vezes mais perto de 2,6 a 3,2 mL/kg/min, sobretudo em pessoas mais velhas ou mais pesadas. Então o MET padrão tende a superestimar o custo de repouso e, portanto, a superestimar a energia das atividades calculadas a partir dele.
+
+Todo mundo na área sabe disso, e a convenção persiste porque a comparabilidade ao longo de décadas de dados publicados vale mais do que um ganho marginal de exatidão.
+
+## De onde vêm os valores
+
+Do Compendium of Physical Activities, publicado pela primeira vez por Ainsworth e colegas em 1993 e atualizado em 2000, 2011 e novamente em 2024 como Adult Compendium.
+
+Ele atribui um valor MET a centenas de atividades, cada uma com um código de cinco dígitos que identifica sua categoria e sua descrição específica. Os valores vêm de medições publicadas do custo energético quando elas existem, e de estimativas de quem compilou quando não existem — uma distinção que o próprio Compendium documenta, e que vale lembrar: nem todo valor da tabela foi medido.
+
+Alguns exemplos:
+
+| Atividade                     | METs |
+| ----------------------------- | ---- |
+| Sentado em repouso            | 1,0  |
+| Caminhar, 3 km/h              | 2,5  |
+| Caminhar em passo firme, 5,5 km/h | 4,3 |
+| Ciclismo, 16–19 km/h          | 6,8  |
+| Correr, 8 km/h                | 8,3  |
+| Correr, 11 km/h               | 11,0 |
+| Treino de força vigoroso      | 6,0  |
+| Pular corda, moderado         | 11,8 |
+
+## Duas fórmulas, duas respostas
+
+É aqui que as calculadoras discordam em silêncio, e vale saber qual delas você está olhando.
+
+**A forma simples:**
+
+```
+kcal = MET × peso corporal (kg) × horas
+```
+
+Ela se apoia na aproximação de que um MET custa cerca de uma quilocaloria por quilograma por hora. Conveniente e próxima.
+
+**A forma do consumo de oxigênio:**
+
+```
+kcal/min = MET × 3,5 × peso corporal (kg) / 200
+```
+
+Esta parte da definição. Um MET é 3,5 mL O₂/kg/min; um litro de oxigênio consumido libera cerca de 5 kcal; a aritmética dá 1,05 kcal por quilograma por hora em vez de 1,00.
+
+Então as duas diferem em cerca de **cinco por cento**, com a forma simples ficando mais baixa. Nenhuma é mais correta — a diferença é bem menor do que a variação entre duas pessoas fazendo a mesma atividade —, mas uma calculadora que mostra uma e outra que mostra a outra não vão concordar, e nenhuma delas dirá por quê. A [calculadora de calorias gastas](/pt-br/calculators/calories-burned/) mostra as duas.
+
+## Bruto contra líquido
+
+Uma distinção de mais peso, e a que a maioria das calculadoras erra por omissão.
+
+Os valores derivados de MET são gasto energético **bruto**: tudo o que o seu corpo gastou naquela hora, inclusive o metabolismo de repouso que ele teria gasto de qualquer forma.
+
+Se você quer saber o que o treino _acrescentou_, subtraia a linha de base:
+
+```
+kcal líquidas = (MET − 1) × peso corporal (kg) × horas
+```
+
+Para uma pessoa de 70 kg fazendo uma hora a 8 METs: o bruto é 560 kcal, o líquido é 490 kcal. A diferença de 70 kcal é o que você teria queimado sentado no sofá naquela hora.
+
+Isso importa quando você soma exercício em cima de um valor de manutenção, porque a manutenção já inclui o metabolismo de repouso daquelas horas. Usar o número bruto conta isso duas vezes.
+
+## Quão exato é tudo isso
+
+Menos do que sugerem as saídas com duas casas decimais.
+
+Os valores MET são médias populacionais. O custo energético real de uma atividade varia com o condicionamento — um ciclista treinado é mais econômico na mesma velocidade —, com a composição corporal, com a técnica, com o terreno, o vento e até com o quanto alguém se remexe nos intervalos.
+
+O próprio Compendium observa que o custo energético individual pode diferir bastante do valor tabelado. Estudos que comparam estimativas derivadas de MET com calorimetria indireta costumam encontrar discrepâncias de vinte a trinta por cento em indivíduos.
+
+Há também um problema sistemático para corpos maiores. O arcabouço MET normaliza pela massa corporal, o que supõe que o custo energético escala linearmente com o peso. Ele não escala, não exatamente — pessoas mais pesadas tendem a ser um pouco mais econômicas por quilograma do que o modelo linear implica, então estimativas baseadas em MET saem altas para elas.
+
+Trate um valor de calorias gastas como uma ordem de grandeza. «Cerca de 500, não cerca de 200 e não cerca de 1.000.»
+
+## A armadilha da contagem dupla
+
+O erro prático mais comum com essas calculadoras merece ser dito com todas as letras.
+
+Se você definiu seu [gasto diário](/pt-br/calculators/tdee/) usando um multiplicador de atividade que já supõe que você treina — «moderadamente ativo, exercício de 3 a 5 dias por semana» —, esse multiplicador já inclui seus treinos. Somar um valor de calorias gastas por cima conta os treinos duas vezes.
+
+Escolha uma:
+
+- **O multiplicador de atividade inclui o treino.** Não some calorias de treino. O mais simples, e certo para a maioria.
+- **Coloque atividade sedentária e some cada sessão à parte.** Mais preciso para treino irregular, mais trabalho de controle.
+
+Misturar produz uma meta várias centenas de quilocalorias alta demais, que é exatamente a situação em que alguém come «na manutenção» e ganha peso.
+
+## Para que os valores MET realmente servem
+
+Para comparação, não para contabilidade.
+
+O número que diz que pular corda custa cerca do dobro por minuto de caminhar em passo firme é confiável. O número que diz que a sua sessão específica queimou exatamente 437 kcal não é.
+
+Use-os para escolher entre atividades, para entender por que uma hora de ciclismo leve não compensa uma refeição grande, e para checar se uma intensidade vale o tempo. Não os use como um livro-caixa que depois você come de volta.

@@ -1,0 +1,116 @@
+---
+title: Les valeurs MET expliquées
+description: Ce qu'est un équivalent métabolique, d'où viennent les valeurs du Compendium, et pourquoi deux calculateurs ne s'accordent pas sur la même séance.
+keywords:
+  - qu'est-ce qu'une valeur met
+  - équivalent métabolique
+  - compendium of physical activities
+  - formule des calories brûlées
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [calories-burned, tdee, target-heart-rate]
+relatedGuides: [the-maintenance-calories-misconception, understanding-heart-rate-zones]
+readingMinutes: 6
+---
+
+Un MET est un équivalent métabolique de tâche : un multiple du métabolisme de repos. Un MET, c'est ce que coûte votre corps à ne rien faire. Une activité à huit MET coûte environ huit fois plus d'énergie par minute.
+
+L'idée est élégante, car elle rend les activités comparables entre personnes de gabarits différents sans avoir à mesurer qui que ce soit.
+
+## La définition
+
+Un MET est défini comme une consommation d'oxygène de **3,5 millilitres par kilogramme de masse corporelle et par minute**. Ce chiffre a été choisi pour représenter le métabolisme de repos d'un adulte typique.
+
+C'est une convention, et une convention un peu généreuse. La consommation d'oxygène au repos mesurée dans des populations réelles se situe souvent plutôt entre 2,6 et 3,2 mL/kg/min, en particulier chez les personnes âgées ou plus corpulentes. Le MET standard tend donc à surestimer le coût de repos, et par conséquent l'énergie des activités qu'on en déduit.
+
+Tout le monde dans le domaine le sait, et la convention persiste parce que la comparabilité sur des décennies de données publiées vaut plus qu'un gain marginal d'exactitude.
+
+## D'où viennent les valeurs
+
+Du Compendium of Physical Activities, publié pour la première fois par Ainsworth et collègues en 1993, puis mis à jour en 2000, 2011 et de nouveau en 2024 sous le nom d'Adult Compendium.
+
+Il attribue une valeur MET à des centaines d'activités, chacune dotée d'un code à cinq chiffres identifiant sa catégorie et sa description précise. Les valeurs proviennent de mesures publiées du coût énergétique lorsqu'il en existe, et d'estimations des compilateurs sinon — une distinction que le Compendium documente lui-même, et qu'il vaut la peine de retenir : toutes les valeurs du tableau n'ont pas été mesurées.
+
+Quelques exemples :
+
+| Activité                       | MET  |
+| ------------------------------ | ---- |
+| Assis au calme                 | 1,0  |
+| Marche, 3 km/h                 | 2,5  |
+| Marche rapide, 5,5 km/h        | 4,3  |
+| Vélo, 16–19 km/h               | 6,8  |
+| Course, 8 km/h                 | 8,3  |
+| Course, 11 km/h                | 11,0 |
+| Musculation vigoureuse         | 6,0  |
+| Corde à sauter, modérée        | 11,8 |
+
+## Deux formules, deux réponses
+
+C'est ici que les calculateurs divergent en silence, et il vaut mieux savoir lequel vous avez sous les yeux.
+
+**La forme simple :**
+
+```
+kcal = MET × poids de corps (kg) × heures
+```
+
+Elle repose sur l'approximation qu'un MET coûte environ une kilocalorie par kilogramme et par heure. Pratique, et proche.
+
+**La forme fondée sur la consommation d'oxygène :**
+
+```
+kcal/min = MET × 3,5 × poids de corps (kg) / 200
+```
+
+Celle-ci part de la définition. Un MET vaut 3,5 mL O₂/kg/min ; un litre d'oxygène consommé libère environ 5 kcal ; le calcul donne 1,05 kcal par kilogramme et par heure plutôt que 1,00.
+
+Les deux diffèrent donc d'environ **cinq pour cent**, la forme simple lisant plus bas. Aucune n'est plus juste — l'écart est bien plus petit que la variation entre deux personnes faisant la même activité — mais un calculateur qui affiche l'une et un autre qui affiche l'autre ne s'accorderont pas, et ni l'un ni l'autre ne vous dira pourquoi. Le [calculateur de calories brûlées](/fr/calculators/calories-burned/) affiche les deux.
+
+## Brut ou net
+
+Une distinction plus lourde de conséquences, et celle que la plupart des calculateurs manquent par omission.
+
+Les chiffres issus des MET sont une dépense énergétique **brute** : tout ce que votre corps a dépensé pendant cette heure, y compris le métabolisme de repos qu'il aurait dépensé de toute façon.
+
+Si ce qui vous intéresse est ce que la séance a _ajouté_, retranchez la ligne de base :
+
+```
+kcal nettes = (MET − 1) × poids de corps (kg) × heures
+```
+
+Pour une personne de 70 kg faisant une heure à 8 MET : le brut vaut 560 kcal, le net 490 kcal. Les 70 kcal d'écart correspondent à ce que vous auriez brûlé assis sur le canapé pendant cette heure.
+
+Cela compte quand on ajoute l'exercice par-dessus un chiffre de maintien, car ce maintien inclut déjà le métabolisme de repos de ces heures. Utiliser le brut le compte deux fois.
+
+## Quelle exactitude tout cela a-t-il
+
+Moins que ne le laissent croire des résultats à deux décimales.
+
+Les valeurs MET sont des moyennes de population. Le coût énergétique réel d'une activité varie avec la condition physique — un cycliste entraîné est plus économe à la même vitesse — avec la composition corporelle, la technique, le terrain, le vent, et même l'agitation pendant les temps de repos.
+
+Le Compendium note lui-même que le coût énergétique individuel peut s'écarter sensiblement de la valeur tabulée. Les études comparant des estimations issues des MET à la calorimétrie indirecte trouvent couramment des écarts de vingt à trente pour cent chez des individus.
+
+Il existe aussi un biais systématique pour les gabarits importants. Le cadre MET normalise par la masse corporelle, ce qui suppose que le coût énergétique évolue linéairement avec le poids. Ce n'est pas tout à fait le cas : les personnes plus lourdes sont un peu plus économes par kilogramme que ne le suppose le modèle linéaire, et les estimations MET lisent donc trop haut pour elles.
+
+Traitez un chiffre de calories brûlées comme un ordre de grandeur. « Autour de 500, pas autour de 200 ni autour de 1 000. »
+
+## Le piège du double comptage
+
+L'erreur pratique la plus fréquente avec ces calculateurs mérite d'être énoncée clairement.
+
+Si vous avez fixé votre [dépense quotidienne](/fr/calculators/tdee/) avec un coefficient d'activité qui suppose déjà que vous vous entraînez — « modérément actif, exercice 3 à 5 jours par semaine » — ce coefficient inclut déjà vos séances. Ajouter par-dessus un chiffre de calories brûlées les compte deux fois.
+
+Choisissez :
+
+- **Le coefficient inclut l'entraînement.** N'ajoutez pas les calories des séances. Le plus simple, et le bon choix pour la plupart des gens.
+- **Réglez l'activité sur sédentaire et ajoutez chaque séance séparément.** Plus précis pour un entraînement irrégulier, plus de comptabilité.
+
+Mélanger les deux produit une cible trop haute de plusieurs centaines de kilocalories, ce qui est exactement la situation où quelqu'un mange « au maintien » et prend du poids.
+
+## Ce à quoi les valeurs MET servent vraiment
+
+À comparer, pas à tenir des comptes.
+
+Le nombre qui vous dit que la corde à sauter coûte environ deux fois plus par minute que la marche rapide est fiable. Celui qui vous dit que votre séance précise a brûlé exactement 437 kcal ne l'est pas.
+
+Servez-vous-en pour choisir entre des activités, pour comprendre pourquoi une heure de vélo tranquille ne compense pas un gros repas, et pour juger si une intensité vaut le temps qu'elle prend. Ne vous en servez pas comme d'un registre que vous remangez.

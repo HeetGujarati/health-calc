@@ -1,0 +1,116 @@
+---
+title: MET-Werte erklärt
+description: Was ein metabolisches Äquivalent ist, woher die Werte des Compendium stammen und warum zwei Rechner sich beim selben Training uneins sind.
+keywords:
+  - was ist ein MET-Wert
+  - metabolisches Äquivalent
+  - Compendium of Physical Activities
+  - Formel Kalorienverbrauch
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [calories-burned, tdee, target-heart-rate]
+relatedGuides: [the-maintenance-calories-misconception, understanding-heart-rate-zones]
+readingMinutes: 6
+---
+
+Ein MET ist ein metabolisches Äquivalent einer Tätigkeit: ein Vielfaches des Ruheumsatzes. Ein MET ist das, was Ihr Körper kostet, während er nichts tut. Eine Aktivität mit acht MET kostet pro Minute etwa achtmal so viel Energie.
+
+Der Gedanke ist elegant, denn er macht Aktivitäten zwischen unterschiedlich großen Menschen vergleichbar, ohne dass jemand gemessen werden müsste.
+
+## Die Definition
+
+Ein MET ist definiert als eine Sauerstoffaufnahme von **3,5 Millilitern je Kilogramm Körpermasse und Minute**. Diese Zahl wurde gewählt, um den Ruhestoffwechsel einer typischen erwachsenen Person abzubilden.
+
+Es ist eine Konvention, und eine leicht großzügige. Die gemessene Sauerstoffaufnahme in Ruhe liegt in realen Bevölkerungen oft eher bei 2,6 bis 3,2 mL/kg/min, besonders bei älteren oder schwereren Menschen. Der Standard-MET überschätzt die Ruhekosten also tendenziell und damit auch die daraus berechnete Energie von Aktivitäten.
+
+Im Fach weiß das jede und jeder, und die Konvention hält sich, weil Vergleichbarkeit über Jahrzehnte veröffentlichter Daten mehr wert ist als ein marginaler Genauigkeitsgewinn.
+
+## Woher die Werte stammen
+
+Aus dem Compendium of Physical Activities, erstmals 1993 von Ainsworth und Kollegen veröffentlicht und 2000, 2011 sowie 2024 als Adult Compendium aktualisiert.
+
+Es weist Hunderten von Aktivitäten einen MET-Wert zu, jede mit einem fünfstelligen Code für Kategorie und konkrete Beschreibung. Die Werte stammen aus veröffentlichten Messungen des Energieaufwands, wo es sie gibt, und aus Schätzungen der Herausgeberinnen und Herausgeber, wo nicht — eine Unterscheidung, die das Compendium selbst dokumentiert und die man sich merken sollte: nicht jeder Wert in der Tabelle wurde gemessen.
+
+Einige Beispiele:
+
+| Aktivität                        | MET  |
+| -------------------------------- | ---- |
+| Ruhig sitzen                     | 1,0  |
+| Gehen, 3 km/h                    | 2,5  |
+| Zügig gehen, 5,5 km/h            | 4,3  |
+| Radfahren, 16–19 km/h            | 6,8  |
+| Laufen, 8 km/h                   | 8,3  |
+| Laufen, 11 km/h                  | 11,0 |
+| Intensives Krafttraining         | 6,0  |
+| Seilspringen, mäßig              | 11,8 |
+
+## Zwei Formeln, zwei Antworten
+
+Hier weichen Rechner stillschweigend voneinander ab, und es lohnt zu wissen, welchen man vor sich hat.
+
+**Die einfache Form:**
+
+```
+kcal = MET × Körpergewicht (kg) × Stunden
+```
+
+Sie stützt sich auf die Näherung, dass ein MET etwa eine Kilokalorie je Kilogramm und Stunde kostet. Bequem und nah dran.
+
+**Die Form über die Sauerstoffaufnahme:**
+
+```
+kcal/min = MET × 3,5 × Körpergewicht (kg) / 200
+```
+
+Diese geht von der Definition aus. Ein MET sind 3,5 mL O₂/kg/min; ein Liter verbrauchter Sauerstoff setzt rund 5 kcal frei; die Rechnung ergibt 1,05 kcal je Kilogramm und Stunde statt 1,00.
+
+Beide unterscheiden sich also um etwa **fünf Prozent**, wobei die einfache Form niedriger liest. Keine ist richtiger — der Abstand ist weit kleiner als die Streuung zwischen zwei Menschen bei derselben Aktivität — aber ein Rechner, der die eine zeigt, und einer, der die andere zeigt, werden nicht übereinstimmen, und keiner sagt Ihnen, warum. Der [Kalorienverbrauch-Rechner](/de/calculators/calories-burned/) zeigt beide.
+
+## Brutto gegen netto
+
+Eine folgenreichere Unterscheidung, und die, an der die meisten Rechner durch Auslassung scheitern.
+
+Aus MET abgeleitete Zahlen sind **Brutto**-Energieverbrauch: alles, was Ihr Körper in dieser Stunde verbraucht hat, einschließlich des Ruheumsatzes, den er ohnehin verbraucht hätte.
+
+Wenn Sie wissen wollen, was das Training _hinzugefügt_ hat, ziehen Sie die Grundlinie ab:
+
+```
+Netto-kcal = (MET − 1) × Körpergewicht (kg) × Stunden
+```
+
+Für eine 70 kg schwere Person, die eine Stunde mit 8 MET trainiert: brutto sind es 560 kcal, netto 490 kcal. Die 70 kcal Differenz sind das, was Sie in dieser Stunde auf dem Sofa verbrannt hätten.
+
+Das zählt, wenn Sie Training auf einen Erhaltungswert aufaddieren, denn der Erhaltungswert enthält den Ruheumsatz dieser Stunden bereits. Die Bruttozahl zu nehmen zählt ihn doppelt.
+
+## Wie genau ist das alles
+
+Weniger, als zwei Nachkommastellen nahelegen.
+
+MET-Werte sind Bevölkerungsmittel. Die tatsächlichen Energiekosten einer Aktivität schwanken mit der Fitness — eine trainierte Radfahrerin ist bei gleicher Geschwindigkeit ökonomischer —, mit der Körperzusammensetzung, mit der Technik, mit Untergrund, Wind und sogar damit, wie sehr sich jemand in den Pausen bewegt.
+
+Das Compendium selbst hält fest, dass die individuellen Energiekosten erheblich vom tabellierten Wert abweichen können. Studien, die MET-Schätzungen mit indirekter Kalorimetrie vergleichen, finden bei Einzelpersonen häufig Abweichungen von zwanzig bis dreißig Prozent.
+
+Es gibt außerdem ein systematisches Problem bei größeren Körpern. Der MET-Rahmen normiert auf die Körpermasse und unterstellt damit, dass die Energiekosten linear mit dem Gewicht steigen. Ganz so ist es nicht — schwerere Menschen sind je Kilogramm etwas ökonomischer, als das lineare Modell nahelegt, MET-basierte Schätzungen lesen für sie also zu hoch.
+
+Behandeln Sie eine Kalorienverbrauchszahl als Größenordnung. „Ungefähr 500, nicht ungefähr 200 und nicht ungefähr 1.000.“
+
+## Die Doppelzählungsfalle
+
+Der häufigste praktische Fehler mit diesen Rechnern gehört ausgesprochen.
+
+Wenn Sie Ihren [Gesamtumsatz](/de/calculators/tdee/) mit einem Aktivitätsfaktor festgelegt haben, der Training bereits voraussetzt — „mäßig aktiv, Sport an 3 bis 5 Tagen pro Woche“ —, dann enthält dieser Faktor Ihre Einheiten schon. Eine Kalorienverbrauchszahl obendrauf zählt sie zweimal.
+
+Wählen Sie eines:
+
+- **Der Aktivitätsfaktor enthält das Training.** Keine Trainingskalorien addieren. Am einfachsten, und für die meisten richtig.
+- **Aktivität auf sitzend stellen und jede Einheit einzeln addieren.** Genauer bei unregelmäßigem Training, mehr Buchführung.
+
+Beides zu mischen erzeugt ein Ziel, das mehrere hundert Kilokalorien zu hoch liegt — genau die Lage, in der jemand „auf Erhaltungsniveau“ isst und zunimmt.
+
+## Wofür MET-Werte wirklich taugen
+
+Für Vergleiche, nicht für Buchhaltung.
+
+Die Zahl, die Ihnen sagt, dass Seilspringen pro Minute etwa doppelt so viel kostet wie zügiges Gehen, ist verlässlich. Die Zahl, die Ihnen sagt, Ihre konkrete Einheit habe genau 437 kcal verbrannt, ist es nicht.
+
+Nutzen Sie sie, um zwischen Aktivitäten zu wählen, um zu verstehen, warum eine Stunde lockeres Radfahren eine große Mahlzeit nicht ausgleicht, und um zu prüfen, ob eine Intensität die Zeit wert ist. Nutzen Sie sie nicht als Konto, das Sie wieder aufessen.
