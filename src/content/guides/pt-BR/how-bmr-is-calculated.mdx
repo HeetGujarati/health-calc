@@ -1,0 +1,107 @@
+---
+title: Como a taxa metabólica basal é calculada e por que as equações divergem
+metaTitle: Como a taxa metabólica basal é calculada
+description: O que a taxa metabólica basal realmente mede, como as equações de previsão foram construídas e por que três delas dão respostas diferentes.
+keywords:
+  - como calcular a taxa metabólica basal
+  - taxa metabólica basal explicada
+  - equação de tmb
+  - metabolismo de repouso
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [bmr, tdee, calorie]
+relatedGuides: [bmr-equations-compared, what-activity-multipliers-mean]
+readingMinutes: 6
+---
+
+Sua taxa metabólica basal é a energia que o seu corpo gasta sem fazer nada. Não descansando no sofá — nada. Deitado imóvel, acordado, num quarto termicamente neutro, sem ter comido por doze horas. É o custo de continuar vivo: manter o cérebro funcionando, o coração batendo, a temperatura corporal estável, as células sendo repostas.
+
+Para a maioria das pessoas isso é o grosso do gasto energético diário. Entre 60 e 75 por cento do que você queima num dia acontece quer você se levante, quer não. É por isso que todo cálculo calórico começa aqui.
+
+## O que está de fato sendo medido
+
+O método de referência é a calorimetria indireta. Você se deita sob uma campânula ou respira por uma máscara, e o aparelho mede quanto oxigênio você consome e quanto gás carbônico produz. Como oxidar gordura e carboidrato consome oxigênio em proporções conhecidas, a troca gasosa informa o gasto energético com erro de poucos por cento, sem que ninguém precise medir calor diretamente.
+
+Funciona bem e quase ninguém tem acesso. Um carrinho metabólico custa dezenas de milhares, o exame leva meia hora em condições controladas, e é preciso chegar em jejum e descansado. Então a alternativa prática é uma equação de previsão: meça bem um grupo grande, encontre as variáveis que explicam a maior parte da variação e ajuste uma fórmula.
+
+É isso que são as três equações da [calculadora de TMB](/pt-br/calculators/bmr/). São regressões sobre dados medidos, não descrições de fisiologia.
+
+## Por que altura, peso, idade e sexo
+
+Essas quatro variáveis não são arbitrárias. Cada uma faz as vezes de algo metabolicamente real.
+
+**O peso** é de longe o preditor mais forte, porque serve de proxy para quanto tecido você tem. Mais tecido custa mais para manter. É imperfeito porque o tecido gorduroso é muito menos ativo metabolicamente do que órgão ou músculo, então duas pessoas com o mesmo peso e composições corporais diferentes de fato diferem — e um termo de peso não enxerga isso.
+
+**A altura** acrescenta informação que o peso sozinho perde. No mesmo peso, uma pessoa mais alta tem mais área de superfície, perde calor mais rápido e distribui o tecido de outro jeito. A área de superfície foi a base original da previsão metabólica no século XIX, antes de as equações baseadas em peso a deslocarem.
+
+**A idade** capta um declínio real. A taxa metabólica cai ao longo da vida adulta, em parte pela perda de massa magra e em parte pela menor atividade metabólica do tecido que resta. As equações modelam isso como uma reta, o que é uma simplificação, mas a direção e a ordem de grandeza estão bem estabelecidas.
+
+**O sexo** aparece porque, na mesma altura, peso e idade, homens costumam ter mais massa magra e menos gordura. O coeficiente representa essa diferença média de composição corporal. Não é uma afirmação sobre indivíduos — uma mulher musculosa e um homem médio das mesmas dimensões podem ter taxas quase idênticas, e a equação não consegue distinguir.
+
+Repare no que falta: nada sobre a sua composição corporal real, sua função tireoidiana, sua genética ou seu histórico recente de dietas. As quatro coisas movem a taxa metabólica real, e nenhuma é um dado de entrada.
+
+## As três equações
+
+**Mifflin-St Jeor** (1990) é a padrão aqui e na maior parte da prática clínica:
+
+```
+homens:   TMB = 10P + 6,25A − 5I + 5
+mulheres: TMB = 10P + 6,25A − 5I − 161
+```
+
+Peso em quilogramas, altura em centímetros, idade em anos. Mifflin e colegas mediram 498 adultos saudáveis por calorimetria indireta e ajustaram a equação a esses dados.
+
+**Harris-Benedict revisada** (Roza e Shizgal, 1984) é uma reelaboração da equação original de 1919:
+
+```
+homens:   TMB = 88,362 + 13,397P + 4,799A − 5,677I
+mulheres: TMB = 447,593 + 9,247P + 3,098A − 4,330I
+```
+
+Mais casas decimais, não mais exatidão. Essa precisão extra é um artefato do ajuste, não uma afirmação sobre o quanto ela prevê bem.
+
+**Katch-McArdle** adota uma abordagem inteiramente diferente:
+
+```
+TMB = 370 + 21,6 × massa magra (kg)
+```
+
+Uma variável só. Sem coeficiente de sexo, porque a massa magra já carrega a diferença que o termo de sexo representava.
+
+## Por que elas divergem
+
+Passe a mesma pessoa pelas três e você verá tipicamente uma dispersão de 100 a 300 kcal. Para um homem de 80 kg, 180 cm e 30 anos: Mifflin-St Jeor dá 1.780, Harris-Benedict revisada dá 1.854. São 74 kcal de diferença, e ela se alarga nos extremos da faixa.
+
+Três razões.
+
+**Populações diferentes.** Harris e Benedict mediram 239 sujeitos no início do século XX. Aquelas pessoas diferiam de uma população moderna em composição corporal, nível de atividade e provavelmente em aspectos que ninguém registrou. Mifflin-St Jeor foi ajustada a pessoas medidas no fim dos anos 1980. Nenhuma coorte está errada; elas são apenas diferentes, e os coeficientes refletem isso.
+
+**Métodos diferentes.** A calorimetria melhorou bastante entre 1919 e 1990. Parte da distância entre as equações é tecnologia de medição, não biologia.
+
+**Variáveis diferentes.** Katch-McArdle usa massa magra e nada mais. Quando a massa magra é genuinamente medida, isso a torna a mais exata das três — é a única equação que responde à composição corporal. Quando a massa magra é estimada por outra equação, ela herda o erro daquela e passa a ser a menos exata. É por isso que a calculadora declara com clareza quando está usando uma estimativa.
+
+A Harris-Benedict revisada tende a superestimar, tipicamente em torno de cinco por cento, e é por isso que a Academy of Nutrition and Dietetics recomenda Mifflin-St Jeor tanto para adultos com obesidade quanto sem.
+
+## Quão exato é tudo isso
+
+Equações preditivas costumam ficar dentro de cerca de dez por cento do gasto energético de repouso medido para a maioria das pessoas. Soa apertado até você converter: dez por cento de 1.800 kcal são 180 kcal por dia, o que ao longo de um mês equivale aproximadamente à energia de três quartos de quilo de massa corporal.
+
+O erro individual pode ser maior. Estudos encontram de forma consistente uma minoria de pessoas cuja taxa medida fica quinze ou vinte por cento distante da previsão de qualquer equação, e nenhuma equação consegue identificar de antemão quem são essas pessoas.
+
+A implicação prática não é que o número seja inútil. É que o número é um ponto de partida, e não uma meta. Coma no nível que sua TMB e sua estimativa de atividade sugerem por duas ou três semanas, acompanhe o que de fato acontece com o seu peso e ajuste a partir do resultado observado. Sua própria resposta é um dado melhor do que qualquer regressão ajustada em outra pessoa.
+
+## O que a TMB não é
+
+Não é o que você deve comer. Essa é a leitura equivocada mais comum e de piores consequências. A TMB é o que você precisaria deitado imóvel num quarto escuro o dia inteiro. Comer no nível da TMB enquanto se leva uma vida comum coloca você num déficit substancial — geralmente bem maior do que o pretendido, e muitas vezes abaixo dos pisos que este site aplica.
+
+O número que você quer para a ingestão é o gasto energético diário total, que multiplica a TMB por um fator de atividade. Isso é tratado em [o que os multiplicadores de atividade significam](/pt-br/guides/what-activity-multipliers-mean/), e é ali que mora a maior parte da incerteza restante de uma meta calórica.
+
+## A TMB cai quando se perde peso?
+
+Sim, por duas razões distintas que vale separar.
+
+A primeira é aritmética e inteiramente esperada: um corpo menor custa menos para funcionar. Toda equação aqui reflete isso pelo termo de peso. Perca 10 kg e Mifflin-St Jeor reduz sua TMB em 100 kcal, porque há menos de você.
+
+A segunda é mais interessante. Há evidência razoável de termogênese adaptativa — uma redução da taxa metabólica além do que a perda de tecido sozinha prevê. O tamanho e a persistência do efeito são genuinamente debatidos, com estimativas que vão de desprezível a algumas centenas de quilocalorias, e os estudos que encontram efeitos grandes tendem a envolver perdas grandes e rápidas.
+
+De todo modo, a consequência prática é a mesma: um déficit que produzia perda constante no começo produz perda mais lenta depois, com a mesma ingestão. Isso é esperado, não fracasso, e é uma das razões pelas quais a [calculadora de calorias](/pt-br/calculators/calorie/) recomenda refazer as contas periodicamente em vez de tratar um valor como permanente.

@@ -1,0 +1,107 @@
+---
+title: Comment se calcule le métabolisme de base, et pourquoi les équations divergent
+metaTitle: Comment se calcule le métabolisme de base
+description: Ce que mesure vraiment le métabolisme de base, comment les équations de prédiction ont été construites, et pourquoi trois d'entre elles ne s'accordent pas.
+keywords:
+  - comment calculer le métabolisme de base
+  - métabolisme de base expliqué
+  - équation du métabolisme de base
+  - métabolisme de repos
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [bmr, tdee, calorie]
+relatedGuides: [bmr-equations-compared, what-activity-multipliers-mean]
+readingMinutes: 6
+---
+
+Votre métabolisme de base est l'énergie que votre corps dépense à ne rien faire. Pas allongé sur le canapé — rien. Immobile, éveillé, dans une pièce thermiquement neutre, à jeun depuis douze heures. C'est le coût du simple fait de rester en vie : faire fonctionner le cerveau, entretenir le battement du cœur, maintenir la température, renouveler les cellules.
+
+Chez la plupart des gens, c'est l'essentiel de la dépense quotidienne. Entre 60 et 75 pour cent de ce que vous brûlez dans une journée se produit que vous vous leviez ou non. C'est pour cela que tout calcul calorique commence ici.
+
+## Ce que l'on mesure réellement
+
+La méthode de référence est la calorimétrie indirecte. Vous vous allongez sous une hotte ou respirez dans un masque, et l'appareil mesure la quantité d'oxygène consommée et de gaz carbonique produite. Comme l'oxydation des graisses et des glucides consomme de l'oxygène dans des rapports connus, les échanges gazeux donnent la dépense énergétique à quelques pour cent près, sans avoir à mesurer la chaleur directement.
+
+Cela fonctionne bien et presque personne n'y a accès. Un chariot métabolique coûte des dizaines de milliers d'euros, l'examen dure une demi-heure en conditions contrôlées, et il faut se présenter à jeun et reposé. L'alternative pratique est donc une équation de prédiction : mesurer correctement un grand groupe, trouver les variables qui expliquent l'essentiel de la variation, et ajuster une formule.
+
+C'est exactement ce que sont les trois équations du [calculateur de métabolisme de base](/fr/calculators/bmr/). Ce sont des régressions sur des données mesurées, pas des descriptions de physiologie.
+
+## Pourquoi la taille, le poids, l'âge et le sexe
+
+Ces quatre variables ne sont pas arbitraires. Chacune tient lieu de quelque chose de métaboliquement réel.
+
+**Le poids** est de loin le meilleur prédicteur, parce qu'il sert d'indicateur de la quantité de tissu. Plus de tissu coûte plus cher à entretenir. C'est imparfait, car le tissu adipeux est bien moins actif sur le plan métabolique qu'un organe ou un muscle : deux personnes de même poids et de compositions corporelles différentes diffèrent réellement, et un terme de poids ne peut pas le voir.
+
+**La taille** apporte une information que le poids seul manque. À poids égal, une personne plus grande a une surface corporelle plus étendue, perd sa chaleur plus vite et répartit ses tissus autrement. La surface corporelle a été la base d'origine de la prédiction métabolique au XIXe siècle, avant que les équations fondées sur le poids ne la supplantent.
+
+**L'âge** capte un déclin réel. Le métabolisme baisse au fil de la vie adulte, en partie par perte de masse maigre, en partie par réduction de l'activité métabolique des tissus restants. Les équations modélisent cela par une droite, ce qui est une simplification, mais le sens et l'ordre de grandeur sont bien établis.
+
+**Le sexe** apparaît parce que, à taille, poids et âge égaux, les hommes portent en moyenne plus de masse maigre et moins de graisse. Le coefficient représente cette différence moyenne de composition corporelle. Ce n'est pas une affirmation sur les individus — une femme musclée et un homme moyen aux mêmes dimensions peuvent avoir des métabolismes quasi identiques, et l'équation ne peut pas les distinguer.
+
+Remarquez ce qui manque : rien sur votre composition corporelle réelle, votre fonction thyroïdienne, votre génétique ou votre historique récent de régimes. Ces quatre éléments déplacent le métabolisme réel, et aucun n'est une entrée.
+
+## Les trois équations
+
+**Mifflin-St Jeor** (1990) est celle par défaut ici comme dans la plupart des pratiques cliniques :
+
+```
+hommes : MB = 10P + 6,25T − 5A + 5
+femmes : MB = 10P + 6,25T − 5A − 161
+```
+
+Poids en kilogrammes, taille en centimètres, âge en années. Mifflin et ses collègues ont mesuré 498 adultes en bonne santé par calorimétrie indirecte et ont ajusté l'équation à ces données.
+
+**Harris-Benedict révisée** (Roza et Shizgal, 1984) est une refonte de l'équation d'origine de 1919 :
+
+```
+hommes : MB = 88,362 + 13,397P + 4,799T − 5,677A
+femmes : MB = 447,593 + 9,247P + 3,098T − 4,330A
+```
+
+Plus de décimales, pas plus d'exactitude. Cette précision supplémentaire est un artefact de l'ajustement, pas une affirmation sur la qualité de la prédiction.
+
+**Katch-McArdle** adopte une approche entièrement différente :
+
+```
+MB = 370 + 21,6 × masse maigre (kg)
+```
+
+Une seule variable. Aucun coefficient de sexe, parce que la masse maigre porte déjà la différence que ce terme représentait.
+
+## Pourquoi elles divergent
+
+Faites passer la même personne dans les trois et vous verrez généralement un écart de 100 à 300 kcal. Pour un homme de 80 kg, 180 cm, 30 ans : Mifflin-St Jeor donne 1 780, Harris-Benedict révisée donne 1 854. Soit 74 kcal d'écart, qui se creuse aux extrémités de la plage.
+
+Trois raisons.
+
+**Des populations différentes.** Harris et Benedict ont mesuré 239 sujets au début du XXe siècle. Ces personnes différaient d'une population actuelle par leur composition corporelle, leur niveau d'activité et sans doute par des aspects que personne n'a consignés. Mifflin-St Jeor a été ajustée sur des personnes mesurées à la fin des années 1980. Aucune des deux cohortes n'a tort ; elles sont simplement différentes, et les coefficients le reflètent.
+
+**Des méthodes différentes.** La calorimétrie s'est nettement améliorée entre 1919 et 1990. Une partie de l'écart entre les équations relève de la technologie de mesure et non de la biologie.
+
+**Des variables différentes.** Katch-McArdle n'utilise que la masse maigre. Lorsque celle-ci est réellement mesurée, cela en fait la plus exacte des trois — c'est la seule équation qui réagisse à la composition corporelle. Lorsqu'elle est estimée par une autre équation, elle hérite de l'erreur de cette dernière et devient la moins exacte. C'est pourquoi le calculateur indique clairement quand il travaille sur une estimation.
+
+L'équation de Harris-Benedict révisée a tendance à surestimer, généralement d'environ cinq pour cent, et c'est pourquoi l'Academy of Nutrition and Dietetics recommande Mifflin-St Jeor aussi bien chez les adultes obèses que non obèses.
+
+## Quelle exactitude tout cela a-t-il
+
+Les équations prédictives tombent en général à environ dix pour cent près de la dépense de repos mesurée pour la plupart des gens. Cela paraît serré jusqu'à ce qu'on convertisse : dix pour cent de 1 800 kcal font 180 kcal par jour, soit sur un mois à peu près l'énergie contenue dans trois quarts de kilogramme de masse corporelle.
+
+L'erreur individuelle peut être plus grande. Les études trouvent systématiquement une minorité de personnes dont le métabolisme mesuré se situe à quinze ou vingt pour cent de la prédiction de n'importe quelle équation, et aucune équation ne peut identifier ces personnes à l'avance.
+
+L'implication pratique n'est pas que le nombre soit inutile. C'est qu'il constitue un point de départ et non une cible. Mangez au niveau suggéré par votre métabolisme de base et votre estimation d'activité pendant deux ou trois semaines, suivez ce qui arrive réellement à votre poids, et ajustez d'après le résultat observé. Votre propre réponse est une meilleure donnée que n'importe quelle régression ajustée sur quelqu'un d'autre.
+
+## Ce que le métabolisme de base n'est pas
+
+Ce n'est pas ce que vous devriez manger. C'est le contresens le plus fréquent et le plus lourd de conséquences. Le métabolisme de base est ce qu'il vous faudrait allongé, immobile, dans une pièce sombre toute la journée. Manger à ce niveau en menant une vie ordinaire vous place en déficit important — généralement bien plus important que voulu, et souvent sous les planchers appliqués par ce site.
+
+Le nombre qu'il vous faut pour l'apport est la dépense énergétique totale, qui multiplie le métabolisme de base par un coefficient d'activité. C'est le sujet de [ce que signifient les coefficients d'activité](/fr/guides/what-activity-multipliers-mean/), et c'est là que réside l'essentiel de l'incertitude restante d'une cible calorique.
+
+## Le métabolisme de base baisse-t-il quand on maigrit ?
+
+Oui, pour deux raisons distinctes qu'il vaut la peine de séparer.
+
+La première relève de l'arithmétique et est parfaitement attendue : un corps plus petit coûte moins cher à faire fonctionner. Toutes les équations présentées ici le traduisent par le terme de poids. Perdez 10 kg et Mifflin-St Jeor abaisse votre métabolisme de 100 kcal, parce qu'il y a moins de vous.
+
+La seconde est plus intéressante. Il existe des données raisonnables en faveur d'une thermogenèse adaptative — une baisse du métabolisme au-delà de ce que prédit la seule perte de tissu. L'ampleur et la persistance de l'effet sont réellement débattues, avec des estimations allant de négligeable à quelques centaines de kilocalories, et les études qui trouvent de gros effets portent généralement sur des pertes importantes et rapides.
+
+Dans les deux cas, la conséquence pratique est la même : un déficit qui produisait une perte régulière au départ en produit une plus lente ensuite, à apport identique. C'est attendu, et non un échec, et c'est une des raisons pour lesquelles le [calculateur de calories](/fr/calculators/calorie/) recommande de refaire le calcul périodiquement plutôt que de traiter un chiffre comme définitif.

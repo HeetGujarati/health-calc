@@ -1,0 +1,107 @@
+---
+title: Cómo se calcula el metabolismo basal y por qué las ecuaciones discrepan
+metaTitle: Cómo se calcula el metabolismo basal
+description: Qué mide realmente la tasa metabólica basal, cómo se construyeron las ecuaciones de predicción y por qué tres de ellas dan respuestas distintas.
+keywords:
+  - cómo se calcula el metabolismo basal
+  - tasa metabólica basal explicada
+  - ecuación de tmb
+  - metabolismo en reposo
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [bmr, tdee, calorie]
+relatedGuides: [bmr-equations-compared, what-activity-multipliers-mean]
+readingMinutes: 6
+---
+
+Tu tasa metabólica basal es la energía que tu cuerpo gasta sin hacer nada. No descansando en el sofá: nada. Tumbado inmóvil, despierto, en una habitación térmicamente neutra y sin haber comido durante doce horas. Es el coste de seguir vivo: hacer funcionar el cerebro, mantener el corazón latiendo, sostener la temperatura corporal, reponer células.
+
+Para la mayoría es el grueso del gasto energético diario. Entre un 60 y un 75 por ciento de lo que quemas en un día ocurre te levantes o no. Por eso todo cálculo calórico empieza aquí.
+
+## Qué se mide en realidad
+
+El método de referencia es la calorimetría indirecta. Te tumbas bajo una campana o respiras por una mascarilla, y la máquina mide cuánto oxígeno consumes y cuánto dióxido de carbono produces. Como oxidar grasa y carbohidrato consume oxígeno en proporciones conocidas, el intercambio de gases da el gasto energético con un error de pocos puntos porcentuales, sin que nadie tenga que medir calor directamente.
+
+Funciona bien y casi nadie tiene acceso. Un carro metabólico cuesta decenas de miles de euros, la prueba lleva media hora en condiciones controladas, y hay que llegar en ayunas y descansado. Así que la alternativa práctica es una ecuación de predicción: mide bien a un grupo grande, encuentra las variables que explican la mayor parte de la variación y ajusta una fórmula.
+
+Eso son las tres ecuaciones de la [calculadora de metabolismo basal](/es/calculators/bmr/). Son regresiones sobre datos medidos, no descripciones de fisiología.
+
+## Por qué estatura, peso, edad y sexo
+
+Estas cuatro variables no son arbitrarias. Cada una sustituye a algo metabólicamente real.
+
+**El peso** es con diferencia el predictor más fuerte, porque hace de sustituto de cuánto tejido tienes. Más tejido cuesta más de mantener. Es imperfecto porque el tejido graso es mucho menos activo metabólicamente que el órgano o el músculo, así que dos personas con el mismo peso y distinta composición corporal difieren de verdad, y un término de peso no puede verlo.
+
+**La estatura** añade información que el peso por sí solo pierde. Al mismo peso, una persona más alta tiene más superficie corporal, pierde calor más rápido y distribuye el tejido de otra manera. La superficie corporal fue la base original de la predicción metabólica en el siglo XIX, antes de que la desplazaran las ecuaciones basadas en el peso.
+
+**La edad** recoge un descenso real. La tasa metabólica cae a lo largo de la vida adulta, en parte por pérdida de masa magra y en parte por menor actividad metabólica del tejido que queda. Las ecuaciones lo modelan como una recta, lo cual es una simplificación, pero la dirección y el orden de magnitud están bien establecidos.
+
+**El sexo** aparece porque, a igual estatura, peso y edad, los hombres suelen tener más masa magra y menos grasa. El coeficiente sustituye a esa diferencia media de composición corporal. No es una afirmación sobre individuos: una mujer musculosa y un hombre promedio con las mismas dimensiones pueden tener tasas casi idénticas, y la ecuación no puede distinguirlo.
+
+Fíjate en lo que falta: nada sobre tu composición corporal real, tu función tiroidea, tu genética o tu historial reciente de dietas. Las cuatro cosas mueven la tasa metabólica real, y ninguna es un dato de entrada.
+
+## Las tres ecuaciones
+
+**Mifflin-St Jeor** (1990) es la opción por defecto aquí y en la mayor parte de la práctica clínica:
+
+```
+hombres: TMB = 10P + 6,25E − 5A + 5
+mujeres: TMB = 10P + 6,25E − 5A − 161
+```
+
+Peso en kilogramos, estatura en centímetros, edad en años. Mifflin y sus colegas midieron a 498 adultos sanos por calorimetría indirecta y ajustaron la ecuación a esos datos.
+
+**Harris-Benedict revisada** (Roza y Shizgal, 1984) es una reelaboración de la ecuación original de 1919:
+
+```
+hombres: TMB = 88,362 + 13,397P + 4,799E − 5,677A
+mujeres: TMB = 447,593 + 9,247P + 3,098E − 4,330A
+```
+
+Más decimales, no más exactitud. Esa precisión adicional es un artefacto del ajuste, no una afirmación sobre lo bien que predice.
+
+**Katch-McArdle** adopta un enfoque completamente distinto:
+
+```
+TMB = 370 + 21,6 × masa magra (kg)
+```
+
+Una sola variable. Sin coeficiente de sexo, porque la masa magra ya lleva dentro la diferencia que el término de sexo estaba sustituyendo.
+
+## Por qué discrepan
+
+Pasa a la misma persona por las tres y verás normalmente una horquilla de 100 a 300 kcal. Para un hombre de 80 kg, 180 cm y 30 años: Mifflin-St Jeor da 1.780 y Harris-Benedict revisada da 1.854. Son 74 kcal de diferencia, y se ensancha en los extremos del rango.
+
+Tres razones.
+
+**Poblaciones distintas.** Harris y Benedict midieron a 239 sujetos a principios del siglo XX. Aquellas personas diferían de una población moderna en composición corporal, nivel de actividad y probablemente en cosas que nadie registró. Mifflin-St Jeor se ajustó a personas medidas a finales de los ochenta. Ninguna cohorte está equivocada; simplemente son distintas, y los coeficientes lo reflejan.
+
+**Métodos distintos.** La calorimetría mejoró sustancialmente entre 1919 y 1990. Parte de la brecha entre las ecuaciones es tecnología de medición y no biología.
+
+**Variables distintas.** Katch-McArdle usa la masa magra y nada más. Cuando la masa magra está genuinamente medida, eso la convierte en la más precisa de las tres: es la única ecuación que responde a la composición corporal. Cuando la masa magra se estima con otra ecuación, hereda el error de aquella y pasa a ser la menos precisa. Por eso la calculadora dice con claridad cuándo está usando una estimación.
+
+La Harris-Benedict revisada tiende a sobrestimar, normalmente en torno a un cinco por ciento, y por eso la Academy of Nutrition and Dietetics recomienda Mifflin-St Jeor tanto en adultos con obesidad como sin ella.
+
+## Cuánta exactitud tiene todo esto
+
+Las ecuaciones predictivas suelen caer dentro de un diez por ciento del gasto energético en reposo medido para la mayoría. Suena ajustado hasta que lo conviertes: el diez por ciento de 1.800 kcal son 180 kcal al día, que en un mes equivalen aproximadamente a la energía de tres cuartos de kilo de masa corporal.
+
+El error individual puede ser mayor. Los estudios encuentran de forma consistente una minoría de personas cuya tasa medida se sitúa un quince o veinte por ciento lejos de la predicción de cualquier ecuación, y ninguna ecuación puede identificar de antemano quiénes son.
+
+La implicación práctica no es que el número sea inútil. Es que el número es un punto de partida y no un objetivo. Come al nivel que sugieran tu metabolismo basal y tu estimación de actividad durante dos o tres semanas, registra qué le pasa de verdad a tu peso y ajusta a partir del resultado observado. Tu propia respuesta es mejor dato que cualquier regresión ajustada a otra persona.
+
+## Lo que el metabolismo basal no es
+
+No es lo que deberías comer. Esta es la lectura errónea más común y de peores consecuencias. El metabolismo basal es lo que necesitarías tumbado inmóvil en una habitación a oscuras todo el día. Comer a nivel basal mientras haces una vida corriente te deja en un déficit sustancial, normalmente mucho mayor del que pretendías, y a menudo por debajo de los suelos que aplica este sitio.
+
+El número que quieres para la ingesta es el gasto energético diario total, que multiplica el basal por un factor de actividad. Eso se trata en [qué significan de verdad los multiplicadores de actividad](/es/guides/what-activity-multipliers-mean/), y ahí vive la mayor parte de la incertidumbre restante de un objetivo calórico.
+
+## ¿Baja el metabolismo basal al perder peso?
+
+Sí, por dos razones distintas que conviene separar.
+
+La primera es aritmética y del todo esperable: un cuerpo más pequeño cuesta menos de mantener en marcha. Todas las ecuaciones de aquí lo reflejan mediante el término de peso. Pierde 10 kg y Mifflin-St Jeor baja tu basal en 100 kcal, porque hay menos de ti.
+
+La segunda es más interesante. Hay evidencia razonable de termogénesis adaptativa: una reducción de la tasa metabólica más allá de lo que predice la pérdida de tejido por sí sola. El tamaño y la persistencia del efecto se debaten genuinamente, con estimaciones que van de insignificante a unos pocos cientos de kilocalorías, y los estudios que encuentran efectos grandes suelen implicar pérdidas grandes y rápidas.
+
+En cualquier caso, la consecuencia práctica es la misma: un déficit que producía una pérdida constante al principio produce una pérdida más lenta después, con la misma ingesta. Eso es lo esperado, no un fracaso, y es una razón por la que la [calculadora de calorías](/es/calculators/calorie/) recomienda rehacer los números periódicamente en lugar de tratar una cifra como permanente.

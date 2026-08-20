@@ -1,0 +1,107 @@
+---
+title: Wie der Grundumsatz berechnet wird und warum die Gleichungen abweichen
+metaTitle: Wie der Grundumsatz berechnet wird
+description: Was der Grundumsatz tatsächlich misst, wie die Vorhersagegleichungen entstanden und warum drei davon für dieselbe Person verschiedene Antworten geben.
+keywords:
+  - wie wird der Grundumsatz berechnet
+  - Grundumsatz erklärt
+  - Grundumsatz Formel
+  - Ruheumsatz
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [bmr, tdee, calorie]
+relatedGuides: [bmr-equations-compared, what-activity-multipliers-mean]
+readingMinutes: 6
+---
+
+Ihr Grundumsatz ist die Energie, die Ihr Körper verbraucht, während er nichts tut. Nicht auf dem Sofa entspannen — nichts. Regungslos liegend, wach, in einem thermisch neutralen Raum und seit zwölf Stunden nüchtern. Es sind die Kosten des Am-Leben-Bleibens: das Gehirn betreiben, das Herz schlagen lassen, die Körpertemperatur halten, Zellen ersetzen.
+
+Bei den meisten Menschen ist das der größte Teil des Tagesverbrauchs. Irgendwo zwischen 60 und 75 Prozent dessen, was Sie an einem Tag verbrennen, passiert, ob Sie aufstehen oder nicht. Deshalb beginnt jede Kalorienrechnung hier.
+
+## Was tatsächlich gemessen wird
+
+Das Referenzverfahren ist die indirekte Kalorimetrie. Sie liegen unter einer Haube oder atmen durch eine Maske, und das Gerät misst, wie viel Sauerstoff Sie verbrauchen und wie viel Kohlendioxid Sie abgeben. Da die Oxidation von Fett und Kohlenhydrat Sauerstoff in bekannten Verhältnissen verbraucht, verrät der Gasaustausch den Energieverbrauch auf wenige Prozent genau, ohne dass jemand Wärme direkt messen müsste.
+
+Das funktioniert gut, und fast niemand hat Zugang dazu. Ein metabolischer Messwagen kostet Zehntausende, der Test dauert eine halbe Stunde unter kontrollierten Bedingungen, und man muss nüchtern und ausgeruht erscheinen. Die praktische Alternative ist deshalb eine Vorhersagegleichung: eine große Gruppe sauber messen, die Variablen finden, die den größten Teil der Streuung erklären, und eine Formel anpassen.
+
+Genau das sind die drei Gleichungen im [Grundumsatz-Rechner](/de/calculators/bmr/). Es sind Regressionen auf gemessenen Daten, keine Beschreibungen der Physiologie.
+
+## Warum Größe, Gewicht, Alter und Geschlecht
+
+Diese vier Variablen sind nicht willkürlich. Jede steht für etwas stoffwechselphysiologisch Reales.
+
+**Das Gewicht** ist mit Abstand der stärkste Prädiktor, weil es dafür steht, wie viel Gewebe vorhanden ist. Mehr Gewebe kostet mehr im Unterhalt. Es ist unvollkommen, weil Fettgewebe stoffwechselmäßig weit weniger aktiv ist als Organ- oder Muskelgewebe, zwei Personen mit gleichem Gewicht und unterschiedlicher Körperzusammensetzung unterscheiden sich also tatsächlich — und ein Gewichtsterm kann das nicht sehen.
+
+**Die Größe** fügt Information hinzu, die dem Gewicht allein entgeht. Bei gleichem Gewicht hat eine größere Person mehr Körperoberfläche, verliert schneller Wärme und verteilt Gewebe anders. Die Körperoberfläche war im 19. Jahrhundert die ursprüngliche Grundlage der Stoffwechselvorhersage, bevor gewichtsbasierte Gleichungen sie verdrängten.
+
+**Das Alter** erfasst einen realen Rückgang. Die Stoffwechselrate sinkt im Erwachsenenleben, teils durch Verlust an fettfreier Masse, teils durch geringere Stoffwechselaktivität im verbleibenden Gewebe. Die Gleichungen modellieren das als Gerade, was eine Vereinfachung ist, aber Richtung und Größenordnung sind gut belegt.
+
+**Das Geschlecht** taucht auf, weil Männer bei gleicher Größe, gleichem Gewicht und gleichem Alter im Mittel mehr fettfreie Masse und weniger Fett tragen. Der Koeffizient steht für diesen durchschnittlichen Unterschied in der Körperzusammensetzung. Er ist keine Aussage über Einzelne — eine muskulöse Frau und ein durchschnittlicher Mann gleicher Maße können nahezu identische Umsätze haben, und die Gleichung kann das nicht unterscheiden.
+
+Beachten Sie, was fehlt: alles über Ihre tatsächliche Körperzusammensetzung, Ihre Schilddrüsenfunktion, Ihre Genetik oder Ihre jüngste Diätgeschichte. Alle vier verschieben den echten Umsatz, und keines davon ist eine Eingabe.
+
+## Die drei Gleichungen
+
+**Mifflin-St Jeor** (1990) ist hier und in der klinischen Praxis meist die Voreinstellung:
+
+```
+Männer: GU = 10G + 6,25L − 5A + 5
+Frauen: GU = 10G + 6,25L − 5A − 161
+```
+
+Gewicht in Kilogramm, Länge in Zentimetern, Alter in Jahren. Mifflin und Kollegen maßen 498 gesunde Erwachsene mit indirekter Kalorimetrie und passten die Gleichung an diese Daten an.
+
+**Revidierte Harris-Benedict** (Roza und Shizgal, 1984) ist eine Überarbeitung der ursprünglichen Gleichung von 1919:
+
+```
+Männer: GU = 88,362 + 13,397G + 4,799L − 5,677A
+Frauen: GU = 447,593 + 9,247G + 3,098L − 4,330A
+```
+
+Mehr Nachkommastellen, nicht mehr Genauigkeit. Die zusätzliche Präzision ist ein Artefakt der Anpassung, keine Aussage über die Vorhersagegüte.
+
+**Katch-McArdle** geht einen ganz anderen Weg:
+
+```
+GU = 370 + 21,6 × fettfreie Masse (kg)
+```
+
+Eine Variable. Kein Geschlechtskoeffizient, denn die fettfreie Masse trägt den Unterschied bereits, für den der Geschlechtsterm stand.
+
+## Warum sie abweichen
+
+Schicken Sie dieselbe Person durch alle drei, und Sie sehen meist eine Spanne von 100 bis 300 kcal. Für einen 80 kg schweren, 180 cm großen 30-Jährigen: Mifflin-St Jeor ergibt 1.780, die revidierte Harris-Benedict 1.854. Das sind 74 kcal Abstand, und er weitet sich an den Rändern des Bereichs.
+
+Drei Gründe.
+
+**Andere Bevölkerungen.** Harris und Benedict maßen zu Beginn des 20. Jahrhunderts 239 Personen. Diese unterschieden sich von einer heutigen Bevölkerung in Körperzusammensetzung, Aktivitätsniveau und vermutlich in Dingen, die niemand festhielt. Mifflin-St Jeor wurde an Menschen angepasst, die Ende der 1980er gemessen wurden. Keine Kohorte ist falsch; sie sind schlicht verschieden, und die Koeffizienten bilden das ab.
+
+**Andere Methoden.** Die Kalorimetrie verbesserte sich zwischen 1919 und 1990 erheblich. Ein Teil des Abstands zwischen den Gleichungen ist Messtechnik statt Biologie.
+
+**Andere Variablen.** Katch-McArdle nutzt die fettfreie Masse und sonst nichts. Ist die fettfreie Masse wirklich gemessen, ist sie damit die genaueste der drei — sie ist die einzige Gleichung, die überhaupt auf die Körperzusammensetzung reagiert. Wird die fettfreie Masse aus einer anderen Gleichung geschätzt, erbt sie deren Fehler und wird zur ungenauesten. Deshalb sagt der Rechner klar, wenn er mit einer Schätzung arbeitet.
+
+Die revidierte Harris-Benedict neigt zur Überschätzung, meist um rund fünf Prozent, und deshalb empfiehlt die Academy of Nutrition and Dietetics Mifflin-St Jeor sowohl für Erwachsene mit als auch ohne Adipositas.
+
+## Wie genau ist das alles
+
+Vorhersagegleichungen landen bei den meisten Menschen innerhalb von etwa zehn Prozent des gemessenen Ruheenergieverbrauchs. Das klingt eng, bis man es umrechnet: Zehn Prozent von 1.800 kcal sind 180 kcal am Tag, was über einen Monat ungefähr der Energie von dreiviertel Kilogramm Körpermasse entspricht.
+
+Der individuelle Fehler kann größer sein. Studien finden durchweg eine Minderheit, deren gemessener Umsatz fünfzehn oder zwanzig Prozent von der Vorhersage jeder Gleichung entfernt liegt, und keine Gleichung kann diese Menschen vorab erkennen.
+
+Die praktische Folge ist nicht, dass die Zahl nutzlos wäre. Sie ist ein Ausgangspunkt und kein Ziel. Essen Sie zwei bis drei Wochen auf dem Niveau, das Ihr Grundumsatz und Ihre Aktivitätsschätzung nahelegen, verfolgen Sie, was mit Ihrem Gewicht tatsächlich passiert, und passen Sie anhand des beobachteten Ergebnisses an. Ihre eigene Reaktion ist ein besseres Datum als jede Regression, die an jemand anderem angepasst wurde.
+
+## Was der Grundumsatz nicht ist
+
+Er ist nicht, was Sie essen sollten. Das ist die häufigste und folgenreichste Fehldeutung. Der Grundumsatz ist, was Sie bräuchten, wenn Sie den ganzen Tag regungslos in einem dunklen Raum lägen. Auf Grundumsatzniveau zu essen und dabei ein normales Leben zu führen, versetzt Sie in ein erhebliches Defizit — meist ein viel größeres als beabsichtigt und oft unter den Untergrenzen, die diese Website anwendet.
+
+Die Zahl, die Sie für die Zufuhr brauchen, ist der Gesamtenergieverbrauch, der den Grundumsatz mit einem Aktivitätsfaktor multipliziert. Darum geht es in [was die Aktivitätsfaktoren tatsächlich bedeuten](/de/guides/what-activity-multipliers-mean/), und dort steckt der Großteil der verbleibenden Unsicherheit eines Kalorienziels.
+
+## Sinkt der Grundumsatz beim Abnehmen?
+
+Ja, aus zwei verschiedenen Gründen, die man auseinanderhalten sollte.
+
+Der erste ist Arithmetik und völlig erwartbar: Ein kleinerer Körper kostet weniger im Betrieb. Jede Gleichung hier bildet das über den Gewichtsterm ab. Nehmen Sie 10 kg ab, senkt Mifflin-St Jeor Ihren Grundumsatz um 100 kcal, weil weniger von Ihnen da ist.
+
+Der zweite ist interessanter. Es gibt vernünftige Belege für adaptive Thermogenese — eine Senkung der Stoffwechselrate über das hinaus, was der Gewebeverlust allein vorhersagt. Ausmaß und Dauer des Effekts werden ernsthaft diskutiert, mit Schätzungen von vernachlässigbar bis zu einigen hundert Kilokalorien, und die Studien mit großen Effekten betreffen meist große, schnelle Abnahmen.
+
+So oder so ist die praktische Folge dieselbe: Ein Defizit, das anfangs stetige Abnahme brachte, bringt später bei gleicher Zufuhr langsamere. Das ist zu erwarten und kein Scheitern, und es ist einer der Gründe, warum der [Kalorienrechner](/de/calculators/calorie/) empfiehlt, die Zahlen regelmäßig neu zu rechnen, statt einen Wert als endgültig zu behandeln.

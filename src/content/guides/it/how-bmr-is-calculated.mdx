@@ -1,0 +1,107 @@
+---
+title: Come si calcola il metabolismo basale e perché le equazioni non concordano
+metaTitle: Come si calcola il metabolismo basale
+description: Che cosa misura davvero il metabolismo basale, come sono state costruite le equazioni di previsione e perché tre di esse danno risposte diverse.
+keywords:
+  - come si calcola il metabolismo basale
+  - metabolismo basale spiegato
+  - equazione del metabolismo basale
+  - metabolismo a riposo
+published: 2026-08-20
+updated: 2026-08-20
+relatedCalculators: [bmr, tdee, calorie]
+relatedGuides: [bmr-equations-compared, what-activity-multipliers-mean]
+readingMinutes: 6
+---
+
+Il tuo metabolismo basale è l'energia che il corpo spende senza fare nulla. Non riposando sul divano: nulla. Sdraiato immobile, sveglio, in una stanza termicamente neutra, dopo dodici ore di digiuno. È il costo di restare vivo: far funzionare il cervello, tenere il cuore che batte, mantenere la temperatura corporea, rimpiazzare le cellule.
+
+Per la maggior parte delle persone è il grosso del consumo energetico quotidiano. Fra il 60 e il 75 per cento di ciò che bruci in un giorno avviene che tu ti alzi o no. È per questo che ogni calcolo calorico parte da qui.
+
+## Che cosa si sta misurando davvero
+
+Il metodo di riferimento è la calorimetria indiretta. Ti sdrai sotto una cappa o respiri attraverso una maschera, e la macchina misura quanto ossigeno consumi e quanta anidride carbonica produci. Poiché ossidare grassi e carboidrati consuma ossigeno in rapporti noti, lo scambio gassoso restituisce il dispendio energetico con un errore di pochi punti percentuali, senza che nessuno debba misurare direttamente il calore.
+
+Funziona bene e quasi nessuno vi ha accesso. Un carrello metabolico costa decine di migliaia di euro, l'esame richiede mezz'ora in condizioni controllate, e bisogna presentarsi a digiuno e riposati. L'alternativa pratica è quindi un'equazione di previsione: misuri bene un gruppo ampio, trovi le variabili che spiegano la maggior parte della variazione e adatti una formula.
+
+È esattamente questo che sono le tre equazioni del [calcolatore del metabolismo basale](/it/calculators/bmr/). Sono regressioni su dati misurati, non descrizioni della fisiologia.
+
+## Perché altezza, peso, età e sesso
+
+Queste quattro variabili non sono arbitrarie. Ciascuna sta al posto di qualcosa di metabolicamente reale.
+
+**Il peso** è di gran lunga il predittore più forte, perché fa da indicatore di quanto tessuto hai. Più tessuto costa di più da mantenere. È imperfetto perché il tessuto adiposo è assai meno attivo dal punto di vista metabolico di un organo o di un muscolo, quindi due persone con lo stesso peso e composizioni corporee diverse differiscono davvero, e un termine di peso non può accorgersene.
+
+**L'altezza** aggiunge un'informazione che il peso da solo perde. A parità di peso, una persona più alta ha più superficie corporea, perde calore più in fretta e distribuisce i tessuti in modo diverso. La superficie corporea fu la base originaria della previsione metabolica nell'Ottocento, prima che le equazioni basate sul peso la soppiantassero.
+
+**L'età** coglie un declino reale. Il metabolismo cala lungo la vita adulta, in parte per perdita di massa magra e in parte per la ridotta attività metabolica del tessuto che resta. Le equazioni lo modellano come una retta, il che è una semplificazione, ma direzione e ordine di grandezza sono ben stabiliti.
+
+**Il sesso** compare perché, a parità di altezza, peso ed età, gli uomini portano in media più massa magra e meno grasso. Il coefficiente rappresenta quella differenza media di composizione corporea. Non è un'affermazione sui singoli: una donna muscolosa e un uomo medio delle stesse dimensioni possono avere metabolismi quasi identici, e l'equazione non sa distinguerli.
+
+Nota che cosa manca: qualsiasi cosa sulla tua composizione corporea reale, sulla tua funzione tiroidea, sulla tua genetica o sulla tua storia recente di diete. Tutte e quattro spostano il metabolismo reale, e nessuna è un dato in ingresso.
+
+## Le tre equazioni
+
+**Mifflin-St Jeor** (1990) è quella predefinita qui e nella maggior parte della pratica clinica:
+
+```
+uomini: MB = 10P + 6,25A − 5E + 5
+donne:  MB = 10P + 6,25A − 5E − 161
+```
+
+Peso in chilogrammi, altezza in centimetri, età in anni. Mifflin e colleghi misurarono 498 adulti sani con calorimetria indiretta e adattarono l'equazione a quei dati.
+
+**Harris-Benedict rivista** (Roza e Shizgal, 1984) è una rielaborazione dell'equazione originale del 1919:
+
+```
+uomini: MB = 88,362 + 13,397P + 4,799A − 5,677E
+donne:  MB = 447,593 + 9,247P + 3,098A − 4,330E
+```
+
+Più decimali, non più accuratezza. Quella precisione in più è un artefatto dell'adattamento, non un'affermazione su quanto bene preveda.
+
+**Katch-McArdle** adotta un approccio del tutto diverso:
+
+```
+MB = 370 + 21,6 × massa magra (kg)
+```
+
+Una sola variabile. Nessun coefficiente per il sesso, perché la massa magra porta già con sé la differenza che quel termine rappresentava.
+
+## Perché non concordano
+
+Fai passare la stessa persona per tutte e tre e vedrai di norma una dispersione di 100-300 kcal. Per un uomo di 80 kg, 180 cm, 30 anni: Mifflin-St Jeor dà 1.780, Harris-Benedict rivista dà 1.854. Sono 74 kcal di scarto, e si allarga agli estremi dell'intervallo.
+
+Tre ragioni.
+
+**Popolazioni diverse.** Harris e Benedict misurarono 239 soggetti all'inizio del Novecento. Quelle persone differivano da una popolazione moderna per composizione corporea, livello di attività e probabilmente per aspetti che nessuno annotò. Mifflin-St Jeor fu adattata su persone misurate alla fine degli anni Ottanta. Nessuna delle due coorti è sbagliata; sono semplicemente diverse, e i coefficienti lo riflettono.
+
+**Metodi diversi.** La calorimetria migliorò notevolmente fra il 1919 e il 1990. Parte dello scarto fra le equazioni è tecnologia di misura, non biologia.
+
+**Variabili diverse.** Katch-McArdle usa la massa magra e nient'altro. Quando la massa magra è davvero misurata, questo la rende la più accurata delle tre: è l'unica equazione che risponda alla composizione corporea. Quando la massa magra è stimata da un'altra equazione, eredita l'errore di quella e diventa la meno accurata. È per questo che il calcolatore dichiara apertamente quando sta usando una stima.
+
+L'equazione di Harris-Benedict rivista tende a sovrastimare, di norma di circa il cinque per cento, ed è per questo che l'Academy of Nutrition and Dietetics raccomanda Mifflin-St Jeor sia negli adulti obesi sia in quelli non obesi.
+
+## Quanto è accurato tutto questo
+
+Le equazioni predittive cadono di solito entro circa il dieci per cento del dispendio energetico a riposo misurato per la maggior parte delle persone. Sembra stretto finché non lo converti: il dieci per cento di 1.800 kcal sono 180 kcal al giorno, che in un mese equivalgono grosso modo all'energia di tre quarti di chilo di massa corporea.
+
+L'errore individuale può essere maggiore. Gli studi trovano costantemente una minoranza di persone il cui metabolismo misurato sta al quindici o venti per cento dalla previsione di qualsiasi equazione, e nessuna equazione riesce a identificare in anticipo chi siano.
+
+L'implicazione pratica non è che il numero sia inutile. È che il numero è un punto di partenza, non un obiettivo. Mangia al livello suggerito dal tuo metabolismo basale e dalla tua stima di attività per due o tre settimane, registra che cosa succede davvero al tuo peso e correggi in base al risultato osservato. La tua risposta è un dato migliore di qualunque regressione adattata su qualcun altro.
+
+## Che cosa non è il metabolismo basale
+
+Non è quanto dovresti mangiare. È l'errore di lettura più comune e con le conseguenze peggiori. Il metabolismo basale è quanto ti servirebbe restando immobile in una stanza buia tutto il giorno. Mangiare a quel livello conducendo una vita normale ti mette in un deficit consistente, di solito assai più grande di quello che intendevi, e spesso sotto i limiti minimi che questo sito applica.
+
+Il numero che ti serve per l'apporto è il dispendio energetico giornaliero totale, che moltiplica il metabolismo basale per un fattore di attività. Se ne parla in [che cosa significano davvero i moltiplicatori di attività](/it/guides/what-activity-multipliers-mean/), ed è lì che risiede la maggior parte dell'incertezza residua di un obiettivo calorico.
+
+## Il metabolismo basale cala quando si dimagrisce?
+
+Sì, per due ragioni distinte che vale la pena separare.
+
+La prima è aritmetica e del tutto attesa: un corpo più piccolo costa meno da far funzionare. Ogni equazione qui lo riflette attraverso il termine di peso. Perdi 10 kg e Mifflin-St Jeor abbassa il tuo metabolismo basale di 100 kcal, perché c'è meno di te.
+
+La seconda è più interessante. Esistono prove ragionevoli di termogenesi adattativa: una riduzione del metabolismo oltre quanto prevede la sola perdita di tessuto. Entità e persistenza dell'effetto sono davvero dibattute, con stime che vanno da trascurabile a qualche centinaio di chilocalorie, e gli studi che trovano effetti grandi riguardano di solito perdite ampie e rapide.
+
+In ogni caso la conseguenza pratica è la stessa: un deficit che all'inizio produceva una perdita costante ne produce una più lenta più avanti, a parità di apporto. È previsto, non è un fallimento, ed è una delle ragioni per cui il [calcolatore di calorie](/it/calculators/calorie/) consiglia di rifare i conti periodicamente invece di trattare una cifra come definitiva.
