@@ -495,7 +495,7 @@ export const id: Messages = {
   // --- Prose page detail ---
   'about.h2Absent': 'Apa yang sengaja tidak ada',
   'about.pAbsent':
-    'Beberapa kalkulator sengaja tidak disediakan. Fungsi ginjal, luas permukaan tubuh untuk dosis kemoterapi, dan kadar alkohol dalam darah menghasilkan angka yang memengaruhi keputusan nyata, dan itu ranah klinisi. Kalkulator kehamilan dan kesuburan adalah kategori dengan pengawasan paling ketat di bidang kesehatan dan sudah dilayani dengan baik oleh penerbit medis mapan.',
+    'Beberapa kalkulator sengaja tidak disediakan. Fungsi ginjal, luas permukaan tubuh untuk dosis kemoterapi, dan kadar alkohol dalam darah menghasilkan angka yang memengaruhi keputusan nyata, dan itu ranah klinisi. Kalkulator perkiraan kelahiran, ovulasi dan pembuahan adalah kategori dengan pengawasan paling ketat di bidang kesehatan dan sudah dilayani dengan baik oleh penerbit medis mapan. Memproyeksikan tanggal menstruasi dari panjang siklus adalah aritmetika, dan itu diterbitkan di sini.',
   'about.h2Built': 'Bagaimana situs ini dibangun',
   'about.pBuilt':
     'Halaman statis, tanpa akun, tanpa basis data. Perhitungan berjalan di peramban Anda dan tidak ada peladen tempat mengirimkannya. Setiap rumus diperiksa terhadap contoh terhitung dari makalah asalnya dalam rangkaian uji otomatis, dan itulah yang menangkap kesalahan penyalinan yang diam-diam membuat sebuah kalkulator salah.',

@@ -495,7 +495,7 @@ export const it: Messages = {
   // --- Prose page detail ---
   'about.h2Absent': 'Che cosa manca di proposito',
   'about.pAbsent':
-    'Alcuni calcolatori mancano di proposito. Funzione renale, superficie corporea per il dosaggio della chemioterapia e tasso alcolemico producono numeri che alimentano decisioni reali, e competono a un clinico. I calcolatori di gravidanza e fertilità sono la categoria più scrutinata in ambito sanitario e sono ben serviti da editori medici affermati.',
+    'Alcuni calcolatori mancano di proposito. Funzione renale, superficie corporea per il dosaggio della chemioterapia e tasso alcolemico producono numeri che alimentano decisioni reali, e competono a un clinico. I calcolatori di data del parto, ovulazione e concepimento sono la categoria più scrutinata in ambito sanitario e sono ben serviti da editori medici affermati. Proiettare le date delle mestruazioni dalla durata del ciclo è aritmetica, e questo è pubblicato qui.',
   'about.h2Built': 'Come è costruito',
   'about.pBuilt':
     'Pagine statiche, senza account e senza database. I calcoli girano nel tuo browser e non esiste alcun server a cui inviarli. Ogni formula è verificata contro gli esempi svolti del suo articolo di origine in una suite di test automatizzata, ed è questo che intercetta gli errori di trascrizione che rendono un calcolatore silenziosamente sbagliato.',

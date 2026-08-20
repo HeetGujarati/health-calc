@@ -498,7 +498,7 @@ export const de: Messages = {
   // --- Prose page detail ---
   'about.h2Absent': 'Was bewusst fehlt',
   'about.pAbsent':
-    'Manche Rechner fehlen mit Absicht. Nierenfunktion, Körperoberfläche für die Chemotherapiedosierung und Blutalkoholkonzentration liefern Zahlen, die in echte Entscheidungen einfließen, und gehören in ärztliche Hand. Schwangerschafts- und Fruchtbarkeitsrechner sind die am strengsten geprüfte Kategorie im Gesundheitsbereich und werden von etablierten medizinischen Verlagen gut abgedeckt.',
+    'Manche Rechner fehlen mit Absicht. Nierenfunktion, Körperoberfläche für die Chemotherapiedosierung und Blutalkoholkonzentration liefern Zahlen, die in echte Entscheidungen einfließen, und gehören in ärztliche Hand. Rechner für Geburtstermin, Eisprung und Empfängnis sind die am strengsten geprüfte Kategorie im Gesundheitsbereich und werden von etablierten medizinischen Verlagen gut abgedeckt. Periodentermine aus einer Zykluslänge hochzurechnen ist Arithmetik und steht hier.',
   'about.h2Built': 'Wie die Website gebaut ist',
   'about.pBuilt':
     'Statische Seiten, keine Konten, keine Datenbank. Die Berechnungen laufen in Ihrem Browser, und es gibt keinen Server, an den sie gehen könnten. Jede Formel wird in einer automatisierten Testsuite gegen durchgerechnete Beispiele aus ihrer Quellarbeit geprüft — das fängt die Übertragungsfehler ab, die einen Rechner still und leise falsch machen.',

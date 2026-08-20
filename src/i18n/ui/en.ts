@@ -529,7 +529,7 @@ export const en = {
   // --- Prose page detail ---
   'about.h2Absent': 'What is deliberately missing',
   'about.pAbsent':
-    'Some calculators are absent on purpose. Kidney function, body surface area for chemotherapy dosing and blood alcohol content all produce numbers that feed real decisions, and they belong with a clinician. Pregnancy and fertility calculators are the highest-scrutiny category in health and are properly served by established medical publishers.',
+    'Some calculators are absent on purpose. Kidney function, body surface area for chemotherapy dosing and blood alcohol content all produce numbers that feed real decisions, and they belong with a clinician. Due date, ovulation and conception calculators are the highest-scrutiny category in health and are properly served by established medical publishers. Projecting period dates from a cycle length is arithmetic and is published here.',
   'about.h2Built': 'How it is built',
   'about.pBuilt':
     'Static pages, no accounts, no database. The calculations run in your browser and there is no server to send them to. Every formula is checked against worked examples from its source paper in an automated test suite, which is what catches the transcription errors that quietly make a calculator wrong.',

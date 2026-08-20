@@ -494,7 +494,7 @@ export const ptBR: Messages = {
   // --- Prose page detail ---
   'about.h2Absent': 'O que falta de propósito',
   'about.pAbsent':
-    'Algumas calculadoras estão ausentes de propósito. Função renal, superfície corporal para dosagem de quimioterapia e teor alcoólico no sangue produzem números que alimentam decisões reais, e cabem a um profissional de saúde. Calculadoras de gravidez e fertilidade são a categoria de maior escrutínio em saúde e são bem atendidas por editoras médicas consolidadas.',
+    'Algumas calculadoras estão ausentes de propósito. Função renal, superfície corporal para dosagem de quimioterapia e teor alcoólico no sangue produzem números que alimentam decisões reais, e cabem a um profissional de saúde. Calculadoras de data provável do parto, ovulação e concepção são a categoria de maior escrutínio em saúde e são bem atendidas por editoras médicas consolidadas. Projetar datas de menstruação a partir da duração do ciclo é aritmética, e isso é publicado aqui.',
   'about.h2Built': 'Como é construído',
   'about.pBuilt':
     'Páginas estáticas, sem contas e sem banco de dados. Os cálculos rodam no seu navegador e não há servidor para onde enviá-los. Toda fórmula é conferida contra exemplos resolvidos do artigo de origem em uma suíte de testes automatizada, que é o que pega os erros de transcrição que deixam uma calculadora silenciosamente errada.',

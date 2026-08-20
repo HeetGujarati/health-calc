@@ -501,7 +501,7 @@ export const es: Messages = {
   // --- Prose page detail ---
   'about.h2Absent': 'Lo que falta a propósito',
   'about.pAbsent':
-    'Algunas calculadoras no están a propósito. La función renal, la superficie corporal para dosificar quimioterapia y la tasa de alcohol en sangre producen números que alimentan decisiones reales, y corresponden a un profesional clínico. Las calculadoras de embarazo y fertilidad son la categoría de mayor escrutinio en salud y están bien atendidas por editoriales médicas consolidadas.',
+    'Algunas calculadoras no están a propósito. La función renal, la superficie corporal para dosificar quimioterapia y la tasa de alcohol en sangre producen números que alimentan decisiones reales, y corresponden a un profesional clínico. Las calculadoras de fecha de parto, ovulación y concepción son la categoría de mayor escrutinio en salud y están bien atendidas por editoriales médicas consolidadas. Proyectar fechas de la regla a partir de la duración del ciclo es aritmética, y eso sí se publica aquí.',
   'about.h2Built': 'Cómo está construido',
   'about.pBuilt':
     'Páginas estáticas, sin cuentas y sin base de datos. Los cálculos se ejecutan en tu navegador y no hay ningún servidor al que enviarlos. Cada fórmula se comprueba contra ejemplos resueltos de su artículo de origen en una batería de pruebas automatizada, que es lo que detecta los errores de transcripción que dejan una calculadora silenciosamente equivocada.',

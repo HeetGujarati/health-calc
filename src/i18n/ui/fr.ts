@@ -497,7 +497,7 @@ export const fr: Messages = {
   // --- Prose page detail ---
   'about.h2Absent': 'Ce qui manque volontairement',
   'about.pAbsent':
-    "Certains calculateurs sont volontairement absents. La fonction rénale, la surface corporelle pour le dosage de chimiothérapie et l'alcoolémie produisent des chiffres qui alimentent de vraies décisions, et relèvent d'un clinicien. Les calculateurs de grossesse et de fertilité constituent la catégorie la plus scrutée en santé et sont bien servis par des éditeurs médicaux établis.",
+    "Certains calculateurs sont volontairement absents. La fonction rénale, la surface corporelle pour le dosage de chimiothérapie et l'alcoolémie produisent des chiffres qui alimentent de vraies décisions, et relèvent d'un clinicien. Les calculateurs de date d’accouchement, d’ovulation et de conception constituent la catégorie la plus scrutée en santé et sont bien servis par des éditeurs médicaux établis. Projeter des dates de règles à partir d’une durée de cycle relève du calcul, et cela est publié ici.",
   'about.h2Built': 'Comment le site est construit',
   'about.pBuilt':
     "Des pages statiques, sans compte et sans base de données. Les calculs s'exécutent dans votre navigateur et il n'existe aucun serveur vers lequel les envoyer. Chaque formule est vérifiée face aux exemples résolus de son article d'origine par une suite de tests automatisée, ce qui permet d'attraper les erreurs de transcription qui rendent un calculateur silencieusement faux.",
