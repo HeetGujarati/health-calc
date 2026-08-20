@@ -505,4 +505,7 @@ export const ptBR: Messages = {
 
   // --- Short meta title, distinct from the H1 ---
   'lift.metaTitle': 'Calculadora de 1RM: {lift}',
+
+  // --- Short meta title for activity pages ---
+  'activity.metaTitle': 'Calorias: {activity}',
 };

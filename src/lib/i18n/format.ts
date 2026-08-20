@@ -74,6 +74,20 @@ export const formatDate = (isoDate: string, locale: Locale): string => {
 };
 
 /**
+ * Locales whose orthography capitalises nouns.
+ *
+ * English copy reads "calories burned walking", so the activity name is
+ * lowercased before interpolation. German capitalises every noun, and
+ * "radfahren" is simply misspelled — so the name goes in unchanged there.
+ * Scripts without letter case are unaffected either way.
+ */
+const NOUN_CASE_LOCALES: readonly Locale[] = ['de'];
+
+/** The activity or lift name as it should read inside a sentence. */
+export const nameInSentence = (name: string, locale: Locale): string =>
+  NOUN_CASE_LOCALES.includes(locale) ? name : name.toLowerCase();
+
+/**
  * Default unit system for a locale.
  *
  * Section 5.3: imperial for the US-targeted English pages, metric everywhere

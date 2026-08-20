@@ -512,4 +512,7 @@ export const es: Messages = {
 
   // --- Short meta title, distinct from the H1 ---
   'lift.metaTitle': 'Calculadora de 1RM: {lift}',
+
+  // --- Short meta title for activity pages ---
+  'activity.metaTitle': 'Calorías: {activity}',
 };

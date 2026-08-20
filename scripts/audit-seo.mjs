@@ -52,6 +52,25 @@ if (files.length === 0) {
 const builtPaths = new Set(files.map(urlPathOf));
 const titles = new Map();
 const descriptions = new Map();
+
+/**
+ * Locale of a built path, from its first segment.
+ *
+ * Read from the shipped locale list rather than pattern-matched, so adding a
+ * locale cannot silently make this audit treat its pages as English.
+ */
+const LOCALE_SEGMENTS = new Set(JSON.parse(readFileSync('dist/locales.json', 'utf8')));
+
+const localeOf = (path) => {
+  const first = path.split('/').filter(Boolean)[0];
+  return LOCALE_SEGMENTS.has(first) ? first : 'en';
+};
+
+/** Cross-locale collisions: a coverage figure, not a failure. See below. */
+const titleOwner = new Map();
+const descriptionOwner = new Map();
+const sharedTitles = new Set();
+const sharedDescriptions = new Set();
 const noIndexPaths = new Set();
 const canonicalToPath = new Map();
 
@@ -91,6 +110,22 @@ for (const file of files) {
   if (isNoIndex) noIndexPaths.add(page);
 
   // --- 2 & 3. titles and descriptions --------------------------------------
+  /**
+   * Duplicates are compared *within a locale*.
+   *
+   * Two pages that are hreflang alternates of each other are supposed to share
+   * a title when the phrase really is the same in both languages: "Yoga" and
+   * "Pilates" are not translated, and forcing them apart to satisfy a global
+   * uniqueness check would make both titles worse. What actually harms a site
+   * is two *different* pages in the same language competing for one query, and
+   * that is what this measures.
+   *
+   * Cross-locale collisions are counted separately and printed as a coverage
+   * figure rather than a failure, because that is what they are: a translation
+   * still to be written, not a broken page.
+   */
+  const pageLocale = localeOf(page);
+
   const titleMatch = /<title>([\s\S]*?)<\/title>/.exec(html);
   if (titleMatch === null) {
     fail('title', `${page} has no title`);
@@ -98,9 +133,14 @@ for (const file of files) {
     const title = decode(titleMatch[1].trim());
     if (title.length > 60) fail('title-length', `${page} title is ${title.length} chars: ${title}`);
     if (!isNoIndex) {
-      const seen = titles.get(title);
+      const key = `${pageLocale}||${title}`;
+      const seen = titles.get(key);
       if (seen !== undefined) fail('duplicate-title', `${page} duplicates ${seen}: "${title}"`);
-      else titles.set(title, page);
+      else titles.set(key, page);
+
+      const owner = titleOwner.get(title);
+      if (owner !== undefined && owner !== pageLocale) sharedTitles.add(title);
+      else titleOwner.set(title, pageLocale);
     }
   }
 
@@ -113,10 +153,15 @@ for (const file of files) {
       fail('description-length', `${page} description is ${description.length} chars`);
     }
     if (!isNoIndex) {
-      const seen = descriptions.get(description);
+      const key = `${pageLocale}||${description}`;
+      const seen = descriptions.get(key);
       if (seen !== undefined) {
         fail('duplicate-description', `${page} duplicates ${seen}`);
-      } else descriptions.set(description, page);
+      } else descriptions.set(key, page);
+
+      const owner = descriptionOwner.get(description);
+      if (owner !== undefined && owner !== pageLocale) sharedDescriptions.add(description);
+      else descriptionOwner.set(description, pageLocale);
     }
   }
 
@@ -219,6 +264,9 @@ for (const { check, detail } of problems) {
 }
 
 console.log(`SEO audit: ${files.length} pages, ${builtPaths.size} URLs`);
+console.log(
+  `Translation coverage: ${sharedTitles.size} title(s) and ${sharedDescriptions.size} description(s) still shared across locales`
+);
 
 if (problems.length === 0) {
   console.log('All checks passed.');

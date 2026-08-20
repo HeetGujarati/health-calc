@@ -8,7 +8,7 @@ import { localeItemRoutes } from '../../../lib/i18n/routes';
 import { localesFor } from '../../../lib/seo/pages';
 import { useTranslations } from '../../../lib/i18n';
 import { translateLift } from '../../../lib/i18n/content';
-import { formatInteger, formatNumber } from '../../../lib/i18n/format';
+import { formatInteger, formatNumber, nameInSentence } from '../../../lib/i18n/format';
 import { variantsFor } from '../../../i18n/templates';
 import type { LiftDefinition } from '../../../data/lifts';
 import type { Locale } from '../../../config/locales';
@@ -41,7 +41,7 @@ const lift = translateLift(item, locale);
 const path = `/one-rep-max/${lift.slug}`;
 
 const values = {
-  lift: lift.name.toLowerCase(),
+  lift: nameInSentence(lift.name, locale),
   Lift: lift.name,
   biasNote: lowerFirst(lift.estimateBias),
 };
@@ -49,7 +49,7 @@ const values = {
 const intro = renderVariant(variantsFor('liftIntro', locale), lift.slug, 'intro', values);
 const accuracy = renderVariant(variantsFor('liftAccuracy', locale), lift.slug, 'accuracy', values);
 
-const lowerName = lift.name.toLowerCase();
+const lowerName = nameInSentence(lift.name, locale);
 
 const availableLocales = localesFor('lifts', lift.slug);
 

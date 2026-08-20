@@ -506,4 +506,7 @@ export const id: Messages = {
 
   // --- Short meta title, distinct from the H1 ---
   'lift.metaTitle': 'Kalkulator 1RM {lift}',
+
+  // --- Short meta title for activity pages ---
+  'activity.metaTitle': 'Kalori: {activity}',
 };

@@ -17,7 +17,7 @@ import { localeItemRoutes } from '../../../lib/i18n/routes';
 import { localesFor } from '../../../lib/seo/pages';
 import { useTranslations } from '../../../lib/i18n';
 import { translateActivity } from '../../../lib/i18n/content';
-import { formatInteger, formatNumber } from '../../../lib/i18n/format';
+import { formatInteger, formatNumber, nameInSentence } from '../../../lib/i18n/format';
 import { variantsFor } from '../../../i18n/templates';
 import { metBandKey, netSharePercent, renderVariant } from '../../../lib/content/templates';
 import {
@@ -53,7 +53,7 @@ const netShare =
     : t('netShare.percent', { value: formatInteger(share, locale) });
 
 const values = {
-  activity: activity.name.toLowerCase(),
+  activity: nameInSentence(activity.name, locale),
   Activity: activity.name,
   met: formatNumber(activity.met, locale),
   comparison: t(metBandKey(activity.met)),
@@ -75,7 +75,7 @@ const accuracy = renderVariant(
 );
 const netNote = renderVariant(variantsFor('activityNet', locale), activity.slug, 'net', values);
 
-const lowerName = activity.name.toLowerCase();
+const lowerName = nameInSentence(activity.name, locale);
 const metText = formatNumber(activity.met, locale);
 
 const kcal30 = roundTo(
@@ -86,12 +86,14 @@ const kcal30 = roundTo(
 const availableLocales = localesFor('activities', activity.slug);
 
 const meta = buildToolMetadata({
-  title: t('activity.h1', { activity: lowerName }),
+  // The H1 names the page in full; the <title> is shorter, because a good
+  // heading routinely runs past the 60 characters a search result shows.
+  title: t('activity.metaTitle', { activity: lowerName }),
   description: t('activity.metaDescription', { activity: lowerName, met: metText }),
   path,
   locale,
   keywords: [
-    `${t('activity.h1', { activity: lowerName })}`,
+    t('activity.h1', { activity: lowerName }),
     `${lowerName} ${t('hub.activities.columnMet')}`,
   ],
   image: { url: '/og/calories-burned.png', alt: activity.name },

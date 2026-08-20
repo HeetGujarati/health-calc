@@ -497,4 +497,7 @@ export const ar: Messages = {
 
   // --- Short meta title, distinct from the H1 ---
   'lift.metaTitle': 'حاسبة 1RM لـ{lift}',
+
+  // --- Short meta title for activity pages ---
+  'activity.metaTitle': 'السعرات: {activity}',
 };

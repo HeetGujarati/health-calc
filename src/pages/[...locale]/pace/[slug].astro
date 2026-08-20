@@ -8,7 +8,7 @@ import { localeItemRoutes } from '../../../lib/i18n/routes';
 import { localesFor } from '../../../lib/seo/pages';
 import { useTranslations } from '../../../lib/i18n';
 import { translateDistance } from '../../../lib/i18n/content';
-import { formatInteger, formatNumber } from '../../../lib/i18n/format';
+import { formatInteger, formatNumber, nameInSentence } from '../../../lib/i18n/format';
 import { variantsFor } from '../../../i18n/templates';
 import type { DistanceDefinition } from '../../../data/distances';
 import type { Locale } from '../../../config/locales';
@@ -40,11 +40,11 @@ const { locale, item } = Astro.props as { locale: Locale; item: DistanceDefiniti
 const t = useTranslations(locale);
 const distance = translateDistance(item, locale);
 const path = `/pace/${distance.slug}`;
-const lowerName = distance.name.toLowerCase();
+const lowerName = nameInSentence(distance.name, locale);
 const km = roundTo(distance.metres / 1000, 4);
 
 const values = {
-  distance: distance.name.toLowerCase(),
+  distance: nameInSentence(distance.name, locale),
   Distance: distance.name,
   demands: distance.demands,
   demandsLower: lowerFirst(distance.demands),

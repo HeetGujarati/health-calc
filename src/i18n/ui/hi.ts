@@ -499,4 +499,7 @@ export const hi: Messages = {
 
   // --- Short meta title, distinct from the H1 ---
   'lift.metaTitle': '{lift} 1RM कैलकुलेटर',
+
+  // --- Short meta title for activity pages ---
+  'activity.metaTitle': 'कैलोरी: {activity}',
 };

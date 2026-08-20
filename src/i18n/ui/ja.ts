@@ -495,4 +495,7 @@ export const ja: Messages = {
 
   // --- Short meta title, distinct from the H1 ---
   'lift.metaTitle': '{lift}の 1RM 計算ツール',
+
+  // --- Short meta title for activity pages ---
+  'activity.metaTitle': '消費カロリー: {activity}',
 };

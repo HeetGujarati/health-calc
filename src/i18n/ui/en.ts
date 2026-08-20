@@ -540,4 +540,7 @@ export const en = {
 
   // --- Short meta title, distinct from the H1 ---
   'lift.metaTitle': '{lift} one rep max calculator',
+
+  // --- Short meta title for activity pages ---
+  'activity.metaTitle': 'Calories burned {activity}',
 } as const;

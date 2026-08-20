@@ -509,4 +509,7 @@ export const de: Messages = {
 
   // --- Short meta title, distinct from the H1 ---
   'lift.metaTitle': '1RM-Rechner: {lift}',
+
+  // --- Short meta title for activity pages ---
+  'activity.metaTitle': 'Kalorien: {activity}',
 };
