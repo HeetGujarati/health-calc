@@ -51,6 +51,7 @@ export const ptBR: Messages = {
   'category.energy': 'Energia e ingestão',
   'category.training': 'Treino',
   'category.weight-reference': 'Referência de peso',
+  'category.cycle': 'Ciclo menstrual',
 
   'hub.calculators.title': 'Todas as calculadoras',
   'hub.calculators.description':

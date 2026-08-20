@@ -12,6 +12,7 @@ export const CALCULATOR_CATEGORIES = [
   { id: 'energy', label: 'Energy and intake' },
   { id: 'training', label: 'Training' },
   { id: 'weight-reference', label: 'Weight reference' },
+  { id: 'cycle', label: 'Menstrual cycle' },
 ] as const;
 
 export type CalculatorCategoryId = (typeof CALCULATOR_CATEGORIES)[number]['id'];
@@ -22,7 +23,11 @@ export interface InputField {
   readonly label: string;
   /** Shown under the field. Explains what to measure, not how to use a form. */
   readonly hint?: string;
-  readonly type: 'number' | 'select' | 'radio';
+  /**
+   * `date` renders a native date control and yields `YYYY-MM-DD`. It is the one
+   * type with no metric/imperial variant, because a calendar date has no units.
+   */
+  readonly type: 'number' | 'select' | 'radio' | 'date';
   /** Options for select and radio. */
   readonly options?: readonly { readonly value: string; readonly label: string }[];
   readonly defaultValue?: string;
@@ -31,6 +36,15 @@ export interface InputField {
   readonly min?: number;
   readonly max?: number;
   readonly step?: number;
+  /**
+   * Bounds for a `date` input, as `YYYY-MM-DD`.
+   *
+   * Fixed dates rather than a rolling "today", for the same reason `REVIEWED`
+   * is fixed: a value derived from the build clock changes the emitted HTML on
+   * every build and makes the output non-reproducible.
+   */
+  readonly dateMin?: string;
+  readonly dateMax?: string;
   /** Only rendered when this other field has one of these values. */
   readonly showWhen?: { readonly field: string; readonly equals: readonly string[] };
 }

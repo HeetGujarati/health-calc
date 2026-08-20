@@ -59,6 +59,22 @@ export const bmiTable = (): ReferenceTable => {
   };
 };
 
+export const periodTable = (): ReferenceTable => {
+  const cycles = [21, 24, 26, 28, 30, 32, 35];
+  const ahead = [1, 2, 3, 6, 12];
+  return {
+    caption: 'Days from the start of one period to a later one, by cycle length',
+    note: 'Read across from your cycle length. The figures are simply the cycle length multiplied out, which is the whole of the arithmetic — and also its limitation. Cycle length varies from one cycle to the next, so the error in the twelfth column is roughly twelve times the error in the first.',
+    rowHeader: 'Cycle length',
+    columnHeader: 'Cycles ahead',
+    columns: ahead.map((count) => (count === 1 ? '1 cycle' : `${String(count)} cycles`)),
+    rows: cycles.map((cycle) => ({
+      label: `${String(cycle)} days`,
+      cells: ahead.map((count) => `${n(cycle * count)} days`),
+    })),
+  };
+};
+
 export const healthyWeightTable = (): ReferenceTable => {
   const heights = [150, 155, 160, 165, 170, 175, 180, 185, 190, 195];
   return {

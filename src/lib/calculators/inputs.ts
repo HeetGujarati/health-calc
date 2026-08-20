@@ -14,6 +14,13 @@ import {
   type Centimetres,
   type Kilograms,
 } from '../health/units';
+import {
+  MAX_CYCLE_DAYS,
+  MIN_CYCLE_DAYS,
+  parseIsoDate,
+  REFERENCE_CYCLE_DAYS,
+  type IsoDate,
+} from '../health/cycle';
 import type { FormValues } from './result';
 
 /**
@@ -77,6 +84,55 @@ export const readHeight = (values: FormValues, field = 'height'): Result<Centime
 };
 
 /** Reads a plain string field, defaulting when absent. */
+/**
+ * Reads a calendar date and returns it as `YYYY-MM-DD`.
+ *
+ * A native date input yields that format regardless of how it renders, but the
+ * value can also arrive from the query string, where it is whatever someone
+ * typed. `parseIsoDate` rejects both malformed strings and dates that do not
+ * exist — 30 February is the case that matters, because `Date.UTC` rolls it
+ * silently into March and would hand back an answer for a different day.
+ */
+export const readDate = (values: FormValues, field: string, label: string): Result<IsoDate> => {
+  const raw = values[field];
+  if (raw === undefined || raw.trim() === '') {
+    return err('missing', `Enter ${label}.`, field);
+  }
+
+  const trimmed = raw.trim();
+  if (parseIsoDate(trimmed) === null) {
+    return err('not_a_number', `Enter ${label} as a real calendar date.`, field);
+  }
+
+  return { ok: true, value: trimmed };
+};
+
+/**
+ * Reads a menstrual cycle length in days.
+ *
+ * Out-of-range values are rejected rather than clamped here, even though
+ * `gestation.ts` also clamps. The clamp there protects the arithmetic from a
+ * caller that never validated; this tells the user their entry was not used.
+ */
+export const readCycleLength = (values: FormValues, field = 'cycle'): Result<number> => {
+  const raw = values[field];
+  if (raw === undefined || raw.trim() === '') return { ok: true, value: REFERENCE_CYCLE_DAYS };
+
+  const parsed = Number(raw.trim());
+  if (!Number.isFinite(parsed)) {
+    return err('not_a_number', 'Enter your cycle length in days.', field);
+  }
+  if (parsed < MIN_CYCLE_DAYS || parsed > MAX_CYCLE_DAYS) {
+    return err(
+      'out_of_range',
+      `Cycle length should be between ${String(MIN_CYCLE_DAYS)} and ${String(MAX_CYCLE_DAYS)} days.`,
+      field
+    );
+  }
+
+  return { ok: true, value: Math.round(parsed) };
+};
+
 export const readChoice = (values: FormValues, field: string, fallback: string): string => {
   const raw = values[field];
   return raw === undefined || raw.trim() === '' ? fallback : raw.trim();

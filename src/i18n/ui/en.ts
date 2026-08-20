@@ -69,6 +69,7 @@ export const en = {
   'category.energy': 'Energy and intake',
   'category.training': 'Training',
   'category.weight-reference': 'Weight reference',
+  'category.cycle': 'Menstrual cycle',
 
   // --- Calculators hub ------------------------------------------------------
   'hub.calculators.title': 'All calculators',

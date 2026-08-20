@@ -51,6 +51,7 @@ export const fr: Messages = {
   'category.energy': 'Énergie et apports',
   'category.training': 'Entraînement',
   'category.weight-reference': 'Références de poids',
+  'category.cycle': 'Cycle menstruel',
 
   'hub.calculators.title': 'Tous les calculateurs',
   'hub.calculators.description':

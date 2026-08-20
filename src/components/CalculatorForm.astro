@@ -105,6 +105,23 @@ const fieldId = (name: string): string => `${slug}-${name}`;
                   </label>
                 ))}
               </div>
+            ) : input.type === 'date' ? (
+              /*
+               * A native date control, so the locale's own date order and the
+               * platform's own picker apply. Rendering three number fields
+               * instead would force a date order on every locale and lose the
+               * keyboard and screen-reader behaviour the native control has.
+               * The value is always `YYYY-MM-DD` regardless of what is
+               * displayed, which is what the gestation module parses.
+               */
+              <input
+                id={id}
+                name={input.name}
+                type="date"
+                min={input.dateMin}
+                max={input.dateMax}
+                class="mt-1 min-h-11 w-full rounded-sm border border-edge bg-raised px-3 text-base text-ink"
+              />
             ) : input.name === 'height' ? (
               <>
                 {/* Metric: one field in centimetres. */}

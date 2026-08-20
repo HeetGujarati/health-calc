@@ -51,6 +51,7 @@ export const hi: Messages = {
   'category.energy': 'ऊर्जा और आहार',
   'category.training': 'प्रशिक्षण',
   'category.weight-reference': 'वज़न संदर्भ',
+  'category.cycle': 'मासिक चक्र',
 
   'hub.calculators.title': 'सभी कैलकुलेटर',
   'hub.calculators.description':

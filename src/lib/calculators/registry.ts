@@ -20,6 +20,7 @@ import {
   computeRunningPace,
   computeTargetHeartRate,
 } from './compute/training';
+import { computePeriod } from './compute/cycle';
 import type { ComputeFn } from './result';
 
 /**
@@ -51,6 +52,7 @@ export const CALCULATORS: Readonly<Record<string, ComputeFn>> = {
   'running-pace': computeRunningPace,
   'water-intake': computeWaterIntake,
   'army-body-fat': computeArmyBodyFat,
+  period: computePeriod,
 };
 
 export const calculatorSlugs = Object.keys(CALCULATORS);

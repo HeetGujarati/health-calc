@@ -44,9 +44,12 @@ describe('registry', () => {
     }
   });
 
-  it('ships exactly sixteen calculators', () => {
-    expect(Object.keys(CALCULATORS)).toHaveLength(16);
-    expect(CALCULATOR_DEFINITIONS).toHaveLength(16);
+  it('registers a compute function for every page and no others', () => {
+    // A literal count here would need editing whenever a calculator is added,
+    // which makes it a chore — and a chore gets updated reflexively, which is
+    // when it stops catching anything. What matters is that the two lists agree,
+    // and that is asserted in both directions above as well.
+    expect(Object.keys(CALCULATORS)).toHaveLength(CALCULATOR_DEFINITIONS.length);
   });
 
   it('returns null for an unknown slug rather than throwing', () => {

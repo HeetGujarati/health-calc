@@ -13,6 +13,7 @@ import {
   runningPace,
   targetHeartRate,
 } from './definitions/training';
+import { period } from './definitions/cycle';
 import {
   CALCULATOR_CATEGORIES,
   type CalculatorCategoryId,
@@ -41,6 +42,7 @@ export const CALCULATOR_DEFINITIONS: readonly CalculatorDefinition[] = [
   runningPace,
   idealWeight,
   healthyWeightRange,
+  period,
 ];
 
 const BY_SLUG = new Map(CALCULATOR_DEFINITIONS.map((entry) => [entry.slug, entry]));

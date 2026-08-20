@@ -51,6 +51,7 @@ export const ja: Messages = {
   'category.energy': 'エネルギーと摂取量',
   'category.training': 'トレーニング',
   'category.weight-reference': '体重の目安',
+  'category.cycle': '生理周期',
 
   'hub.calculators.title': 'すべての計算ツール',
   'hub.calculators.description':
