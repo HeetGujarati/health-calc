@@ -60,7 +60,7 @@ const isIdentityKey = (key: string): boolean =>
   IDENTITY_SUFFIXES.some((suffix) => key.endsWith(suffix));
 
 /** Raised as translation lands. Never lowered. */
-const MINIMUM_COVERAGE = 0.56;
+const MINIMUM_COVERAGE = 0.72;
 
 describe('content catalogs', () => {
   const required = requiredKeys();
