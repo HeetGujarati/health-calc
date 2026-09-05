@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
-    "@astrojs/markdown-remark": "7.2.4",
+    "@astrojs/markdown-remark": "7.3.0",
     "@astrojs/mdx": "7.0.7",
     "@eslint/js": "10.0.1",
     "@lhci/cli": "0.15.1",
